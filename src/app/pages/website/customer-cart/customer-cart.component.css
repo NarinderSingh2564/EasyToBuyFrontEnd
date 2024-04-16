@@ -1,0 +1,57 @@
+.card-header .btn {
+  float: inline-end;
+  background: white;
+  border: 1px solid rgb(153, 152, 152);
+}
+
+.card-footer .btn {
+  float: inline-end;
+  background-color: #ff7100;
+  font-size: 20px;
+  border-radius: 2px;
+  padding: 8px 20px 8px 20px;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+}
+
+.price {
+  float: inline-end;
+}
+
+.quantity {
+  padding: 0px 15px 0px 15px;
+
+}
+
+hr.hr {
+  border-top: 3px dotted black;
+}
+
+.discount-price {
+  padding: 0px 15px 0px 15px;
+}
+
+a {
+  text-decoration: none;
+  color: #565353
+}
+
+a:hover {
+  color: green;
+}
+
+.col-md-8 .card-body {
+  max-height: 430px !important;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.bi-cart-x{
+font-size: 200px;
+}
+.empty-cart{
+  font-size: xx-large;
+}

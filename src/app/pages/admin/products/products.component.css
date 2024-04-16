@@ -1,0 +1,46 @@
+.bi-pencil-square {
+    font-size: larger;
+    color: green;
+}
+.bi-trash{
+    font-size: larger;
+    color: red;
+}
+.card{
+    height: 100%;
+}
+.bookmark{
+    border: 1px solid gainsboro;
+    padding: 5px;
+    width: 34px;
+    height: 38px;
+}
+.card-img-top{
+    width: 50%;
+}
+.form-check-input{
+    margin-right: 2%;
+}
+.btn-sm{
+    color: rgb(13 110 253);
+    background-color: white;
+    margin-left: 6px;
+  
+  }
+  .btn-sm:hover{
+    color:rgb(13 110 253);
+    background-color: white;
+    margin-left: 6px;
+  }
+  .actualPrice{
+    text-decoration-line: line-through;
+    color: #7e7e7e;
+    padding: 0px 10px 0px 10px;
+  }
+  .discount{
+    color: green;
+  }
+  .edit{
+    float: inline-end;
+    margin-top:-5px
+  }

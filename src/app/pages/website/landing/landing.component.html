@@ -1,0 +1,58 @@
+<nav class="navbar sticky-top navbar-expand-sm">
+  <div class="container-fluid">
+    <i class="bi bi-bag-dash logo"></i>
+    <span class="navbar-brand text-white" href="javascript:void(0)" routerLink="AllProducts">EasyToBuy</span>
+     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button> 
+    <div class="collapse navbar-collapse" id="mynavbar">
+      <ul class="navbar-nav me-auto">
+        <div class="dropdown">
+          <button class="dropbtn"><span>Shop By Category</span></button>
+           <i class="bi bi-caret-down-fill caret"></i>
+          <div class="dropdown-content">
+            <a routerLink="AllProducts"><i class="bi bi-arrow-right-short icon"></i>All Products</a>
+            <a *ngFor="let category of categoryList" (click)="getProductByCategory(category.id)">
+              <i class="bi bi-arrow-right-short icon"></i>{{category.categoryName}}</a>
+
+              <!-- <a *ngFor="let category of categoryList" [routerLink]="['/{{productsByCategoryId}}?id={{category.id}}']"
+              (click)="getProductByCategory(category.id)"><i
+                class="bi bi-arrow-right-short icon"></i>{{category.categoryName}}</a> -->
+
+          </div>
+        </div>
+      </ul>
+     
+      <div class="d-flex">
+          <form (ngSubmit)="SearchProducts(box.value)" autocomplete="off" class="form-inline">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search here" name="searchText" #box style="width: 500px;">
+              <span class="input-group-text" (click)="SearchProducts(box.value)"><i class="bi bi-search"></i></span>
+            </div>
+          </form>
+        <a class="bi bi-cart" *ngIf="loggedIn" routerLink="customer-cart"></a> 
+        <span class="badge badge-light" *ngIf="loggedIn" >{{totalCartItems}}</span>
+        <div class="dropdown">
+          <i class="bi bi-person-circle"></i>
+          <div class="dropdown-content" *ngIf="!loggedIn">
+            <div class="text-center mt-3 mb-3">
+              <button class="btn1" (click)="Login()">Login</button>
+              <button class="btn2" (click)="Register()">Register</button>
+            </div>
+          </div>
+          <div class="dropdown-content" *ngIf="loggedIn">
+            <div class="text-center mt-3 username">
+              <b>Hello, {{userName | titlecase}}</b>
+            </div>
+            <hr>
+            <a><i class="bi bi-basket icon"></i>Your Orders</a>
+            <a><i class="bi bi-heart icon"></i>Your Wishlist</a>
+            <a><i class="bi bi-person icon"></i>Your Account</a>
+            <a (click)="Logout()"><i class="bi bi-box-arrow-right icon"></i>Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<router-outlet></router-outlet>

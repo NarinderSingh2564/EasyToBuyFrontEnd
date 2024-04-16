@@ -1,0 +1,222 @@
+<div class="row">
+    <div [ngClass]="isSidePanelVisible ?'col-md-8' : 'col-md-12'">
+        <div class="card">
+            <div class="card-header bg-primary">
+                <div class="row">
+                    <div class="col-md-6 text-white">
+                        Product List
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <button class="btn btn-sm" (click)="openSidePanel(); addProduct()"><b>Add Product</b></button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3" *ngFor="let product of productList"
+                        style=" padding-bottom: calc(var(--bs-gutter-x)* .5);">
+                        <div class="card">
+                            <img class="card-img-top mx-auto d-block mt-2" [src]="product.productImageUrl" alt="Card image">
+                            <div class="card-body">
+                                <div *ngIf="!isSidePanelVisible">
+                                    <h6 class="card-title">
+                                        {{product.productName}}
+                                        <span class="edit">
+                                            <i class="bi bi-pencil-square" (click)="editProduct(product)"></i>
+                                        </span>
+                                    </h6>
+                                    <h6 class="card-title">
+                                      ₹{{product.productPriceAfterDiscount}} {{product.productWeight}}
+                                        <span class="actualPrice"
+                                            *ngIf="product.productDiscount > 0">₹{{product.productPrice}} </span>
+                                        <span class="discount"
+                                            *ngIf="product.productDiscount > 0">{{product.productDiscount}}%off</span>
+                                    </h6>
+
+                                </div>
+                                <div *ngIf="isSidePanelVisible">
+                                    <h6 class="card-title">
+                                        {{product.productName}}
+                                        <span class="edit">
+                                            <i class="bi bi-pencil-square" (click)="editProduct(product)"></i>
+                                        </span>
+                                    </h6>
+                                    <h6 class="card-title">₹{{product.productPriceAfterDiscount}} {{product.productWeight}}
+                                        <span class="actualPrice"
+                                            *ngIf="product.productDiscount > 0">₹{{product.productPrice}} </span>
+                                        <span class="discount"
+                                            *ngIf="product.productDiscount > 0">{{product.productDiscount}}%off</span>
+                                    </h6>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4" *ngIf="isSidePanelVisible">
+        <div class="card">
+            <div class="card-header bg-primary">
+                <div class="row">
+                    <div class="col-md-6 text-white" *ngIf="!isEdit">
+                        Add Product
+                    </div>
+                    <div class="col-md-6 text-white" *ngIf="isEdit">
+                        Update Product
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <button class="btn btn-sm" (click)="closeSidePanel()"><b>Close</b></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <form autocomplete="off" [formGroup]="productForm" (ngSubmit)="ProductAddEdit()">
+                    <input type="hidden" class="form-control" formControlName="id">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="">SKU</label>
+                            <input type="text" class="form-control" formControlName="productSku">
+                            <div *ngIf="isFormValid && controls['productSku'].errors">
+                                <div *ngIf="controls['productSku'].errors['required']" class="text-danger">
+                                    SKU is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Product Name</label>
+                            <input type="text" formControlName="productName" class="form-control">
+                            <div *ngIf="isFormValid && controls['productName'].errors">
+                                <div *ngIf="controls['productName'].errors['required']" class="text-danger">
+                                    Product name is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="">Short Name</label>
+                            <input type="text" formControlName="productShortName" class="form-control">
+                            <div *ngIf="isFormValid && controls['productShortName'].errors">
+                                <div *ngIf="controls['productShortName'].errors['required']" class="text-danger">
+                                    Short name is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Price</label>
+                            <input type="number" formControlName="productPrice" class="form-control" min="1"
+                                (change)="calculatePriceAfterDiscount()">
+                            <div *ngIf="isFormValid && controls['productPrice'].errors">
+                                <div *ngIf="controls['productPrice'].errors['required']" class="text-danger">
+                                    Price is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="">Product Discount</label>
+                            <input type="number" formControlName="productDiscount" class="form-control" min="0"
+                                (change)="calculatePriceAfterDiscount()">
+                            <div *ngIf="isFormValid && controls['productDiscount'].errors">
+                                <div *ngIf="controls['productDiscount'].errors['required']" class="text-danger">
+                                    Discount is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Price After Discount</label>
+                            <input type="text" formControlName="productPriceAfterDiscount" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="">Delivery Time Span (Days)</label>
+                            <input type="text" formControlName="productTimeSpan" class="form-control">
+                            <div *ngIf="isFormValid && controls['productTimeSpan'].errors">
+                                <div *ngIf="controls['productTimeSpan'].errors['required']" class="text-danger">
+                                    Delivery time is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Category</label>
+                            <select class="form-select" formControlName="categoryId">
+                                <option *ngFor="let category of categoryList" [value]="category.id">
+                                    {{category.categoryName}}
+                                </option>
+                            </select>
+                            <div *ngIf="isFormValid && controls['categoryId'].errors">
+                                <div *ngIf="controls['categoryId'].errors['required']" class="text-danger">
+                                    Category is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="">Product Weight</label>
+                            <select class="form-select" formControlName="productWeightId">
+                                <option *ngFor="let weight of productWeightList" [value]="weight.id">
+                                    {{weight.productWeight}}
+                                </option>
+                            </select>
+                            <div *ngIf="isFormValid && controls['productWeightId'].errors">
+                                <div *ngIf="controls['productWeightId'].errors['required']" class="text-danger">
+                                    Product weight is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Show Product Weight</label><br>
+                            <input type="checkbox" formControlName="showProductWeight" class="form-check-input">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="">Image URL</label>
+                            <input type="text" formControlName="productImageUrl" class="form-control">
+                            <div *ngIf="isFormValid && controls['productImageUrl'].errors">
+                                <div *ngIf="controls['productImageUrl'].errors['required']" class="text-danger">
+                                    Image URL is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="">Description</label>
+                            <textarea formControlName="productDescription" class="form-control"></textarea>
+                            <div *ngIf="isFormValid && controls['productDescription'].errors">
+                                <div *ngIf="controls['productDescription'].errors['required']" class="text-danger">
+                                    Description is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="checkbox" formControlName="isActive" class="form-check-input">
+                            <label for="">IsActive</label>
+                        </div>
+                    </div>
+                    <div class="row text-end">
+                        <div class="col-md-12 mt-2">
+                            <button class="btn btn-primary" *ngIf="!isEdit">Save</button>
+                            <button class="btn btn-primary" *ngIf="isEdit">Update</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

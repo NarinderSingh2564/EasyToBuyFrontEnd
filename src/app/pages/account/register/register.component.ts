@@ -1,42 +1,64 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { AccountService } from '../../../services/account.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule,RouterLink,CommonModule,ReactiveFormsModule],
+  imports: [FormsModule, RouterLink, CommonModule, ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
+
 export class RegisterComponent {
 
-  registerForm:FormGroup;
-  isFormValid:boolean=false;
-  response:any=[];
-
-  constructor(private formBuilder:FormBuilder,private accountService:AccountService,private router:Router){
+  registerForm: FormGroup;
+  isFormValid: boolean = false;
+  response: any = [];
+  showPwd: boolean = false
+  constructor(private formBuilder: FormBuilder, private accountService: AccountService) {
     this.registerForm = this.formBuilder.group({
-      name:new FormControl(null,[Validators.required]),
-      email:new FormControl(null,[Validators.required,Validators.email]),
-      mobile:new FormControl(null,[Validators.required,Validators.minLength(10)]),
-      password:new FormControl(null,[Validators.required,Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{4,}$")])
+      fullName: new FormControl("",[Validators.required,this.whitespaceValidator()]),
+      email: new FormControl("",[Validators.required, Validators.email]),
+      mobile: new FormControl("",[Validators.required]),
+      password: new FormControl("",[Validators.required, Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{4,}$")])
     })
   }
-  
-  get controls(){
+
+  get controls() {
     return this.registerForm.controls;
   }
 
-  onRegister(){
+  whitespaceValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      return isWhitespace ? { 'whitespace': true } : null;
+    };
+  }
+
+  showPassword() {
+    this.showPwd = !this.showPwd
+  }
+
+  Register() {
     this.isFormValid = true
-    if(this.registerForm.invalid){
+    if (this.registerForm.invalid) {
       return;
     }
-    else{
-      alert("data post")
+    else {
+      const userObj: any = {
+        fullName: this.registerForm.value.fullName.trim(),
+        email:this.registerForm.value.email.trim(),
+        mobile:this.registerForm.value.mobile.toString().trim(),
+        password:this.registerForm.value.password.trim(),
+      }
+      this.accountService.userRegistration(userObj).subscribe((result: any) => {
+        alert(result.message)
+        this.registerForm.reset()
+        this.isFormValid=false
+      })
     }
   }
 }

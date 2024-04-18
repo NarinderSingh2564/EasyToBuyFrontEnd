@@ -1,20 +1,24 @@
 <div class="parents">
     <div class="container">
         <div class="title">Registration</div>
-        <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+        <form [formGroup]="registerForm" (ngSubmit)="Register()">
             <div class="user_details">
                 <div class="input_pox">
                     <span class="datails">Full Name</span>
-                    <input type="text" formControlName="name" placeholder="Enter your name">
-                    <div *ngIf="isFormValid && controls['name'].errors">
-                        <div *ngIf="controls['name'].errors['required']" class="text-danger">
-                            Enter your name.
+                    <input type="text" formControlName="fullName" #box placeholder="Enter your name" maxlength="30" minlength="3">
+                    <div *ngIf="isFormValid && controls['fullName'].errors">
+                        <div *ngIf="controls['fullName'].errors['required']" class="text-danger">
+                            Enter your full name.
+                        </div>
+                        <div *ngIf="controls['fullName'].touched && controls['fullName'].errors['whitespace']" class="text-danger">
+                            Full name cannot contain only white spaces.
                         </div>
                     </div>
                 </div>
                 <div class="input_pox">
                     <span class="datails">Email</span>
-                    <input type="text" formControlName="email" placeholder="Enter your email">
+                    <input type="text" formControlName="email" placeholder="Enter your email" maxlength="50"
+                        minlength="5">
                     <div *ngIf="isFormValid && controls['email'].errors">
                         <div *ngIf="controls['email'].errors['required']" class="text-danger">
                             Enter your email.
@@ -26,36 +30,37 @@
                 </div>
                 <div class="input_pox">
                     <span class="datails">Mobile Number</span>
-                    <input type="text" formControlName="mobile" placeholder="Enter your mobile number">
+                    <input type="number" formControlName="mobile" placeholder="Enter your mobile number"
+                        onKeyPress="if(this.value.length==10) return false;">
                     <div *ngIf="isFormValid && controls['mobile'].errors">
                         <div *ngIf="controls['mobile'].errors['required']" class="text-danger">
                             Enter your mobile number.
-                        </div>
-                        <div *ngIf="controls['mobile'].errors['minlength']" class="text-danger">
-                            Mobile number should have 10 digits.
                         </div>
                     </div>
                 </div>
                 <div class="input_pox">
                     <span class="datails">Password</span>
-                    <input type="text" formControlName="password" placeholder="Enter your password">
+                    <input [type]="showPwd ?'text':'password'" formControlName="password"
+                        placeholder="Enter your password" maxlength="10" minlength="5">
+                    <i [ngClass]="showPwd ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'" (click)="showPassword()"></i>
+
                     <div *ngIf="isFormValid && controls['password'].errors">
                         <div *ngIf="controls['password'].errors['required']" class="text-danger">
                             Enter your password.
                         </div>
-                       
                         <div *ngIf="controls['password'].errors['pattern']" class="text-danger">
-                            Password must contain atleast 5 characters, 1 numeric, 1 upper case letter, and 1 special character.
+                            Password must contain atleast 5 characters, 1 numeric, 1 upper case letter, and 1 special
+                            character.
                         </div>
                     </div>
                 </div>
             </div>
             <div class="button">
-                <input type="submit" value="Register">
+                <button type="submit" class="btnRegister">Register</button>
             </div>
             <div class="bar-link">
-                <p> Already have an account? <a routerLink="/login">Login Here</a></p>
-               </div>
+                <p> Already have an account? <a routerLink="/login">Login</a></p>
+            </div>
         </form>
     </div>
 </div>

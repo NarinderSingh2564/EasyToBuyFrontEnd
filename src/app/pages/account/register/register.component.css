@@ -97,7 +97,7 @@ form .button{
     height: 45px;
     margin: 45px 0;
 }
-form .button input{
+form .button .btnRegister{
     height: 100%;
     width: 50%;
     outline: none;
@@ -111,7 +111,7 @@ form .button input{
     background: linear-gradient(123deg, #71b8e7,#9b59b6);
 
 }
-form .button input :hover{
+form .button .btnRegister :hover{
     background: linear-gradient(-123deg, #71b8e7,#9b59b6);
 }
 @media (max-width: 584px){
@@ -147,3 +147,13 @@ form .button input :hover{
   .bar-link p a:hover{
     text-decoration: underline;
   }
+  .bi{
+    margin-left: -26px;
+    font-size: larger;
+  }
+ 
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

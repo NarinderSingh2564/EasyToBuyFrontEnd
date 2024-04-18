@@ -17,10 +17,10 @@
               <div class="col-md-12">
 
                 <span class="spnProductPrice">₹{{product.productPriceAfterDiscount}}</span>
+                <span class="spnMRP" *ngIf="product.showProductWeight==true"> ({{product.productWeight}}) </span>
                 <span class="spnMRP"> M.R.P :<span class="actualPrice"
                     *ngIf="product.productDiscount > 0">₹{{product.productPrice}}</span></span>
-                <span class="discount text-success"
-                  *ngIf="product.productDiscount > 0">({{product.productDiscount}}%off)</span>
+                <span class="discount" *ngIf="product.productDiscount > 0">({{product.productDiscount}}%off)</span>
 
               </div>
             </div>

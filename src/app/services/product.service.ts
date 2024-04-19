@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +22,10 @@ export class ProductService {
 
   getProductDetails(id: number,searchText:string) {
     return this.http.get("https://localhost:7239/api/Product/GetProductDetails?categoryId=" + id + "&searchText=" + searchText)
+  }
+
+  getProductDescriptionByProductId(id: number) {
+    return this.http.get("https://localhost:7239/api/Product/GetProductDescriptionByProductId?productId=" + id)
   }
 
   getProductById(id: number) {

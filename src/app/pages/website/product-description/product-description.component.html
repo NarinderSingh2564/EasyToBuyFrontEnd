@@ -2,28 +2,29 @@
 <main>
 <section>
    <div class="container-fluid">
-      <div class="row">
+      <div class="row" *ngFor="let product of ProductDescription">
                                    <!-- Product picture -->
           <div class="col-md-1">
     <ul class="thumblist2">
       <li class="abd">
-          <img src="assets/images/1.jpg" class="thumbimag1"  alt="" (click)="onThumbClick('1')">
+          <img src="assets/images/iphone15/1.jpeg" class="thumbimag1"  alt="" (click)="onThumbClick('1')">
       </li>
       <li class="abd">
-          <img src="assets/images/2.jpg" class="thumbimag1"  alt="" (click)="onThumbClick('2')">
+          <img src="assets/images/iphone15/2.jpeg" class="thumbimag1"  alt="" (click)="onThumbClick('2')">
       </li>
       <li class="abd">
-          <img src="assets/images/3.jpg" class="thumbimag1"  alt="" (click)="onThumbClick('3')">
+          <img src="assets/images/iphone15/3.jpeg" class="thumbimag1"  alt="" (click)="onThumbClick('3')">
       </li>
     </ul>
           </div>
-          <div class="col-md-5">
+    <div class="col-md-5">
      <div class="row"> 
+      <div id='lens'></div>
       <div class="col-md-12 imgbx">
-         <img [src]="selectedImage" alt="" class="img-responsive1" >
+         <img [src]="selectedImage"  alt="" class=" slideshow-items active" >
       </div> 
       <div class="col-md-6">
-        <button class="btn col-md-4 col-md-offset-2 btn-lg" style="background-color:#ff9f00; color:#fff;font-size:15px;"><strong><span class="bi bi-cart-check-fill"></span> &nbsp; ADD TO CART</strong></button>
+        <button class="btn col-md-4 col-md-offset-2 btn-lg" (click)="AddToCart(product.id)" routerLink="customer-cart"  style="background-color:#ff9f00; color:#fff;font-size:15px;"><strong><span class="bi bi-cart-check-fill"></span> &nbsp; {{buttonText}} </strong></button>
       </div>
       <div class="col-md-6">
         <button class="btn col-md-4 col-md-offset-1 btn-lg" style="background-color:#fb641b; color:#fff;font-size:15px;"><strong><i class="fa fa-bolt" style="font-size:1.2em;"></i> BUY NOW</strong></button>
@@ -32,8 +33,9 @@
        </div>
                                    <!-- Product Description -->
           <div class="col-md-6 desc">
-          <div>
-       <h5>Apple iPhone X (Silver 64GB)</h5>
+            <div>
+            <div id='result'></div>
+             <h5>{{product.productName}}({{product.productShortName}})</h5>
          <div class="row">
             <div class="col-md-3">
               <span class="labels1">4.6 <span class="bi bi-star-fill"></span></span>
@@ -43,7 +45,7 @@
             </div>
          </div>
      <div>
-      <h4 ><strong>&#8377; 250 &nbsp; &nbsp;</strong><span style="color: rgb(153, 152, 152); font-size: 16px;"><del>&#8377; 470</del>&nbsp;&nbsp; &nbsp; &nbsp;<span style="color: rgb(8, 143, 8); font-size: 16px; font-weight: 700;"> 2% off</span></span> </h4>
+      <h4 ><strong>&#8377; {{product.productPriceAfterDiscount}} &nbsp; &nbsp;</strong><span style="color: rgb(153, 152, 152); font-size: 16px;"><del>&#8377; {{product.productPrice}}</del>&nbsp;&nbsp; &nbsp; &nbsp;<span style="color: rgb(8, 143, 8); font-size: 16px; font-weight: 700;"> {{product.productDiscount}} off</span></span> </h4>
      </div>
      <label style="font-size: 17px;">Avilable Offers</label>
      <div>
@@ -59,8 +61,8 @@
              
              <div class=" col-md-5" style="border:0px;border-bottom:1px solid #2874f0;width:40%; position:relative; left:7%;" >
                <span class="bi bi-geo-alt col-md-2" style="color:#2874f0;padding-right:4px; margin-right:0px;"></span>
-               <input type="text" placeholder="PIN Code" style="border:0;padding-right:0;" class="col-md-7">
-               <a href=" " class="col-md-2" style="padding-left:0;text-decoration:none;">Change</a>
+               <input type="text" placeholder="PIN Code" style="border:0; padding-left: 5px;" class="col-md-7">
+               <a href=" " class="col-md-2" style="padding-left:3px;text-decoration:none;">Change</a>
              </div>
                        
            <div id="delivery-time" style="position:relative;left:15%;">
@@ -76,7 +78,7 @@
          <div class="panel-body">
            <div class="col-md-12">
              <h4>PRODUCT DESCRIPTION</h4>
-           <p style=" line-height: 1.7; padding-bottom: 20px; padding-top: 10px;">Meet the iPhone X - the device that’s so smart that it responds to a tap, your voice, and even a glance. Elegantly designed with a large 14.73 cm (5.8) Super Retina screen and a durable front-and-back glass, this smartphone is designed to impress. What’s more, you can charge this iPhone wirelessly.</p>
+           <p style=" line-height: 1.7; padding-bottom: 20px; padding-top: 10px;">{{product.productDescription}}</p>
            </div>
          </div>
          <hr style="border-top: 1px solid #111111;">
@@ -88,7 +90,7 @@
             </div>
              
            <div class="col-md-5">
-             <img src="https://www.bigbasket.com/media/uploads/p/l/40239345_6-sleepy-owl-premium-instant-coffee-original-roasted-ground-no-preservatives.jpg" class="img-responsive" alt="">
+             <img src="assets/images/iphone15/1.jpeg" class="img-responsive" alt="">
            </div>
              
            </div>
@@ -97,7 +99,7 @@
            <div class="panel-body">
              <div class="row">
              <div class="col-md-5">
-               <img src="https://www.bigbasket.com/media/uploads/p/l/40239345_6-sleepy-owl-premium-instant-coffee-original-roasted-ground-no-preservatives.jpg" class="img-responsive" alt="">
+               <img src="assets/images/iphone15/1.jpeg" class="img-responsive" alt="">
              </div>
              
              <div class="col-md-7">
@@ -130,9 +132,9 @@ Handset, EarPods with Lightning Connector, Lightning to 3.5 mm Headphone Jack Ad
                <tr><td class="col-md-4 tdhead">Model Number</td>  <td class="col-md-8 tdbot">
 MQA62HN/A</td></tr>
                
-                <tr><td class="col-md-4 tdhead">Model Name</td>  <td class="col-md-8 tdbot">iPhone X</td></tr>
+                <tr><td class="col-md-4 tdhead">Model Name</td>  <td class="col-md-8 tdbot">iPhone 15 pro max</td></tr>
                
-               <tr><td class="col-md-4 tdhead">Color</td>  <td class="col-md-8 tdbot">Silver</td></tr>
+               <tr><td class="col-md-4 tdhead">Color</td>  <td class="col-md-8 tdbot">Gray</td></tr>
                
                <tr><td class="col-md-4 tdhead">Browse Type</td>  <td class="col-md-8 tdbot">Smartphones</td></tr>
                
@@ -215,5 +217,6 @@ MQA62HN/A</td></tr>
      <hr>
   </footer>
 </main>
+<script src="src/assets/js/ImageMagnifier.js"></script>
 
  

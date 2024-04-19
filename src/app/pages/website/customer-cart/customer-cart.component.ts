@@ -58,7 +58,8 @@ export class CustomerCartComponent {
       const cart = {
         customerId: this.accountService.getCustomerId(),
         productId: item.productId,
-        quantity: item.quantity
+        quantity: item.quantity,
+        requestFrom:"Cart"
       }
       this.cartService.addToCart(cart).subscribe((result:any)=>{
         this.getCartDetailsByCustomerId()
@@ -76,7 +77,8 @@ export class CustomerCartComponent {
       const cart = {
         customerId: this.accountService.getCustomerId(),
         productId: item.productId,
-        quantity: item.quantity
+        quantity: item.quantity,
+        requestFrom:"Cart"
       }
       this.cartService.addToCart(cart).subscribe((result:any)=>{
 

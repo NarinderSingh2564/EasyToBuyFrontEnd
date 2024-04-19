@@ -7,7 +7,7 @@
                     <h2 class="login-title"><i class="fas fa-user-circle"></i> Login</h2>
                     <div class="form-control1">
                         <i class="fas fa-user icon"></i>
-                        <input type="text" formControlName="mobile" placeholder="Enter your mobile">
+                        <input type="text" formControlName="mobile" placeholder="Enter your mobile" maxlength="10">
                         <div *ngIf="isFormValid && controls['mobile'].errors">
                             <div *ngIf="controls['mobile'].errors['required']" class="text-danger">
                                 Enter your mobile number.
@@ -16,7 +16,7 @@
                     </div>
                     <div class="form-control1">
                         <i class="fas fa-lock icon"></i>
-                        <input type="password" formControlName="password" placeholder="Enter your password">
+                        <input type="password" formControlName="password" placeholder="Enter your password" maxlength="10">
                         <div *ngIf="isFormValid && controls['password'].errors">
                             <div *ngIf="controls['password'].errors['required']" class="text-danger">
                                 Enter your password.

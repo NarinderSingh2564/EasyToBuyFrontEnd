@@ -9,7 +9,6 @@ import { LandingComponent } from './pages/website/landing/landing.component';
 import { WebProductsComponent } from './pages/website/web-products/web-products.component';
 import { CustomerCartComponent } from './pages/website/customer-cart/customer-cart.component';
 import { ProductDescriptionComponent } from './pages/website/product-description/product-description.component';
-import { CustomerOrdersComponent } from './pages/website/customer-orders/customer-orders.component';
 
 export const routes: Routes = [
     {
@@ -58,11 +57,10 @@ export const routes: Routes = [
                 component: CustomerCartComponent
             },
             {
+
                 path: 'product-description/:id',
                 component: ProductDescriptionComponent
             },
-            
-          
         ]
     },
 

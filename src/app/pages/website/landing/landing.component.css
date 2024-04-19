@@ -158,3 +158,6 @@
   border-radius: 100%;
   height: 43%;
 }
+.d-flex{
+  float: inline-end;
+}

@@ -40,6 +40,7 @@
   color: #7e7e7e;
   padding: 0px 3px 0px 3px;
   font-size: small;
+  font-weight:500;
 }
 
 .discount {
@@ -47,6 +48,7 @@
   color: #000000c7;
   padding: 0px 3px 0px 3px;
   font-size: small;
+  font-weight:650;
 }
 
 .dvAddToCart {
@@ -66,6 +68,7 @@
 .spnMRP{
   font-size: small;
   color: #7e7e7e;
+  font-weight:500;
 }
 
 .block-ellipsis {

@@ -79,8 +79,8 @@ export class ProductsComponent implements OnInit {
   }
 
   getCategoryList() {
-    this.categoryServivce.getCategoryList().subscribe(result => {
-      this.categoryList = result
+    this.categoryServivce.getCategoryList().subscribe((result:any) => {
+      this.categoryList = result.filter((a:any)=> a.isActive);
     })
   }
 

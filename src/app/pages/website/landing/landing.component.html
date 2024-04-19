@@ -26,7 +26,7 @@
       <div class="d-flex">
           <form (ngSubmit)="SearchProducts(box.value)" autocomplete="off" class="form-inline">
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search here" name="searchText" #box style="width: 500px;">
+              <input type="text" class="form-control" placeholder="Search here" name="searchText" #box >
               <span class="input-group-text" (click)="SearchProducts(box.value)"><i class="bi bi-search"></i></span>
             </div>
           </form>

@@ -60,8 +60,10 @@ export class CustomerCartComponent {
         productId: item.productId,
         quantity: item.quantity
       }
-      this.cartService.addToCart(cart).subscribe((result:any)=>{})
-      this.getCartDetailsByCustomerId()
+      this.cartService.addToCart(cart).subscribe((result:any)=>{
+        this.getCartDetailsByCustomerId()
+      })
+      
     }
     else{
       alert("You must order atleast one quantity.")
@@ -70,14 +72,16 @@ export class CustomerCartComponent {
 
   increment(item: any) {
     if(item.quantity < 5){
-      item.quantity++
+      item.quantity++;
       const cart = {
         customerId: this.accountService.getCustomerId(),
         productId: item.productId,
         quantity: item.quantity
       }
-      this.cartService.addToCart(cart).subscribe((result:any)=>{})
-      this.getCartDetailsByCustomerId()
+      this.cartService.addToCart(cart).subscribe((result:any)=>{
+
+        this.getCartDetailsByCustomerId()
+      })
     }
     else{
       alert("You can not add more than 5 quantities.")

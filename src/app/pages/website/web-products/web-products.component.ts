@@ -56,10 +56,12 @@ export class WebProductsComponent {
 
   AddToCart(productId: number, productQuantity: number) {
     if (this.accountService.getCustomerId() > 0) {
-      const cart = {
+        const cart = {
         customerId: this.accountService.getCustomerId(),
         productId: productId,
-        quantity: productQuantity
+        quantity: productQuantity,
+        requestFrom:""
+
       }
       this.cartService.addToCart(cart).subscribe((result: any) => {
         alert(result.message)

@@ -1,28 +1,22 @@
-
 <div class="container-fluid mt-3 mb-4">
   <div class="row" *ngIf="totalCartItems>0">
     <div class="col-md-9">
       <div class="card">
-        <div class="card-header">
-          Delivery To : <strong> Sector 74, Mohali </strong>
-          <button class="btn text-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
-            aria-expanded="false" aria-controls="collapseExample">
-            CHANGE
-          </button>
-
-
-        </div>
-
-        <div class="collapse" id="collapseExample">
-          <div class="card card-body">
-            
-            <app-customer-address [UserID]="userId"></app-customer-address>
+        <div *ngIf="deliveryAddress.length>0">
+          <div class="card-header" *ngFor="let address of deliveryAddress">
+            Delivery To : <strong> {{address.city}}, {{address.pincode}}</strong>
+            <button class="btn text-success" type="button" (click)="showChild()">CHANGE</button>
           </div>
         </div>
-        <div class="card-body" *ngIf="!collapsed">
-          <div class="row">
-            <p>This is some example text.</p>
-            <p>This text will disappear when you use the action button in the actions bar below.</p>
+        <div *ngIf="deliveryAddress.length==0">
+          <div class="card-header">
+            Delivery To : <strong>No address added </strong>
+            <button class="btn text-success" type="button" (click)="showChild()">ADD</button>
+          </div>
+        </div>
+        <div class="card" *ngIf="!collapsed">
+          <div class="card-body">
+            <app-customer-address [UserID]="userId"></app-customer-address>
           </div>
         </div>
 

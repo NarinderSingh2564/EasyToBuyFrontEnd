@@ -1,100 +1,107 @@
-<p>customer-address works!</p>
-
-
-<p>User ID Coming from Partent {{UserID}}</p>
-
-<div id="carouselExampleControls" class="carousel carousel-dark slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <div class="card-wrapper container-sm d-flex  justify-content-around">
-
-
-        <div class="card" style="width: 17rem;">
-
-          <h4 class="card-header" style="background-color: #f8f8f8;">Punjab (India)</h4>
-          <div class="card-body">
-            <h6 class="card-subtitle text-muted">Ludhiana</h6>
-            <h6 class="card-subtitle"> post office</h6>
-            <p class="card-text p-y-1">St.No. 5, Shaheed Ajit Singh Coloney, 33 feet road, Giaspura .</p>
-            <!-- <a href="#" class="card-link">link</a>
-            <a href="#" class="card-link">Click to Set as default address</a> -->
-          </div>
-          <div class="card-footer text-muted">2 days ago</div>
-        </div>
-
-        <div class="card text-center" style="width: 17rem;">
-          <div class="card-header" style="text-align: left;font-size: calc(1.275rem + .3vw)">Ludhiana (Punjab)</div>
-          <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Button</a>
-          </div>
-          <div class="card-footer text-muted">2 days ago</div>
-        </div>
-
-
-
-
-
-        <!-- <div class="card text-center" style="width: 17rem;">
-          <div class="card-header">Featured</div>
-          <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Button</a>
-          </div>
-          <div class="card-footer text-muted">3 days ago</div>
-        </div> -->
-        <div class="card text-center" style="width: 17rem;">
-          <div class="card-header">Featured</div>
-          <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Button</a>
-          </div>
-          <div class="card-footer text-muted">4 days ago</div>
-        </div>
-
-      </div>
-    </div>
-    <div class="carousel-item">
-      <div class="card-wrapper container-sm d-flex   justify-content-around">
-        <div class="card text-center" style="width: 17rem;">
-          <div class="card-header">Featured</div>
-          <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Button</a>
-          </div>
-          <div class="card-footer text-muted">15 days ago</div>
-        </div>
-        <div class="card text-center" style="width: 17rem;">
-          <div class="card-header">Featured</div>
-          <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Button</a>
-          </div>
-          <div class="card-footer text-muted">16 days ago</div>
-        </div>
-        <div class="card text-center" style="width: 17rem;">
-          <div class="card-header">Featured</div>
-          <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Button</a>
-          </div>
-          <div class="card-footer text-muted">17 days ago</div>
-        </div>
-      </div>
-    </div>
-
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
+<section class="user-address">
+ 
+  <div class="text-end addBtn">
+    <button class="btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#addressModal" (click)="addAdressModal()"><i
+        class="bi bi-plus"></i> Add New Address</button>
   </div>
+  <owl-carousel-o [options]="customOptions">
+
+    <ng-template carouselSlide *ngFor="let address of userAddressList">
+
+      <div class="card">
+        <h5 class="card-header">
+          {{address.city}} 
+          <span class="address-type text-muted">
+            ({{address.typeOfAddress}})
+            <i class="bi bi-pencil-square" data-bs-toggle="modal" data-bs-target="#addressModal" (click)="editAdressModal(address)"></i>
+          </span>
+        </h5>
+        <div class="card-body">
+          <p class="card-text">{{address.fullAddress}}, {{address.pincode}}, {{address.state}}, {{address.country}}</p>
+        </div>
+        <div class="card-footer text-dark">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" 
+              [checked]="address.isDeliveryAddress ? true : false" #switch (change)="setDeliveryAddress(switch.checked,address.id)">
+            <label class="form-check-label">Set as delivery address</label>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </owl-carousel-o>
+</section>
+
+
+<div class="modal fade" id="addressModal" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered">
+    <form autocomplete="off" [formGroup]="addressForm" (ngSubmit)="addressAddEdit()">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{modalHeader}}</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="">Pin Code</label>
+              <input type="text" formControlName="pincode" class="form-control" #box onKeyPress="if(this.value.length==6) return false;" (change)="getAddressByPincode(box.value)">
+              <div *ngIf="isFormValid && controls['pincode'].errors">
+                <div *ngIf="controls['pincode'].errors['required']" class="text-danger">
+                  Pincode is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="">State</label>
+              <input type="text" formControlName="state" class="form-control">
+             
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <label for="">City</label>
+              <input type="text" formControlName="city" class="form-control">
+             
+            </div>
+            <div class="col-md-6">
+              <label for="">Country</label>
+              <input type="text" formControlName="country" class="form-control">
+              
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-12">
+              <label for="">Full Address</label>
+              <textarea formControlName="fullAddress" class="form-control" maxlength="50"></textarea>
+              <div *ngIf="isFormValid && controls['fullAddress'].errors">
+                <div *ngIf="controls['fullAddress'].errors['required']" class="text-danger">
+                  Full address is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-12">
+              <label for="">Type of Address</label><br>
+              <select class="form-select" formControlName="addressTypeId">
+                <option value="" selected>Select type of address</option>
+                <option *ngFor="let type of addressTypeList" [value]="type.id">
+                  {{type.typeOfAddress}}
+                </option>
+              </select>
+              <div *ngIf="isFormValid && controls['addressTypeId'].errors">
+                <div *ngIf="controls['addressTypeId'].errors['required']" class="text-danger">
+                  Type of address is required.
+                </div>
+              </div>
+            </div>
+          </div>
+         
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" [disabled]="disableButton ? true : false">Save</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

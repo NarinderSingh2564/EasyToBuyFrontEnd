@@ -72,7 +72,6 @@ export class ProductsComponent implements OnInit {
   }
 
   editProduct(product: any) {
-    console.log(product)
     this.isEdit = true
     this.productForm.patchValue(product)
     this.openSidePanel()
@@ -80,7 +79,7 @@ export class ProductsComponent implements OnInit {
 
   getCategoryList() {
     this.categoryServivce.getCategoryList().subscribe((result:any) => {
-      this.categoryList = result.filter((a:any)=> a.isActive);
+      this.categoryList = result;
     })
   }
 

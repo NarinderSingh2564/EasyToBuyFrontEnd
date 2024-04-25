@@ -1,1 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+.user-address .owl-next , .user-address .owl-prev{
+    /* position: absolute;
+    top: 50%; */
+    color: white !important;
+    background: #b3b3b3 !important;
+}
+
+/* .user-address .owl-next{
+    right: 0;
+    transform: translate(-50%,-50%);
+}
+.user-address .owl-prev{
+    left: 0;
+    transform: translate(-50%,-50%);
+
+} */
+.owl-nav .bi{
+    font-size: larger !important;
+}

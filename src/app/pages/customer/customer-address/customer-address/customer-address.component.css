@@ -1,12 +1,42 @@
-.card{
-    padding:0;
-    
-  }
-  
-  .carousel-control-prev{
-    margin-left: -6%;
-  }
+.card {
+    width: 19rem;
+    margin-left: 2%;
+}
+.addBtn{
+    padding: 0px 8px 10px 0px;
+}
+.address-type {
+    font-size: small;
+    float: inline-end;
+}
 
-  .carousel-control-next{
-    margin-right: -6%;
-  }
+.bi-pencil-square {
+    font-size: 20px;
+    color: green;
+    padding-left: 10px;
+}
+.bi-plus{
+    font-size: 20px;
+
+}
+.card-body {
+    height: 100px !important;
+}
+
+label {
+    padding-left: 5px;
+}
+
+.typeOfAddress {
+    padding: 0px 40px 0px 8px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.form-check {
+    padding-left: 50px;
+}

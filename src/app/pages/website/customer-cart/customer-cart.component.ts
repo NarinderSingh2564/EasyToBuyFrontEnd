@@ -10,38 +10,44 @@ import { CustomerAddressComponent } from '../../customer/customer-address/custom
 @Component({
   selector: 'app-customer-cart',
   standalone: true,
-  imports: [CommonModule, RouterLink,CustomerAddressComponent],
+  imports: [CommonModule, RouterLink, CustomerAddressComponent],
   templateUrl: './customer-cart.component.html',
   styleUrl: './customer-cart.component.css'
 })
 export class CustomerCartComponent {
 
-  userId : number = 0;
+  userId: number = 0;
   router = inject(Router);
   cartService = inject(CartService)
   accountService = inject(AccountService)
-  
+
 
   cartList: any = [];
   priceDetails: any = [];
   totalCartItems: number = 0;
-  collapsed:boolean = true;
+  collapsed: boolean = true;
   days = 2;
   deliveryDate = new Date(Date.now() + this.days * 24 * 60 * 60 * 1000);
-  
+  deliveryAddress: any = []
+
   constructor() {
     this.getCartDetailsByCustomerId();
+    this.getDeliveryAddress();
 
-    this.cartService.updateCart$.subscribe(() =>{
+    this.cartService.updateCart$.subscribe(() => {
       this.getCartDetailsByCustomerId();
     })
-    this.cartService.updateCartCount$.subscribe(()=>{
+    this.cartService.updateCartCount$.subscribe(() => {
       this.getCartDetailsByCustomerId();
-
     })
-
+    this.accountService.updateDeliveryAddress$.subscribe(() =>{
+      this.getDeliveryAddress();
+    })
     this.userId = this.accountService.getCustomerId();
+  }
 
+  showChild() {
+    this.collapsed = !this.collapsed
   }
 
   getCartDetailsByCustomerId() {
@@ -52,40 +58,47 @@ export class CustomerCartComponent {
     })
   }
 
+  getDeliveryAddress() {
+    this.accountService.getAddressListByUserId().subscribe((result: any) => {
+      this.deliveryAddress = result.filter(
+        (a:any) => a.isDeliveryAddress == true);
+    })
+  }
+
   decrement(item: any) {
-    if(item.quantity > 1){
+    if (item.quantity > 1) {
       item.quantity--
       const cart = {
         customerId: this.accountService.getCustomerId(),
         productId: item.productId,
         quantity: item.quantity,
-        requestFrom:"Cart"
+        requestFrom: "Cart"
       }
-      this.cartService.addToCart(cart).subscribe((result:any)=>{
+      this.cartService.addToCart(cart).subscribe((result: any) => {
         this.getCartDetailsByCustomerId()
       })
-      
+
     }
-    else{
+    else {
       alert("You must order atleast one quantity.")
     }
   }
 
   increment(item: any) {
-    if(item.quantity < 5){
+    if (item.quantity < 5) {
       item.quantity++;
       const cart = {
         customerId: this.accountService.getCustomerId(),
         productId: item.productId,
         quantity: item.quantity,
-        requestFrom:"Cart"
+        requestFrom: "Cart"
       }
-      this.cartService.addToCart(cart).subscribe((result:any)=>{
+      this.cartService.addToCart(cart).subscribe((result: any) => {
 
         this.getCartDetailsByCustomerId()
       })
     }
-    else{
+    else {
       alert("You can not add more than 5 quantities.")
     }
   }

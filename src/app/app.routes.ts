@@ -9,6 +9,8 @@ import { LandingComponent } from './pages/website/landing/landing.component';
 import { WebProductsComponent } from './pages/website/web-products/web-products.component';
 import { CustomerCartComponent } from './pages/website/customer-cart/customer-cart.component';
 import { ProductDescriptionComponent } from './pages/website/product-description/product-description.component';
+import { VenderRegisterComponent } from './pages/vender/Register/vender-register/vender-register.component';
+
 
 export const routes: Routes = [
     {
@@ -23,6 +25,10 @@ export const routes: Routes = [
     {
         path: 'register',
         component: RegisterComponent
+    },
+    {
+        path: 'vender-register',
+        component:VenderRegisterComponent
     },
   
     {

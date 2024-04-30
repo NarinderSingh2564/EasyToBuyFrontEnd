@@ -1,0 +1,116 @@
+<div class="parents">
+    <div class="container">
+        <div class="title"><i class="bi bi-person-circle"></i> Vendor &nbsp; Registration</div>
+        <form [formGroup]="vendorregisterForm" (ngSubmit)="Register()">
+            <div class="user_details">
+                <div class="input_pox">
+                    <span class="datails">Company/Shop Name</span>
+                    <input type="text" formControlName="name" placeholder="Enter name" maxlength="30" minlength="3">
+                    <div *ngIf="isFormValid && controls['name'].errors">
+                        <div *ngIf="controls['name'].errors['required']" class="text-danger">
+                            Enter your  name.
+                        </div>
+                    </div>
+                </div>
+                <div class="input_pox">
+                    <span class="datails">Email</span>
+                    <input type="text" formControlName="email" placeholder="Enter your email" maxlength="50"
+                        minlength="5">
+                    <div *ngIf="isFormValid && controls['email'].errors">
+                        <div *ngIf="controls['email'].errors['required']" class="text-danger">
+                            Enter your email.
+                        </div>
+                        <div *ngIf="controls['email'].errors['email']" class="text-danger">
+                            Invalid email.
+                        </div>
+                    </div>
+                </div>
+                <div class="input_pox">
+                    <span class="datails">Mobile Number</span>
+                    <input type="text" formControlName="mobile" placeholder="Enter your mobile number"
+                        onKeyPress="if(this.value.length==10) return false;">
+                    <div *ngIf="isFormValid && controls['mobile'].errors">
+                        <div *ngIf="controls['mobile'].errors['required']" class="text-danger">
+                            Enter your mobile number.
+                        </div>
+                    </div>
+                </div>
+                <div class="input_pox">
+                    <span class="datails">Password</span>
+                    <input [type]="showPwd ? 'text':'password'" formControlName="password"
+                        placeholder="Enter your password" maxlength="10" minlength="5">
+                    <i [ngClass]="showPwd ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'" (click)="showPassword()"></i>
+                    <div *ngIf="isFormValid && controls['password'].errors">
+                        <div *ngIf="controls['password'].errors['required']" class="text-danger">
+                            Enter your password.
+                        </div>
+                        <div *ngIf="controls['password'].errors['pattern']" class="text-danger">
+                            Password must contain atleast 5 characters, 1 numeric, 1 upper case letter, and 1 special
+                            character.
+                        </div>
+                    </div>
+                </div>
+                <div class="input_pox">
+                    <span class="datails">Dealing Person Name</span>
+                    <input type="text" formControlName="dealingPerson" placeholder="Enter your name" maxlength="30" minlength="3">
+                    <div *ngIf="isFormValid && controls['dealingPerson'].errors">
+                        <div *ngIf="controls['dealingPerson'].errors['required']" class="text-danger">
+                            Enter your name.
+                        </div>
+                    </div>
+                </div>
+                <div class="input_pox">
+                    <span class="datails">PinCode</span>
+                    <input type ="text" formControlName="pincode"  #box onKeyPress="if(this.value.length==6) return false;" placeholder="Enter your PIN Code" (change)="getAddressByPincode(box.value)">
+                    <div *ngIf="isFormValid && controls['pincode'].errors">
+                        <div *ngIf="controls['pincode'].errors['required']" class="text-danger">
+                            Enter your PinCode.
+                        </div>
+                    </div>
+                </div>
+                <div class="input_pox">
+                    <span class="datails">City</span>
+                    <input type="text" formControlName="city" placeholder="Enter your city" maxlength="30" minlength="3">
+                    <div *ngIf="isFormValid && controls['city'].errors">
+                        <div *ngIf="controls['city'].errors['required']" class="text-danger">
+                            Enter your city.
+                        </div>
+                    </div>
+                </div>
+                <div class="input_pox">
+                    <span class="datails">State</span>
+                    <input type="text" formControlName="state" placeholder="Enter your State" maxlength="30" minlength="3">
+                    <div *ngIf="isFormValid && controls['state'].errors">
+                        <div *ngIf="controls['state'].errors['required']" class="text-danger">
+                            Enter your State.
+                        </div>
+                    </div>
+                </div>
+                <div class="input_pox">
+                    <span class="datails">Country</span>
+                    <input type="text" formControlName="country" placeholder="Enter your Country" maxlength="30" minlength="3">
+                    <div *ngIf="isFormValid && controls['country'].errors">
+                        <div *ngIf="controls['country'].errors['required']" class="text-danger">
+                            Enter your Country.
+                        </div>
+                    </div>
+                </div>
+                <div class="input_pox">
+                    <span class="datails">Address</span>
+                    <input type="text" formControlName="fullAddress" placeholder="Enter your Address" maxlength="50">
+                        <div *ngIf="isFormValid && controls['fullAddress'].errors">
+                        <div *ngIf="controls['fullAddress'].errors['required']" class="text-danger">
+                            Enter your Address.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="button">
+                <button type="submit" class="btnRegister">Register</button>
+            </div>
+            <div class="bar-link">
+                <p> Already have an account? <a routerLink="/login">Login</a></p>
+            </div>
+        </form>
+    </div>
+</div>

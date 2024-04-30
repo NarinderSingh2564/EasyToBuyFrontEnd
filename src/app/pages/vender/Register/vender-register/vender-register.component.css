@@ -1,47 +1,50 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
-
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 .parents{
-    display: flex;
     min-height: 100vh;
-    width: 100vw;
-    height: 100vh;
-    justify-content: center;
+    display: flex;
     align-items: center;
-    background-color:#eba75e;
-   
+    justify-content: center;
+    background: url(../image/cartbg.jpg);
+    background-size:cover; 
+    overflow: hidden;
+    background-repeat: no-repeat;
 }
 
 .container{
-    max-width: 600px;
-    
-}
-
-.right-register{
+    position: relative;
+    max-width: 650px;
     width: 100%;
-    background: #ffffff;
-    padding: 25px 30px;
     border-radius: 5px;
-    border: 2px solid rgb(3, 100, 115);
+    padding: 35px 30px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    margin-left: 30px;
+    margin-right: 30px;
+    border: 2px solid #489bb9;
+    background-color:white;
+    box-shadow: 0 5px 10px rgba(210, 210, 210, 0.1);
 }
-
-.right-register  .title{
+.container  .title{
     font-size: 25px;
     font-weight: 500; 
     text-align: center;
     position: relative;
-    color:  #045c6e;
+    color: black;
 }
-.right-register .title::before{
+.container .title::before{
     content: '';
     position: absolute;
-    left: 0;
     bottom: 0;
     height: 3px;
-    margin-left: 203px;
-    width: 130px;
-  
+    width: 250px;
+   
 }
-.right-register form .user_details{
+.container form .user_details{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -55,6 +58,7 @@ form .user_details .input_pox{
     display: block;
     font-weight: 500;
     margin-bottom: 5px;
+    color: black;
 }
 .user_details .input_pox input{
     height: 45px;
@@ -70,8 +74,16 @@ form .user_details .input_pox{
 }
 .user_details .input_pox input:focus,
 .user_details .input_pox input:valid{
-border-color: #9e9e9e;
+border-color: #aaa9a9;
 }
+
+.textareas{
+    border-color: #98cca6;
+    border-radius: 5px;
+    border-bottom-width: 2px;
+   
+}
+
 form .gender_details .gender_title{
     font-size: 20px;
     font-weight: 500;
@@ -108,20 +120,21 @@ form .button{
 }
 form .button .btnRegister{
     height: 100%;
-    width: 50%;
+    width: 60%;
     outline: none;
     color: #fff;
     border: none;
-    margin-left: 135px;
+    margin-left: 120px;
+    position: relative;
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 500;
     border-radius: 5px;
     letter-spacing: 1px;
-    background: linear-gradient(116deg, #2b81bb,#f38e22);
+    background: linear-gradient(123deg, #71b8e7,#51a968);
 
 }
-form .button .btnRegister:hover{
-    background: linear-gradient(-123deg, #71b8e7,#9b59b6);
+form .button .btnRegister :hover{
+    background: linear-gradient(-123deg, #71b8e7,#51a968);
 }
 @media (max-width: 584px){
     .container{
@@ -146,16 +159,19 @@ form .button .btnRegister:hover{
     font-size: 18px;
     text-align: center;
     margin: 20px 0 15px;
+    color: black;
   
   }
   .bar-link p a{
-    color: #0647b0;
+    color: #257db8;
     text-decoration: none;
+    padding: 5px 8px 5px 8px;
     font-weight: 500;
   }
   .bar-link p a:hover{
     text-decoration: underline;
-    color: #2e8628;
+    color: green;
+    border-color: green;
   }
   .bi{
     margin-left: -26px;

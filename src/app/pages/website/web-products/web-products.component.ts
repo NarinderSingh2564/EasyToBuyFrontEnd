@@ -35,8 +35,9 @@ export class WebProductsComponent {
   }
 
   getProductList() {
-    this.productService.getProductDetails(this.activeCategoryId,this.searchText).subscribe(result => {
+    this.productService.getProductList(this.activeCategoryId,this.searchText,0).subscribe(result => {
       this.productList = result
+      console.log(this.productList)
     })
   }
 
@@ -55,13 +56,12 @@ export class WebProductsComponent {
   }
 
   AddToCart(productId: number, productQuantity: number) {
-    if (this.accountService.getCustomerId() > 0) {
+    if (this.accountService.getUserId() > 0) {
         const cart = {
-        customerId: this.accountService.getCustomerId(),
+        customerId: this.accountService.getUserId(),
         productId: productId,
         quantity: productQuantity,
         requestFrom:""
-
       }
       this.cartService.addToCart(cart).subscribe((result: any) => {
         alert(result.message)
@@ -75,7 +75,7 @@ export class WebProductsComponent {
   }
 
   AddToWishList() {
-    if (this.accountService.getCustomerId() > 0) {
+    if (this.accountService.getUserId() > 0) {
       alert("add to wishlist")
     }
     else {

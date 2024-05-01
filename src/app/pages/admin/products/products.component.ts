@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { RouterOutlet } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
 import { CategoryService } from '../../../services/category.service';
+import { AccountService } from '../../../services/account.service';
 
 
 @Component({
@@ -23,32 +24,26 @@ export class ProductsComponent implements OnInit {
   productForm: FormGroup;
   isFormValid: boolean = false;
   isEdit: boolean = false;
-  userId: number = 0;
 
   ngOnInit(): void {
     this.getCategoryList();
     this.getProductList();
     this.getProductWeightList();
     this.productForm.controls['productPriceAfterDiscount'].disable();
-    const activeUserData = JSON.parse(sessionStorage.getItem("session") || '""')
-    this.userId = Object(activeUserData)["id"]
   }
 
-  constructor(private productService: ProductService, private categoryServivce: CategoryService, private formBuilder: FormBuilder) {
+  constructor(private productService: ProductService, private categoryServivce: CategoryService,private accountService:AccountService, private formBuilder: FormBuilder) {
     this.productForm = this.formBuilder.group({
       id: new FormControl(0),
-      productSku: new FormControl("", [Validators.required]),
       productName: new FormControl("", [Validators.required]),
       productPrice: new FormControl(0, [Validators.required]),
       productDiscount: new FormControl(0, [Validators.required]),
       productPriceAfterDiscount: new FormControl(0),
-      productShortName: new FormControl("", [Validators.required]),
       productDescription: new FormControl("", [Validators.required]),
-      productTimeSpan: new FormControl("", [Validators.required]),
+      productImage: new FormControl("", [Validators.required]),
       categoryId: new FormControl(0, [Validators.required]),
       productWeightId: new FormControl(0, [Validators.required]),
       showProductWeight: new FormControl(false),
-      productImageUrl: new FormControl("", [Validators.required]),
       isActive: new FormControl(false)
     })
   }
@@ -84,7 +79,7 @@ export class ProductsComponent implements OnInit {
   }
 
   getProductList() {
-    this.productService.getProductsList().subscribe(result => {
+    this.productService.getProductList(0,"",0).subscribe(result => {
       this.productList = result
     })
   }
@@ -108,21 +103,19 @@ export class ProductsComponent implements OnInit {
     else {
       const product: any = {
         id: this.productForm.value.id != null && this.productForm.value.id > 0 ? this.productForm.value.id : 0,
-        productSku: this.productForm.value.productSku,
+        vendorId:this.accountService.getUserId(),
         productName: this.productForm.value.productName,
         productPrice: this.productForm.value.productPrice,
         productDiscount: this.productForm.value.productDiscount,
         productPriceAfterDiscount: this.calculatePriceAfterDiscount(),
-        productShortName: this.productForm.value.productShortName,
         productDescription: this.productForm.value.productDescription,
-        productTimeSpan: this.productForm.value.productTimeSpan,
+        productImage: this.productForm.value.productImage,
         categoryId: this.productForm.value.categoryId,
         productWeightId: this.productForm.value.productWeightId,
-        showProductWeight:this.productForm.value.showProductWeight == null ? false : true, 
-        productImageUrl: this.productForm.value.productImageUrl,
-        createdBy: this.userId,
-        updatedBy: this.userId,
-        isActive: this.productForm.value.isActive == null ? false : true,
+        showProductWeight:this.productForm.value.showProductWeight, 
+        createdBy: this.accountService.getUserId(),
+        updatedBy: this.accountService.getUserId(),
+        isActive: this.productForm.value.isActive,
       }
       this.productService.productAddEdit(product).subscribe(result => {
         this.response = result;

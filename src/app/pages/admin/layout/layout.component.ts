@@ -11,10 +11,11 @@ import { CommonModule } from '@angular/common';
   styleUrl: './layout.component.css'
 })
 export class LayoutComponent {
+  
   router = inject(Router);
   accountService = inject(AccountService);
 
-  userName:string=this.accountService.getCustomerName();
+  userName:string=this.accountService.getUserName();
 
   Logout(){
     sessionStorage.clear();

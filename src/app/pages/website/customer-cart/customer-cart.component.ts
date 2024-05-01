@@ -43,7 +43,7 @@ export class CustomerCartComponent {
     this.accountService.updateDeliveryAddress$.subscribe(() =>{
       this.getDeliveryAddress();
     })
-    this.userId = this.accountService.getCustomerId();
+    this.userId = this.accountService.getUserId();
   }
 
   showChild() {
@@ -51,7 +51,7 @@ export class CustomerCartComponent {
   }
 
   getCartDetailsByCustomerId() {
-    this.cartService.getCartDetailsByCustomerId(this.accountService.getCustomerId()).subscribe((result: any) => {
+    this.cartService.getCartDetailsByCustomerId(this.accountService.getUserId()).subscribe((result: any) => {
       this.cartList = result._cartListItems
       this.priceDetails = result.priceDetails
       this.totalCartItems = this.cartList.length
@@ -69,7 +69,7 @@ export class CustomerCartComponent {
     if (item.quantity > 1) {
       item.quantity--
       const cart = {
-        customerId: this.accountService.getCustomerId(),
+        customerId: this.accountService.getUserId(),
         productId: item.productId,
         quantity: item.quantity,
         requestFrom: "Cart"
@@ -88,7 +88,7 @@ export class CustomerCartComponent {
     if (item.quantity < 5) {
       item.quantity++;
       const cart = {
-        customerId: this.accountService.getCustomerId(),
+        customerId: this.accountService.getUserId(),
         productId: item.productId,
         quantity: item.quantity,
         requestFrom: "Cart"

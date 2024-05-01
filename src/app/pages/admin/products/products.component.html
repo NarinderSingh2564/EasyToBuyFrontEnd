@@ -16,36 +16,20 @@
                     <div class="col-md-3" *ngFor="let product of productList"
                         style=" padding-bottom: calc(var(--bs-gutter-x)* .5);">
                         <div class="card">
-                            <img class="card-img-top mx-auto d-block mt-2" [src]="product.productImageUrl" alt="Card image">
+                            <img class="card-img-top mx-auto d-block mt-2" [src]="product.productImage"
+                                alt="Card image">
                             <div class="card-body">
-                                <div *ngIf="!isSidePanelVisible">
-                                    <h6 class="card-title">
-                                        {{product.productName}}
+                                <div>
+                                    <h6 class="card-title">{{product.productName}}
                                         <span class="edit">
                                             <i class="bi bi-pencil-square" (click)="editProduct(product)"></i>
                                         </span>
                                     </h6>
                                     <h6 class="card-title">
-                                      ₹{{product.productPriceAfterDiscount}} {{product.productWeight}}
-                                        <span class="actualPrice"
-                                            *ngIf="product.productDiscount > 0">₹{{product.productPrice}} </span>
-                                        <span class="discount"
-                                            *ngIf="product.productDiscount > 0">{{product.productDiscount}}%off</span>
-                                    </h6>
-
-                                </div>
-                                <div *ngIf="isSidePanelVisible">
-                                    <h6 class="card-title">
-                                        {{product.productName}}
-                                        <span class="edit">
-                                            <i class="bi bi-pencil-square" (click)="editProduct(product)"></i>
-                                        </span>
-                                    </h6>
-                                    <h6 class="card-title">₹{{product.productPriceAfterDiscount}} {{product.productWeight}}
-                                        <span class="actualPrice"
-                                            *ngIf="product.productDiscount > 0">₹{{product.productPrice}} </span>
-                                        <span class="discount"
-                                            *ngIf="product.productDiscount > 0">{{product.productDiscount}}%off</span>
+                                        <span class="p-1 product-price">₹{{product.productPriceAfterDiscount}}</span>
+                                        <small class="text-muted">({{product.productWeight}})</small>
+                                        <small class="text-muted"> M.R.P : <del>₹{{product.productPrice}} </del></small>
+                                        <span class="text-success p-1">{{product.productDiscount}}%off</span>
                                     </h6>
 
                                 </div>
@@ -77,32 +61,11 @@
                     <input type="hidden" class="form-control" formControlName="id">
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="">SKU</label>
-                            <input type="text" class="form-control" formControlName="productSku">
-                            <div *ngIf="isFormValid && controls['productSku'].errors">
-                                <div *ngIf="controls['productSku'].errors['required']" class="text-danger">
-                                    SKU is required.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
                             <label for="">Product Name</label>
                             <input type="text" formControlName="productName" class="form-control">
                             <div *ngIf="isFormValid && controls['productName'].errors">
                                 <div *ngIf="controls['productName'].errors['required']" class="text-danger">
                                     Product name is required.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="">Short Name</label>
-                            <input type="text" formControlName="productShortName" class="form-control">
-                            <div *ngIf="isFormValid && controls['productShortName'].errors">
-                                <div *ngIf="controls['productShortName'].errors['required']" class="text-danger">
-                                    Short name is required.
                                 </div>
                             </div>
                         </div>
@@ -137,15 +100,6 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="">Delivery Time Span (Days)</label>
-                            <input type="text" formControlName="productTimeSpan" class="form-control">
-                            <div *ngIf="isFormValid && controls['productTimeSpan'].errors">
-                                <div *ngIf="controls['productTimeSpan'].errors['required']" class="text-danger">
-                                    Delivery time is required.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
                             <label for="">Category</label>
                             <select class="form-select" formControlName="categoryId">
                                 <option *ngFor="let category of categoryList" [value]="category.id">
@@ -158,9 +112,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-md-6">
                             <label for="">Product Weight</label>
                             <select class="form-select" formControlName="productWeightId">
@@ -174,23 +125,20 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <label for="">Show Product Weight</label><br>
-                            <input type="checkbox" formControlName="showProductWeight" class="form-check-input">
-                        </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="">Image URL</label>
-                            <input type="text" formControlName="productImageUrl" class="form-control">
-                            <div *ngIf="isFormValid && controls['productImageUrl'].errors">
-                                <div *ngIf="controls['productImageUrl'].errors['required']" class="text-danger">
-                                    Image URL is required.
+                            <label for="">Product Image</label>
+                            <input type="text" formControlName="productImage" class="form-control">
+                            <div *ngIf="isFormValid && controls['productImage'].errors">
+                                <div *ngIf="controls['productImage'].errors['required']" class="text-danger">
+                                    Product image is required.
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-12">
                             <label for="">Description</label>
@@ -203,9 +151,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <input type="checkbox" formControlName="isActive" class="form-check-input">
                             <label for="">IsActive</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" formControlName="showProductWeight" class="form-check-input">
+                            <label for="">Show Product Weight</label><br>
                         </div>
                     </div>
                     <div class="row text-end">

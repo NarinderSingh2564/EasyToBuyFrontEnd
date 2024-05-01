@@ -1,12 +1,11 @@
-<div class="parent">
+<div id="parent">
     <div class="container">
-        <div class="left-section"></div>
         <div class="right-section">
             <div class="login-container">
                 <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
-                    <h2 class="login-title"><i class="fas fa-user-circle"></i> Login</h2>
+                    <h2 class="login-title"><i class="bi bi-person-circle"></i> Login</h2>
                     <div class="form-control1">
-                        <i class="fas fa-user icon"></i>
+                        <i class="bi bi-person-fill"></i>
                         <input type="text" formControlName="mobile" placeholder="Enter your mobile" maxlength="10">
                         <div *ngIf="isFormValid && controls['mobile'].errors">
                             <div *ngIf="controls['mobile'].errors['required']" class="text-danger">
@@ -15,7 +14,7 @@
                         </div>
                     </div>
                     <div class="form-control1">
-                        <i class="fas fa-lock icon"></i>
+                        <i class="bi bi-lock-fill"></i>
                         <input type="password" formControlName="password" placeholder="Enter your password" maxlength="10">
                         <div *ngIf="isFormValid && controls['password'].errors">
                             <div *ngIf="controls['password'].errors['required']" class="text-danger">
@@ -23,16 +22,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="remember-me">
-                        <input type="checkbox" id="rememberMe" class="checkbox-input">
-                        <span class="checkbox-custom"></span>
-                        <label for="rememberMe">Remember me</label>
-                    </div>
+                    
+                    <div class="remember-mes">
+                        <div class="row">
+                         <div class="col-md-6">
+                          <input type="checkbox" id="rememberMes" class="checkbox-input"><label class="remset">Remember me</label>
+                         </div>
+                         </div>
+                      </div>
                     
                     <div class="social-login">
-                        <i class="fab fa-google social-icon"></i>
-                        <i class="fab fa-facebook-f social-icon"></i>
-                        <i class="fab fa-twitter social-icon"></i>
+                        <i class="fa fa-google social-icon"></i>
+                        <i class="fa fa-facebook-f social-icon"></i>
+                        <i class="fa fa-twitter social-icon"></i>
                     </div>
                     <button type="submit">Login</button>
                     <div class="register-link">

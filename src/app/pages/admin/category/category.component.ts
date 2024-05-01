@@ -75,9 +75,9 @@ export class CategoryComponent implements OnInit  {
         id: this.categoryForm.value.id != null && this.categoryForm.value.id > 0 ? this.categoryForm.value.id : 0,
         categoryName: this.categoryForm.value.categoryName,
         packingMode:this.categoryForm.value.packingMode,
-        createdBy:this.accountService.getCustomerId() ,
-        updatedBy: this.accountService.getCustomerId() ,
-        isActive: this.categoryForm.value.isActive == null ? false : true,
+        createdBy:this.accountService.getUserId() ,
+        updatedBy: this.accountService.getUserId() ,
+        isActive: this.categoryForm.value.isActive,
       }
       this.categoryService.categoryAddEdit(category).subscribe(result => {
         this.response = result;

@@ -9,30 +9,20 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
+  getProductList(categoryId:number , searchText:string , vendorId:number) {
+    return this.http.get("https://localhost:7239/api/Product/GetProductList?categoryId=" + categoryId + "&searchText=" + searchText + "&vendorId=" + vendorId)
+  }
 
-  
+  productAddEdit(objProduct: any) {
+    return this.http.post("https://localhost:7239/api/Product/ProductAddEdit", objProduct)
+  }
 
-  getProductsList() {
-    return this.http.get("https://localhost:7239/api/Product/GetProductList")
+  getProductDetailsById(id: number) {
+    return this.http.get("https://localhost:7239/api/Product/GetProductDetailsById?productId=" + id)
   }
 
   getProductWeightList() {
     return this.http.get("https://localhost:7239/api/Product/GetProductWeightList")
   }
 
-  getProductDetails(id: number,searchText:string) {
-    return this.http.get("https://localhost:7239/api/Product/GetProductDetails?categoryId=" + id + "&searchText=" + searchText)
-  }
-
-  getProductDescriptionByProductId(id: number) {
-    return this.http.get("https://localhost:7239/api/Product/GetProductDescriptionByProductId?productId=" + id)
-  }
-
-  getProductById(id: number) {
-    return this.http.get("https://localhost:7239/api/Product/GetProductById?Id=" + id)
-  }
-
-  productAddEdit(objProduct: any) {
-    return this.http.post("https://localhost:7239/api/Product/ProductAddEdit", objProduct)
-  }
 }

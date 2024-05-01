@@ -35,7 +35,7 @@ export class ProductDescriptionComponent {
        this.ActiveProductId= result.id
     })
     this.getProductDescription()
-    this.cartService.CheckProductInCart(this.ActiveProductId,this.accountService.getCustomerId()).subscribe((result:any)=>{
+    this.cartService.CheckProductInCart(this.ActiveProductId,this.accountService.getUserId()).subscribe((result:any)=>{
       if(result.status){
         this.buttonText = "Go To Cart"
       }
@@ -46,16 +46,16 @@ export class ProductDescriptionComponent {
   }
 
   getProductDescription(){
-    this.productService.getProductDescriptionByProductId(this.ActiveProductId).subscribe(result=>{
+    this.productService.getProductDetailsById(this.ActiveProductId).subscribe(result=>{
       this.ProductDescription = result
     })
     
   }
 
   AddToCart(productId: number){
-    if(this.accountService.getCustomerId() > 0) {
+    if(this.accountService.getUserId() > 0) {
         const cart = {
-        customerId: this.accountService.getCustomerId(),
+        customerId: this.accountService.getUserId(),
         productId: productId,
         quantity: 1,
         requestFrom:""

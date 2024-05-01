@@ -44,7 +44,7 @@
           <div class="row">
             <div class="col-md-6">
               <label for="">Pin Code</label>
-              <input type="text" formControlName="pincode" class="form-control" #box onKeyPress="if(this.value.length==6) return false;" (change)="getAddressByPincode(box.value)">
+              <input type="text" formControlName="pincode" class="form-control" #box onKeyPress="if(this.value.length==6) return false;" (change)="getAddressByPincode(box.value)" >
               <div *ngIf="isFormValid && controls['pincode'].errors">
                 <div *ngIf="controls['pincode'].errors['required']" class="text-danger">
                   Pincode is required.
@@ -84,7 +84,6 @@
             <div class="col-md-12">
               <label for="">Type of Address</label><br>
               <select class="form-select" formControlName="addressTypeId">
-                <option value="" selected>Select type of address</option>
                 <option *ngFor="let type of addressTypeList" [value]="type.id">
                   {{type.typeOfAddress}}
                 </option>

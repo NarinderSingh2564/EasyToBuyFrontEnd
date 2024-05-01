@@ -34,10 +34,10 @@ export class CustomerAddressComponent {
 
     this.addressForm = this.formBuilder.group({
       id: new FormControl(0),
-      pincode: new FormControl(""),
+      pincode: new FormControl("", [Validators.required]),
       state: new FormControl(""),
       city: new FormControl(""),
-      country: new FormControl("", [Validators.required]),
+      country: new FormControl("",),
       fullAddress: new FormControl("", [Validators.required]),
       addressTypeId: new FormControl("", [Validators.required]),
     })
@@ -88,15 +88,15 @@ export class CustomerAddressComponent {
     else {
       const addressData: any = {
         id: this.addressForm.value.id != null && this.addressForm.value.id > 0 ? this.addressForm.value.id : 0,
-        userId: this.accountService.getCustomerId(),
+        userId: this.accountService.getUserId(),
         pincode: this.addressForm.value.pincode,
         state: this.address.State,
         city: this.address.Division,
         country: this.address.Country,
         fullAddress: this.addressForm.value.fullAddress,
         addressTypeId: this.addressForm.value.addressTypeId,
-        createdBy: this.accountService.getCustomerId(),
-        updatedBy: this.accountService.getCustomerId(),
+        createdBy: this.accountService.getUserId(),
+        updatedBy: this.accountService.getUserId(),
       }
       console.log(addressData)
       this.accountService.addressAddEdit(addressData).subscribe((result: any) => {
@@ -123,15 +123,13 @@ export class CustomerAddressComponent {
     if (checked) {
       var a = confirm("Are you sure to set this address as delivery address?");
       if (a) {
-        this.accountService.setDeliveryAddress(id, this.accountService.getCustomerId()).subscribe((result: any) => {
+        this.accountService.setDeliveryAddress(id, this.accountService.getUserId()).subscribe((result: any) => {
           this.getAddressList();
           this.accountService.updateDeliveryAddress$.next(true);
         })
       }
     }
   }
-
-
 
   customOptions: OwlOptions = {
     loop: true,

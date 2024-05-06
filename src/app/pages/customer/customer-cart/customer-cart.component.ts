@@ -3,7 +3,7 @@ import { AccountService } from '../../../services/account.service';
 import { CartService } from '../../../services/cart.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { CustomerAddressComponent } from '../../customer/customer-address/customer-address/customer-address.component';
+import { CustomerAddressComponent } from '../customer-address/customer-address/customer-address.component';
 
 
 

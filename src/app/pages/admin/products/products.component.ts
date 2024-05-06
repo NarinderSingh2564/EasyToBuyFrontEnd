@@ -79,7 +79,7 @@ export class ProductsComponent implements OnInit {
   }
 
   getProductList() {
-    this.productService.getProductList(0,"",0).subscribe(result => {
+    this.productService.getProductList(0,"",9,"vendor").subscribe(result => {
       this.productList = result
     })
   }
@@ -103,7 +103,7 @@ export class ProductsComponent implements OnInit {
     else {
       const product: any = {
         id: this.productForm.value.id != null && this.productForm.value.id > 0 ? this.productForm.value.id : 0,
-        vendorId:this.accountService.getUserId(),
+        vendorId:9,
         productName: this.productForm.value.productName,
         productPrice: this.productForm.value.productPrice,
         productDiscount: this.productForm.value.productDiscount,
@@ -127,7 +127,6 @@ export class ProductsComponent implements OnInit {
       });
     }
   }
-
 }
 
 

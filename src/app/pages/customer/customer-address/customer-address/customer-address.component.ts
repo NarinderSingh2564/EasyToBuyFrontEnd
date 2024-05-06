@@ -41,11 +41,6 @@ export class CustomerAddressComponent {
       fullAddress: new FormControl("", [Validators.required]),
       addressTypeId: new FormControl("", [Validators.required]),
     })
-
-    this.addressForm.controls['city'].disable();
-    this.addressForm.controls['state'].disable();
-    this.addressForm.controls['country'].disable();
-
   }
 
   get controls() {

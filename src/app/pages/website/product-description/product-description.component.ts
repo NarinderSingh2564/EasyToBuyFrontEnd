@@ -18,7 +18,7 @@ export class ProductDescriptionComponent {
   router = inject(Router);
   ActiveProductId:number = 0; 
   ProductDescription: any = [];
-  buttonText:string = ""
+  buttonText:string = "Add To Cart"
 
   accountService = inject(AccountService)
   cartService = inject(CartService)
@@ -34,15 +34,17 @@ export class ProductDescriptionComponent {
     this.activatedRoute.params.subscribe((result: any) => {
        this.ActiveProductId= result.id
     })
-    this.getProductDescription()
-    this.cartService.CheckProductInCart(this.ActiveProductId,this.accountService.getUserId()).subscribe((result:any)=>{
-      if(result.status){
-        this.buttonText = "Go To Cart"
-      }
-      else{
-        this.buttonText = "Add To Cart"
-      }
-    })
+    if(this.accountService.getUserId()>0){
+      this.getProductDescription()
+      this.cartService.CheckProductInCart(this.ActiveProductId,this.accountService.getUserId()).subscribe((result:any)=>{
+        if(result.status){
+          this.buttonText = "Go To Cart"
+        }
+        else{
+          this.buttonText = "Add To Cart"
+        }
+      })
+    }
   }
 
   getProductDescription(){
@@ -79,8 +81,3 @@ export class ProductDescriptionComponent {
   
 
 }
-
-
-
-
-

@@ -2,14 +2,17 @@ import { Routes } from '@angular/router';
 import { LayoutComponent } from './pages/admin/layout/layout.component';
 import { ProductsComponent } from './pages/admin/products/products.component';
 import { LoginComponent } from './pages/account/login/login.component';
-import { RegisterComponent } from './pages/account/register/register.component';
+import { RegisterComponent } from './pages/customer/register/register.component';
 import { CategoryComponent } from './pages/admin/category/category.component';
 import { authGuard } from './guards/auth.guard';
 import { LandingComponent } from './pages/website/landing/landing.component';
 import { WebProductsComponent } from './pages/website/web-products/web-products.component';
 import { CustomerCartComponent } from './pages/customer/customer-cart/customer-cart.component';
 import { ProductDescriptionComponent } from './pages/website/product-description/product-description.component';
-import { VenderRegisterComponent } from './pages/vender/Register/vender-register/vender-register.component';
+import { VendorRegisterComponent } from './pages/vendor/vendor-register/vendor-register.component';
+import { AdminLoginComponent } from './pages/admin/admin-login/admin-login.component';
+import { CustomerLoginComponent } from './pages/customer/customer-login/customer-login.component';
+import { VendorLoginComponent } from './pages/vendor/vendor-login/vendor-login.component';
 
 
 export const routes: Routes = [
@@ -27,8 +30,20 @@ export const routes: Routes = [
         component: RegisterComponent
     },
     {
-        path: 'vender-register',
-        component:VenderRegisterComponent
+        path: 'vendor-register',
+        component:VendorRegisterComponent
+    },
+    {
+        path:'admin-login',
+        component:AdminLoginComponent
+    },
+    {
+        path: 'customer-login',
+        component:CustomerLoginComponent
+    },
+    {
+        path: 'vendor-login',
+        component: VendorLoginComponent
     },
   
     {

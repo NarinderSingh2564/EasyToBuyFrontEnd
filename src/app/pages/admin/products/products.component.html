@@ -101,7 +101,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="">Category</label>
-                            <select class="form-select" formControlName="categoryId">
+                            <select class="form-select" formControlName="categoryId" >
                                 <option *ngFor="let category of categoryList" [value]="category.id">
                                     {{category.categoryName}}
                                 </option>

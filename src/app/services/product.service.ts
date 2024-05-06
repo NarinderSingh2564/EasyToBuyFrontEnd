@@ -9,8 +9,8 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  getProductList(categoryId:number , searchText:string , vendorId:number) {
-    return this.http.get("https://localhost:7239/api/Product/GetProductList?categoryId=" + categoryId + "&searchText=" + searchText + "&vendorId=" + vendorId)
+  getProductList(categoryId:number , searchText:string , vendorId:number,role:string) {
+    return this.http.get("https://localhost:7239/api/Product/GetProductList?categoryId=" + categoryId + "&searchText=" + searchText + "&vendorId=" + vendorId+"&role="+role)
   }
 
   productAddEdit(objProduct: any) {

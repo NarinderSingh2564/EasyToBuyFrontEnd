@@ -9,7 +9,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: url(../image/cartbg.jpg);
+    background: url(../images/cartbg.jpg);
     background-size:cover; 
     overflow: hidden;
     background-repeat: no-repeat;
@@ -35,6 +35,8 @@
     text-align: center;
     position: relative;
     color: black;
+  
+
 }
 .container .title::before{
     content: '';
@@ -122,19 +124,19 @@ form .button .btnRegister{
     height: 100%;
     width: 60%;
     outline: none;
-    color: #fff;
+    color: #ffffff;
     border: none;
     margin-left: 120px;
     position: relative;
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 700;
     border-radius: 5px;
     letter-spacing: 1px;
-    background: linear-gradient(123deg, #71b8e7,#51a968);
+    background: linear-gradient(112deg, #459bd5,#e7b53f);
 
 }
-form .button .btnRegister :hover{
-    background: linear-gradient(-123deg, #71b8e7,#51a968);
+form .button .btnRegister:hover{
+    background: linear-gradient(-123deg, #43a0de,#41c364);
 }
 @media (max-width: 584px){
     .container{

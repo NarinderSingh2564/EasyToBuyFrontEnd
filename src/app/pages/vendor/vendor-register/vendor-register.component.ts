@@ -2,18 +2,18 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { VendorService } from '../../../../services/vendor.service';
+import { VendorService } from '../../../services/vendor.service';
 
 
 @Component({
-  selector: 'app-vender-register',
+  selector: 'app-vendor-register',
   standalone: true,
   imports: [FormsModule, RouterLink, CommonModule, ReactiveFormsModule],
-  templateUrl: './vender-register.component.html',
-  styleUrl: './vender-register.component.css'
+  templateUrl: './vendor-register.component.html',
+  styleUrl: './vendor-register.component.css'
 })
-export class VenderRegisterComponent {
-
+export class VendorRegisterComponent {
+    
   vendorregisterForm: FormGroup;
   isFormValid: boolean = false;
   response: any = [];
@@ -74,20 +74,20 @@ export class VenderRegisterComponent {
       const vendorObj: any = {
         name: this.vendorregisterForm.value.name.trim(),
         email:this.vendorregisterForm.value.email.trim(),
-        mobile:this.vendorregisterForm.value.mobile.trim(),
+        mobile:this.vendorregisterForm.value.mobile,
         password:this.vendorregisterForm.value.password.trim(),
         dealingPerson: this.vendorregisterForm.value.dealingPerson.trim(),
         pincode: this.vendorregisterForm.value.pincode.trim(),
         city: this.vendorregisterForm.value.city.trim(),
         state: this.vendorregisterForm.value.state.trim(),
         country: this.vendorregisterForm.value.country.trim(),
-        fullAddress : this.vendorregisterForm.value.country.trim()
+        fullAddress : this.vendorregisterForm.value.fullAddress.trim()
       }
       this.vendorService.vendorRegistration(vendorObj).subscribe((result: any) => {
         alert(result.message)
         this.vendorregisterForm.reset()
         this.isFormValid=false
-      })
+      })  
     }
   }
 }

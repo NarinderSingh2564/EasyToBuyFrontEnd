@@ -20,7 +20,7 @@ export class LoginComponent{
   constructor(private formBuilder:FormBuilder,private accountService:AccountService,private router:Router){
     this.loginForm = this.formBuilder.group({
       mobile:new FormControl(null,[Validators.required,Validators.maxLength(10)]),
-      password:new FormControl(null,[Validators.required])
+      password:new FormControl(null,[Validators.required]),
     })
   }
   
@@ -43,7 +43,7 @@ export class LoginComponent{
               else{
                 this.router.navigate(['/AllProducts']);
               }
-              this.accountService.userLoginDetails(this.response.response);
+              this.accountService.setUserSession(this.response.response);
             }
             else{
               alert(this.response.message)

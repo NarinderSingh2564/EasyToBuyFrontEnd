@@ -7,6 +7,8 @@ import { Subject } from 'rxjs';
 })
 export class AccountService {
 
+  userRole:string=""
+
   constructor(private http: HttpClient) { }
 
   public updateDeliveryAddress$: Subject<boolean> = new Subject();
@@ -19,18 +21,24 @@ export class AccountService {
     return this.http.post("https://localhost:7239/api/Account/CheckUser", loginObj)
   }
   
-  userLoginDetails(userObj: any) {
-    sessionStorage.setItem("session", JSON.stringify(userObj));
+  setUserSession(userObj: any) {
+    this.userRole=userObj.role
+    sessionStorage.setItem(userObj.role + "SessionDetails", JSON.stringify(userObj));
   }
 
   getUserId() {
-    const activeUser = JSON.parse(sessionStorage.getItem("session") || '""')
+    const activeUser = JSON.parse(sessionStorage.getItem(this.userRole + "SessionDetails") || '""')
     return Object(activeUser)["id"]
   }
 
   getUserName() {
-    const activeUser = JSON.parse(sessionStorage.getItem("session") || '""')
+    const activeUser = JSON.parse(sessionStorage.getItem(this.userRole + "SessionDetails") || '""')
     return Object(activeUser)["fullName"]
+  }
+
+  getUserRole() {
+    const activeUser = JSON.parse(sessionStorage.getItem(this.userRole + "SessionDetails") || '""')
+    return Object(activeUser)["role"]
   }
 
   getAddressListByUserId() {

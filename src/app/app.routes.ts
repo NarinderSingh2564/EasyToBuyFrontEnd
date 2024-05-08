@@ -4,7 +4,6 @@ import { ProductsComponent } from './pages/admin/products/products.component';
 import { LoginComponent } from './pages/account/login/login.component';
 import { RegisterComponent } from './pages/customer/register/register.component';
 import { CategoryComponent } from './pages/admin/category/category.component';
-import { authGuard } from './guards/auth.guard';
 import { LandingComponent } from './pages/website/landing/landing.component';
 import { WebProductsComponent } from './pages/website/web-products/web-products.component';
 import { CustomerCartComponent } from './pages/customer/customer-cart/customer-cart.component';
@@ -13,6 +12,7 @@ import { VendorRegisterComponent } from './pages/vendor/vendor-register/vendor-r
 import { AdminLoginComponent } from './pages/admin/admin-login/admin-login.component';
 import { CustomerLoginComponent } from './pages/customer/customer-login/customer-login.component';
 import { VendorLoginComponent } from './pages/vendor/vendor-login/vendor-login.component';
+import { vendorAuthGuard } from './guards/vendorAuth.guard';
 
 
 export const routes: Routes = [
@@ -49,7 +49,7 @@ export const routes: Routes = [
     {
         path: '',
         component: LayoutComponent,
-        canActivate: [authGuard],
+        canActivate: [vendorAuthGuard],
         children: [
             {
                 path: 'products',
@@ -75,10 +75,9 @@ export const routes: Routes = [
             },
             {
                 path: 'customer-cart',
-                component: CustomerCartComponent
+                component: CustomerCartComponent,
             },
             {
-
                 path: 'product-description/:id',
                 component: ProductDescriptionComponent
             },

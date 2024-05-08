@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, Validators , FormGroup,FormControl,FormBuilder, AbstractControl} from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AccountService } from '../../../services/account.service';
 import { CommonModule } from '@angular/common';
+import { PassThrough } from 'stream';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -16,28 +17,35 @@ export class LoginComponent{
   loginForm:FormGroup;
   isFormValid:boolean=false;
   response:any=[];
+  @Input() userRole:any;
 
   constructor(private formBuilder:FormBuilder,private accountService:AccountService,private router:Router){
     this.loginForm = this.formBuilder.group({
       mobile:new FormControl(null,[Validators.required,Validators.maxLength(10)]),
-      password:new FormControl(null,[Validators.required])
+      password:new FormControl(null,[Validators.required]),
     })
+   
   }
   
   get controls(){
     return this.loginForm.controls;
   }
 
-  onLogin(){
+  onLogin(role:string){
     this.isFormValid = true
     if(this.loginForm.invalid){
       return;
     }
     else{
-      this.accountService.checkUser(this.loginForm.value).subscribe(result => {
+      const loginObj = {
+        mobile:this.loginForm.value.mobile,
+        password:this.loginForm.value.password,
+        role:role
+      }
+      this.accountService.checkUser(loginObj).subscribe(result => {
             this.response = result;
             if(this.response.status){
-              if(this.response.response.id ==1){
+              if(role=="Vendor"){
                 this.router.navigate(['/products']);
               }
               else{
@@ -49,6 +57,15 @@ export class LoginComponent{
               alert(this.response.message)
             }
       });
+    }
+  }
+
+  register(role:string){
+    if(role=="Vendor"){
+      this.router.navigate(['/vendor-register']);
+    }
+    if(role=="Customer"){
+      this.router.navigate(['/register']);
     }
   }
 }

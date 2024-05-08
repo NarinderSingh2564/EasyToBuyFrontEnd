@@ -31,7 +31,7 @@ export class CustomerAddressComponent {
   constructor() {
     this.getAddressList();
     this.getAddressTypeList();
-
+  
     this.addressForm = this.formBuilder.group({
       id: new FormControl(0),
       pincode: new FormControl("", [Validators.required]),

@@ -35,7 +35,7 @@ export class WebProductsComponent {
   }
 
   getProductList() {
-    this.productService.getProductList(this.activeCategoryId,this.searchText,0,"customer").subscribe(result => {
+    this.productService.getProductList(this.activeCategoryId,this.searchText,0,"Customer").subscribe(result => {
       this.productList = result
     })
   }

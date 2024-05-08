@@ -2,7 +2,7 @@
     <div class="container">
         <div class="right-section">
             <div class="login-container">
-                <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+                <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onLogin(userRole)">
                     <h2 class="login-title"><i class="bi bi-person-circle"></i> Login</h2>
                     <div class="form-control1">
                         <i class="bi bi-person-fill"></i>
@@ -38,8 +38,8 @@
                     </div>
                     <button type="submit">Login</button>
                     <div class="register-link">
-                       <p>Don't have an account? <a routerLink="/register">Register</a></p>
-                      </div>
+                       <p>Don't have an account? <a (click)="register(userRole)">Register</a></p>
+                      </div>    
                 </form>
             </div>
         </div>

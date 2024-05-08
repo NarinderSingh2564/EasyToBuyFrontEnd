@@ -74,7 +74,7 @@ export class VendorRegisterComponent {
       const vendorObj: any = {
         name: this.vendorregisterForm.value.name.trim(),
         email:this.vendorregisterForm.value.email.trim(),
-        mobile:this.vendorregisterForm.value.mobile,
+        mobile:this.vendorregisterForm.value.mobile.toString().trim(),
         password:this.vendorregisterForm.value.password.trim(),
         dealingPerson: this.vendorregisterForm.value.dealingPerson.trim(),
         pincode: this.vendorregisterForm.value.pincode.trim(),

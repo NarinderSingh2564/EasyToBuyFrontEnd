@@ -22,10 +22,6 @@ export const routes: Routes = [
         pathMatch: 'full'
     },
     {
-        path: 'login',
-        component: LoginComponent
-    },
-    {
         path: 'register',
         component: RegisterComponent
     },

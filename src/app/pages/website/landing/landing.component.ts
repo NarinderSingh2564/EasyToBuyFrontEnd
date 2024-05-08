@@ -61,16 +61,22 @@ export class LandingComponent {
     })
   }
   Login() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/customer-login']);
   }
 
-  Register() {
-    this.router.navigate(['/register']);
+  VendorLogin() {
+    this.router.navigate(['/vendor-login']);
   }
 
   Logout() {
     sessionStorage.clear()
-    this.router.navigate(['/login']);
+    this.router.navigate(['/AllProducts'])
+  .then(() => {
+    window.location.reload();
+  });
+    // window.location.reload();
+    // this.router.navigate(['/AllProducts']);
+
   }
 
 }

@@ -32,10 +32,10 @@ export class ProductDescriptionComponent {
 
   constructor(private activatedRoute: ActivatedRoute,private productService:ProductService) {
     this.activatedRoute.params.subscribe((result: any) => {
-       this.ActiveProductId= result.id
+      this.ActiveProductId= result.id
     })
+    this.getProductDescription()
     if(this.accountService.getUserId()>0){
-      this.getProductDescription()
       this.cartService.CheckProductInCart(this.ActiveProductId,this.accountService.getUserId()).subscribe((result:any)=>{
         if(result.status){
           this.buttonText = "Go To Cart"

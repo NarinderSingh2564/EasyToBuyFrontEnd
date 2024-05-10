@@ -51,7 +51,7 @@ export class LoginComponent{
               else{
                 this.router.navigate(['/AllProducts']);
               }
-              this.accountService.userLoginDetails(this.response.response);
+              this.accountService.setUserSession(this.response.response);
             }
             else{
               alert(this.response.message)

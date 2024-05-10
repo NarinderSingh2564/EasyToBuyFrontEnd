@@ -11,9 +11,6 @@
                         <div *ngIf="controls['fullName'].errors['required']" class="text-danger">
                             Enter your full name.
                         </div>
-                        <div *ngIf="controls['fullName'].touched && controls['fullName'].errors['whitespace']" class="text-danger">
-                            Full name cannot contain only white spaces.
-                        </div>
                     </div>
                 </div>
                 <div class="input_pox">
@@ -60,7 +57,7 @@
                 <button type="submit" class="btnRegister">Register</button>
             </div>
             <div class="bar-link">
-                <p> Already have an account? <a routerLink="/login">Login</a></p>
+                <p> Already have an account? <a routerLink="/customer-login">Login</a></p>
             </div>
         </form>
         </div>

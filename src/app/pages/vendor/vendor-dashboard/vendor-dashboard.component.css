@@ -1,0 +1,48 @@
+.main{
+  background: rgb(229, 228, 228);
+  min-height: 100vh;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+.mycont{
+    justify-content: center;
+    align-items: center;
+}
+  
+#menu-toggle{
+  color: green;
+}
+.mydas{
+  background: -webkit-linear-gradient(#867f02, #2b7a07);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+  .rounded-full {
+    border-radius: 100%;
+  }
+  .myCard{
+    color: white;
+    background: linear-gradient(120deg, #2b7a07, #967e05);
+  }
+  .myCard:hover{
+    background: white;
+    color:green ;
+}
+
+  .mytables{
+    border: 2px solid gray;
+    padding-left: 5px;
+    color: green;
+  }
+
+  .myt{
+    color: white;
+  }
+
+  .tnv {
+ padding-top: 15px;
+}
+
+
+  

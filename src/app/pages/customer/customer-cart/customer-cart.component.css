@@ -1,8 +1,20 @@
 .card-header .btn {
   float: inline-end;
-  background: white;
+  background: green ;
   border: 1px solid rgb(153, 152, 152);
-  margin-top: -7px;
+  margin-top: -5px;
+}
+.topbar{
+  background: green;
+}
+.text-muted{
+  color: white !important;
+}
+.text-successf{
+  padding: 4px 4px 4px 4px;
+  color: white;
+  font-weight: 500;
+  font-size: 16px;
 }
 
 .card-footer .btn {
@@ -11,6 +23,13 @@
   font-size: 20px;
   border-radius: 2px;
   padding: 8px 20px 8px 20px;
+}
+
+.myadd{
+  border-radius: 0;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
 }
 
 img {

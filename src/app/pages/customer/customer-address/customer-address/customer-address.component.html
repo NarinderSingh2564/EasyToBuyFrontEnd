@@ -1,7 +1,7 @@
 <section class="user-address">
  
   <div class="text-end addBtn">
-    <button class="btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#addressModal" (click)="addAdressModal()"><i
+    <button class="btn btn-success text-white bgm" data-bs-toggle="modal" data-bs-target="#addressModal" (click)="addAdressModal()"><i
         class="bi bi-plus"></i> Add New Address</button>
   </div>
   <owl-carousel-o [options]="customOptions">
@@ -9,9 +9,9 @@
     <ng-template carouselSlide *ngFor="let address of userAddressList">
 
       <div class="card">
-        <h5 class="card-header">
+        <h5 class="card-header myheade white-color-text">
           {{address.city}} 
-          <span class="address-type text-muted">
+          <span class="address-type text-muted  white-color-text">
             ({{address.typeOfAddress}})
             <i class="bi bi-pencil-square" data-bs-toggle="modal" data-bs-target="#addressModal" (click)="editAdressModal(address)"></i>
           </span>
@@ -19,7 +19,7 @@
         <div class="card-body">
           <p class="card-text">{{address.fullAddress}}, {{address.pincode}}, {{address.state}}, {{address.country}}</p>
         </div>
-        <div class="card-footer text-dark">
+        <div class="card-footer text-dark white-color-text">
           <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" 
               [checked]="address.isDeliveryAddress ? true : false" #switch (change)="setDeliveryAddress(switch.checked,address.id)">
@@ -36,7 +36,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <form autocomplete="off" [formGroup]="addressForm" (ngSubmit)="addressAddEdit()">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header cardHeader" >
           <h4 class="modal-title">{{modalHeader}}</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>

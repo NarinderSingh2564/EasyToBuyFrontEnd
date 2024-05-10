@@ -13,6 +13,7 @@ import { VendorRegisterComponent } from './pages/vendor/vendor-register/vendor-r
 import { AdminLoginComponent } from './pages/admin/admin-login/admin-login.component';
 import { CustomerLoginComponent } from './pages/customer/customer-login/customer-login.component';
 import { VendorLoginComponent } from './pages/vendor/vendor-login/vendor-login.component';
+import { VendorDashboardComponent } from './pages/vendor/vendor-dashboard/vendor-dashboard.component';
 
 
 export const routes: Routes = [
@@ -78,6 +79,11 @@ export const routes: Routes = [
                 path: 'product-description/:id',
                 component: ProductDescriptionComponent
             },
+            {
+                
+                path: 'vendor-dashboard',
+                component: VendorDashboardComponent
+            }
         ]
     },
 

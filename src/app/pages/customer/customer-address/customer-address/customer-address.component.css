@@ -2,6 +2,26 @@
     width: 19rem;
     margin-left: 2%;
 }
+.bgm{
+    background: green;
+    font-weight: 500;
+}
+.myheade{
+    background: green;
+   
+}
+.text-dark{
+    background: green;
+}
+.white-color-text{
+    color: white !important;
+}
+.bi.bi-pencil-square{
+    color: white;
+}
+.address-type{
+    color: white;
+}
 .addBtn{
     padding: 0px 8px 10px 0px;
 }
@@ -40,3 +60,5 @@ input::-webkit-inner-spin-button {
 .form-check {
     padding-left: 50px;
 }
+
+

@@ -1,19 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
 
 .parents{
-    display: flex;
+    display:flex;
     min-height: 100vh;
     width: 100vw;
     height: 100vh;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(100deg, #5698c5,#cf720e);
+    background: green;
+    background-size:cover;
+    overflow: hidden;
+    background-repeat: no-repeat;
    
 }
 
 .container{
-    max-width: 600px;
-    
+    max-width:600px;
+   
 }
 
 .right-register{
@@ -21,7 +24,7 @@
     background: #ffffff;
     padding: 25px 30px;
     border-radius: 5px;
-    border: 2px solid rgb(3, 100, 115);
+    border: 2px solid white;
 }
 
 .right-register  .title{
@@ -29,7 +32,7 @@
     font-weight: 500; 
     text-align: center;
     position: relative;
-    color:  #045c6e;
+    color:  green;
 }
 .right-register .title::before{
     content: '';
@@ -68,9 +71,8 @@ form .user_details .input_pox{
     transition: all 0.3s ease;
 
 }
-.user_details .input_pox input:focus,
-.user_details .input_pox input:valid{
-border-color: #9e9e9e;
+.user_details .input_pox input:hover{
+border-color: green;
 }
 form .gender_details .gender_title{
     font-size: 20px;
@@ -117,11 +119,11 @@ form .button .btnRegister{
     font-weight: 700;
     border-radius: 5px;
     letter-spacing: 1px;
-    background: linear-gradient(116deg, #2b81bb,#f38e22);
+    background: green;
 
 }
 form .button .btnRegister:hover{
-    background: linear-gradient(-123deg, #71b8e7,#9b59b6);
+    background:green;
 }
 @media (max-width: 584px){
     .container{

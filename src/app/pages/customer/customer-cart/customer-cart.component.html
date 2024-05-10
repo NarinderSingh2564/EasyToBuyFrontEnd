@@ -5,7 +5,7 @@
         <div *ngIf="deliveryAddress.length>0">
           <div class="card-header" *ngFor="let address of deliveryAddress">
             Delivery To : <strong> {{address.city}}, {{address.pincode}}</strong>
-            <button class="btn text-success" type="button" (click)="showChild()">CHANGE</button>
+            <button class="btn text-successf" type="button" (click)="showChild()">CHANGE</button>
           </div>
         </div>
         <div *ngIf="deliveryAddress.length==0">
@@ -14,7 +14,7 @@
             <button class="btn text-success" type="button" (click)="showChild()">ADD</button>
           </div>
         </div>
-        <div class="card" *ngIf="!collapsed">
+        <div class="card myadd" *ngIf="!collapsed">
           <div class="card-body">
             <app-customer-address [UserID]="userId"></app-customer-address>
           </div>
@@ -57,7 +57,7 @@
     <div class="col-md-3 mt-3">
       <!-- <aside> -->
       <div class="card">
-        <div class="card-header"><strong class="text-muted">PRICE DETAILS</strong></div>
+        <div class="card-header topbar "><strong class="text-muted">PRICE DETAILS</strong></div>
         <div class="card-body">
           <div>
             <span *ngIf="totalCartItems==1">Price ({{totalCartItems}} Item)</span>

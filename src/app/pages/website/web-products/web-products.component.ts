@@ -57,7 +57,7 @@ export class WebProductsComponent {
   AddToCart(productId: number, productQuantity: number) {
     if (this.accountService.getUserId() > 0) {
         const cart = {
-        customerId: this.accountService.getUserId(),
+        userId: this.accountService.getUserId(),
         productId: productId,
         quantity: productQuantity,
         requestFrom:""

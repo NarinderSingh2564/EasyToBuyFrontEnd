@@ -5,7 +5,7 @@ export const vendorAuthGuard : CanActivateFn = (route, state) => {
 
  const router = inject(Router);
  
-    if(sessionStorage.getItem('VendorSessionDetails') != null){
+    if(sessionStorage.getItem('UserSessionDetails') != null){
       return true;
     } 
     else {

@@ -63,7 +63,7 @@ a:hover {
   color: green;
 }
 
-.col-md-8 .card-body {
+.col-md-9 .card-body {
   max-height: 430px !important;
   overflow-y: scroll;
   overflow-x: hidden;

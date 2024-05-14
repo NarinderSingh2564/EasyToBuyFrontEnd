@@ -2,7 +2,7 @@
   <h1 class="text-center" id="heading">Bestseller Products</h1>
   <div class="card-body">
     <div class="row">
-      <div class="col-md-3" *ngFor="let product of productList" style=" padding-bottom: calc(var(--bs-gutter-x)* .5);">
+      <div class="col-md-4" *ngFor="let product of productList" style=" padding-bottom: calc(var(--bs-gutter-x)* .5);">
         <div class="card" >
           <img class="card-img-top mx-auto d-block mt-2" routerLink="/product-description/{{product.id}}" [src]="product.productImage" alt="Card image">
           <div class="card-body">
@@ -11,10 +11,10 @@
             </div>
             <div class="row text-center">
               <div class="col-md-12">
-                <span class="spnProductPrice">₹{{product.productPriceAfterDiscount}}</span>
+                <span class="spnProductPrice">₹{{product.priceAfterDiscount}}</span>
                 <span class="spnMRP" *ngIf="product.showProductWeight==true"> ({{product.productWeight}}) </span>
-                <span class="spnMRP"> M.R.P :<span class="actualPrice" *ngIf="product.productDiscount > 0">₹{{product.productPrice}}</span></span>
-                <span class="discount" *ngIf="product.productDiscount > 0">({{product.productDiscount}}%off)</span>
+                <span class="spnMRP"> M.R.P :<span class="actualPrice" *ngIf="product.discount > 0">₹{{product.mrp}}</span></span>
+                <span class="discount" *ngIf="product.discount > 0">({{product.discount}}%off)</span>
               </div>
             </div>
             <div class="p-2 text-center">

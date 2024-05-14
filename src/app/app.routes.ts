@@ -14,6 +14,7 @@ import { CustomerLoginComponent } from './pages/customer/customer-login/customer
 import { VendorLoginComponent } from './pages/vendor/vendor-login/vendor-login.component';
 import { VendorDashboardComponent } from './pages/vendor/vendor-dashboard/vendor-dashboard.component';
 import { vendorAuthGuard } from './guards/vendorAuth.guard';
+import { PlaceOrderComponent } from './pages/website/place-order/place-order.component';
 
 
 export const routes: Routes = [
@@ -79,7 +80,9 @@ export const routes: Routes = [
                 component: ProductDescriptionComponent
             },
             {
-                
+                path: 'place-order',
+                component:PlaceOrderComponent
+            },
                 path: 'vendor-dashboard',
                 component: VendorDashboardComponent
             }

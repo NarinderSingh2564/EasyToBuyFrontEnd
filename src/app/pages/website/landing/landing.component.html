@@ -14,11 +14,6 @@
             <a routerLink="AllProducts"><i class="bi bi-arrow-right-short icon"></i>All Products</a>
             <a *ngFor="let category of categoryList" (click)="getProductByCategory(category.id)">
               <i class="bi bi-arrow-right-short icon"></i>{{category.categoryName}}</a>
-
-              <!-- <a *ngFor="let category of categoryList" [routerLink]="['/{{productsByCategoryId}}?id={{category.id}}']"
-              (click)="getProductByCategory(category.id)"><i
-                class="bi bi-arrow-right-short icon"></i>{{category.categoryName}}</a> -->
-
           </div>
         </div>
       </ul>

@@ -30,7 +30,6 @@ export class LandingComponent {
 
   constructor() {
     this.getCategoryList()
-    
     if (this.accountService.getUserId() > 0) {
       this.loggedIn = true
       this.getCartDetailsByCustomerId()

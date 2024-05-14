@@ -57,7 +57,7 @@ export class ProductDescriptionComponent {
   AddToCart(productId: number){
     if(this.accountService.getUserId() > 0) {
         const cart = {
-        customerId: this.accountService.getUserId(),
+        userId: this.accountService.getUserId(),
         productId: productId,
         quantity: 1,
         requestFrom:""

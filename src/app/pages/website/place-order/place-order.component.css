@@ -1,0 +1,47 @@
+.bi-chevron-down {
+    float: inline-end;
+}
+
+.bi-emoji-smile {
+    font-size: larger;
+    padding: 5px 15px 0px 5px;
+}
+
+.payment-mode {
+    font-weight: 600;
+}
+
+.collapse-text {
+    padding: 0px 22px 0px 30px
+}
+
+.col-md-8 .card {
+    height: 100% !important;
+}
+
+hr.hr {
+    border-top: 3px dotted black;
+}
+
+.price {
+    float: inline-end;
+}
+
+.btn-pay{
+    background-color: #ff7100
+}
+a{
+    text-decoration: none;
+}
+.form-check{
+    padding-bottom: 6px;
+}
+.form-check img{
+    width: 3%;
+    height: 3%;
+    float: inline-end;
+}
+ img{
+    width: 30%;
+    height: 20%;
+ }

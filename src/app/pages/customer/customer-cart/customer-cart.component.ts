@@ -33,14 +33,14 @@ export class CustomerCartComponent {
   constructor() {
     this.getCartDetailsByCustomerId();
     this.getDeliveryAddress();
-
+    console.log(this.deliveryAddress)
     this.cartService.updateCart$.subscribe(() => {
       this.getCartDetailsByCustomerId();
     })
     this.cartService.updateCartCount$.subscribe(() => {
       this.getCartDetailsByCustomerId();
     })
-    this.accountService.updateDeliveryAddress$.subscribe(() =>{
+    this.accountService.updateDeliveryAddress$.subscribe(() => {
       this.getDeliveryAddress();
     })
     this.userId = this.accountService.getUserId();
@@ -60,8 +60,7 @@ export class CustomerCartComponent {
 
   getDeliveryAddress() {
     this.accountService.getAddressListByUserId().subscribe((result: any) => {
-      this.deliveryAddress = result.filter(
-        (a:any) => a.isDeliveryAddress == true);
+      this.deliveryAddress = result.filter((a: any) => a.isDeliveryAddress == true);
     })
   }
 
@@ -69,7 +68,7 @@ export class CustomerCartComponent {
     if (item.quantity > 1) {
       item.quantity--
       const cart = {
-        customerId: this.accountService.getUserId(),
+        userId: this.accountService.getUserId(),
         productId: item.productId,
         quantity: item.quantity,
         requestFrom: "Cart"
@@ -77,7 +76,6 @@ export class CustomerCartComponent {
       this.cartService.addToCart(cart).subscribe((result: any) => {
         this.getCartDetailsByCustomerId()
       })
-
     }
     else {
       alert("You must order atleast one quantity.")
@@ -88,7 +86,7 @@ export class CustomerCartComponent {
     if (item.quantity < 5) {
       item.quantity++;
       const cart = {
-        customerId: this.accountService.getUserId(),
+        userId: this.accountService.getUserId(),
         productId: item.productId,
         quantity: item.quantity,
         requestFrom: "Cart"
@@ -113,5 +111,14 @@ export class CustomerCartComponent {
 
   goToShop() {
     this.router.navigate(['/AllProducts'])
+  }
+
+  placeOrder() {
+    if (this.deliveryAddress.length == 0) {
+      alert("Set your delivery address to place order.")
+    }
+    else{
+      this.router.navigate(['/place-order'])
+    }
   }
 }

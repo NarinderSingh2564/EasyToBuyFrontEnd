@@ -7,8 +7,6 @@ import { Subject } from 'rxjs';
 })
 export class AccountService {
 
-  userRole:string=""
-
   constructor(private http: HttpClient) { }
 
   public updateDeliveryAddress$: Subject<boolean> = new Subject();
@@ -22,22 +20,21 @@ export class AccountService {
   }
   
   setUserSession(userObj: any) {
-    this.userRole=userObj.role
-    sessionStorage.setItem(userObj.role + "SessionDetails", JSON.stringify(userObj));
+    sessionStorage.setItem("UserSessionDetails", JSON.stringify(userObj));
   }
 
   getUserId() {
-    const activeUser = JSON.parse(sessionStorage.getItem(this.userRole + "SessionDetails") || '""')
+    const activeUser = JSON.parse(sessionStorage.getItem("UserSessionDetails") || '""')
     return Object(activeUser)["id"]
   }
 
   getUserName() {
-    const activeUser = JSON.parse(sessionStorage.getItem(this.userRole + "SessionDetails") || '""')
-    return Object(activeUser)["fullName"]
+    const activeUser = JSON.parse(sessionStorage.getItem("UserSessionDetails") || '""')
+    return Object(activeUser)["name"]
   }
 
   getUserRole() {
-    const activeUser = JSON.parse(sessionStorage.getItem(this.userRole + "SessionDetails") || '""')
+    const activeUser = JSON.parse(sessionStorage.getItem("UserSessionDetails") || '""')
     return Object(activeUser)["role"]
   }
 

@@ -13,6 +13,7 @@ import { AdminLoginComponent } from './pages/admin/admin-login/admin-login.compo
 import { CustomerLoginComponent } from './pages/customer/customer-login/customer-login.component';
 import { VendorLoginComponent } from './pages/vendor/vendor-login/vendor-login.component';
 import { vendorAuthGuard } from './guards/vendorAuth.guard';
+import { PlaceOrderComponent } from './pages/website/place-order/place-order.component';
 
 
 export const routes: Routes = [
@@ -76,6 +77,10 @@ export const routes: Routes = [
             {
                 path: 'product-description/:id',
                 component: ProductDescriptionComponent
+            },
+            {
+                path: 'place-order',
+                component:PlaceOrderComponent
             },
         ]
     },

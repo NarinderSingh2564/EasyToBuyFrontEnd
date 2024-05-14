@@ -28,11 +28,11 @@
             <div class="col-md-6">
               <strong>{{item.productName}}</strong><br>
               <span class="text-muted" *ngIf="item.showProductWeight">{{item.productWeight}}</span><br>
-              <span class="text-muted">Seller : SuperComNe</span><br>
+              <span class="text-muted">Seller : {{item.vendorName}}</span><br>
               <div class="mt-2 mb-2">
-                <small class="text-muted"><del>₹{{item.productPrice}}</del></small>
-                <strong class="discount-price">₹{{item.productPriceAfterDiscount}}</strong>
-                <span class="text-success">{{item.productDiscount}}%off</span>
+                <small class="text-muted"><del>₹{{item.mrp}}</del></small>
+                <strong class="discount-price">₹{{item.priceAfterDiscount}}</strong>
+                <span class="text-success">{{item.discount}}%off</span>
               </div>
             </div>
             <div class="col-md-4">
@@ -50,7 +50,7 @@
           </div>
         </div>
         <div class="card-footer">
-          <button class="btn text-white">PLACE ORDER</button>
+          <button class="btn text-white" (click)="placeOrder()">PLACE ORDER</button>
         </div>
       </div>
     </div>

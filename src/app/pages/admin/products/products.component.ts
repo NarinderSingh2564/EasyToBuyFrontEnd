@@ -29,16 +29,16 @@ export class ProductsComponent implements OnInit {
     this.getCategoryList();
     this.getProductList();
     this.getProductWeightList();
-    this.productForm.controls['productPriceAfterDiscount'].disable();
+    this.productForm.controls['priceAfterDiscount'].disable();
   }
 
   constructor(private productService: ProductService, private categoryServivce: CategoryService,private accountService:AccountService, private formBuilder: FormBuilder) {
     this.productForm = this.formBuilder.group({
       id: new FormControl(0),
       productName: new FormControl("", [Validators.required]),
-      productPrice: new FormControl(0, [Validators.required]),
-      productDiscount: new FormControl(0, [Validators.required]),
-      productPriceAfterDiscount: new FormControl(0),
+      mrp: new FormControl(0, [Validators.required]),
+      discount: new FormControl(0, [Validators.required]),
+      priceAfterDiscount: new FormControl(0),
       productDescription: new FormControl("", [Validators.required]),
       productImage: new FormControl("", [Validators.required]),
       categoryId: new FormControl(0, [Validators.required]),
@@ -91,9 +91,9 @@ export class ProductsComponent implements OnInit {
   }
 
   calculatePriceAfterDiscount() {
-    const productPriceAfterDiscount: any = this.productForm.value.productPrice - (this.productForm.value.productPrice * this.productForm.value.productDiscount / 100)
-    this.productForm.controls['productPriceAfterDiscount'].patchValue(productPriceAfterDiscount)
-    return productPriceAfterDiscount
+    const priceAfterDiscount: any = this.productForm.value.mrp - (this.productForm.value.mrp * this.productForm.value.discount / 100)
+    this.productForm.controls['priceAfterDiscount'].patchValue(priceAfterDiscount)
+    return priceAfterDiscount
   }
   ProductAddEdit() {
     this.isFormValid = true
@@ -105,17 +105,17 @@ export class ProductsComponent implements OnInit {
         id: this.productForm.value.id != null && this.productForm.value.id > 0 ? this.productForm.value.id : 0,
         vendorId:this.accountService.getUserId(),
         productName: this.productForm.value.productName,
-        productPrice: this.productForm.value.productPrice,
-        productDiscount: this.productForm.value.productDiscount,
-        productPriceAfterDiscount: this.calculatePriceAfterDiscount(),
+        mrp: this.productForm.value.mrp,
+        discount: this.productForm.value.discount,
+        priceAfterDiscount: this.calculatePriceAfterDiscount(),
         productDescription: this.productForm.value.productDescription,
         productImage: this.productForm.value.productImage,
         categoryId: this.productForm.value.categoryId,
         productWeightId: this.productForm.value.productWeightId,
-        showProductWeight:this.productForm.value.showProductWeight, 
         createdBy: this.accountService.getUserId(),
         updatedBy: this.accountService.getUserId(),
-        isActive: this.productForm.value.isActive,
+        isActive: this.productForm.value.isActive == null ? false : true,
+        showProductWeight:this.productForm.value.showProductWeight == null ? false :true, 
       }
       this.productService.productAddEdit(product).subscribe(result => {
         this.response = result;

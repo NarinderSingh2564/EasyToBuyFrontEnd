@@ -5,11 +5,12 @@
     min-height: 100vh;
     width: 100vw;
     height: 100vh;
-    background-image: url(../Images/bal.jpg);
+    background: #008000;
     background-size:cover;
     overflow: hidden;
     background-repeat: no-repeat;
 }
+
 
 .container {
     align-items:center;
@@ -18,23 +19,20 @@
 
 .right-section {
     margin-block: auto;
-    /* flex-grow: 1;
-    align-items: center;
-    justify-content: center; */
+   
 }
 
 .login-container {
     background-color:white;
-    /* background: url('https://img.freepik.com/premium-vector/man-freelancer-sits-table-cafe-working-laptop-remote-worker-drinking-beverage-coworking-space-workplace-cafeteria-restaurant_575670-1291.jpg?size=626&ext=jpg&ga=GA1.1.1546980028.1702771200&semt=ais') no-repeat center center; */
     padding: 40px;
     border-radius: 15px;
-    border:2px solid  #52958a;
+    border:2px solid  #008000;
     width: 100%;
     max-width: 400px;
 }
 
 .login-form h2 {
-    color: #045c6e;
+    color: #008000;
     text-align: center;
     font-weight: 600;
     margin-bottom: 35px;
@@ -42,7 +40,7 @@
 
 .login-title i {
     margin-right: 10px;
-    color: #045c6e;
+    color: #008000;
 }
 
 .form-control1 {
@@ -54,7 +52,7 @@
     position: absolute;
     left: 15px;
     top: 14px;
-    color: #32495e;
+    color: #008000;
 }
 
 .form-control1 input {
@@ -69,7 +67,7 @@
 
 .form-control1 input:focus {
     outline: none;
-    border: 2px solid #52958a;
+    border: 2px solid #008000;
 }
 
 .remember-mes{
@@ -87,69 +85,24 @@
     height: 20px;
 }
 
-.social-login {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-    margin-top: 5px;
-}
-
-.social-icon {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    line-height: 40px;
-    text-align: center;
-    transition: background-color 0.3s ease;
-    cursor: pointer;
-}
-
-.fa.fa-google {
-    background-color: #DB4437;
-    color: white;
-}
-
-.fa.fa-facebook-f {
-    background-color: #4267B2;
-    color: white;
-}
-
-.fa.fa-twitter {
-    background-color: #1DA1F2;
-    color: white;
-}
-
-.fa.fa-google:hover {
-    background-color: #e57373;
-}
-
-.fa.fa-facebook-f:hover {
-    background-color: #5c7cfa;
-}
-
-.fa.fa-twitter:hover {
-    background-color: #69c0ff;
-}
-
 button {
     width: 100%;
     padding: 10px;
     border: none;
     border-radius: 12px;
-    background:linear-gradient(115deg, #3995d2,#ee902b);
+    background:#008000;
     color: white;
     font-size: 18px;
     font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.3s;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 button:hover {
-    background:linear-gradient(123deg, #3995d2,#2da64d);
+    background:linear-gradient(123deg, #008000,#12c241);
+   
 }
 
 /*Responsive*/

@@ -1,5 +1,7 @@
 <div id="parent">
     <div class="container">
+        <div class="row">
+            <div class="col-md-6">
         <div class="right-section">
             <div class="login-container">
                 <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onLogin(userRole)">
@@ -30,12 +32,7 @@
                          </div>
                          </div>
                       </div>
-                    
-                    <div class="social-login">
-                        <i class="fa fa-google social-icon"></i>
-                        <i class="fa fa-facebook-f social-icon"></i>
-                        <i class="fa fa-twitter social-icon"></i>
-                    </div>
+                
                     <button type="submit">Login</button>
                     <div class="register-link">
                        <p>Don't have an account? <a (click)="register(userRole)">Register</a></p>
@@ -43,5 +40,10 @@
                 </form>
             </div>
         </div>
+    </div>
+    <div class="col-md-6">
+       <img src="../assets/images/LoginImages/mma.png" width="500" height="550">
+    </div>
+    </div>
     </div>
     </div>

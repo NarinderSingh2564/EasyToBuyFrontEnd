@@ -16,4 +16,7 @@ export class VendorService {
     return this.http.post("https://localhost:7239/api/Vendor/VendorAddEdit",vendorObj)
   }
 
+  vendorOrdersCount(vendorId: number) {
+    return this.http.get("https://localhost:7239/api/Vendor/GetVendorOrdersCount?vendorId="+ vendorId)
+  }
 }

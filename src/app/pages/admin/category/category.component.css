@@ -1,4 +1,10 @@
-
+.containers{
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    height: 100vh;
+    }
+    
 .bi-pencil-square {
     font-size: larger;
     color: green;
@@ -10,6 +16,7 @@
 .card{
     height: 100%;
 }
+
 .bookmark{
     border: 1px solid gainsboro;
     padding: 5px;

@@ -57,6 +57,10 @@ export const routes: Routes = [
                 path: 'category',
                 component: CategoryComponent
             },
+            {
+                path: 'vendor-dashboard',
+                component: VendorDashboardComponent
+            }
         ]
     },
     {
@@ -83,9 +87,7 @@ export const routes: Routes = [
                 path: 'place-order',
                 component:PlaceOrderComponent
             },
-                path: 'vendor-dashboard',
-                component: VendorDashboardComponent
-            }
+           
         ]
     },
 

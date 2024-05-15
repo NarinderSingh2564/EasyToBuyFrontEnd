@@ -27,16 +27,16 @@
             </div>
             <div class="col-md-6">
               <strong>{{item.productName}}</strong><br>
-              <span class="text-muted" *ngIf="item.showProductWeight">{{item.productWeight}}</span><br>
-              <span class="text-muted">Seller : {{item.vendorName}}</span><br>
+              <span class="text-secondary " *ngIf="item.showProductWeight">{{item.productWeight}}</span><br>
+              <span class="text-secondary">Seller : {{item.vendorName}}</span><br>
               <div class="mt-2 mb-2">
-                <small class="text-muted"><del>₹{{item.mrp}}</del></small>
+                <small class="text-secondary"><del>₹{{item.mrp}}</del></small>
                 <strong class="discount-price">₹{{item.priceAfterDiscount}}</strong>
                 <span class="text-success">{{item.discount}}%off</span>
               </div>
             </div>
             <div class="col-md-4">
-              <span>Delivery by {{deliveryDate | date}} | <del class="text-muted">₹40</del><span class="text-success">
+              <span>Delivery by {{deliveryDate | date}} | <del class="text-secondary">₹40</del><span class="text-success">
                   FREE</span></span>
             </div>
             <div class="p-4">
@@ -70,7 +70,7 @@
           </div>
           <div class="mt-2">
             <span>Delivery Charges</span>
-            <span class="price text-muted"><del>₹40</del><span class="text-success"> FREE</span></span>
+            <span class="price text-secondary"><del>₹40</del><span class="text-success"> FREE</span></span>
           </div>
           <hr class="hr">
           <div class="mt-2">

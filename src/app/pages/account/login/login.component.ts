@@ -46,7 +46,7 @@ export class LoginComponent{
             this.response = result;
             if(this.response.status){
               if(role=="Vendor"){
-                this.router.navigate(['/products']);
+                this.router.navigate(['/vendor-dashboard']);
               }
               else{
                 this.router.navigate(['/AllProducts']);

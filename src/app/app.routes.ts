@@ -15,6 +15,9 @@ import { VendorLoginComponent } from './pages/vendor/vendor-login/vendor-login.c
 import { VendorDashboardComponent } from './pages/vendor/vendor-dashboard/vendor-dashboard.component';
 import { vendorAuthGuard } from './guards/vendorAuth.guard';
 import { PlaceOrderComponent } from './pages/website/place-order/place-order.component';
+import { OrderListComponent } from './pages/account/order-list/order-list.component';
+import { VendorOrderListComponent } from './pages/vendor/vendor-order-list/vendor-order-list.component';
+import { CustomerOrdersComponent } from './pages/customer/customer-orders/customer-orders.component';
 
 
 export const routes: Routes = [
@@ -43,6 +46,10 @@ export const routes: Routes = [
         path: 'vendor-login',
         component: VendorLoginComponent
     },
+    {
+        path: 'order-list',
+        component:OrderListComponent
+    },
   
     {
         path: '',
@@ -60,7 +67,11 @@ export const routes: Routes = [
             {
                 path: 'vendor-dashboard',
                 component: VendorDashboardComponent
-            }
+            },
+            {
+                path: 'vendor-order-list/:id',
+                component:VendorOrderListComponent
+            },
         ]
     },
     {
@@ -86,6 +97,10 @@ export const routes: Routes = [
             {
                 path: 'place-order',
                 component:PlaceOrderComponent
+            },
+            {
+                path: 'customer-order',
+                component:CustomerOrdersComponent
             },
            
         ]

@@ -3,7 +3,7 @@ import { FormsModule, ReactiveFormsModule, Validators , FormGroup,FormControl,Fo
 import { Router, RouterLink } from '@angular/router';
 import { AccountService } from '../../../services/account.service';
 import { CommonModule } from '@angular/common';
-import { PassThrough } from 'stream';
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -17,14 +17,19 @@ export class LoginComponent{
   loginForm:FormGroup;
   isFormValid:boolean=false;
   response:any=[];
+  showPwd: boolean = false;
   @Input() userRole:any;
 
   constructor(private formBuilder:FormBuilder,private accountService:AccountService,private router:Router){
     this.loginForm = this.formBuilder.group({
-      mobile:new FormControl(null,[Validators.required,Validators.maxLength(10)]),
+      mobile:new FormControl(null,[Validators.required]),
       password:new FormControl(null,[Validators.required]),
     })
    
+  }
+
+  showPassword() {
+    this.showPwd = !this.showPwd
   }
   
   get controls(){

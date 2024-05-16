@@ -2,48 +2,50 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-        <div class="right-section">
-            <div class="login-container">
-                <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onLogin(userRole)">
-                    <h2 class="login-title"><i class="bi bi-person-circle"></i> Login</h2>
-                    <div class="form-control1">
-                        <i class="bi bi-person-fill"></i>
-                        <input type="text" formControlName="mobile" placeholder="Enter your mobile" maxlength="10">
-                        <div *ngIf="isFormValid && controls['mobile'].errors">
-                            <div *ngIf="controls['mobile'].errors['required']" class="text-danger">
-                                Enter your mobile number.
+                <div class="right-section">
+                    <div class="login-container">
+                        <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onLogin(userRole)">
+                            <h2 class="login-title">Login</h2>
+                            <div class="form-control1">
+                                <i class="bi bi-person-fill"></i>
+                                <input type="text" formControlName="mobile"
+                                    placeholder="Enter your mobile number or email" maxlength="30">
+                                <div *ngIf="isFormValid && controls['mobile'].errors">
+                                    <div *ngIf="controls['mobile'].errors['required']" class="text-danger">
+                                        Enter your mobile number or email.
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="form-control1">
-                        <i class="bi bi-lock-fill"></i>
-                        <input type="password" formControlName="password" placeholder="Enter your password" maxlength="10">
-                        <div *ngIf="isFormValid && controls['password'].errors">
-                            <div *ngIf="controls['password'].errors['required']" class="text-danger">
-                                Enter your password.
+                            <div class="form-control1">
+                                <input [type]="showPwd ? 'text':'password'" formControlName="password"
+                                    placeholder="Enter your password" maxlength="10">
+                                <i [ngClass]="showPwd ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'"
+                                    (click)="showPassword()"></i>
+                                <div *ngIf="isFormValid && controls['password'].errors">
+                                    <div *ngIf="controls['password'].errors['required']" class="text-danger">
+                                        Enter your password.
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            <div class="remember-mes">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="checkbox" id="rememberMes" class="checkbox-input"><label
+                                            class="remset">Remember me</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit">Login</button>
+                            <div class="register-link">
+                                <p>Don't have an account?<a (click)="register(userRole)">Register</a></p>
+                            </div>
+                        </form>
                     </div>
-                    
-                    <div class="remember-mes">
-                        <div class="row">
-                         <div class="col-md-6">
-                          <input type="checkbox" id="rememberMes" class="checkbox-input"><label class="remset">Remember me</label>
-                         </div>
-                         </div>
-                      </div>
-                
-                    <button type="submit">Login</button>
-                    <div class="register-link">
-                       <p>Don't have an account? <a (click)="register(userRole)">Register</a></p>
-                      </div>    
-                </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <img src="../assets/images/LoginImages/mma.png" width="500" height="550">
             </div>
         </div>
     </div>
-    <div class="col-md-6">
-       <img src="../assets/images/LoginImages/mma.png" width="500" height="550">
-    </div>
-    </div>
-    </div>
-    </div>
+</div>

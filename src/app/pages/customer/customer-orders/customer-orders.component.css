@@ -1,0 +1,27 @@
+.myCard{
+    border: 1px solid rgb(189, 189, 189);
+    background: white;
+    padding: 20px 20px 20px 30px;
+    
+}
+.col-md-9 .card-body {
+    max-height: 470px !important;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+
+.tcard{
+    width: 100%;
+    padding-top: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+  
+  
+.container-fluid{
+    padding-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+}

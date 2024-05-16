@@ -1,13 +1,13 @@
 #parent {
-    display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     width: 100vw;
     height: 100vh;
-    background: #008000;
+    background: #99d6c7;
     background-size:cover;
     overflow: hidden;
+    padding-top: 8%;
     background-repeat: no-repeat;
 }
 
@@ -19,6 +19,7 @@
 
 .right-section {
     margin-block: auto;
+    padding-left: 8%;
    
 }
 
@@ -26,21 +27,21 @@
     background-color:white;
     padding: 40px;
     border-radius: 15px;
-    border:2px solid  #008000;
+    border:2px solid  #549181;
+    box-shadow: 5px 1px 9px 4px #61887e;
     width: 100%;
     max-width: 400px;
 }
 
 .login-form h2 {
-    color: #008000;
+    color: #61887e;
     text-align: center;
     font-weight: 600;
     margin-bottom: 35px;
 }
 
 .login-title i {
-    margin-right: 10px;
-    color: #008000;
+    color: #549181;
 }
 
 .form-control1 {
@@ -52,12 +53,12 @@
     position: absolute;
     left: 15px;
     top: 14px;
-    color: #008000;
+    color: #549181;
 }
 
 .form-control1 input {
     width: 100%;
-    max-width: 99%;
+    max-width: 100%;
     padding: 12px 0 12px 37px;
     border-color: #cdcdcd;
     background-color: white;
@@ -67,7 +68,7 @@
 
 .form-control1 input:focus {
     outline: none;
-    border: 2px solid #008000;
+    border: 2px solid #549181;
 }
 
 .remember-mes{
@@ -90,7 +91,7 @@ button {
     padding: 10px;
     border: none;
     border-radius: 12px;
-    background:#008000;
+    background:#549181;
     color: white;
     font-size: 18px;
     font-weight: 700;
@@ -98,11 +99,6 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-button:hover {
-    background:linear-gradient(123deg, #008000,#12c241);
-   
 }
 
 /*Responsive*/
@@ -120,14 +116,14 @@ button:hover {
   
   }
   .register-link p a{
-    color: #257db8;
+    color: #61887e;
     padding: 5px 8px 5px 8px;
     text-decoration: none;
     font-weight: 500;
   }
   .register-link p a:hover{
     text-decoration: underline;
-    color: #2e8628;
+    color: #61887e;
   }
  .invalid{
     border-color: red;

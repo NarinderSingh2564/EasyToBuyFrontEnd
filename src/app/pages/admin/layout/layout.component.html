@@ -1,25 +1,24 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-success">
+<nav class="navbar navbar-expand-sm navbar-dark ">
   <div class="container-fluid">
     <i class="bi bi-bag-dash"></i>
-    <a class="navbar-brand" routerLink="/vendor-dashboard">EasyToBuy</a>
+    <a class="navbar-brand fs-4" routerLink="/vendor-dashboard">EasyToBuy</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="mynavbar">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link" routerLink="products">Products</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" routerLink="category">Category</a>
         </li>
-
+        <li class="nav-item">
+          <a class="nav-link" routerLink="products">Products</a>
+        </li>
       </ul>
       <form class="d-flex">
-        <div class="input-group">
+        <!-- <div class="input-group">
           <input type="text" class="form-control" placeholder="Search">
           <span class="input-group-text"><i class="bi bi-search"></i></span>
-        </div>
+        </div> -->
         <div class="dropdown">
           <i class="bi bi-person-circle"></i>
           <div class="dropdown-content">
@@ -27,8 +26,6 @@
               <b>Hello, {{userName | titlecase}}</b>
             </div>
             <hr>
-            <a><i class="bi bi-basket icon"></i>Your Orders</a>
-            <a><i class="bi bi-heart icon"></i>Your Wishlist</a>
             <a><i class="bi bi-person icon"></i>Your Account</a>
             <a (click)="Logout()"><i class="bi bi-box-arrow-right icon"></i>Logout</a>
           </div>

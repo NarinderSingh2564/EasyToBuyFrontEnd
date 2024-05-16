@@ -11,10 +11,10 @@
 }
   
 #menu-toggle{
-  color: green;
+  color: #3b6a5e;
 }
 .mydas{
-  background: -webkit-linear-gradient(#867f02, #2b7a07);
+  background: #3b6a5e;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -23,17 +23,17 @@
   }
   .myCard{
     color: white;
-    background: linear-gradient(120deg, #2b7a07, #967e05);
+    background: linear-gradient(120deg, #3b6a5e, #549181);
   }
   .myCard:hover{
     background: white;
-    color:green ;
+    color:#3b6a5e ;
 }
 
   .mytables{
     border: 2px solid gray;
     padding-left: 5px;
-    color: green;
+    color: #3b6a5e;
   }
 
   .myt{

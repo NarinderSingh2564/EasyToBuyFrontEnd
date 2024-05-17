@@ -17,7 +17,7 @@
                   <input type="text" class="form-control" placeholder="Enter your UPI ID">
                 </div>
                 <div class="p-1">
-                  <button class="btn btn-success">Verify</button>
+                  <button class="btn btnVerify text-white">Verify</button>
                 </div>
                 <div class="p-1">
                   <button class="btn btn-pay text-white">Pay {{priceDetails.totalCartPrice | currency : 'INR'}}</button>
@@ -66,8 +66,7 @@
                   </div>
                   <div id="hdfc" class="collapse collapse-text" data-bs-parent="#accordion2">
                     <div class="d-grid">
-                      <button class="btn btn-pay text-white">Pay {{priceDetails.totalCartPrice | currency :
-                        'INR'}}</button>
+                      <button class="btn btn-pay text-white">Pay {{priceDetails.totalCartPrice | currency : 'INR'}}</button>
                     </div>
                   </div>
                   <div class="form-check">
@@ -128,7 +127,7 @@
           </div>
           <div class="card-footer">
             <div class="text-end">
-              <strong class="text-success">Happy Shopping :)</strong>
+              <strong class="msg">Happy Shopping :)</strong>
             </div>
           </div>
         </div>
@@ -157,7 +156,7 @@
             <strong class="price">{{priceDetails.totalCartPrice | currency : 'INR'}}</strong>
           </div>
           <hr class="hr">
-          <strong class="text-success">You will save {{priceDetails.totalDiscountPrice | currency:'INR'}} on this
+          <strong class="msg">You will save {{priceDetails.totalDiscountPrice | currency:'INR'}} on this
             order</strong>
         </div>
       </div>
@@ -174,7 +173,7 @@
       <img src="https://smart.smartshops.com.ng/wp-content/uploads/2023/03/02-lottie-tick-01-instant-2-1.gif" alt="">
     </div>
     <div>
-      <button class="btn btn-success btn-lg" routerLink="/AllProducts">Continue Shopping</button>
+      <button class="btn btn-lg" routerLink="/AllProducts">Continue Shopping</button>
     </div>
   </div>
 </div>

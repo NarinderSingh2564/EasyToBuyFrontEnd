@@ -22,11 +22,11 @@
                   (click)="AddToWishList()">
                   <i class="bi bi-bookmark-fill"></i>
                 </button></span>
-              <button class="btn btn-success btn-sm" (click)="decrement(product)">-</button>
+              <button class="btn btn-sm btnCount" (click)="decrement(product)">-</button>
               <span class=" p-2">{{product.quantity}}</span>
-              <button class="btn btn-success btn-sm" (click)="increment(product)">+</button>
-              <span class="p-4 "><button class="btn btn-outline-success btn-sm"
-                  (click)="AddToCart(product.id,product.quantity)"><i class="bi bi-cart"></i></button></span>
+              <button class="btn btn-sm btnCount" (click)="increment(product)">+</button>
+              <span class="p-4 "><button class="btn btnCart btn-sm"
+                  (click)="AddToCart(product.id,product.quantity)"><i class="bi bi-cart-fill"></i></button></span>
             </div>
           </div>
         </div>

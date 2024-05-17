@@ -7,7 +7,7 @@
     height: 100vh;
     justify-content: center;
     align-items: center;
-    background: green;
+    background: #99d6c7;
     background-size:cover;
     overflow: hidden;
     background-repeat: no-repeat;
@@ -24,7 +24,8 @@
     background: #ffffff;
     padding: 25px 30px;
     border-radius: 5px;
-    border: 2px solid white;
+    border:2px solid  #549181;
+    box-shadow: 5px 1px 9px 4px #61887e;
 }
 
 .right-register  .title{
@@ -32,7 +33,7 @@
     font-weight: 500; 
     text-align: center;
     position: relative;
-    color:  green;
+    color: #61887e
 }
 .right-register .title::before{
     content: '';
@@ -72,7 +73,7 @@ form .user_details .input_pox{
 
 }
 .user_details .input_pox input:hover{
-border-color: green;
+border-color: #549181;;
 }
 form .gender_details .gender_title{
     font-size: 20px;
@@ -119,11 +120,11 @@ form .button .btnRegister{
     font-weight: 700;
     border-radius: 5px;
     letter-spacing: 1px;
-    background: green;
+    background: #549181;
 
 }
 form .button .btnRegister:hover{
-    background:green;
+    background:#549181;;
 }
 @media (max-width: 584px){
     .container{
@@ -151,13 +152,13 @@ form .button .btnRegister:hover{
   
   }
   .bar-link p a{
-    color: #0647b0;
+    color: #549181;
     text-decoration: none;
     font-weight: 500;
   }
   .bar-link p a:hover{
     text-decoration: underline;
-    color: #2e8628;
+    color: #549181;;
   }
   .bi{
     margin-left: -26px;

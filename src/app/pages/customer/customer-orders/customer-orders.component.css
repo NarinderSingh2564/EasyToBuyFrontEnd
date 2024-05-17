@@ -18,10 +18,16 @@
     padding-right: 30px;
 }
 
-  
-  
 .container-fluid{
     padding-top: 30px;
     padding-left: 20px;
     padding-right: 20px;
+}
+.btn-block{
+    background: #61887e;
+    color: white;
+}
+.card-header{
+    background: #61887e;
+    color: white;
 }

@@ -1,7 +1,7 @@
 <section class="user-address">
  
   <div class="text-end addBtn">
-    <button class="btn btn-success text-white bgm" data-bs-toggle="modal" data-bs-target="#addressModal" (click)="addAdressModal()"><i
+    <button class="btn text-white bgm" data-bs-toggle="modal" data-bs-target="#addressModal" (click)="addAdressModal()"><i
         class="bi bi-plus"></i> Add New Address</button>
   </div>
   <owl-carousel-o [options]="customOptions">
@@ -98,7 +98,7 @@
          
         </div>
         <div class="modal-footer">
-          <button class="btn btn-primary" [disabled]="disableButton ? true : false">Save</button>
+          <button class="btn" [disabled]="disableButton ? true : false">Save</button>
         </div>
       </div>
     </form>

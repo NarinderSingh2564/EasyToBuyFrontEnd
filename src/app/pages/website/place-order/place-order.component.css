@@ -45,3 +45,13 @@ a{
     width: 30%;
     height: 20%;
  }
+ .msg{
+    color: #61887e;
+  }
+  .btnVerify{
+    background: #61887e;
+  }
+  .btn-lg{
+    background: #61887e;
+    color:white
+  }

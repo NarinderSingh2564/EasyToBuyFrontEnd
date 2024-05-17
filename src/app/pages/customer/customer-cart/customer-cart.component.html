@@ -40,9 +40,9 @@
                   FREE</span></span>
             </div>
             <div class="p-4">
-              <button class="btn btn-success btn-sm" (click)="decrement(item)">-</button>
+              <button class="btn btnCount btn-sm" (click)="decrement(item)">-</button>
               <span class="quantity">{{item.quantity}}</span>
-              <button class="btn btn-success btn-sm" (click)="increment(item)">+</button>
+              <button class="btn btnCount btn-sm" (click)="increment(item)">+</button>
               <a class="p-4"><strong>SAVE FOR LATER</strong></a>
               <a class="p-1" (click)="removeProductFromCart(item.id)"><strong>REMOVE</strong></a>
             </div>
@@ -78,7 +78,7 @@
             <strong class="price">{{priceDetails.totalCartPrice | currency : 'INR'}}</strong>
           </div>
           <hr class="hr">
-          <strong class="text-success">You will save {{priceDetails.totalDiscountPrice | currency:'INR'}} on this
+          <strong class="msg">You will save {{priceDetails.totalDiscountPrice | currency:'INR'}} on this
             order</strong>
         </div>
       </div>
@@ -96,6 +96,6 @@
     <i class="bi bi-cart-x"></i>
   </div>
   <div>
-    <button class="btn btn-success btn-lg" (click)="goToShop()">SHOP NOW</button>
+    <button class="btn btn-lg" (click)="goToShop()">SHOP NOW</button>
   </div>
 </div>

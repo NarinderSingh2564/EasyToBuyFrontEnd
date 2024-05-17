@@ -3,15 +3,15 @@
     margin-left: 2%;
 }
 .bgm{
-    background: green;
+    background: #61887e;
     font-weight: 500;
 }
 .myheade{
-    background: green;
+    background: #61887e;
    
 }
 .text-dark{
-    background: green;
+    background: #61887e;
 }
 .white-color-text{
     color: white !important;
@@ -32,7 +32,7 @@
 
 .bi-pencil-square {
     font-size: 20px;
-    color: green;
+    color: #61887e;
     padding-left: 10px;
 }
 .bi-plus{
@@ -60,5 +60,8 @@ input::-webkit-inner-spin-button {
 .form-check {
     padding-left: 50px;
 }
-
+.modal-footer .btn{
+    background: #61887e;
+    color: white;
+}
 

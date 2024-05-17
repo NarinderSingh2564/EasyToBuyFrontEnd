@@ -1,6 +1,7 @@
-.navbar {
-  background-color: #008000;
+.navbar{
+  background: #61887e;
 }
+
 
 .navbar-brand {
   color: white;
@@ -33,11 +34,11 @@
 
 .bi-search {
   font-size: inherit;
-  color: green
+  color: #549181
 }
 
 .dropbtn {
-  background-color: green;
+  background-color: #61887e;
   color: white;
   
   font-size: 16px;
@@ -78,7 +79,7 @@
 }
 
 .dropdown:hover .dropbtn {
-  background-color: green;
+  background-color: #61887e;
 }
 
 .icon {
@@ -95,13 +96,13 @@
 }
 
 .btn {
-  color: green;
+  color: #549181;
   background-color: white;
   margin-left: 12px;
 }
 
 .btn:hover {
-  color: green;
+  color: #549181;
   background-color: white;
   margin-left: 12px;
 
@@ -161,4 +162,7 @@
 }
 .d-flex{
   float: inline-end;
+}
+hr{
+  margin-bottom: auto;
 }

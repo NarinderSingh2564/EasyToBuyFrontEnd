@@ -24,7 +24,7 @@
 }
 
 #heading {
-  color: green;
+  color: #61887e;
   padding: 10px;
 }
 
@@ -88,7 +88,15 @@
 font-size: xx-large;
 }
 
+.btnCount{
+  background: #61887e;
+  color:white
+}
+.btnCart{
+  border-color: #61887e;
+  color: #61887e;
+}
 
-
-
-
+.bi-cart-fill{
+  font-size: 18px;
+}

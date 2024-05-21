@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 
 
-  $(document).mousemove(function(e) {
+  $("body").on('mousemove', '#myimagehover',function(e) {
     var x = e.clientX; var y = e.clientY;
     
     var x = e.clientX; var y = e.clientY; 

@@ -35,31 +35,37 @@
             <strong>FILTER BY ORDER DATE</strong>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" id="check2" name="option2" value="something">
-            <label class="form-check-label">Last 30 days</label>
+            <input class="form-check-input" type="radio" id="check2" name="option2" value="1"  (click)="filterOrdersByMonth($event)">
+            <label class="form-check-label">Last 1 month</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" id="check2" name="option2" value="something">
+            <input class="form-check-input" type="radio" id="check2" name="option2" value="3" (click)="filterOrdersByMonth($event)">
             <label class="form-check-label">Last 3 months</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" id="check2" name="option2" value="something">
-            <label class="form-check-label">2024</label>
+            <input class="form-check-input" type="radio" id="check2" name="option2" value="6" (click)="filterOrdersByMonth($event)">
+            <label class="form-check-label">Last 6 months</label>
           </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" id="check2" name="option2" value="something">
-            <label class="form-check-label">2023</label>
+         
+          <div class="mt-3 mb-2">
+            <strong>Date</strong>
           </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" id="check2" name="option2" value="something">
-            <label class="form-check-label">2022</label>
+          <div id="datepicker" class="input-group date"> 
+         <input class="form-control" type="date" #firstDate> 
+         </div>  
+    
+          <div class="mt-1 mb-2">
+            <strong>To Date</strong>
           </div>
-          <div class="d-grid mt-4 mb-1">
-            <button type="button" class="btn btn-block">Apply</button>
+          <div id="datepicker" class="input-group date"> 
+         <input class="form-control"  type="date" #secondDate> 
+         </div> 
+      
+          <div class=" mt-4 mb-1">
+            <button type="button" class="btn btn-block" (click)="filterOrdersByDates(firstDate.value,secondDate.value)">Submit</button>
           </div>
         </div>
       </div>
-
     </div>
 
     <div class="col-md-9 mt-2">
@@ -186,3 +192,4 @@
     </div>
   </div>
 </div>
+

@@ -34,13 +34,13 @@ export class OrderListComponent {
 
       var newStatusId = (this.statusId == 0 ? "" : this.statusId == 1 ? '1,3' : this.statusId.toString());
 
-      this.orderService.getOrderList(0, this.accountService.getUserId(), "", newStatusId).subscribe((result: any) => {
+      this.orderService.getOrderList(0, this.accountService.getUserId(), "", newStatusId,"", "").subscribe((result: any) => {
         this.orderList = result
       })
     }
     else {
       this.header = "My Orders"
-      this.orderService.getOrderList(this.accountService.getUserId(), 0, "", "").subscribe((result: any) => {
+      this.orderService.getOrderList(this.accountService.getUserId(), 0, "", "","", "").subscribe((result: any) => {
         this.orderList = result
       })
     }
@@ -53,12 +53,12 @@ export class OrderListComponent {
 
       var newStatusId = (this.statusId == 0 ? "" : this.statusId == 1 ? '1,3' : this.statusId.toString());
 
-      this.orderService.getOrderList(0, this.accountService.getUserId(), searchText, newStatusId).subscribe((result: any) => {
+      this.orderService.getOrderList(0, this.accountService.getUserId(), searchText, newStatusId,"", "").subscribe((result: any) => {
         this.orderList = result
       })
     }
     else {
-      this.orderService.getOrderList(this.accountService.getUserId(), 0, searchText, "").subscribe((result: any) => {
+      this.orderService.getOrderList(this.accountService.getUserId(), 0, searchText, "","", "").subscribe((result: any) => {
         this.orderList = result
       })
     }

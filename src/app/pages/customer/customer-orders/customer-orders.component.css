@@ -10,6 +10,20 @@
     overflow-x: hidden;
     padding-top: 20px;
   }
+  .gpt{
+    border: 2px solid;
+    border-left: none;
+  }
+    
+  .form-cmd{
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-color: black;
+  }
+
+  .bi-calendar-check{
+    font-size: 16px;
+  }
 
 .tcard{
     width: 100%;

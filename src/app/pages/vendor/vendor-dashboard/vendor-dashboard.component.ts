@@ -22,7 +22,6 @@ export class VendorDashboardComponent {
   getVendorOrderCount(){
     this.vendorService.vendorOrdersCount(this.accountService.getUserId()).subscribe(result=>{
       this.VendorCount= result;
-      
     })
   }
   getAllOrders(){

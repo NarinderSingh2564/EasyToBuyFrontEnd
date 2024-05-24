@@ -5,7 +5,7 @@
                 <div class="right-section">
                     <div class="login-container">
                         <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onLogin(userRole)">
-                            <h2 class="login-title">Login</h2>
+                            <h2 class="login-title">{{userRole}} Login</h2>
                             <div class="form-control1">
                                 <i class="bi bi-person-fill"></i>
                                 <input type="text" formControlName="mobile"

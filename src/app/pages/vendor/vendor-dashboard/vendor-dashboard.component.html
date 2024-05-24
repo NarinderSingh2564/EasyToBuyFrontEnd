@@ -7,59 +7,118 @@
            <h2 class="fs-2 m-0 mydas">Dashboard</h2>
        </div>
    </nav>
+<div *ngIf="VendorCount !=null">
 
-   <div class="container-fluid px-4 mycont" *ngFor="let vendorCounts of VendorCount" >
-       <div class="row g-3 my-2">
-           <div class="col-md-3" (click)="getAllOrders()">
-               <div class="p-3 myCard  shadow-sm d-flex justify-content-around align-items-center rounded">
-                   <div>
-                       <h3 class="fs-2 mycol">{{vendorCounts.totalOrder}}</h3>
-                       <p class="fs-5 mycol">Total Orders</p>
-                   </div>
-                   <i class="bi bi-archive-fill fs-1 primary-text  rounded-full secondary-bg p-3 mycol"></i>
-               </div>
-           </div>
+    <div class="container-fluid px-4 mycont" *ngFor="let vendorCounts of VendorCount" >
+        <div class="row g-3 my-2" >
+            <div class="col-md-3" (click)="getAllOrders()">
+                <div class="p-3 myCard  shadow-sm d-flex justify-content-around align-items-center rounded">
+                    <div>
+                        <h3 class="fs-2 mycol">{{vendorCounts.totalOrder}}</h3>
+                        <p class="fs-5 mycol">Total Orders</p>
+                    </div>
+                    <i class="bi bi-archive-fill fs-1 primary-text  rounded-full secondary-bg p-3 mycol"></i>
+                </div>
+            </div>
+ 
+            <div class="col-md-3" (click)="getPendingOrders()">
+                <div class="p-3 myCard  shadow-sm d-flex justify-content-around align-items-center rounded">
+                    <div>
+                        <h3 class="fs-2">{{vendorCounts.pendingOrder}}</h3>
+                        <p class="fs-5">Pending</p>
+                    </div>
+                    <i
+                        class="bi bi-hourglass fs-1 primary-text  rounded-full secondary-bg p-3"></i>
+                </div>
+            </div>
+ 
+            <div class="col-md-3 " (click)="getDeliveredOrders()">
+                <div class="p-3 myCard  shadow-sm d-flex justify-content-around align-items-center rounded">
+                    <div>
+                        <h3 class="fs-2">{{vendorCounts.deliveredOrder}}</h3>
+                        <p class="fs-5">Delivered</p>
+                    </div>
+                    <i class="bi bi-check-circle-fill fs-1 primary-text  rounded-full secondary-bg p-3"></i>
+                </div>
+            </div>
+ 
+            <div class="col-md-3 " (click)="getCancelOrders()">
+                <div class="p-3 myCard  shadow-sm d-flex justify-content-around align-items-center rounded">
+                    <div>
+                        <h3 class="fs-2">{{vendorCounts.cancelOrder}}</h3>
+                        <p class="fs-5">Cancelled</p>
+                    </div>
+                    <i class="bi bi-slash-circle fs-1 primary-text  rounded-full secondary-bg p-3"></i>
+                </div>
+            </div>
+        </div>
+ 
+        <!-- <div class="row my-4">
+            <h3 class="fs-4 mb-3">Recent Orders</h3>
+            <div class="col-md-8 ">
+                
+            </div>
+        </div> -->
+       
+    </div>
+</div>
 
-           <div class="col-md-3" (click)="getPendingOrders()">
-               <div class="p-3 myCard  shadow-sm d-flex justify-content-around align-items-center rounded">
-                   <div>
-                       <h3 class="fs-2">{{vendorCounts.pendingOrder}}</h3>
-                       <p class="fs-5">Pending</p>
-                   </div>
-                   <i
-                       class="bi bi-hourglass fs-1 primary-text  rounded-full secondary-bg p-3"></i>
-               </div>
-           </div>
+<div *ngIf="VendorCount == 0">
 
-           <div class="col-md-3 " (click)="getDeliveredOrders()">
-               <div class="p-3 myCard  shadow-sm d-flex justify-content-around align-items-center rounded">
-                   <div>
-                       <h3 class="fs-2">{{vendorCounts.deliveredOrder}}</h3>
-                       <p class="fs-5">Delivered</p>
-                   </div>
-                   <i class="bi bi-check-circle-fill fs-1 primary-text  rounded-full secondary-bg p-3"></i>
-               </div>
-           </div>
+   <div class="container-fluid px-4 mycont">
+    <div class="row g-3 my-2" >
+        <div class="col-md-3" (click)="getAllOrders()">
+            <div class="p-3 myCard  shadow-sm d-flex justify-content-around align-items-center rounded">
+                <div>
+                    <h3 class="fs-2 mycol">0</h3>
+                    <p class="fs-5 mycol">Total Orders</p>
+                </div>
+                <i class="bi bi-archive-fill fs-1 primary-text  rounded-full secondary-bg p-3 mycol"></i>
+            </div>
+        </div>
 
-           <div class="col-md-3 " (click)="getCancelOrders()">
-               <div class="p-3 myCard  shadow-sm d-flex justify-content-around align-items-center rounded">
-                   <div>
-                       <h3 class="fs-2">{{vendorCounts.cancelOrder}}</h3>
-                       <p class="fs-5">Cancelled</p>
-                   </div>
-                   <i class="bi bi-slash-circle fs-1 primary-text  rounded-full secondary-bg p-3"></i>
-               </div>
-           </div>
-       </div>
+        <div class="col-md-3" (click)="getPendingOrders()">
+            <div class="p-3 myCard  shadow-sm d-flex justify-content-around align-items-center rounded">
+                <div>
+                    <h3 class="fs-2">0</h3>
+                    <p class="fs-5">Pending</p>
+                </div>
+                <i
+                    class="bi bi-hourglass fs-1 primary-text  rounded-full secondary-bg p-3"></i>
+            </div>
+        </div>
 
-       <!-- <div class="row my-4">
-           <h3 class="fs-4 mb-3">Recent Orders</h3>
-           <div class="col-md-8 ">
-               
-           </div>
-       </div> -->
-      
-   </div>
+        <div class="col-md-3 " (click)="getDeliveredOrders()">
+            <div class="p-3 myCard  shadow-sm d-flex justify-content-around align-items-center rounded">
+                <div>
+                    <h3 class="fs-2">0</h3>
+                    <p class="fs-5">Delivered</p>
+                </div>
+                <i class="bi bi-check-circle-fill fs-1 primary-text  rounded-full secondary-bg p-3"></i>
+            </div>
+        </div>
+
+        <div class="col-md-3 " (click)="getCancelOrders()">
+            <div class="p-3 myCard  shadow-sm d-flex justify-content-around align-items-center rounded">
+                <div>
+                    <h3 class="fs-2">0</h3>
+                    <p class="fs-5">Cancelled</p>
+                </div>
+                <i class="bi bi-slash-circle fs-1 primary-text  rounded-full secondary-bg p-3"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="row my-4">
+        <h3 class="fs-4 mb-3">Recent Orders</h3>
+        <div class="col-md-8 ">
+            
+        </div>
+    </div> -->
+   
+</div>
+</div>
+
 </div>
 </div>
 

@@ -92,7 +92,7 @@ font-size: xx-large;
   background: #61887e;
   color:white
 }
-.btnCart{
+.btnCart, .bookmark{
   border-color: #61887e;
   color: #61887e;
 }

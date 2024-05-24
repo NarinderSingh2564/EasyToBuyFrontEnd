@@ -16,4 +16,8 @@ export class OrderService {
   getOrderList(customerId: number, vendorId: number, searchText: string, statusId:string, firstDate:any, secondDate:any){
     return this.http.get("https://localhost:7239/api/Order/GetOrdersList?vendorId=" + vendorId + "&customerId="+customerId + "&searchText="+searchText + "&statusId=" + statusId+ "&firstDate="+firstDate + "&secondDate=" +secondDate)
   }
+
+  getOrderStatusTrackingList(orderId:number){
+    return this.http.get(" https://localhost:7239/api/Order/GetOrderStatusTrackingList?orderId=" + orderId)
+  }
 }

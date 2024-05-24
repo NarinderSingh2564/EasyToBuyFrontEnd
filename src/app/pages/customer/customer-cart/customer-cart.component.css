@@ -1,11 +1,11 @@
 .card-header .btn {
   float: inline-end;
-  background: green ;
+  background: #61887e ;
   border: 1px solid rgb(153, 152, 152);
   margin-top: -5px;
 }
 .topbar{
-  background: green;
+  background: #61887e;
 }
 .text-muted{
   color: white !important;
@@ -15,6 +15,7 @@
   color: white;
   font-weight: 500;
   font-size: 16px;
+  width: 10%;
 }
 
 .card-footer .btn {
@@ -60,7 +61,7 @@ a {
 }
 
 a:hover {
-  color: green;
+  color: #61887e;
 }
 
 .col-md-9 .card-body {
@@ -74,4 +75,15 @@ font-size: 200px;
 }
 .empty-cart{
   font-size: xx-large;
+}
+.btnCount{
+  background: #61887e;
+  color:white
+}
+.msg{
+  color: #61887e;
+}
+.btn-lg{
+  background: #61887e;
+  color:white
 }

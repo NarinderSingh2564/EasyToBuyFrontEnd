@@ -1,0 +1,195 @@
+<div class="container-fluid mb-4">
+  <div class="row">
+    <div class="col-md-3 mt-2">
+      <div class="card">
+        <div class="card-header">
+          <h4>Filter Orders</h4>
+        </div>
+        <div class="card-body">
+          <div class="mb-2">
+            <strong>FILTER BY PRODUCT NAME</strong>
+          </div>
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search by product name" #box>
+            <span class="input-group-text" (click)="searchProducts(box.value)"><i class="bi bi-search"></i></span>
+          </div>
+          <div class="mt-3 mb-2">
+            <strong>FILTER BY ORDER TYPE</strong>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="check1" name="option1" value="1,3"
+              (click)="filterOrdersByType($event)">
+            <label class="form-check-label">Pending</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="check1" name="option1" value="4"
+              (click)="filterOrdersByType($event)">
+            <label class="form-check-label">Delivered</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="check1" name="option1" value="5"
+              (click)="filterOrdersByType($event)">
+            <label class="form-check-label">Cancelled</label>
+          </div>
+          <div class="mt-3 mb-2">
+            <strong>FILTER BY ORDER DATE</strong>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="check2" name="option2" value="1"  (click)="filterOrdersByMonth($event)">
+            <label class="form-check-label">Last 1 month</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="check2" name="option2" value="3" (click)="filterOrdersByMonth($event)">
+            <label class="form-check-label">Last 3 months</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="check2" name="option2" value="6" (click)="filterOrdersByMonth($event)">
+            <label class="form-check-label">Last 6 months</label>
+          </div>
+         
+          <div class="mt-3 mb-2">
+            <strong>Date</strong>
+          </div>
+          <div id="datepicker" class="input-group date"> 
+         <input class="form-control" type="date" #firstDate> 
+         </div>  
+    
+          <div class="mt-1 mb-2">
+            <strong>To Date</strong>
+          </div>
+          <div id="datepicker" class="input-group date"> 
+         <input class="form-control"  type="date" #secondDate> 
+         </div> 
+      
+          <div class=" mt-4 mb-1">
+            <button type="button" class="btn btn-block" (click)="filterOrdersByDates(firstDate.value,secondDate.value)">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-9 mt-2">
+      <div class="card">
+        <div class="card-header">
+          <h4>My Orders</h4>
+        </div>
+        <div class="card-body" *ngIf="orderList.length > 0">
+          <div class="col-md-12 tcard" *ngFor="let order of orderList">
+            <div class="row">
+              <div class="myCard  shadow-sm d-flex  align-items-center rounded">
+                <div class="col-md-1 myimgc">
+                  <img
+                    src="https://www.bigbasket.com/media/uploads/p/l/40013625_12-fresho-brown-bread-safe-preservative-free.jpg"
+                    width="60" height="60" alt="">
+                </div>
+                <div class="col-md-7 prd">
+                  <h6 class="mycol">{{order.productName}}
+                    &nbsp;<span style="color: rgb(105, 105, 105); font-size: 14px;">({{order.productWeight}})</span>
+                  </h6>
+                  <p class="mycol">
+                    <del class="text-muted">{{order.mrp |currency:'INR'}}</del>&nbsp;
+                    {{order.amountToBePaid | currency:'INR'}}&nbsp;<span class="text-success">{{order.discount}}%
+                      off</span>
+                  </p>
+                </div>
+                <div class="col-md-4 odd">
+                  <small style="color: rgb(105, 105, 105); font-size: 14px;">Order No : {{order.orderNumber}}</small><br>
+                  <small>Seller : {{order.vendorName}}</small><br>
+                  <!-- <small class="text-muted orno">Order No : {{order.orderNumber}}</small>
+                  <h6 class="mycol">{{order.status}} on {{25/06/2024 | date:'shortDate'}}</h6> -->
+                  <!-- <a href="#">See Product Description</a><br> -->
+                  <a href="#" data-bs-toggle="modal" data-bs-target="#myModal">Track Order</a>
+                  <div class="modal" id="myModal" data-bs-backdrop="static">
+                    <div class="modal-dialog modal-dialog-centered modal-md">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title">Track your order <span style="font-size: 20px;">(ETB545454545)</span></h4>
+                          
+                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                        
+                          <div class="container">
+                            <div class="row">
+                          
+                              <div class="col-md-12 col-lg-12">
+                                <div id="tracking-pre"></div>
+                                <div id="tracking">
+                                  <div class="tracking-list">
+
+                                    <div class="tracking-item">
+                                      <div class="tracking-icon status-intransit">
+                                        <svg class="svg-inline--fa fa-circle fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                                          <path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path>
+                                        </svg>
+                                      </div>
+                                      <div class="tracking-date"><img src="https://raw.githubusercontent.com/shajo/portfolio/a02c5579c3ebe185bb1fc085909c582bf5fad802/delivery.svg" class="img-responsive" alt="order-placed" /></div>
+                                      <div class="tracking-content">Ordered<span>09 Aug 2021, 10:00am</span></div>
+                                    </div>
+                                  
+                                    <div class="tracking-item">
+                                      <div class="tracking-icon status-intransit">
+                                        <svg class="svg-inline--fa fa-circle fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                                          <path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path>
+                                        </svg>
+                                      </div>
+                                      <div class="tracking-date"><img src="https://raw.githubusercontent.com/shajo/portfolio/a02c5579c3ebe185bb1fc085909c582bf5fad802/delivery.svg" class="img-responsive" alt="order-placed" /></div>
+                                      <div class="tracking-content">Shipped the product<span>09 Aug 2021, 12:00pm</span></div>
+                                    </div>
+                                 
+                                    <div class="tracking-item-pending">
+                                      <div class="tracking-icon status-intransit">
+                                        <svg class="svg-inline--fa fa-circle fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                                          <path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path>
+                                        </svg>
+                                      </div>
+                                      <div class="tracking-date"><img src="https://raw.githubusercontent.com/shajo/portfolio/a02c5579c3ebe185bb1fc085909c582bf5fad802/delivery.svg" class="img-responsive" alt="order-placed" /></div>
+                                      <div class="tracking-content">Out for Delivery<span>12 Aug 2021, 05:00pm</span></div>
+                                    </div>
+
+                                    <div class="tracking-item-pending">
+                                      <div class="tracking-icon status-intransit">
+                                        <svg class="svg-inline--fa fa-circle fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                                          <path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path>
+                                        </svg>
+                                      </div>
+                                      <div class="tracking-date"><img src="https://raw.githubusercontent.com/shajo/portfolio/a02c5579c3ebe185bb1fc085909c582bf5fad802/delivery.svg" class="img-responsive" alt="order-placed" /></div>
+                                      <div class="tracking-content">Delivered<span>12 Aug 2021, 09:00pm</span></div>
+                                    </div>
+
+                                    <div class="tracking-item-pending">
+                                      <div class="tracking-icon status-intransit">
+                                        <svg class="svg-inline--fa fa-circle fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                                          <path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path>
+                                        </svg>
+                                      </div>
+                                      <div class="tracking-date"><img src="https://raw.githubusercontent.com/shajo/portfolio/a02c5579c3ebe185bb1fc085909c582bf5fad802/delivery.svg" class="img-responsive" alt="order-placed" /></div>
+                                      <div class="tracking-content">Cancelled<span>12 Aug 2021, 09:00pm</span></div>
+                                    </div>
+
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body text-center" *ngIf="orderList.length == 0">
+          <img
+            src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/error-no-search-results_2353c5.png"
+            class="mt-3" alt=""><br>
+          <strong class="not-found">Sorry, no orders found!</strong><br>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

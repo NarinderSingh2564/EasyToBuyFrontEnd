@@ -12,4 +12,8 @@ export class OrderService {
   placeOrder(userId:number){
     return this.http.post("https://localhost:7239/api/Order/PlaceOrder?userId="+ userId, userId)
   }
+
+  getOrderList(customerId: number, vendorId: number, searchText: string, statusId:string, firstDate:any, secondDate:any){
+    return this.http.get("https://localhost:7239/api/Order/GetOrdersList?vendorId=" + vendorId + "&customerId="+customerId + "&searchText="+searchText + "&statusId=" + statusId+ "&firstDate="+firstDate + "&secondDate=" +secondDate)
+  }
 }

@@ -1,0 +1,68 @@
+<div class="containers">
+    <div class="cen">
+        <div class="row">
+            <div class="col-md-8">
+                <h3>{{header}}</h3>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search orders by product name" #box>
+                    <span class="input-group-text" (click)="searchProducts(box.value)"><i
+                            class="bi bi-search"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive mt-2">
+            <table class="table table-bordered text-center table-hover">
+                <thead>
+                    <tr>
+                        <th>Sr. No.</th>
+                        <th>Customer Name</th>
+                        <th>Order Number</th>
+                        <th class="col-2">Order Date</th>
+                        <th class="col-3">Product Name</th>
+                        <th>MRP </th>
+                        <th>Discount(%)</th>
+                        <th>Quantity</th>
+                        <th>Paid Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let order of orderList;index as i">
+                        <td>{{i+1}}</td>
+                        <td>{{order.userName}}</td>
+                        <td>{{order.orderNumber}}</td>
+                        <td>{{order.orderDate | date:'mediumDate'}}</td>
+
+                        <td class="abc">
+                            <!-- <img src="https://www.bigbasket.com/media/uploads/p/l/40013625_12-fresho-brown-bread-safe-preservative-free.jpg" alt=""> -->
+                            {{order.productName}}&nbsp;({{order.productWeight}})
+                        </td>
+                        <td>{{order.mrp | currency:'INR'}}</td>
+                        <td>{{order.discount}}</td>
+                        <td>{{order.quantity}}</td>
+                        <td>{{order.amountToBePaid | currency:'INR'}}</td>
+                        <td 
+                            [ngClass]="order.status == 'Cancelled' ? 'table-danger' : order.status == 'Delivered' ? 'table-success' : order.status == 'Ordered' ? 'table-warning' : order.status == 'Shipped' ? 'table-primary' : ''">
+                            {{order.status}}</td>
+                    </tr>
+                    <tr *ngIf="orderList.length == 0">
+                        <td colspan="10">No orders found</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- <div class="pagination">
+            <div class="row">
+                <div class="col-md-4">
+                    <button class="btn"><i class="bi bi-chevron-double-left"></i>Prev</button>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-4">
+                    <button class="btn">Next<i class="bi bi-chevron-double-right"></i></button>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>

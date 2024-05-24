@@ -1,6 +1,14 @@
+
+.containers{
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+height: 100vh;
+}
+
 .bi-pencil-square {
   font-size: larger;
-  color: green;
+  color: #3b6a5e;
 }
 
 .bi-trash {
@@ -19,6 +27,7 @@
   height: 38px;
 }
 
+
 .card-img-top {
   width: 50%;
 }
@@ -28,14 +37,14 @@
 }
 
 .btn-sm {
-  color: rgb(13 110 253);
+  color: #3b6a5e;
   background-color: white;
   margin-left: 6px;
 
 }
 
 .btn-sm:hover {
-  color: rgb(13 110 253);
+  color:#3b6a5e;
   background-color: white;
   margin-left: 6px;
 }
@@ -47,4 +56,15 @@
 
 .product-price {
   font-size: large;
+}
+
+.card-header{
+  background:  #549181;
+}
+.btn2{
+  background: #3b6a5e;
+  color:white
+}
+.modal-title{
+  color: #3b6a5e;
 }

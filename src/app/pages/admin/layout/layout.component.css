@@ -1,3 +1,16 @@
+.navbar{
+  background: #549181;
+}
+
+.myoutlet{
+  background: rgb(229, 228, 228);
+}
+
+.navbar-brand{
+  color: white;
+  font-weight: 600;
+}
+
 .bi-box-arrow-right {
     padding-left: 11px;
     font-size: 25px;
@@ -12,13 +25,21 @@
     margin-right: 5px;
 }
 
+.nav-link{
+  
+  color: white;
+  font-weight: 500;
+  font-size: 18px;
+
+}
+
 .nav-link:hover {
-    color: white;
+    color: black;
 }
 
 .bi-search {
     font-size: inherit;
-    color: rgb(13 110 253);
+    color: green;
 }
 
 .btn {
@@ -85,3 +106,8 @@
     color: black;
     padding: 5px;
   }  
+
+  hr{
+    margin-bottom: auto;
+  }
+

@@ -1,7 +1,13 @@
-
+.containers{
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    height: 100vh;
+    }
+    
 .bi-pencil-square {
     font-size: larger;
-    color: green;
+    color: #3b6a5e;
 }
 .bi-trash{
     font-size: larger;
@@ -10,6 +16,7 @@
 .card{
     height: 100%;
 }
+
 .bookmark{
     border: 1px solid gainsboro;
     padding: 5px;
@@ -26,12 +33,12 @@
     border-color: red;
 }
 .btn-sm{
-    color: rgb(13 110 253);
+    color:#3b6a5e;
     background-color: white;
     margin-left: 6px;
   }
   .btn-sm:hover{
-    color:rgb(13 110 253);
+    color:#3b6a5e;
     background-color: white;
     margin-left: 6px;
   
@@ -41,4 +48,14 @@
 }
 .modal{
     backdrop-filter: brightness(0.5);
+}
+.card-header{
+    background:  #549181;
+}
+.btn2{
+    background: #3b6a5e;
+    color:white
+}
+.modal-title{
+    color: #3b6a5e;
 }

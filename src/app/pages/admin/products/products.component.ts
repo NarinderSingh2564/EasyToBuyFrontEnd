@@ -147,7 +147,7 @@ export class ProductsComponent implements OnInit {
       //   isActive: this.productForm.value.isActive == null ? false : true,
       //   showProductWeight: this.productForm.value.showProductWeight == null ? false : true,
       // }
-      this.productService.productAddEdit(formData, this.productRealImage).subscribe(result => {
+      this.productService.productAddEdit(formData).subscribe(result => {
         this.response = result;
         if (this.response.status) {
           alert(this.response.message);

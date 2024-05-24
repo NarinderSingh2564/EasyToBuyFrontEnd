@@ -5,6 +5,7 @@ import { RouterOutlet } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
 import { CategoryService } from '../../../services/category.service';
 import { AccountService } from '../../../services/account.service';
+import { File } from 'buffer';
 
 
 @Component({
@@ -19,11 +20,12 @@ export class ProductsComponent implements OnInit {
   isSidePanelVisible: boolean = false;
   categoryList: any = [];
   productList: any = [];
-  productWeightList : any =[];
+  productWeightList: any = [];
   response: any = [];
   productForm: FormGroup;
   isFormValid: boolean = false;
   isEdit: boolean = false;
+  productRealImage: File | any = null;
 
   ngOnInit(): void {
     this.getCategoryList();
@@ -32,7 +34,7 @@ export class ProductsComponent implements OnInit {
     this.productForm.controls['priceAfterDiscount'].disable();
   }
 
-  constructor(private productService: ProductService, private categoryServivce: CategoryService,private accountService:AccountService, private formBuilder: FormBuilder) {
+  constructor(private productService: ProductService, private categoryServivce: CategoryService, private accountService: AccountService, private formBuilder: FormBuilder) {
     this.productForm = this.formBuilder.group({
       id: new FormControl(0),
       productName: new FormControl("", [Validators.required]),
@@ -40,14 +42,15 @@ export class ProductsComponent implements OnInit {
       discount: new FormControl(0, [Validators.required]),
       priceAfterDiscount: new FormControl(0),
       productDescription: new FormControl("", [Validators.required]),
-      productImage: new FormControl("", [Validators.required]),
+      productImage: new FormControl(File, [Validators.required]),
       categoryId: new FormControl(0, [Validators.required]),
       productWeightId: new FormControl(0, [Validators.required]),
       showProductWeight: new FormControl(false),
       isActive: new FormControl(false)
     })
+    
   }
-  
+
   get controls() {
     return this.productForm.controls
   }
@@ -73,18 +76,18 @@ export class ProductsComponent implements OnInit {
   }
 
   getCategoryList() {
-    this.categoryServivce.getCategoryList().subscribe((result:any) => {
+    this.categoryServivce.getCategoryList().subscribe((result: any) => {
       this.categoryList = result;
     })
   }
 
   getProductList() {
-    this.productService.getProductList(0,"",this.accountService.getUserId(),"Vendor").subscribe(result => {
+    this.productService.getProductList(0, "", this.accountService.getUserId(), "Vendor").subscribe(result => {
       this.productList = result
     })
   }
 
-  getProductWeightList(){
+  getProductWeightList() {
     this.productService.getProductWeightList().subscribe(result => {
       this.productWeightList = result
     })
@@ -95,29 +98,56 @@ export class ProductsComponent implements OnInit {
     this.productForm.controls['priceAfterDiscount'].patchValue(priceAfterDiscount)
     return priceAfterDiscount
   }
+
+  uploadFile(event: any) {
+
+    this.productRealImage = <File>event.target.files[0];
+
+  }
+
   ProductAddEdit() {
     this.isFormValid = true
     if (this.productForm.invalid) {
       return;
     }
     else {
-      const product: any = {
-        id: this.productForm.value.id != null && this.productForm.value.id > 0 ? this.productForm.value.id : 0,
-        vendorId:this.accountService.getUserId(),
-        productName: this.productForm.value.productName,
-        mrp: this.productForm.value.mrp,
-        discount: this.productForm.value.discount,
-        priceAfterDiscount: this.calculatePriceAfterDiscount(),
-        productDescription: this.productForm.value.productDescription,
-        productImage: this.productForm.value.productImage,
-        categoryId: this.productForm.value.categoryId,
-        productWeightId: this.productForm.value.productWeightId,
-        createdBy: this.accountService.getUserId(),
-        updatedBy: this.accountService.getUserId(),
-        isActive: this.productForm.value.isActive == null ? false : true,
-        showProductWeight:this.productForm.value.showProductWeight == null ? false :true, 
-      }
-      this.productService.productAddEdit(product).subscribe(result => {
+
+      const formData = new FormData();
+
+       formData.set("id", this.productForm.value.id != null && this.productForm.value.id > 0 ? this.productForm.value.id : 0);
+      formData.set("vendorId", this.accountService.getUserId());
+      formData.set("productName", this.productForm.value.productName);
+      formData.set("mrp", this.productForm.value.mrp);
+      formData.set("discount", this.productForm.value.discount);
+      formData.set("priceAfterDiscount", this.calculatePriceAfterDiscount());
+      formData.set("productDescription", this.productForm.value.productDescription);
+      formData.set("ProductImage", this.productRealImage);
+      formData.set("categoryId", this.productForm.value.categoryId);
+      formData.set("productWeightId", this.productForm.value.productWeightId);
+      formData.set("createdBy", this.accountService.getUserId());
+      formData.set("updatedBy", this.accountService.getUserId());
+      formData.set("isActive", this.productForm.value.isActive == null ? "false": "true");
+      formData.set("showProductWeight", this.productForm.value.showProductWeight == null ? "false": "true");
+
+
+
+      // const product: any = {
+      //   id: this.productForm.value.id != null && this.productForm.value.id > 0 ? this.productForm.value.id : 0,
+      //   vendorId: this.accountService.getUserId(),
+      //   productName: this.productForm.value.productName,
+      //   mrp: this.productForm.value.mrp,
+      //   discount: this.productForm.value.discount,
+      //   priceAfterDiscount: this.calculatePriceAfterDiscount(),
+      //   productDescription: this.productForm.value.productDescription,
+      //   ProductImage: this.productRealImage,
+      //   categoryId: this.productForm.value.categoryId,
+      //   productWeightId: this.productForm.value.productWeightId,
+      //   createdBy: this.accountService.getUserId(),
+      //   updatedBy: this.accountService.getUserId(),
+      //   isActive: this.productForm.value.isActive == null ? false : true,
+      //   showProductWeight: this.productForm.value.showProductWeight == null ? false : true,
+      // }
+      this.productService.productAddEdit(formData, this.productRealImage).subscribe(result => {
         this.response = result;
         if (this.response.status) {
           alert(this.response.message);

@@ -13,8 +13,10 @@ export class ProductService {
     return this.http.get("https://localhost:7239/api/Product/GetProductList?categoryId=" + categoryId + "&searchText=" + searchText + "&vendorId=" + vendorId+"&role="+role)
   }
 
-  productAddEdit(objProduct: any) {
-    return this.http.post("https://localhost:7239/api/Product/ProductAddEdit", objProduct)
+  productAddEdit(productUIModel: any) {
+
+
+    return this.http.post("https://localhost:7239/api/Product/ProductAddEdit",productUIModel)
   }
 
   getProductDetailsById(id: number) {

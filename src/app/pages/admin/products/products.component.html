@@ -129,6 +129,15 @@
                             </div>
                         </div>
 
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="">Product Image</label>
+                            <input type="file" formControlName="productImage" class="form-control" (change)="uploadFile($event)">
+
+
+                            <div *ngIf="isFormValid && controls['productImage'].errors">
+                                <div *ngIf="controls['productImage'].errors['required']" class="text-danger">
+                                    Product image is required.
                         <div class="row">
                             <div class="col-md-12">
                                 <label for="">Product Image</label>
@@ -137,6 +146,7 @@
                                     <div *ngIf="controls['productImage'].errors['required']" class="text-danger">
                                         Product image is required.
                                     </div>
+
                                 </div>
                             </div>
                         </div>

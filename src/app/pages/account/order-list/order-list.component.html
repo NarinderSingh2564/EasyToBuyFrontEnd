@@ -24,7 +24,7 @@
                         <th>MRP </th>
                         <th>Discount(%)</th>
                         <th>Quantity</th>
-                        <th>Paid Amount</th>
+                        <th>Amount</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -44,7 +44,7 @@
                         <td>{{order.quantity}}</td>
                         <td>{{order.amountToBePaid | currency:'INR'}}</td>
                         <td 
-                            [ngClass]="order.status == 'Cancelled' ? 'table-danger' : order.status == 'Delivered' ? 'table-success' : order.status == 'Ordered' ? 'table-warning' : order.status == 'Shipped' ? 'table-primary' : ''">
+                            [ngClass]="order.status == 'Cancelled' ? 'table-danger' : order.status == 'Delivered' ? 'table-success' : order.status == 'Ordered' ? 'table-warning' : order.status == 'Shipped' ? 'table-primary' : 'table-active'">
                             {{order.status}}</td>
                     </tr>
                     <tr *ngIf="orderList.length == 0">

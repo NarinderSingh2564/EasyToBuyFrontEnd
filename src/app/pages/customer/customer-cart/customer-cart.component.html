@@ -23,7 +23,7 @@
         <div class="card-body">
           <div class="row" *ngFor="let item of cartList">
             <div class="col-md-2">
-              <img [src]="item.productImage" alt="">
+              <img [src]="baseUrl+item.productImage" alt="">
             </div>
             <div class="col-md-6">
               <strong>{{item.productName}}</strong><br>

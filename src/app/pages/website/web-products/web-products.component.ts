@@ -5,6 +5,7 @@ import { RouterOutlet, RouterLink, Router, ActivatedRoute } from '@angular/route
 import { AccountService } from '../../../services/account.service';
 import { CategoryService } from '../../../services/category.service';
 import { CartService } from '../../../services/cart.service';
+import { environmentHelper } from '../../../helpers/environmentHelper';
 
 @Component({
   selector: 'app-web-products',
@@ -25,7 +26,8 @@ export class WebProductsComponent {
   activeCategoryId: number = 0;
   productIdDec:string = "";
   searchText: string = "";
-
+  baseUrl:string = environmentHelper.imageBaseUrl;
+  
   constructor(private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe((result: any) => {
       this.activeCategoryId = (result.id) ? result.id : 0;

@@ -96,7 +96,7 @@
             <div class="row">
               <div class="myCard  shadow-sm d-flex  align-items-center rounded">
                 <div class="col-md-1 myimgc" (click)="getProductDescription(order.productId)">
-                  <img [src]="order.productImage" width="60" height="60" alt="">
+                  <img [src]="baseUrl+order.productImage" width="60" height="60" alt="">
                 </div>
                 <div class="col-md-7 product-Des" (click)="getProductDescription(order.productId)">
                   <h6 class="mycol">{{order.productName}}<span style="color: rgb(105, 105, 105); font-size: 14px;"> ({{order.productWeight}})</span>

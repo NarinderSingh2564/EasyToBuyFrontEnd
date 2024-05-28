@@ -4,7 +4,7 @@ import { AccountService } from '../../../services/account.service';
 import { OrderService } from '../../../services/order.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { environmentHelper } from '../../../helpers/environmentHelper';
+import { EasyToBuyHelper } from '../../../helpers/EasyToBuyHelper';
 
 @Component({
   selector: 'app-customer-orders',
@@ -22,7 +22,7 @@ export class CustomerOrdersComponent {
   orderList: any = []
   orderNumber: string = ""
   orderStatusTrackingList : any = []
-  baseUrl:string = environmentHelper.imageBaseUrl;
+  baseUrl:string = EasyToBuyHelper.imageBaseUrl;
   
   constructor() {
     this.getOrderList()

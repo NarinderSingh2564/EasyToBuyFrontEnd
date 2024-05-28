@@ -4,7 +4,7 @@ import { ProductService } from '../../../services/product.service';
 import { CommonModule } from '@angular/common';
 import { AccountService } from '../../../services/account.service';
 import { CartService } from '../../../services/cart.service';
-import { environmentHelper } from '../../../helpers/environmentHelper';
+import { EasyToBuyHelper } from '../../../helpers/EasyToBuyHelper';
 
 @Component({
   selector: 'app-product-description',
@@ -23,7 +23,7 @@ export class ProductDescriptionComponent {
 
   accountService = inject(AccountService)
   cartService = inject(CartService)
-  baseUrl:string = environmentHelper.imageBaseUrl;
+  baseUrl:string = EasyToBuyHelper.imageBaseUrl;
 
 
   selectedImage = 'assets/images/iphone15/1.jpeg';

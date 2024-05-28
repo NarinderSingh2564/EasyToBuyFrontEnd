@@ -6,7 +6,7 @@ import { ProductService } from '../../../services/product.service';
 import { CategoryService } from '../../../services/category.service';
 import { AccountService } from '../../../services/account.service';
 import { File } from 'buffer';
-import { environmentHelper } from '../../../helpers/environmentHelper';
+import { EasyToBuyHelper } from '../../../helpers/EasyToBuyHelper';
 
 
 @Component({
@@ -29,8 +29,7 @@ export class ProductsComponent implements OnInit {
   productRealImage: File | any = null;
   previewImage: any = null;
   productImageName: string = '';
-  baseUrl:string = environmentHelper.imageBaseUrl;
-  
+  baseUrl:string = EasyToBuyHelper.imageBaseUrl;  
   ngOnInit(): void {
     this.getProductList();
     this.productForm.controls['priceAfterDiscount'].disable();
@@ -78,7 +77,7 @@ export class ProductsComponent implements OnInit {
     this.isEdit = true
     this.productForm.patchValue(product)
     this.openSidePanel()
-    this.previewImage = environmentHelper.imageBaseUrl+product.productImage;
+    this.previewImage = EasyToBuyHelper.imageBaseUrl+product.productImage;
     this.productImageName = product.productImage;
     this.getCategoryList();
     this.getProductWeightList();

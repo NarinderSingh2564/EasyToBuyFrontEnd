@@ -5,7 +5,7 @@ import { RouterOutlet, RouterLink, Router, ActivatedRoute } from '@angular/route
 import { AccountService } from '../../../services/account.service';
 import { CategoryService } from '../../../services/category.service';
 import { CartService } from '../../../services/cart.service';
-import { environmentHelper } from '../../../helpers/environmentHelper';
+import { EasyToBuyHelper } from '../../../helpers/EasyToBuyHelper';
 
 @Component({
   selector: 'app-web-products',
@@ -26,7 +26,7 @@ export class WebProductsComponent {
   activeCategoryId: number = 0;
   productIdDec:string = "";
   searchText: string = "";
-  baseUrl:string = environmentHelper.imageBaseUrl;
+  baseUrl:string = EasyToBuyHelper.imageBaseUrl;
   
   constructor(private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe((result: any) => {

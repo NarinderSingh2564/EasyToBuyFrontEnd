@@ -26,11 +26,11 @@ export class ProductsComponent implements OnInit {
   isFormValid: boolean = false;
   isEdit: boolean = false;
   productRealImage: File | any = null;
-
+  previewImage: any = null;
+  productImageName: string = '';
+  baseUrl: string =  'https:/localhost:7239/ProductImages/';
   ngOnInit(): void {
-    this.getCategoryList();
     this.getProductList();
-    this.getProductWeightList();
     this.productForm.controls['priceAfterDiscount'].disable();
   }
 
@@ -48,7 +48,7 @@ export class ProductsComponent implements OnInit {
       showProductWeight: new FormControl(false),
       isActive: new FormControl(false)
     })
-    
+
   }
 
   get controls() {
@@ -67,12 +67,19 @@ export class ProductsComponent implements OnInit {
     this.isEdit = false
     this.productForm.reset()
     this.isFormValid = false
+    this.previewImage = ''
+    this.getCategoryList();
+    this.getProductWeightList();
   }
 
   editProduct(product: any) {
     this.isEdit = true
     this.productForm.patchValue(product)
     this.openSidePanel()
+    this.previewImage = this.baseUrl+product.productImage;
+    this.productImageName = product.productImage;
+    this.getCategoryList();
+    this.getProductWeightList();
   }
 
   getCategoryList() {
@@ -103,6 +110,26 @@ export class ProductsComponent implements OnInit {
 
     this.productRealImage = <File>event.target.files[0];
 
+    const selectedFiles = event.target.files;
+
+    if (selectedFiles) {
+      const file: File | null = selectedFiles.item(0);
+
+      if (file) {
+
+
+        const reader = new FileReader();
+
+        reader.onload = (e: any) => {
+          console.log(e.target.result);
+          this.previewImage = e.target.result;
+        };
+
+        reader.readAsDataURL(this.productRealImage);
+      }
+
+    }
+
   }
 
   ProductAddEdit() {
@@ -114,7 +141,7 @@ export class ProductsComponent implements OnInit {
 
       const formData = new FormData();
 
-       formData.set("id", this.productForm.value.id != null && this.productForm.value.id > 0 ? this.productForm.value.id : 0);
+      formData.set("id", this.productForm.value.id != null && this.productForm.value.id > 0 ? this.productForm.value.id : 0);
       formData.set("vendorId", this.accountService.getUserId());
       formData.set("productName", this.productForm.value.productName);
       formData.set("mrp", this.productForm.value.mrp);
@@ -122,12 +149,14 @@ export class ProductsComponent implements OnInit {
       formData.set("priceAfterDiscount", this.calculatePriceAfterDiscount());
       formData.set("productDescription", this.productForm.value.productDescription);
       formData.set("ProductImage", this.productRealImage);
+      formData.set("ProductImageName", this.productImageName);
+
       formData.set("categoryId", this.productForm.value.categoryId);
       formData.set("productWeightId", this.productForm.value.productWeightId);
       formData.set("createdBy", this.accountService.getUserId());
       formData.set("updatedBy", this.accountService.getUserId());
-      formData.set("isActive", this.productForm.value.isActive == null ? "false": "true");
-      formData.set("showProductWeight", this.productForm.value.showProductWeight == null ? "false": "true");
+      formData.set("isActive", this.productForm.value.isActive == null ? "false" : "true");
+      formData.set("showProductWeight", this.productForm.value.showProductWeight == null ? "false" : "true");
 
 
 

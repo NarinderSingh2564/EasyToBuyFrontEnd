@@ -18,7 +18,7 @@
                         <div class="col-md-3" *ngFor="let product of productList"
                             style=" padding-bottom: calc(var(--bs-gutter-x)* .5);">
                             <div class="card">
-                                <img class="card-img-top mx-auto d-block mt-2" [src]="product.productImage"
+                                <img class="card-img-top mx-auto d-block mt-2" [src]="baseUrl+product.productImage" width="250" height="150"
                                     alt="Card image">
                                 <div class="card-body">
                                     <div>
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
         </div>
         <div class="col-md-4" *ngIf="isSidePanelVisible">
             <div class="card mt-3">
@@ -132,7 +132,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label for="">Product Image</label>
-                            <input type="file" formControlName="productImage" class="form-control" (change)="uploadFile($event)">
+                            <input type="file" formControlName="productImage" class="form-control" accept="image/png, image/jpg, image/jpeg" (change)="uploadFile($event)">
                         </div>
 
                             <div *ngIf="isFormValid && controls['productImage'].errors">
@@ -141,16 +141,11 @@
                                 </div>
                             </div>
                     </div>
-                        <div class="row">
+                    <div class="row"></div>
+                        <div class="row" *ngIf="previewImage">
+                            <br>
                             <div class="col-md-12">
-                                <label for="">Product Image</label>
-                                <input type="text" formControlName="productImage" class="form-control">
-                                <div *ngIf="isFormValid && controls['productImage'].errors">
-                                    <div *ngIf="controls['productImage'].errors['required']" class="text-danger">
-                                        Product image is required.
-                                    </div>
-
-                                </div>
+                                <img src="{{previewImage}}" style="width: 50%; height: 100%;">
                             </div>
                         </div>
 

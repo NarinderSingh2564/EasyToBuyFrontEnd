@@ -1,6 +1,6 @@
 <div class="container-fluid mt-3 mb-4">
   <div class="row" *ngIf="!isPlaced">
-    <div class="col-md-8">
+    <div class="col-md-8 mt-3">
       <div id="accordion1">
         <div class="card">
           <div class="card-header"><strong class="text-muted">PAYMENT MODE</strong></div>
@@ -138,6 +138,7 @@
         <div class="card-header"><strong class="text-muted">PRICE DETAILS</strong></div>
         <div class="card-body">
           <div>
+            <span *ngIf="totalCartItems==0">Price ({{totalCartItems}} Item)</span>
             <span *ngIf="totalCartItems==1">Price ({{totalCartItems}} Item)</span>
             <span *ngIf="totalCartItems>1">Price ({{totalCartItems}} Items)</span>
             <span class="price">{{priceDetails.totalProductPrice | currency : 'INR'}}</span>

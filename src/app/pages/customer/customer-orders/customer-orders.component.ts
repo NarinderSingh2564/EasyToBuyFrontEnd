@@ -4,6 +4,7 @@ import { AccountService } from '../../../services/account.service';
 import { OrderService } from '../../../services/order.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { EasyToBuyHelper } from '../../../helpers/EasyToBuyHelper';
 
 @Component({
   selector: 'app-customer-orders',
@@ -21,7 +22,8 @@ export class CustomerOrdersComponent {
   orderList: any = []
   orderNumber: string = ""
   orderStatusTrackingList : any = []
-
+  baseUrl:string = EasyToBuyHelper.imageBaseUrl;
+  
   constructor() {
     this.getOrderList()
   }

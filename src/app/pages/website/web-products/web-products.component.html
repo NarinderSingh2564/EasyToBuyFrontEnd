@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-md-3" *ngFor="let product of productList" style=" padding-bottom: calc(var(--bs-gutter-x)* .5);">
         <div class="card" >
-          <img class="card-img-top mx-auto d-block mt-2" routerLink="/product-description/{{product.id}}" [src]="product.productImage" alt="Card image">
+          <img class="card-img-top mx-auto d-block mt-2" routerLink="/product-description/{{product.id}}" [src]="baseUrl+product.productImage" alt="Card image">
           <div class="card-body">
             <div class="row mb-3 block-ellipsis">
               <p><small>{{product.productDescription}}</small></p>

@@ -4,6 +4,7 @@ import { CartService } from '../../../services/cart.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { CustomerAddressComponent } from '../customer-address/customer-address/customer-address.component';
+import { EasyToBuyHelper } from '../../../helpers/EasyToBuyHelper';
 
 
 
@@ -29,11 +30,11 @@ export class CustomerCartComponent {
   days = 2;
   deliveryDate = new Date(Date.now() + this.days * 24 * 60 * 60 * 1000);
   deliveryAddress: any = []
-
+  baseUrl:string = EasyToBuyHelper.imageBaseUrl;
+  
   constructor() {
     this.getCartDetailsByCustomerId();
     this.getDeliveryAddress();
-    console.log(this.deliveryAddress)
     this.cartService.updateCart$.subscribe(() => {
       this.getCartDetailsByCustomerId();
     })

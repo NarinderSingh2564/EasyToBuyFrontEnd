@@ -18,7 +18,7 @@ import { PlaceOrderComponent } from './pages/website/place-order/place-order.com
 import { OrderListComponent } from './pages/account/order-list/order-list.component';
 import { VendorOrderListComponent } from './pages/vendor/vendor-order-list/vendor-order-list.component';
 import { CustomerOrdersComponent } from './pages/customer/customer-orders/customer-orders.component';
-import { customerAuthGuard, placeOrderAuthGuard } from './guards/customer-auth.guard';
+import { customerAuthGuard } from './guards/customer-auth.guard';
 
 
 export const routes: Routes = [
@@ -99,7 +99,7 @@ export const routes: Routes = [
             {
                 path: 'place-order',
                 component:PlaceOrderComponent,
-                canActivate: [placeOrderAuthGuard],
+                canActivate: [customerAuthGuard],
             },
             {
                 path: 'customer-order',

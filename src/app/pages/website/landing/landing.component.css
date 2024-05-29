@@ -1,8 +1,6 @@
 .navbar{
   background: #61887e;
 }
-
-
 .navbar-brand {
   color: white;
   font-weight: 700;
@@ -17,10 +15,9 @@
 
 .logo {
   font-size: 33px;
-  margin-top: -11px;
   color: white;
-  margin-right: 5px;
-  margin-top: -20px;
+  margin-right: 3px;
+  margin-top: -5px;
 }
 
 .nav-link {

@@ -35,7 +35,6 @@ export class CustomerCartComponent {
   constructor() {
     this.getCartDetailsByCustomerId();
     this.getDeliveryAddress();
-    console.log(this.deliveryAddress)
     this.cartService.updateCart$.subscribe(() => {
       this.getCartDetailsByCustomerId();
     })

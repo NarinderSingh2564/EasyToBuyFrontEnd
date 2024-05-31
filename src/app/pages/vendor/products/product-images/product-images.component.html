@@ -1,0 +1,19 @@
+<div class="modal fade" id="productImagesModal" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Upload Product Images</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" (click)=" sendImagesToParent()"></button>
+            </div>
+            <div class="modal-body">
+                <input type="file" name="" id="" multiple class="form-control" (change)="selectFiles($event)">
+                
+            </div>
+            <div class="modal-footer">
+                <div class="text-end">
+                    <button class="btn" >Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -19,6 +19,7 @@ import { OrderListComponent } from './pages/account/order-list/order-list.compon
 import { VendorOrderListComponent } from './pages/vendor/vendor-order-list/vendor-order-list.component';
 import { CustomerOrdersComponent } from './pages/customer/customer-orders/customer-orders.component';
 import { customerAuthGuard } from './guards/customer-auth.guard';
+import { ProductImagesComponent } from './pages/vendor/products/product-images/product-images.component';
 
 
 export const routes: Routes = [
@@ -60,6 +61,10 @@ export const routes: Routes = [
             {
                 path: 'products',
                 component: ProductsComponent
+            },
+            {
+                path: 'product-images',
+                component: ProductImagesComponent
             },
             {
                 path: 'category',

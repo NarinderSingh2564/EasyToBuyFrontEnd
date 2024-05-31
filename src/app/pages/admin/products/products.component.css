@@ -33,7 +33,7 @@ height: 100vh;
 }
 
 .form-check-input {
-  margin-right: 2%;
+  margin-left: 20px;
 }
 
 .btn-sm {
@@ -63,7 +63,8 @@ height: 100vh;
 }
 .btn2{
   background: #3b6a5e;
-  color:white
+  color:white;
+  float: inline-end;
 }
 .modal-title{
   color: #3b6a5e;

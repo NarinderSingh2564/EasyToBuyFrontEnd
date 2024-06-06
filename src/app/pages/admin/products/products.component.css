@@ -3,7 +3,6 @@
 justify-content: center;
 align-items: center;
 min-height: 100vh;
-height: 100vh;
 }
 
 .bi-pencil-square {
@@ -16,7 +15,7 @@ height: 100vh;
   color: red;
 }
 
-.card {
+.product-card {
   height: 100%;
 }
 

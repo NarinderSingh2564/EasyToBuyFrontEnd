@@ -18,7 +18,7 @@ import { PlaceOrderComponent } from './pages/website/place-order/place-order.com
 import { OrderListComponent } from './pages/account/order-list/order-list.component';
 import { VendorOrderListComponent } from './pages/vendor/vendor-order-list/vendor-order-list.component';
 import { CustomerOrdersComponent } from './pages/customer/customer-orders/customer-orders.component';
-import { customerAuthGuard } from './guards/customer-auth.guard';
+import { customerAuthGuard } from './guards/customerAuth.guard';
 import { ProductImagesComponent } from './pages/vendor/products/product-images/product-images.component';
 
 

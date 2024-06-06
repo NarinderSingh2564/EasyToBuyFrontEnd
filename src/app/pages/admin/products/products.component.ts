@@ -27,13 +27,12 @@ export class ProductsComponent implements OnInit {
   productForm: FormGroup;
   isFormValid: boolean = false;
   isEdit: boolean = false;
-  addProductImage: boolean = false;
   productRealImage: File | any = null;
   previewImage: any = null;
   productImageName: string = '';
-  baseUrl:string = EasyToBuyHelper.imageBaseUrl;  
-  previews: string[] = [];
- showForm:boolean=false
+  baseUrl:string = EasyToBuyHelper.imageBaseUrl;
+  previews:string[] = [];
+  showForm:boolean=false
 
   ngOnInit(): void {
     this.getProductList();
@@ -65,17 +64,14 @@ export class ProductsComponent implements OnInit {
   closeProductForm() {
     this.showForm = false
   }
-showProductForm(){
-  this.showForm = true
 
-}
-getImagesFromChild(images:any){
+  getImagesFromChild(images: any) {
     this.previews = images
-    console.log(this.previews)
   }
 
   addProduct() {
-    this.isEdit= false
+    this.showForm = true
+    this.isEdit = false
     this.productForm.reset()
     this.isFormValid = false
     this.previewImage = ''
@@ -93,9 +89,7 @@ getImagesFromChild(images:any){
     this.getProductWeightList();
   }
 
-  addProductImages(){
-    this.addProductImage = true
-  }
+
 
   getCategoryList() {
     this.categoryServivce.getCategoryList().subscribe((result: any) => {

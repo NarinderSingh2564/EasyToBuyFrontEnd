@@ -1,7 +1,11 @@
 .modal-header{
-    color: #3b6a5e;
+    background-color: #3b6a5e;
+    color: white;
 }
-.btn{
+.btn1{
     color: white;
     background-color: #3b6a5e;
+}
+textarea{
+    max-height:250px
 }

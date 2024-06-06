@@ -13,11 +13,11 @@
                 <div class="row g-3 my-2">
                     <div class="col-md-3" *ngFor="let item of vendorOrdersCountList">
                         <div class="p-3 myCard  shadow-sm d-flex justify-content-around align-items-center rounded" routerLink="/vendor-order-list/{{item.orderStatusId}}">
-                            <div>
+                            <div class="mynumber">
                                 <h3 class="fs-2 mycol">{{item.orderCount}}</h3>
                                 <p class="fs-5 mycol">{{item.orderStatus}}</p>
                             </div>
-                            <i class="{{item.iconClass}}"></i>
+                            <i class="{{item.iconClass}} mynumber"></i>
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,6 @@
 
             </div>
         </div>
-
        
 
     </div>

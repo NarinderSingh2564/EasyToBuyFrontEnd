@@ -1,7 +1,7 @@
 .main{
   background: rgb(229, 228, 228);
-  min-height: 100vh;
-  height: 100vh;
+  min-height: 110vh;
+  height: 100px;
   justify-content: center;
   align-items: center;
 }
@@ -21,14 +21,6 @@
   .rounded-full {
     border-radius: 100%;
   }
-  .myCard{
-    color: white;
-    background: linear-gradient(120deg, #3b6a5e, #549181);
-  }
-  .myCard:hover{
-    background: white;
-    color:#3b6a5e ;
-}
 
   .mytables{
     border: 2px solid gray;
@@ -46,3 +38,53 @@
 
 
   
+
+ .myCard {
+  height: 120px;
+  width: 290px;
+  box-shadow: 16px 14px 20px gray;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background: #3b6a5e;
+} 
+
+.myCard:hover::before {
+  content: " ";
+  background: conic-gradient(rgb(0, 83, 0) 90deg,transparent 110deg);
+  width: 300%;
+  height:280%;
+  position: absolute;
+  background-color: white;
+  animation: rotate 2s linear infinite;
+}
+
+
+.myCard::after {
+  content:"";
+  height: 110px;
+  width: 280px;
+  background: #3b6a5e;
+  position: absolute;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(0, 83, 0);
+}
+
+.mynumber{
+  z-index: 1;
+}
+@keyframes rotate {
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}

@@ -13,7 +13,7 @@ export class ProductImagesComponent {
   selectedFiles?: FileList;
   productImages: string[] = [];
   childEvent = new EventEmitter()
-
+  numberOfFiles:number=0
 
   selectFiles(event: any): void {
    
@@ -21,8 +21,8 @@ export class ProductImagesComponent {
    
     this.productImages = [];
     if (this.selectedFiles && this.selectedFiles[0]) {
-      const numberOfFiles = this.selectedFiles.length;
-      for (let i = 0; i < numberOfFiles; i++) {
+      this.numberOfFiles = this.selectedFiles.length;
+      for (let i = 0; i < this.numberOfFiles; i++) {
         const reader = new FileReader();
 
         reader.onload = (e: any) => {
@@ -37,5 +37,13 @@ export class ProductImagesComponent {
 
   sendImagesToParent(){
     this.childEvent.emit(this.productImages)
+  }
+
+
+  uploadImages(){
+    if(this.numberOfFiles > 5){
+      alert("You can not upload more than 4 images.");
+      
+    }
   }
 }

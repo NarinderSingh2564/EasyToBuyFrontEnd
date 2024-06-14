@@ -4,9 +4,11 @@
 .navbar-brand {
   color: white;
   font-weight: 700;
-  margin-top: -9px;
+  margin-top: -2px;
   font-style: initial;
   margin-left: 5px;
+  font-size: 26px;
+  z-index: 1;
 }
 
 .navbar-brand:hover {
@@ -17,6 +19,7 @@
   font-size: 33px;
   color: white;
   margin-right: 3px;
+  z-index: 1;
   margin-top: -5px;
 }
 

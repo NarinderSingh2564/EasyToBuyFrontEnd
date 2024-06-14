@@ -1,222 +1,175 @@
+<section class="Product-Image-Description">
+  
+  <div class="row" *ngFor="let product of ProductDescription">
+       <div class="col-md-1 myside">
+         <ul class="thumblist2">
+        <li class="imageList">
+            <img src="assets/images/iphone15/1.jpeg" class="thumbimag1"  alt="" (click)="onThumbClick('1')">
+        </li>
+        <li class="imageList">
+            <img src="assets/images/iphone15/2.jpeg" class="thumbimag1"  alt="" (click)="onThumbClick('2')">
+        </li>
+        <li class="imageList">
+            <img src="assets/images/iphone15/3.jpeg" class="thumbimag1"  alt="" (click)="onThumbClick('3')">
+        </li>
+        <li class="imageList">
+          <img [src]="baseUrl + product.productImage" class="thumbimag1"  alt="" (click)="onThumbClick('4')">
+      </li>
+         </ul>
+       </div>
 
-<div class="main">
-<section>
-   <div class="container-fluid">
-      <div class="row" *ngFor="let product of ProductDescription">
-                                   <!-- Product picture -->
-          <div class="col-md-1">
-    <ul class="thumblist2">
-      <li class="abd">
-          <img src="assets/images/iphone15/1.jpeg" class="thumbimag1"  alt="" (click)="onThumbClick('1')">
-      </li>
-      <li class="abd">
-          <img src="assets/images/iphone15/2.jpeg" class="thumbimag1"  alt="" (click)="onThumbClick('2')">
-      </li>
-      <li class="abd">
-          <img src="assets/images/iphone15/3.jpeg" class="thumbimag1"  alt="" (click)="onThumbClick('3')">
-      </li>
-    </ul>
+       <div class="col-md-4 MainImage" id="myimagehover">
+          <div id='lens'></div>
+           <img [src]="baseUrl + product.productImage"  alt="" class="slideshow-items active" >
+           <div id='result'></div>
+       </div>
+       
+       <div class="col-md-6 rightPannel">
+        <h3>{{product.productName}}</h3>
+        <div class="row pt-2">
+          <div class="col-md-2">
+            <span class="labels1">4.6 <span class="bi bi-star-fill"></span></span>
           </div>
-    <div class="col-md-5">
-     <div class="row"> 
-      <div class="col-md-12" id="myimagehover">
-        <div id='lens'></div>
-         <img [src]="baseUrl + product.productImage"  alt="" class="slideshow-items active" >
-         <div id='result'></div>
-      </div> 
-      <div class="col-md-6">
-        <button class="btn col-md-4 col-md-offset-2 btn-lg" (click)="AddToCart(product.id)" routerLink="customer-cart"  style="background-color:#ff9f00; color:#fff;font-size:15px;"><strong><span class="bi bi-cart-check-fill"></span> &nbsp; {{buttonText}} </strong></button>
-      </div>
-      <div class="col-md-6">
-        <button class="btn col-md-4 col-md-offset-1 btn-lg" style="background-color:#fb641b; color:#fff;font-size:15px;"><strong><i class="fa fa-bolt" style="font-size:1.2em;"></i> BUY NOW</strong></button>
-      </div>
-      </div>
-       </div>
-        <!-- Product Description -->
-          <div class="col-md-5 desc">
-            <div>
-             <h5>{{product.productName}}</h5>
-         <div class="row">
-            <div class="col-md-3">
-              <span class="labels1">4.6 <span class="bi bi-star-fill"></span></span>
-            </div>
-            <div class="col-md-5">
-              <strong>2,421 Ratings & Reviews</strong>
-            </div>
-         </div>
-     <div>
-      <h4 ><strong>&#8377;{{product.priceAfterDiscount}} &nbsp; &nbsp;</strong><span style="color: rgb(153, 152, 152); font-size: 16px;"><del>&#8377;{{product.mrp}}</del>&nbsp;&nbsp; &nbsp; &nbsp;<span style="color: rgb(8, 143, 8); font-size: 16px; font-weight: 700;"> {{product.discount}}% off</span></span> </h4>
-     </div>
-     <label style="font-size: 17px;">Avilable Offers</label>
-     <div>
-       <h6><span class="bi bi-calendar-event-fill"></span> EMIs from <strong>Rs 15 /month </strong><a href="">View Plans <i class="fa fa-chevron-right"></i></a></h6>  
-       <h6><span class="bi bi-tag-fill"></span><strong> Bank Offer</strong> 2% Instant Discount on Visa Cards for First 3 Online Payments. <a href="">T&C</a></h6>
-       <h6><span class="bi bi-tag-fill"></span><strong> Bank Offer</strong> Extra 2% off* with Axis Bank Buzz Credit Card. <a href="">T&C</a></h6>
-     </div>    
-       <br> 
-     <div class="row">
-             <div class="col-md-1">
-               <strong>Delivery</strong>
-             </div>
-             
-             <div class=" col-md-5" style="border:0px;border-bottom:1px solid #2874f0;width:40%; position:relative; left:7%;" >
-               <span class="bi bi-geo-alt col-md-2" style="color:#2874f0;padding-right:4px; margin-right:0px;"></span>
-               <input type="text" placeholder="PIN Code" style="border:0; padding-left: 5px;" class="col-md-7">
-               <a href=" " class="col-md-2" style="padding-left:3px;text-decoration:none;">Change</a>
-             </div>
-                       
-           <div id="delivery-time" style="position:relative;left:15%;">
-               <h6>Delivery in 3-4 days | <a href="" style="color:green;text-decoration:none;">Free</a></h6>
-           </div>
+          <div class="col-md-5">
+            <strong>2,421 Ratings & Reviews</strong>
           </div>
+       </div>
+
+       <div class="pt-2" >
+        <h4><strong>&#8377;{{product.priceAfterDiscount}} &nbsp; &nbsp;</strong><span style="color: rgb(153, 152, 152); font-size: 16px;"><del>&#8377;{{product.mrp}}</del>&nbsp;&nbsp; &nbsp; &nbsp;<span style="color: rgb(5, 118, 5); font-size: 16px; font-weight: 700;">{{product.discount}}% off</span></span> </h4>
+       </div>
+       <label style="font-size: 17px; font-weight:600; padding-top: 8px;">Avilable Offers</label>
+       <div class="pt-3">
+        <h6><span class="bi bi-calendar-event-fill"></span> EMIs from <strong>Rs 15 /month </strong><a href="">View Plans <i class="fa fa-chevron-right"></i></a></h6>  
+        <h6><span class="bi bi-tag-fill"></span><strong> Bank Offer</strong> 2% Instant Discount on Visa Cards for First 3 Online Payments. <a href="">T&C</a></h6>
+        <h6><span class="bi bi-tag-fill"></span><strong> Bank Offer</strong> Extra 2% off* with Axis Bank Buzz Credit Card. <a href="">T&C</a></h6>
+      </div>
+
+      <div class="row pt-5">
+        <div class="col-md-1">
+          <strong>Delivery</strong>
+        </div>
+        
+        <div class=" col-md-5" style="border:0px;border-bottom:1px solid #2874f0;width:40%; position:relative; left:7%;" >
+          <span class="bi bi-geo-alt col-md-2" style="color:#2874f0;padding-right:4px; margin-right:0px;"></span>
+          <input type="text" placeholder="PIN Code" style="border:0px; padding-left: 5px;" class="col-md-7">
+          <a href=" " class="col-md-2" style="padding-left:3px;text-decoration:none;">Change</a>
+        </div>
+                  
+      <div id="delivery-time" style="position:relative;left:15%;">
+          <h6>Delivery in 3-4 days | <a href="" style="color:green;text-decoration:none;">Free</a></h6>
+      </div>
      </div>
-     <br>
-     <br>
-    
-     <div class="container col-md-12" style="margin-top:50px; width: 110%;">
-       <div class="panel panel-default">
-         <div class="panel-body">
-           <div class="col-md-12">
-             <h4>PRODUCT DESCRIPTION</h4>
-           <p style=" line-height: 1.7; padding-bottom: 20px; padding-top: 10px;">{{product.productDescription}}</p>
-           </div>
-         </div>
-         <hr style="border-top: 1px solid #111111;">
-         <div class="panel-body">
-          <div class="row">
-             <div class="col-md-7">
-             <h5 style="margin-top: 10%;">14.73 cm Super Retina Screen</h5>
-             <p style=" line-height: 1.8;">Movies or games - with its Super Retina screen, you can enjoy an immersive-viewing experience that dazzles the eyes.</p>
-            </div>
-             
-           <div class="col-md-5">
-             <img src="assets/images/iphone15/1.jpeg" class="img-responsive" alt="">
-           </div>
-             
-           </div>
-           </div>
-           <hr>
-           <div class="panel-body">
-             <div class="row">
-             <div class="col-md-5">
-               <img src="assets/images/iphone15/1.jpeg" class="img-responsive" alt="">
-             </div>
-             
-             <div class="col-md-7">
-               <h5 style="margin-top: 10%;">Innovative Display Technology</h5>
-               <p style=" line-height: 1.8;">Innovative Display Technology
-                   The display, with new techniques and technology, follows the curves and its elegantly rounded corners.</p>
-             </div>
-           </div>
-           </div>
-           
-             <div class="panel-footer">
-                <h5><a href="" style="text-decoration:none; ">View all features</a></h5>
-              </div>
-       </div>
-       
-       <!-- Specifications -->
-       
-       <div class="panel panel-default">
-         <div class="panel-heading" style="background-color:#fff; border-bottom: 1px solid lightgray; padding-bottom: 10px;">
-           <h3>Specifications</h3>
-         </div>
-   
-         <div class="panel-body" style="padding-top: 10px; ">
-           <h4 style="border-bottom: 1px solid lightgray;">General</h4>
-           <table class="table table-default">
-             <tbody>
-               <tr><td class="col-md-4 tdhead">In The Box</td> <td class="col-md-8 tdbot">
-Handset, EarPods with Lightning Connector, Lightning to 3.5 mm Headphone Jack Adapter, Lightning to USB Cable, USB Power Adapter, Documentation</td></tr>
-               
-               <tr><td class="col-md-4 tdhead">Model Number</td>  <td class="col-md-8 tdbot">
-MQA62HN/A</td></tr>
-               
-                <tr><td class="col-md-4 tdhead">Model Name</td>  <td class="col-md-8 tdbot">iPhone 15 pro max</td></tr>
-               
-               <tr><td class="col-md-4 tdhead">Color</td>  <td class="col-md-8 tdbot">Gray</td></tr>
-               
-               <tr><td class="col-md-4 tdhead">Browse Type</td>  <td class="col-md-8 tdbot">Smartphones</td></tr>
-               
-             </tbody>
-             
-           </table>
-         
-         </div>
-         
-         <div class="panel-footer">
-           <h5><a href="">Read More</a></h5>
-           </div>
-       </div>
-       
-     </div>
-     
-           </div>
-       </div>
     </div>
-</section> 
-
-<br><br>
- <!-- FOOTER -->
-
-<footer class="page-footer container-fluid col-md-12" style="top: 5em;">
-<hr>
-<div class="container" style="max-width: 1240px;">
-<div class="row" id="kkll">
-  <div class="col-md-4">
-    <h4 class="mmd">Help</h4>
-    <ul class="quick">
-      <li>Payments</li>
-      <li>Shipping</li>
-      <li>Cancellations & Return</li>
-      <li>FAQ</li>
-    </ul>
   </div>
-  
-  <div class="col-md-4">
-    <h4 class="mmd">Lifestyle Store</h4>
-    <ul class="quick">
-      <li>Contact Us</li>
-      <li>About Us</li>
-      <li>40239345_6-sleepy-owl-premium-instant-coffee</li>
-      <li>Stories</li>
-      <li>Sell With Us</li>
-    </ul>
+</section>
+
+<section class="Products-Specification">
+  <div class="row" *ngFor="let product of ProductDescription">
+    <div class="col-md-6"> <div class="imageButtons">
+      <button class="btn1" (click)="AddToCart(product.id)"  routerLink="customer-cart"><strong><span class="bi bi-cart-check-fill"></span> &nbsp;Add To Cart </strong></button>
+      <button class="btn2"><strong><i class="fa fa-bolt" style="font-size:1.2em;"></i> BUY NOW</strong></button>
+     </div></div>
+  <div class="col-md-6 myspec">
+  <div class="panel panel-default">
+    <div class="panel-heading" style="background-color:#fff; border-bottom: 1px solid lightgray; padding-bottom: 10px;">
+      <h4>Specifications</h4>
+    </div>
+    <div class="panel-body">
+      <table class="table table-default">
+        <tbody>
+          <tr><td class="col-md-4 tdhead">Specility</td> <td class="col-md-8 tdbot">Natural</td></tr>
+          
+          <tr><td class="col-md-4 tdhead">Ingredient Type</td>  <td class="col-md-8 tdbot">vegetarian</td></tr>
+          
+           <tr><td class="col-md-4 tdhead">Type</td>  <td class="col-md-8 tdbot">Fresh</td></tr>
+          
+          <tr><td class="col-md-4 tdhead">Manufacturer</td>  <td class="col-md-8 tdbot">K.G Pvt Ltd</td></tr>
+          
+          <tr><td class="col-md-4 tdhead">Item Package Quanity</td>  <td class="col-md-8 tdbot">1</td></tr>
+         
+          <tr><td class="col-md-4 tdhead">Net Quanity</td>  <td class="col-md-8 tdbot">1</td></tr>
+          
+          <tr><td class="col-md-4 tdhead">Package Information</td>  <td class="col-md-8 tdbot">Packets</td></tr>
+          
+          <tr><td class="col-md-4 tdhead">Ingredient</td>  <td class="col-md-8 tdbot">abc, def </td></tr>
+       
+        </tbody>
+        
+      </table>
+    
+    </div>
+    <div class="panel-footer pt-2">
+      <h5>PRODUCT DESCRIPTION</h5>
+      <p>{{product.productDescription}}</p>
+      </div>
   </div>
-  
-  <div class="col-md-4">
-    <h4 class="mmd">MISC</h4>
-    <ul class="quick">
-      <li>Online Shopping</li>
-      <li>Gift Card</li>
-      <li>Sitemap</li>
-    </ul>
   </div>
 </div>
-</div>
+</section>
 
- <div class="container-fluid" style="position:relative;top:3em;margin-bottom:60px;">
-   <div class="row">
-   <div class="col-md-5">
-     <h5 style="font-size:0.95em;">Policies: <a href=""  style="text-decoration:none;"> Return Policy </a>|<a href=""  style="text-decoration:none;"> Terms of use </a>|<a href=""  style="text-decoration:none;"> Security </a>|<a href=""  style="text-decoration:none;"> Privacy </a>|<a href=""  style="text-decoration:none;"> Infringement</a></h5>
-   </div>
-   <div class="col-md-3">
-     <h5 style="font-size:0.95em;">&copy; LIFESTYLE STORE</h5>
-   </div>
-   <div class="col-md-4 row contact">
-     <h5 class="col-md-5" style="font-size:0.95em;">Keep in touch</h5>
-     <div class="col-md-7">
-       <button class="btn btn-default" style="border-radius:50%;width:40px;height:40px; background: #2874f0;"><i class="fa fa-facebook-f"></i></button>&nbsp;
-        <button class="btn btn-default" style="border-radius:50%;width:40px;height:40px; background: rgb(18, 55, 205);"><i class="fa fa-twitter"></i></button>&nbsp;
-        <button class="btn btn-default" style="border-radius:50%;width:40px;height:40px; background: rgb(16, 217, 29);"><i class="fa fa-google"></i></button>&nbsp;
-        <button class="btn btn-default" style="border-radius:50%;width:40px;height:40px; background: red;"><i class="fa fa-youtube"></i></button>&nbsp;
+<!-- <section class="Products-Image-Slider">
+  <h3>Products Slider </h3>
+</section> -->
+
+<section class="Product-Description-Footer">
+  <footer class="page-footer container-fluid col-md-12" style="top: 5em; background: #61887e; ">
+    <hr>
+    <div class="container" style="max-width: 1240px;">
+    <div class="row" id="kkll">
+      <div class="col-md-4">
+        <h4 class="mmd">Help</h4>
+        <ul class="quick">
+          <li>Payments</li>
+          <li>Shipping</li>
+          <li>Cancellations & Return</li>
+          <li>FAQ</li>
+        </ul>
+      </div>
+      
+      <div class="col-md-4">
+        <h4 class="mmd">Lifestyle Store</h4>
+        <ul class="quick">
+          <li>Contact Us</li>
+          <li>About Us</li>
+          <li>sleepy-owl-premium-coffee</li>
+          <li>Stories</li>
+          <li>Sell With Us</li>
+        </ul>
+      </div>
+      
+      <div class="col-md-4">
+        <h4 class="mmd">MISC</h4>
+        <ul class="quick">
+          <li>Online Shopping</li>
+          <li>Gift Card</li>
+          <li>Sitemap</li>
+        </ul>
+      </div>
+    </div>
+    </div>
+    
+    <div class="container-fluid" style="position:relative;top:3em;margin-bottom:60px;">
+      <div class="row">
+      <div class="col-md-5">
+        <h5 style="font-size:0.95em;padding-left: 25px; color: white;">Policies: <a href=""  style="text-decoration:none; color: black;"> Return Policy </a>|<a href=""  style="text-decoration:none; color: black;"> Terms of use </a>|<a href=""  style="text-decoration:none; color: black;"> Security </a>|<a href=""  style="text-decoration:none; color: black;"> Privacy </a>|<a href=""  style="text-decoration:none; color: black;"> Infringement</a></h5>
+      </div>
+      <div class="col-md-3">
+        <h5 style="font-size:0.95em; color: white;">&copy; LIFESTYLE STORE</h5>
+      </div>
+      <div class="col-md-4 row contact">
+        <h5 class="col-md-5" style="font-size:0.95em; color: white;">EasyToBuy</h5>
+        <div class="col-md-7">
+          <button class="btn btn-default" style="border-radius:50%;width:40px;height:40px; background: #2874f0; color: white;"><i class="fa fa-facebook-f"></i></button>&nbsp;
+           <button class="btn btn-default" style="border-radius:50%;width:40px;height:40px; background: rgb(18, 55, 205); color: white;"><i class="fa fa-twitter"></i></button>&nbsp;
+           <button class="btn btn-default" style="border-radius:50%;width:40px;height:40px; background: rgb(16, 217, 29); color: white;"><i class="fa fa-google"></i></button>&nbsp;
+           <button class="btn btn-default" style="border-radius:50%;width:40px;height:40px; background: red; color: white;"><i class="fa fa-youtube"></i></button>&nbsp;
+        </div>
+      </div>
      </div>
-   </div>
-  </div>
- </div>
-     <hr>
-  </footer>
-</div>
+    </div>
+         <hr>
+      </footer>
+</section>
 <script src="/assets/js/ImageMagnifier.js"></script>
 
- 

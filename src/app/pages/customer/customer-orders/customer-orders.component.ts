@@ -21,9 +21,11 @@ export class CustomerOrdersComponent {
 
   orderList: any = []
   orderNumber: string = ""
-  orderStatusTrackingList : any = []
-  baseUrl:string = EasyToBuyHelper.imageBaseUrl;
-  
+  orderStatusTrackingList: any = []
+  currentStatusId: number = 0
+  timelineHeight: boolean = false
+  baseUrl: string = EasyToBuyHelper.imageBaseUrl;
+
   constructor() {
     this.getOrderList()
   }
@@ -84,27 +86,29 @@ export class CustomerOrdersComponent {
     this.orderNumber = orderNo
   }
 
-  getOrderStatusTrackingList(orderId:number){
-    this.orderService.getOrderStatusTrackingList(orderId).subscribe((result:any)=>{
-     
-      this.orderStatusTrackingList = [];
-
-      if(result[0].isPending == true && result[4].isPending == true){
+  getOrderStatusTrackingList(orderId: number, statusId: number) {
+    this.currentStatusId = statusId
+    this.timelineHeight = false
+    if (this.currentStatusId == 5 || this.currentStatusId == 6) {
+      this.timelineHeight = true
+    }
+    this.orderService.getOrderStatusTrackingList(orderId).subscribe((result: any) => {
+      this.orderStatusTrackingList = []
+      if (result[0].isPending == true && result[4].isPending == true) {
         this.orderStatusTrackingList.push(result[0])
         this.orderStatusTrackingList.push(result[4])
       }
-      else if(result[0].isPending == true && result[5].isPending == true){
+      else if (result[0].isPending == true && result[5].isPending == true) {
         this.orderStatusTrackingList.push(result[0])
         this.orderStatusTrackingList.push(result[5])
       }
-      else{
+      else {
         this.orderStatusTrackingList.push(result[0])
         this.orderStatusTrackingList.push(result[1])
         this.orderStatusTrackingList.push(result[2])
         this.orderStatusTrackingList.push(result[3])
         this.orderStatusTrackingList.push(result[4])
       }
-      console.log(this.orderStatusTrackingList)
     })
   }
 }

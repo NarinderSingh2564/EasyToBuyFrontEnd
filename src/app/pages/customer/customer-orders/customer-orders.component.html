@@ -21,7 +21,8 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-check">
-                <input class="form-check-input" type="radio" id="check1" name="option1" value="0" (click)="getOrderList()">
+                <input class="form-check-input" type="radio" id="check1" name="option1" value="0"
+                  (click)="getOrderList()">
                 <label class="form-check-label">All Orders</label>
               </div>
             </div>
@@ -53,34 +54,38 @@
             <strong>FILTER BY ORDER DATE</strong>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" id="check2" name="option2" value="1"  (click)="filterOrdersByMonth($event)">
+            <input class="form-check-input" type="radio" id="check2" name="option2" value="1"
+              (click)="filterOrdersByMonth($event)">
             <label class="form-check-label">Last 1 month</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" id="check2" name="option2" value="3" (click)="filterOrdersByMonth($event)">
+            <input class="form-check-input" type="radio" id="check2" name="option2" value="3"
+              (click)="filterOrdersByMonth($event)">
             <label class="form-check-label">Last 3 months</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" id="check2" name="option2" value="6" (click)="filterOrdersByMonth($event)">
+            <input class="form-check-input" type="radio" id="check2" name="option2" value="6"
+              (click)="filterOrdersByMonth($event)">
             <label class="form-check-label">Last 6 months</label>
           </div>
-         
+
           <div class="mt-3 mb-2">
             <strong>From Date</strong>
           </div>
-          <div id="datepicker" class="input-group date"> 
-         <input class="form-control" type="date" #firstDate> 
-         </div>  
-    
+          <div id="datepicker" class="input-group date">
+            <input class="form-control" type="date" #firstDate>
+          </div>
+
           <div class="mt-1 mb-2">
             <strong>To Date</strong>
           </div>
-          <div id="datepicker" class="input-group date"> 
-         <input class="form-control"  type="date" #secondDate> 
-         </div> 
-      
+          <div id="datepicker" class="input-group date">
+            <input class="form-control" type="date" #secondDate>
+          </div>
+
           <div class=" mt-4 mb-1">
-            <button type="button" class="btn btn-block" (click)="filterOrdersByDates(firstDate.value,secondDate.value)">Submit</button>
+            <button type="button" class="btn btn-block"
+              (click)="filterOrdersByDates(firstDate.value,secondDate.value)">Submit</button>
           </div>
         </div>
       </div>
@@ -91,7 +96,7 @@
         <div class="card-header">
           <h4>My Orders ({{orderList.length}})</h4>
         </div>
-        <div class="card-body" *ngIf="orderList.length > 0" >
+        <div class="card-body" *ngIf="orderList.length > 0">
           <div class="col-md-12 product-card" *ngFor="let order of orderList">
             <div class="row">
               <div class="myCard  shadow-sm d-flex  align-items-center rounded">
@@ -99,7 +104,8 @@
                   <img [src]="baseUrl+order.productImage" width="60" height="60" alt="">
                 </div>
                 <div class="col-md-7 product-Des" (click)="getProductDescription(order.productId)">
-                  <h6 class="mycol">{{order.productName}}<span style="color: rgb(105, 105, 105); font-size: 14px;"> ({{order.productWeight}})</span>
+                  <h6 class="mycol">{{order.productName}}<span style="color: rgb(105, 105, 105); font-size: 14px;">
+                      ({{order.productWeight}})</span>
                   </h6>
                   <p class="mycol">
                     <del class="text-muted">{{order.mrp |currency:'INR'}}</del>&nbsp;
@@ -107,37 +113,43 @@
                       off</span>
                   </p>
                 </div>
-                <div class="col-md-4 order-status"  >
-                  <span style="color: #61887e; font-size: 14px;font-weight: 500;">{{order.status | uppercase}}</span><br>
+                <div class="col-md-4 order-status">
+                  <span style="color: #61887e; font-size: 14px;font-weight: 500;">{{order.status |
+                    uppercase}}</span><br>
                   <small>Seller : {{order.vendorName}}</small><br>
-                  <a href="#" data-bs-toggle="modal" data-bs-target="#myModal" (click)="getOrderNumber(order.orderNumber); getOrderStatusTrackingList(order.id)">Track Order</a>
+                  <a href="#" data-bs-toggle="modal" data-bs-target="#myModal"
+                    (click)="getOrderNumber(order.orderNumber); getOrderStatusTrackingList(order.id, order.statusId)">Track
+                    Order</a>
                   <div class="modal" id="myModal" data-bs-backdrop="static">
                     <div class="modal-dialog modal-dialog-centered modal-md">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h4 class="modal-title">Order Number -  <span style="font-size: 20px;">{{orderNumber}}</span></h4>
+                          <h4 class="modal-title">Order Number - <span style="font-size: 20px;">{{orderNumber}}</span>
+                          </h4>
                           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
-                        
                           <div class="container">
                             <div class="row">
-                          
                               <div class="col-md-12 col-lg-12">
                                 <div id="tracking-pre"></div>
                                 <div id="tracking">
                                   <div class="tracking-list">
-
-                                    <div [ngClass]="status.isPending == 1 ? 'tracking-item' : 'tracking-item-pending'" *ngFor="let status of orderStatusTrackingList">
-                                      <div class="tracking-icon status-intransit">
-                                        <svg class="svg-inline--fa fa-circle fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
-                                          <path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path>
-                                        </svg>
+                                    <div class="timeline">
+                                      <div [ngClass]="timelineHeight ? 'timeLines2' : 'timeLines1'">
+                                        <div [ngClass]="currentStatusId == 1 ? 'timeline1' : currentStatusId == 2 ? 'timeline2' : currentStatusId == 3 ? 'timeline3' :  currentStatusId == 4 ? 'timeline4' : currentStatusId == 5 ? 'timeline5' : currentStatusId ==6 ? 'timeline6' : ''">
+                                          <div class="resultCode" *ngFor="let status of orderStatusTrackingList">
+                                            <div class="containers right-containers">
+                                              <div class="trac"><i class="bi bi-bag-dash logo"></i></div>
+                                              <img src="/assets/images/Icon/dotIcon.png">
+                                              <div class="text-box">
+                                                <h6>{{status.status}}<br><span class="text-muted">{{status.statusDate | date:'medium'}}</span></h6>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
                                       </div>
-                                      <div class="tracking-date"><img src="https://raw.githubusercontent.com/shajo/portfolio/a02c5579c3ebe185bb1fc085909c582bf5fad802/delivery.svg" class="img-responsive" alt="order-placed" /></div>
-                                      <div class="tracking-content">{{status.status}}<span>{{status.statusDate | date:'medium'}}</span></div>
                                     </div>
-                                  
                                   </div>
                                 </div>
                               </div>
@@ -157,10 +169,8 @@
             src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/error-no-search-results_2353c5.png"
             class="mt-3" alt=""><br>
           <strong class="not-found">Sorry, no orders found!</strong><br>
-
         </div>
       </div>
     </div>
   </div>
 </div>
-

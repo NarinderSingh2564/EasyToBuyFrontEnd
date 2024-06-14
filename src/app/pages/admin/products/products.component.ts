@@ -7,18 +7,19 @@ import { CategoryService } from '../../../services/category.service';
 import { AccountService } from '../../../services/account.service';
 import { File } from 'buffer';
 import { EasyToBuyHelper } from '../../../helpers/EasyToBuyHelper';
+import { ProductImagesComponent } from '../../vendor/products/product-images/product-images.component';
+import { ProductSpecificationComponent } from '../../vendor/products/product-specification/product-specification.component';
 
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [RouterOutlet, CommonModule, FormsModule, ReactiveFormsModule,ProductImagesComponent,ProductSpecificationComponent],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
 export class ProductsComponent implements OnInit {
 
-  isSidePanelVisible: boolean = false;
   categoryList: any = [];
   productList: any = [];
   productWeightList: any = [];
@@ -29,7 +30,10 @@ export class ProductsComponent implements OnInit {
   productRealImage: File | any = null;
   previewImage: any = null;
   productImageName: string = '';
-  baseUrl:string = EasyToBuyHelper.imageBaseUrl;  
+  baseUrl:string = EasyToBuyHelper.imageBaseUrl;
+  previews:string[] = [];
+  showForm:boolean=false
+
   ngOnInit(): void {
     this.getProductList();
     this.productForm.controls['priceAfterDiscount'].disable();
@@ -56,15 +60,17 @@ export class ProductsComponent implements OnInit {
     return this.productForm.controls
   }
 
-  openSidePanel() {
-    this.isSidePanelVisible = true
+
+  closeProductForm() {
+    this.showForm = false
   }
 
-  closeSidePanel() {
-    this.isSidePanelVisible = false
+  getImagesFromChild(images: any) {
+    this.previews = images
   }
 
   addProduct() {
+    this.showForm = true
     this.isEdit = false
     this.productForm.reset()
     this.isFormValid = false
@@ -74,14 +80,16 @@ export class ProductsComponent implements OnInit {
   }
 
   editProduct(product: any) {
+    this.showForm = true
     this.isEdit = true
     this.productForm.patchValue(product)
-    this.openSidePanel()
     this.previewImage = EasyToBuyHelper.imageBaseUrl+product.productImage;
     this.productImageName = product.productImage;
     this.getCategoryList();
     this.getProductWeightList();
   }
+
+
 
   getCategoryList() {
     this.categoryServivce.getCategoryList().subscribe((result: any) => {
@@ -181,7 +189,7 @@ export class ProductsComponent implements OnInit {
         this.response = result;
         if (this.response.status) {
           alert(this.response.message);
-          this.closeSidePanel();
+          this.closeProductForm();
           this.getProductList();
         }
       });

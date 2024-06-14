@@ -1,6 +1,6 @@
 <div class="containers">
     <div class="row">
-        <div [ngClass]="isSidePanelVisible ?'col-md-8' : 'col-md-12'">
+        <div class="col-md-12" *ngIf="!showForm">
             <div class="card mt-3">
                 <div class="card-header ">
                     <div class="row">
@@ -8,8 +8,7 @@
                             Product List
                         </div>
                         <div class="col-md-6 text-end">
-                            <button class="btn btn-sm" (click)="openSidePanel(); addProduct()"><b>Add
-                                    Product</b></button>
+                            <button class="btn btn-sm" (click)="addProduct()"><b>Add Product</b></button>
                         </div>
                     </div>
                 </div>
@@ -17,9 +16,9 @@
                     <div class="row">
                         <div class="col-md-3" *ngFor="let product of productList"
                             style=" padding-bottom: calc(var(--bs-gutter-x)* .5);">
-                            <div class="card">
-                                <img class="card-img-top mx-auto d-block mt-2" [src]="baseUrl+product.productImage" width="250" height="150"
-                                    alt="Card image">
+                            <div class="card product-card">
+                                <img class="card-img-top mx-auto d-block mt-2" [src]="baseUrl+product.productImage"
+                                    width="250" height="150" alt="Card image">
                                 <div class="card-body">
                                     <div>
                                         <h6 class="card-title">{{product.productName}}
@@ -40,9 +39,10 @@
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
-        <div class="col-md-4" *ngIf="isSidePanelVisible">
+        <div class="col-md-12" *ngIf="showForm">
+
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="row">
@@ -53,16 +53,15 @@
                             Update Product
                         </div>
                         <div class="col-md-6 text-end">
-                            <button class="btn btn-sm" (click)="closeSidePanel()"><b>Close</b></button>
+                            <button class="btn btn-sm" (click)="closeProductForm()"><b>Close</b></button>
                         </div>
                     </div>
                 </div>
-
                 <div class="card-body">
                     <form autocomplete="off" [formGroup]="productForm" (ngSubmit)="ProductAddEdit()">
                         <input type="hidden" class="form-control" formControlName="id">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <label for="">Product Name</label>
                                 <input type="text" formControlName="productName" class="form-control">
                                 <div *ngIf="isFormValid && controls['productName'].errors">
@@ -71,7 +70,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <label for="">MRP</label>
                                 <input type="number" formControlName="mrp" class="form-control" min="1"
                                     (change)="calculatePriceAfterDiscount()">
@@ -81,12 +80,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label for="">Discount</label>
-                                <input type="number" formControlName="discount" class="form-control" min="0"
+                            <div class="col-md-3">
+                                <label for="">Discount (%)</label>
+                                <input type="number" formControlName="discount" class="form-control" min="0" max="100"
                                     (change)="calculatePriceAfterDiscount()">
                                 <div *ngIf="isFormValid && controls['discount'].errors">
                                     <div *ngIf="controls['discount'].errors['required']" class="text-danger">
@@ -94,16 +90,18 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <label for="">Price After Discount</label>
                                 <input type="text" formControlName="priceAfterDiscount" class="form-control">
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6">
+
+                            <div class="col-md-3">
                                 <label for="">Category</label>
                                 <select class="form-select" formControlName="categoryId">
+                                    <option disabled selected>--Select Option--</option>
                                     <option *ngFor="let category of categoryList" [value]="category.id">
                                         {{category.categoryName}}
                                     </option>
@@ -114,9 +112,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <label for="">Product Weight</label>
                                 <select class="form-select" formControlName="productWeightId">
+                                    <option disabled selected>--Select Option--</option>
                                     <option *ngFor="let weight of productWeightList" [value]="weight.id">
                                         {{weight.productWeight}}
                                     </option>
@@ -127,30 +126,23 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="">Product Image</label>
-                            <input type="file" formControlName="productImage" class="form-control" accept="image/png, image/jpg, image/jpeg" (change)="uploadFile($event)">
-                        </div>
-
-                            <div *ngIf="isFormValid && controls['productImage'].errors">
-                                <div *ngIf="controls['productImage'].errors['required']" class="text-danger">
-                                    Product image is required.
+                            <div [ngClass]="previewImage?'col-md-4':'col-md-6'">
+                                <label for="">Product Image</label>
+                                <input type="file" formControlName="productImage" class="form-control"
+                                    accept="image/png, image/jpg, image/jpeg" (change)="uploadFile($event)">
+                                <div *ngIf="isFormValid && controls['productImage'].errors">
+                                    <div *ngIf="controls['productImage'].errors['required']" class="text-danger">
+                                        Product image is required.
+                                    </div>
                                 </div>
                             </div>
-                    </div>
-                    <div class="row"></div>
-                        <div class="row" *ngIf="previewImage">
-                            <br>
-                            <div class="col-md-12">
-                                <img src="{{previewImage}}" style="width: 50%; height: 100%;">
+                            <div class="col-md-2 mt-3" *ngIf="previewImage">
+                                <img src="{{previewImage}}" style="width: 100px; height: 100px;">
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <label for="">Description</label>
                                 <textarea formControlName="productDescription" class="form-control"></textarea>
                                 <div *ngIf="isFormValid && controls['productDescription'].errors">
@@ -159,25 +151,107 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-2">
+                                <br><label for="">IsActive</label>
                                 <input type="checkbox" formControlName="isActive" class="form-check-input">
-                                <label for="">IsActive</label>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-2">
+                                <br><label for="">Show Product Weight</label>
                                 <input type="checkbox" formControlName="showProductWeight" class="form-check-input">
-                                <label for="">Show Product Weight</label><br>
                             </div>
-                        </div>
-                        <div class="row text-end">
-                            <div class="col-md-12 mt-2">
-                                <button class="btn btn2" *ngIf="!isEdit">Save</button>
+                            <div class="col-md-2">
+                                <br><button class="btn btn2" *ngIf="!isEdit">Save</button>
                                 <button class="btn btn2" *ngIf="isEdit">Update</button>
                             </div>
                         </div>
                     </form>
 
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-6 text-white">
+                            Product Images
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <button class="btn btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#productImagesModal"><b>Add More Images</b></button>
+                        </div>
+                    </div>
+                </div>
+                <app-product-images (childEvent)="getImagesFromChild($event)"></app-product-images>
+                <div class="card-body">
+                    <div class="table-responsive mt-2">
+                        <table class="table table-bordered text-center table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Sr. No.</th>
+                                    <th>Image</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let preview of previews; index as i" >
+                                    <td>{{i+1}}</td>
+                                    <td><img [src]="preview" class="preview" width="80px" height="80px" /></td>
+                                    <td><i class="bi bi-trash" style="font-size: 26px;"></i></td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-3 mb-3">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-6 text-white">
+                            Product Specifications
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#productSpecificationModal"><b>Add Specifications</b></button>
+                        </div>
+                    </div>
+                </div>
+                <app-product-specification></app-product-specification>
+                <div class="card-body">
+                    <div class="table-responsive mt-2">
+                        <table class="table table-bordered text-center table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Sr. No.</th>
+                                    <th>Speciality</th>
+                                    <th>Ingredient Type</th>
+                                    <th>Type</th>
+                                    <th>Manufacturer</th>
+                                    <th>Brand</th>
+                                    <th>Origin</th>
+                                    <th>Packing Type</th>
+                                    <th>Ingredients</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <i class="bi bi-pencil-square" data-bs-toggle="modal" data-bs-target="#productSpecificationModal"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

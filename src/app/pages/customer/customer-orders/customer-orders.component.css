@@ -69,173 +69,229 @@ a:hover{
   color:#61887e;
   font-weight: 500;
 }
-
-.tracking-detail {
-    padding: 3rem 0;
-  }
   #tracking {
     margin-bottom: 1rem;
   }
-  [class*="tracking-status-"] p {
-    margin: 0;
-    font-size: 1.1rem;
-    color: #fff;
-    text-transform: uppercase;
-    text-align: center;
-  }
-  [class*="tracking-status-"] {
-    padding: 1.6rem 0;
-  }
+ 
   .tracking-list {
     border: 1px solid #e5e5e5;
   }
-  .tracking-item {
-    border-left: 4px solid #61887e;
-    position: relative;
-    padding: 2rem 1.5rem 0.5rem 2.5rem;
-    font-size: 0.9rem;
-    margin-left: 3rem;
-    min-height: 5rem;
+
+.timeline{
+  position: relative;
+  max-width: 300px;
+  max-height: 500px;
+  margin-top: 3%;
+  margin-left: 10%;
+  margin-bottom: 3%;
+}
+
+.containers{
+  padding: 10px 20px;
+  position: relative;
+  width: 94%;
+
+}
+.text-box{
+  padding: 19px 10px;
+  background: white;
+  position: relative;
+  border-radius: 6px;
+  font-size: 16px;
+  height: 70px;
+}
+
+.left-containers{
+  left: 0;
+}
+
+.right-containers{
+  left: 30%;
+}
+img{
+  color: #618870;
+}
+
+.trac{
+  position: absolute;
+  border-radius: 50%;
+  margin-left: -92px;
+  margin-top: 10px;
+}
+
+.logo{
+  font-size: 26px;
+  font-weight: 600;
+  color:#c0c0c0;
+}
+
+.containers img{
+  position: absolute;
+  width: 40px;
+  border-radius: 50%;
+  right: -20px;
+  top: 30px;
+  z-index: 10;
+
+}
+
+.right-containers img{
+left: -10px;
+width: 20px;
+
+}
+
+.timeline::after{
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 50%;
+  background: rgb(90, 90, 90);
+  top: 0;
+  left: 30%;
+  margin-left: -3px;
+  z-index: -1;
+ 
+}
+
+.timeline1::after{
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 100%;
+  background: #618870;
+  top: 33px;
+  left: 30%;
+  margin-left: -3px;
+  z-index: 1;
+  animation: moveline1 2s linear forwards;
+}
+.timeline2::after{
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 50%;
+  background: #618870;
+  top: 33px;
+  left: 30%;
+  margin-left: -3px;
+  z-index: 1;
+  animation: moveline2 2s linear forwards;
+}
+
+.timeline3::after{
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 50%;
+  background: #618870;
+  top: 33px;
+  left: 30%;
+  margin-left: -3px;
+  z-index: 1;
+  animation: moveline3 2s linear forwards;
+}
+.timeline4::after{
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 50%;
+  background: #618870;
+  top: 33px;
+  left: 30%;
+  margin-left: -3px;
+  z-index: 1;
+  animation: moveline4 2s linear forwards;
+}
+.timeline5::after{
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 50%;
+  background: #618870;
+  top: 33px;
+  left: 30%;
+  margin-left: -3px;
+  z-index: 1;
+  animation: moveline5 2s linear forwards;
+}
+.timeline6::after{
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 50%;
+  background: #618870;
+  top: 33px;
+  left: 30%;
+  margin-left: -3px;
+  z-index: 1;
+  animation: moveline6 2s linear forwards;
+}
+.timeLines1::after{
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 82%;
+  background: #dadada;
+  top: 33px;
+  left: 30%;
+  margin-left: -3px;
+}
+.timeLines2::after{
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 58%;
+  background: #dadada;
+  top: 33px;
+  left: 30%;
+  margin-left: -3px;
+}
+@keyframes moveline1 {
+  0%{
+      height: 0;
   }
-  .tracking-item:last-child {
-    padding-bottom: 4rem;
+  100%{
+      height: 10%;
   }
-  .tracking-item .tracking-date {
-    margin-bottom: 0.5rem;
+}
+@keyframes moveline2 {
+  0%{
+      height: 0;
   }
-  .tracking-item .tracking-date span {
-    color: #888;
-    font-size: 85%;
-    padding-left: 0.4rem;
+  100%{
+      height: 32%;
   }
-  .tracking-item .tracking-content {
-    padding: 0.5rem 0.8rem;
-    background-color: #f4f4f4;
-    border-radius: 0.5rem;
+}
+@keyframes moveline3 {
+  0%{
+      height: 0;
   }
-  .tracking-item .tracking-content span {
-    display: block;
-    color: #767676;
-    font-size: 13px;
+  100%{
+      height: 50%;
   }
-  .tracking-item .tracking-icon {
-    position: absolute;
-    left: -0.7rem;
-    width: 1.1rem;
-    height: 1.1rem;
-    text-align: center;
-    border-radius: 50%;
-    font-size: 1.1rem;
-    background-color: #fff;
-    color: #fff;
+}
+@keyframes moveline4{
+  0%{
+      height: 0;
   }
-  
-  .tracking-item-pending {
-    border-left: 4px solid #d6d6d6;
-    position: relative;
-    padding: 2rem 1.5rem 0.5rem 2.5rem;
-    font-size: 0.9rem;
-    margin-left: 3rem;
-    min-height: 5rem;
+  100%{
+      height: 70%;
   }
-  .tracking-item-pending:last-child {
-    padding-bottom: 4rem;
+}
+@keyframes moveline5 {
+  0%{
+      height: 0;
   }
-  .tracking-item-pending .tracking-date {
-    margin-bottom: 0.5rem;
+  100%{
+      height: 57%;
   }
-  .tracking-item-pending .tracking-date span {
-    color: #888;
-    font-size: 85%;
-    padding-left: 0.4rem;
+}
+@keyframes moveline6 {
+  0%{
+      height: 0;
   }
-  .tracking-item-pending .tracking-content {
-    padding: 0.5rem 0.8rem;
-    background-color: #f4f4f4;
-    border-radius: 0.5rem;
+  100%{
+      height: 57%;
   }
-  .tracking-item-pending .tracking-content span {
-    display: block;
-    color: #767676;
-    font-size: 13px;
-  }
-  .tracking-item-pending .tracking-icon {
-    line-height: 2.6rem;
-    position: absolute;
-    left: -0.7rem;
-    width: 1.1rem;
-    height: 1.1rem;
-    text-align: center;
-    border-radius: 50%;
-    font-size: 1.1rem;
-    color: #d6d6d6;
-  }
-  .tracking-item-pending .tracking-content {
-    font-weight: 600;
-    font-size: 17px;
-  }
-  
-  .tracking-item .tracking-icon.status-current {
-    width: 1.9rem;
-    height: 1.9rem;
-    left: -1.1rem;
-  }
-  .tracking-item .tracking-icon.status-intransit {
-    color: #618870;
-    font-size: 0.6rem;
-  }
-  .tracking-item .tracking-icon.status-current {
-    color: #61887e;
-    font-size: 0.6rem;
-  }
-  @media (min-width: 992px) {
-    .tracking-item {
-      margin-left: 10rem;
-    }
-    .tracking-item .tracking-date {
-      position: absolute;
-      left: -10rem;
-      width: 7.5rem;
-      text-align: right;
-    }
-    .tracking-item .tracking-date span {
-      display: block;
-    }
-    .tracking-item .tracking-content {
-      padding: 0;
-      background-color: transparent;
-    }
-  
-    .tracking-item-pending {
-      margin-left: 10rem;
-    }
-    .tracking-item-pending .tracking-date {
-      position: absolute;
-      left: -10rem;
-      width: 7.5rem;
-      text-align: right;
-    }
-    .tracking-item-pending .tracking-date span {
-      display: block;
-    }
-    .tracking-item-pending .tracking-content {
-      padding: 0;
-      background-color: transparent;
-    }
-  }
-  
-  .tracking-item .tracking-content {
-    font-weight: 600;
-    font-size: 17px;
-  }
-  
-  .blinker {
-    border: 7px solid #e9f8ea;
-    animation: blink 1s;
-    animation-iteration-count: infinite;
-  }
-  @keyframes blink { 50% { border-color:#fff ; }  }
-  
-  
-  
-  
+}

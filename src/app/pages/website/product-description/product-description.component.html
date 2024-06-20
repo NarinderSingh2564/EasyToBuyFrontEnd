@@ -3,28 +3,24 @@
   <div class="row" *ngFor="let product of ProductDescription">
        <div class="col-md-1 myside">
          <ul class="thumblist2">
-        <li class="imageList">
-            <img src="assets/images/iphone15/1.jpeg" class="thumbimag1"  alt="" (click)="onThumbClick('1')">
+          <li class="imageList" >
+            <img [src]="baseUrl + product.productImage" class="thumbimag1"  alt="" (click)="onThumbClick(product.productImage, 0)">
         </li>
-        <li class="imageList">
-            <img src="assets/images/iphone15/2.jpeg" class="thumbimag1"  alt="" (click)="onThumbClick('2')">
+        <li class="imageList" *ngFor="let variationImg of ProductVariationImage">
+            <img [src]="variationImageBaseUrl + variationImg.image" class="thumbimag1"  alt="" (click)="onThumbClick(variationImg.image, 1)">
         </li>
-        <li class="imageList">
-            <img src="assets/images/iphone15/3.jpeg" class="thumbimag1"  alt="" (click)="onThumbClick('3')">
-        </li>
-        <li class="imageList">
-          <img [src]="baseUrl + product.productImage" class="thumbimag1"  alt="" (click)="onThumbClick('4')">
-      </li>
          </ul>
        </div>
 
        <div class="col-md-4 MainImage" id="myimagehover">
           <div id='lens'></div>
-           <img [src]="baseUrl + product.productImage"  alt="" class="slideshow-items active" >
+           <img [src]="selectedImage"   alt="" class="slideshow-items active" >
+
            <div id='result'></div>
        </div>
        
        <div class="col-md-6 rightPannel">
+        <div></div>
         <h3>{{product.productName}}</h3>
         <div class="row pt-2">
           <div class="col-md-2">
@@ -37,13 +33,23 @@
 
        <div class="pt-2" >
         <h4><strong>&#8377;{{product.priceAfterDiscount}} &nbsp; &nbsp;</strong><span style="color: rgb(153, 152, 152); font-size: 16px;"><del>&#8377;{{product.mrp}}</del>&nbsp;&nbsp; &nbsp; &nbsp;<span style="color: rgb(5, 118, 5); font-size: 16px; font-weight: 700;">{{product.discount}}% off</span></span> </h4>
+       </div><br>
+       <h5>Pack Size</h5>
+       <div class="row">
+        <div class="col-md-4" *ngFor="let variation of ProductVariationList"> 
+       <div [ngClass]="variation.setAsDefault ? 'card mycard1 mt-2': 'card mycard2 mt-2' "  >
+        <div class="card-body">
+         <h5 *ngIf="variation.quantity == 1">{{variation.productWeight}}</h5>
+         <h5 *ngIf="variation.quantity > 1">{{variation.quantity}} * {{variation.productWeight}}</h5>
+
+         <p class="myrate pt-2"><b>&#8377;{{variation.priceAfterDiscount}}</b>&nbsp;&nbsp;&nbsp;&nbsp;
+        &#8377;<del>{{variation.mrp}}</del>&nbsp;&nbsp;&nbsp; <span class="text-per">{{variation.discount}}% off</span> </p>
+         <p class="myrate pt-2">{{variation.packingType}}</p>
+        </div>
        </div>
-       <label style="font-size: 17px; font-weight:600; padding-top: 8px;">Avilable Offers</label>
-       <div class="pt-3">
-        <h6><span class="bi bi-calendar-event-fill"></span> EMIs from <strong>Rs 15 /month </strong><a href="">View Plans <i class="fa fa-chevron-right"></i></a></h6>  
-        <h6><span class="bi bi-tag-fill"></span><strong> Bank Offer</strong> 2% Instant Discount on Visa Cards for First 3 Online Payments. <a href="">T&C</a></h6>
-        <h6><span class="bi bi-tag-fill"></span><strong> Bank Offer</strong> Extra 2% off* with Axis Bank Buzz Credit Card. <a href="">T&C</a></h6>
       </div>
+    </div>
+       
 
       <div class="row pt-5">
         <div class="col-md-1">
@@ -52,7 +58,7 @@
         
         <div class=" col-md-5" style="border:0px;border-bottom:1px solid #2874f0;width:40%; position:relative; left:7%;" >
           <span class="bi bi-geo-alt col-md-2" style="color:#2874f0;padding-right:4px; margin-right:0px;"></span>
-          <input type="text" placeholder="PIN Code" style="border:0px; padding-left: 5px;" class="col-md-7">
+          <input type="text" placeholder="PIN Code" style="border:0;  outline: none; padding-left: 5px;" class="col-md-7">
           <a href=" " class="col-md-2" style="padding-left:3px;text-decoration:none;">Change</a>
         </div>
                   
@@ -67,7 +73,7 @@
 <section class="Products-Specification">
   <div class="row" *ngFor="let product of ProductDescription">
     <div class="col-md-6"> <div class="imageButtons">
-      <button class="btn1" (click)="AddToCart(product.id)"  routerLink="customer-cart"><strong><span class="bi bi-cart-check-fill"></span> &nbsp;Add To Cart </strong></button>
+      <button class="btn1" (click)="AddToCart(product.id)"  routerLink="customer-cart"><strong><span class="bi bi-cart-check-fill"></span> &nbsp;{{buttonText}} </strong></button>
       <button class="btn2"><strong><i class="fa fa-bolt" style="font-size:1.2em;"></i> BUY NOW</strong></button>
      </div></div>
   <div class="col-md-6 myspec">
@@ -75,24 +81,22 @@
     <div class="panel-heading" style="background-color:#fff; border-bottom: 1px solid lightgray; padding-bottom: 10px;">
       <h4>Specifications</h4>
     </div>
-    <div class="panel-body">
+    <div class="panel-body" *ngFor="let specification of ProductSpecification">
       <table class="table table-default">
         <tbody>
-          <tr><td class="col-md-4 tdhead">Specility</td> <td class="col-md-8 tdbot">Natural</td></tr>
+          <tr><td class="col-md-4 tdhead">Speciality</td> <td class="col-md-8 tdbot">{{specification.speciality}}</td></tr>
           
-          <tr><td class="col-md-4 tdhead">Ingredient Type</td>  <td class="col-md-8 tdbot">vegetarian</td></tr>
+          <tr><td class="col-md-4 tdhead">Ingredient Type</td>  <td class="col-md-8 tdbot">{{specification.ingredientType}}</td></tr>
           
-           <tr><td class="col-md-4 tdhead">Type</td>  <td class="col-md-8 tdbot">Fresh</td></tr>
+          <tr><td class="col-md-4 tdhead">Ingredient</td>  <td class="col-md-8 tdbot">{{specification.ingredients}}</td></tr>
           
-          <tr><td class="col-md-4 tdhead">Manufacturer</td>  <td class="col-md-8 tdbot">K.G Pvt Ltd</td></tr>
+          <tr><td class="col-md-4 tdhead">Manufacturer</td>  <td class="col-md-8 tdbot">{{specification.manufacturer}}</td></tr>
           
-          <tr><td class="col-md-4 tdhead">Item Package Quanity</td>  <td class="col-md-8 tdbot">1</td></tr>
+          <tr><td class="col-md-4 tdhead">Type</td>  <td class="col-md-8 tdbot">Fresh</td></tr>
+
+          <tr><td class="col-md-4 tdhead">Shelf Life</td>  <td class="col-md-8 tdbot">{{specification.shelfLife}}</td></tr>
          
-          <tr><td class="col-md-4 tdhead">Net Quanity</td>  <td class="col-md-8 tdbot">1</td></tr>
-          
-          <tr><td class="col-md-4 tdhead">Package Information</td>  <td class="col-md-8 tdbot">Packets</td></tr>
-          
-          <tr><td class="col-md-4 tdhead">Ingredient</td>  <td class="col-md-8 tdbot">abc, def </td></tr>
+          <tr><td class="col-md-4 tdhead">Benefits</td>  <td class="col-md-8 tdbot">{{specification.benefits}}</td></tr>
        
         </tbody>
         

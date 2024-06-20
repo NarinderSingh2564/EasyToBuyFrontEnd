@@ -39,4 +39,11 @@ export class ProductService {
     return this.http.get("https://localhost:7239/api/Product/GetProductVariationImageById?variationId=" + id)
    }
 
+   
+setDefaultVariation(productId:number,variationId:number){
+  return this.http.post("https://localhost:7239/api/Product/SetDefaultVariation?productId=" + productId + "&variationId=" + variationId,productId)
+ }
+
+
+
 }

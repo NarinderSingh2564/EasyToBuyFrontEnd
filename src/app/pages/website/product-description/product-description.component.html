@@ -37,7 +37,7 @@
        <h5>Pack Size</h5>
        <div class="row">
         <div class="col-md-4" *ngFor="let variation of ProductVariationList"> 
-       <div [ngClass]="variation.setAsDefault ? 'card mycard1 mt-2': 'card mycard2 mt-2' "  >
+          <div class="card mt-2" (click)="setDefaultVariation(variation.id)" >
         <div class="card-body">
          <h5 *ngIf="variation.quantity == 1">{{variation.productWeight}}</h5>
          <h5 *ngIf="variation.quantity > 1">{{variation.quantity}} * {{variation.productWeight}}</h5>

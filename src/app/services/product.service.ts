@@ -19,12 +19,24 @@ export class ProductService {
     return this.http.post("https://localhost:7239/api/Product/ProductAddEdit",productUIModel)
   }
 
-  getProductDetailsById(id: number) {
-    return this.http.get("https://localhost:7239/api/Product/GetProductDetailsById?productId=" + id)
+  getProductDescriptionById(id: number) {
+    return this.http.get("https://localhost:7239/api/Product/GetProductDescriptionById?productId=" + id)
   }
 
   getProductWeightList() {
     return this.http.get("https://localhost:7239/api/Product/GetProductWeightList")
   }
+
+   getProductSpecificationById(id: number){
+    return this.http.get("https://localhost:7239/api/Product/GetProductSpecificationById?productId=" + id)
+   }
+
+   getProductVariationListById(id: number){
+    return this.http.get("https://localhost:7239/api/Product/GetProductVariationListById?productId=" + id)
+   }
+
+   getProductVariationImageById(id: number){
+    return this.http.get("https://localhost:7239/api/Product/GetProductVariationImageById?variationId=" + id)
+   }
 
 }

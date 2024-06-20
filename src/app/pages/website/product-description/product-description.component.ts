@@ -20,16 +20,24 @@ export class ProductDescriptionComponent {
   ActiveProductId:number = 0; 
   ProductDescription: any = [];
   buttonText:string = "Add To Cart"
+  ProductVariationList: any = [];
+  ProductSpecification: any = [];
+  ProductVariationImage: any = [];
 
   accountService = inject(AccountService)
   cartService = inject(CartService)
   baseUrl:string = EasyToBuyHelper.imageBaseUrl;
-
-
-  selectedImage = 'assets/images/iphone15/1.jpeg';
-
-  onThumbClick(index: string){
-    this.selectedImage='assets/images/iphone15/'+index+'.jpeg';
+  variationImageBaseUrl:string = EasyToBuyHelper.imageVariationBaseUrl;
+  selectedImage : any;
+  mainImage:any
+  onThumbClick(image:any, id: number){
+    if(id==1){
+      this.selectedImage=this.variationImageBaseUrl + image;
+      console.log(this.selectedImage)
+    }
+    else {
+      this.selectedImage=this.baseUrl + image;
+    }
   }
 
   constructor(private activatedRoute: ActivatedRoute,private productService:ProductService) {
@@ -37,6 +45,9 @@ export class ProductDescriptionComponent {
       this.ActiveProductId= result.id
     })
     this.getProductDescription()
+    this.getProductVariationList()
+    this.getProductSpecification()
+    this.getProductVariationImage()
     if(this.accountService.getUserId()>0){
       this.cartService.CheckProductInCart(this.ActiveProductId,this.accountService.getUserId()).subscribe((result:any)=>{
         if(result.status){
@@ -50,10 +61,31 @@ export class ProductDescriptionComponent {
   }
 
   getProductDescription(){
-    this.productService.getProductDetailsById(this.ActiveProductId).subscribe(result=>{
+    this.productService.getProductDescriptionById(this.ActiveProductId).subscribe((result)=>{
       this.ProductDescription = result
+      this.mainImage = this.ProductDescription['0']
+      this.selectedImage = this.baseUrl + this.mainImage['productImage']
     })
     
+  }
+
+  getProductVariationList(){
+    this.productService.getProductVariationListById(this.ActiveProductId).subscribe(result=>{
+      this.ProductVariationList = result
+    })
+  }
+
+
+  getProductSpecification(){
+    this.productService.getProductSpecificationById(this.ActiveProductId).subscribe(result=>{
+      this.ProductSpecification = result
+    })
+  }
+
+  getProductVariationImage(){
+    this.productService.getProductVariationImageById(this.ActiveProductId).subscribe(result=>{
+      this.ProductVariationImage = result
+    })
   }
 
   AddToCart(productId: number){

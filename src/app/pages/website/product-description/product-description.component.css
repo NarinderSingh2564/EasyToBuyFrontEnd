@@ -98,7 +98,8 @@ min-height: 90vh;
 }
 
 .myspec{
-padding-right: 40px;
+padding-right: 20px;
+padding-left: 20px;
 }
 
 .panel-default{
@@ -174,5 +175,21 @@ overflow: hidden;
 .slideshow-thumbnails.active { opacity: 1; }
 #lens, .slideshow-items, .slideshow-thumbnails, #result { border: solid var(--light-grey-2) 1px; }
 
+.card{
+  height: 110px;
+  width:190px;
 
+}
+.mycard1{
+  border: 2px solid #61887e;
 
+}
+
+.card-body{
+  padding: 10px 10px 10px 10px;
+}
+.text-per{
+  color: rgb(5, 118, 5);
+  font-size: 16px;
+  font-weight: 700;
+}

@@ -37,12 +37,12 @@
           </div>
           <div class="dropdown-content" *ngIf="loggedIn">
             <div class="text-center mt-3 username">
-              <b>Hello, {{userName | titlecase}}</b>
+              <b><i>Hello</i>, {{userName | titlecase}}</b>
             </div>
             <hr>
             <a routerLink="/customer-order"><i class="bi bi-basket icon" ></i>My Orders</a>
             <a><i class="bi bi-heart icon"></i>My Wishlist</a>
-            <a><i class="bi bi-person icon"></i>My Account</a>
+            <a routerLink="/account-profile"><i class="bi bi-person icon"></i>My Account</a>
             <a (click)="Logout()"><i class="bi bi-box-arrow-right icon"></i>Logout</a>
           </div>
         </div>

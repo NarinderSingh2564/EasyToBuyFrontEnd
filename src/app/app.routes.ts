@@ -20,6 +20,8 @@ import { VendorOrderListComponent } from './pages/vendor/vendor-order-list/vendo
 import { CustomerOrdersComponent } from './pages/customer/customer-orders/customer-orders.component';
 import { customerAuthGuard } from './guards/customerAuth.guard';
 import { ProductImagesComponent } from './pages/vendor/products/product-images/product-images.component';
+import { Component } from '@angular/core';
+import { AccountProfileComponent } from './pages/customer/account-profile/account-profile.component';
 
 
 export const routes: Routes = [
@@ -111,7 +113,11 @@ export const routes: Routes = [
                 component:CustomerOrdersComponent,
                 canActivate: [customerAuthGuard],
             },
-           
+            {
+                path:'account-profile',
+                component:AccountProfileComponent,
+                canActivate: [customerAuthGuard],
+            }
         ]
     },
 

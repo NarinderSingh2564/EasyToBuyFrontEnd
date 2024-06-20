@@ -2,19 +2,20 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
-import { ProductService } from '../../../services/product.service';
-import { CategoryService } from '../../../services/category.service';
-import { AccountService } from '../../../services/account.service';
+import { ProductService } from '../../../../services/product.service';
+import { CategoryService } from '../../../../services/category.service';
+import { AccountService } from '../../../../services/account.service';
 import { File } from 'buffer';
-import { EasyToBuyHelper } from '../../../helpers/EasyToBuyHelper';
-import { ProductImagesComponent } from '../../vendor/products/product-images/product-images.component';
-import { ProductSpecificationComponent } from '../../vendor/products/product-specification/product-specification.component';
+import { EasyToBuyHelper } from '../../../../helpers/EasyToBuyHelper';
+import { ProductImagesComponent } from '../product-images/product-images.component';
+import { ProductSpecificationComponent } from '../product-specification/product-specification.component';
+import { ProductVariationComponent } from '../product-variation/product-variation.component';
 
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, FormsModule, ReactiveFormsModule,ProductImagesComponent,ProductSpecificationComponent],
+  imports: [RouterOutlet, CommonModule, FormsModule, ReactiveFormsModule, ProductImagesComponent, ProductSpecificationComponent, ProductVariationComponent],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
@@ -30,30 +31,24 @@ export class ProductsComponent implements OnInit {
   productRealImage: File | any = null;
   previewImage: any = null;
   productImageName: string = '';
-  baseUrl:string = EasyToBuyHelper.imageBaseUrl;
-  previews:string[] = [];
-  showForm:boolean=false
+  baseUrl: string = EasyToBuyHelper.imageBaseUrl;
+  previews: string[] = [];
+  showForm: boolean = false
+  showSubCards: boolean = true
 
   ngOnInit(): void {
     this.getProductList();
-    this.productForm.controls['priceAfterDiscount'].disable();
   }
 
   constructor(private productService: ProductService, private categoryServivce: CategoryService, private accountService: AccountService, private formBuilder: FormBuilder) {
     this.productForm = this.formBuilder.group({
       id: new FormControl(0),
       productName: new FormControl("", [Validators.required]),
-      mrp: new FormControl(0, [Validators.required]),
-      discount: new FormControl(0, [Validators.required]),
-      priceAfterDiscount: new FormControl(0),
       productDescription: new FormControl("", [Validators.required]),
       productImage: new FormControl(File, [Validators.required]),
       categoryId: new FormControl(0, [Validators.required]),
-      productWeightId: new FormControl(0, [Validators.required]),
-      showProductWeight: new FormControl(false),
       isActive: new FormControl(false)
     })
-
   }
 
   get controls() {
@@ -76,17 +71,15 @@ export class ProductsComponent implements OnInit {
     this.isFormValid = false
     this.previewImage = ''
     this.getCategoryList();
-    this.getProductWeightList();
   }
 
   editProduct(product: any) {
     this.showForm = true
     this.isEdit = true
     this.productForm.patchValue(product)
-    this.previewImage = EasyToBuyHelper.imageBaseUrl+product.productImage;
+    this.previewImage = EasyToBuyHelper.imageBaseUrl + product.productImage;
     this.productImageName = product.productImage;
     this.getCategoryList();
-    this.getProductWeightList();
   }
 
 
@@ -103,11 +96,7 @@ export class ProductsComponent implements OnInit {
     })
   }
 
-  getProductWeightList() {
-    this.productService.getProductWeightList().subscribe(result => {
-      this.productWeightList = result
-    })
-  }
+
 
   calculatePriceAfterDiscount() {
     const priceAfterDiscount: any = this.productForm.value.mrp - (this.productForm.value.mrp * this.productForm.value.discount / 100)
@@ -116,29 +105,20 @@ export class ProductsComponent implements OnInit {
   }
 
   uploadFile(event: any) {
-
     this.productRealImage = <File>event.target.files[0];
-
     const selectedFiles = event.target.files;
-
     if (selectedFiles) {
       const file: File | null = selectedFiles.item(0);
-
       if (file) {
-
-
         const reader = new FileReader();
-
         reader.onload = (e: any) => {
-          console.log(e.target.result);
           this.previewImage = e.target.result;
         };
-
         reader.readAsDataURL(this.productRealImage);
+        console.log(this.productRealImage)
+        this.productImageName = this.productRealImage['name']
       }
-
     }
-
   }
 
   ProductAddEdit() {
@@ -153,44 +133,18 @@ export class ProductsComponent implements OnInit {
       formData.set("id", this.productForm.value.id != null && this.productForm.value.id > 0 ? this.productForm.value.id : 0);
       formData.set("vendorId", this.accountService.getUserId());
       formData.set("productName", this.productForm.value.productName);
-      formData.set("mrp", this.productForm.value.mrp);
-      formData.set("discount", this.productForm.value.discount);
-      formData.set("priceAfterDiscount", this.calculatePriceAfterDiscount());
       formData.set("productDescription", this.productForm.value.productDescription);
       formData.set("ProductImage", this.productRealImage);
       formData.set("ProductImageName", this.productImageName);
-
       formData.set("categoryId", this.productForm.value.categoryId);
-      formData.set("productWeightId", this.productForm.value.productWeightId);
       formData.set("createdBy", this.accountService.getUserId());
       formData.set("updatedBy", this.accountService.getUserId());
       formData.set("isActive", this.productForm.value.isActive == null ? "false" : "true");
-      formData.set("showProductWeight", this.productForm.value.showProductWeight == null ? "false" : "true");
-
-
-
-      // const product: any = {
-      //   id: this.productForm.value.id != null && this.productForm.value.id > 0 ? this.productForm.value.id : 0,
-      //   vendorId: this.accountService.getUserId(),
-      //   productName: this.productForm.value.productName,
-      //   mrp: this.productForm.value.mrp,
-      //   discount: this.productForm.value.discount,
-      //   priceAfterDiscount: this.calculatePriceAfterDiscount(),
-      //   productDescription: this.productForm.value.productDescription,
-      //   ProductImage: this.productRealImage,
-      //   categoryId: this.productForm.value.categoryId,
-      //   productWeightId: this.productForm.value.productWeightId,
-      //   createdBy: this.accountService.getUserId(),
-      //   updatedBy: this.accountService.getUserId(),
-      //   isActive: this.productForm.value.isActive == null ? false : true,
-      //   showProductWeight: this.productForm.value.showProductWeight == null ? false : true,
-      // }
       this.productService.productAddEdit(formData).subscribe(result => {
         this.response = result;
         if (this.response.status) {
           alert(this.response.message);
-          this.closeProductForm();
-          this.getProductList();
+          this.showSubCards = true
         }
       });
     }

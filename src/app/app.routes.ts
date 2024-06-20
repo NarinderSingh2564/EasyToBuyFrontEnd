@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './pages/admin/layout/layout.component';
-import { ProductsComponent } from './pages/admin/products/products.component';
+import { ProductsComponent } from './pages/vendor/products/products/products.component';
 import { LoginComponent } from './pages/account/login/login.component';
 import { RegisterComponent } from './pages/customer/register/register.component';
 import { CategoryComponent } from './pages/admin/category/category.component';

@@ -1,0 +1,278 @@
+<div class="containers">
+    <div class="row">
+        <div class="col-md-12" *ngIf="!showForm">
+            <div class="card mt-3">
+                <div class="card-header ">
+                    <div class="row">
+                        <div class="col-md-6 fs-5 text-white">
+                            Product List
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <button class="btn btn-sm" (click)="addProduct()"><b>Add Product</b></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3" *ngFor="let product of productList"
+                            style=" padding-bottom: calc(var(--bs-gutter-x)* .5);">
+                            <div class="card product-card">
+                                <img class="card-img-top mx-auto d-block mt-2" [src]="baseUrl+product.productImage"
+                                    width="250" height="150" alt="Card image">
+                                <div class="card-body">
+                                    <div>
+                                        <h6 class="card-title">{{product.productName}}
+                                            <span class="edit">
+                                                <i class="bi bi-pencil-square" (click)="editProduct(product)"></i>
+                                            </span>
+                                        </h6>
+                                        <h6 class="card-title">
+                                            <span class="p-1 product-price">₹{{product.priceAfterDiscount}}</span>
+                                            <small class="text-muted">({{product.productWeight}})</small>
+                                            <small class="text-muted"> M.R.P : <del>₹{{product.mrp}} </del></small>
+                                            <span class="text-success p-1">{{product.discount}}%off</span>
+                                        </h6>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" *ngIf="showForm">
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-6 text-white">
+                            Product Basic Information
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <button class="btn btn-sm" (click)="closeProductForm()"><b>Close</b></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body px-5">
+                    <form autocomplete="off" [formGroup]="productForm" (ngSubmit)="ProductAddEdit()">
+                        <input type="hidden" class="form-control" formControlName="id">
+                        <div>
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="">Product Name</label>
+                                            <input type="text" formControlName="productName" class="form-control">
+                                            <div *ngIf="isFormValid && controls['productName'].errors">
+                                                <div *ngIf="controls['productName'].errors['required']"
+                                                    class="text-danger">
+                                                    Product name is required.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label for="">Category</label>
+                                            <select class="form-select" formControlName="categoryId">
+                                                <option [ngValue]="null" [disabled]="true" hidden >--Select Option--</option>
+                                                <option *ngFor="let category of categoryList" [value]="category.id">
+                                                    {{category.categoryName}}
+                                                </option>
+                                            </select>
+                                            <div *ngIf="isFormValid && controls['categoryId'].errors">
+                                                <div *ngIf="controls['categoryId'].errors['required']"
+                                                    class="text-danger">
+                                                    Category is required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="">Product Image</label>
+                                            <input type="file" formControlName="productImage" class="form-control"
+                                                accept="image/png, image/jpg, image/jpeg" (change)="uploadFile($event)">
+                                            <div *ngIf="isFormValid && controls['productImage'].errors">
+                                                <div *ngIf="controls['productImage'].errors['required']"
+                                                    class="text-danger">
+                                                    Product image is required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="">Description</label>
+                                            <textarea formControlName="productDescription"
+                                                class="form-control"></textarea>
+                                            <div *ngIf="isFormValid && controls['productDescription'].errors">
+                                                <div *ngIf="controls['productDescription'].errors['required']"
+                                                    class="text-danger">
+                                                    Description is required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <br><label for="">IsActive</label>
+                                            <input type="checkbox" formControlName="isActive" class="form-check-input">
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <br><button class="btn btn2" *ngIf="!showSubCards">Save</button>
+                                            <button class="btn btn2" *ngIf="showSubCards">Update</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-1" *ngIf="previewImage">
+                                    <img src="{{previewImage}}" style="width: 180px; height: 165px;float: inline-end;">
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+            <div class="card mt-3 mb-3" *ngIf="showSubCards">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-6 text-white">
+                            Product Variations And Rate
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <button class="btn btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#productVariationAndRateModal"><b>Add Variation And Rate</b></button>
+                        </div>
+                    </div>
+                </div>
+                <app-product-variation></app-product-variation>
+                <div class="card-body">
+                    <div class="table-responsive mt-2">
+                        <table class="table table-bordered text-center table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Sr. No.</th>
+                                    <th>Packing Type</th>
+                                    <th>Quantity</th>
+                                    <th>Product Weight</th>
+                                    <th>MRP</th>
+                                    <th>Discount(%)</th>
+                                    <th>Price After Discount</th>
+                                    <th>Stock Quantity</th>
+                                    <th>Show Product Weight</th>
+                                    <th>Set As Default</th>
+                                    <th>IsActive</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <i class="bi bi-pencil-square" data-bs-toggle="modal"
+                                            data-bs-target="#productVariationAndRateModal"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-3" *ngIf="showSubCards">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-6 text-white">
+                            Product Images
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <button class="btn btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#productImagesModal"><b>Add More Images</b></button>
+                        </div>
+                    </div>
+                </div>
+                <app-product-images (childEvent)="getImagesFromChild($event)"></app-product-images>
+                <div class="card-body">
+                    <div class="table-responsive mt-2">
+                        <table class="table table-bordered text-center table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Sr. No.</th>
+                                    <th>Image</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let preview of previews; index as i">
+                                    <td>{{i+1}}</td>
+                                    <td><img [src]="preview" class="preview" width="80px" height="80px" /></td>
+                                    <td><i class="bi bi-trash" style="font-size: 26px;"></i></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-3 mb-3" *ngIf="showSubCards">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-6 text-white">
+                            Product Specifications
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <button class="btn btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#productSpecificationModal"><b>Add Specifications</b></button>
+                        </div>
+                    </div>
+                </div>
+                <app-product-specification></app-product-specification>
+                <div class="card-body">
+                    <div class="table-responsive mt-2">
+                        <table class="table table-bordered text-center table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Sr. No.</th>
+                                    <th>Speciality</th>
+                                    <th>Ingredient Type</th>
+                                    <th>Manufacturer</th>
+                                    <th>Ingredients</th>
+                                    <th>Shelf Life</th>
+                                    <th>Benefits</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <i class="bi bi-pencil-square" data-bs-toggle="modal"
+                                            data-bs-target="#productSpecificationModal"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

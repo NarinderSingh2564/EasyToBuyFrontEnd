@@ -145,12 +145,21 @@
                         </div>
                         <div class="col-md-6 text-end">
                             <button class="btn btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#productVariationAndRateModal"><b>Add Variation And Rate</b></button>
+                                data-bs-target="#productVariationAndRateModal" (click)="btnShowProductVariationAddEditModal()"><b>Add Variation And Rate</b></button>
                         </div>
                     </div>
                 </div>
-                <app-product-variation [variation]="variationDetails"
-                    [activeProductId]="activeProductId"></app-product-variation>
+                <div class="modal fade" id="productVariationAndRateModal" data-bs-backdrop="static">
+                    <div class="modal-dialog modal-dialog-centered  modal-lg">
+                        <div class="modal-content">
+                            
+                            @if(showProductVariationAddEditModal== true){
+                            <app-product-variation [variation]="variationDetails"
+                                [activeProductId]="activeProductId" [ProductVariationAddEditMode]='ProductVariationAddEditModeValue'></app-product-variation>
+                            }
+                            </div>
+                        </div>
+                    </div>
                 <div class="card-body">
                     <div class="table-responsive mt-2">
                         <table class="table table-bordered text-center table-hover">
@@ -195,13 +204,14 @@
                                     <td>
                                         <div class="form-check form-switch checkvalue">
                                             <input type="checkbox" class="form-check-input checkborder"
-                                            [checked]="variation.setAsDefault ? true : false">
+                                                [checked]="variation.setAsDefault ? true : false"
+                                                (change)="setAsDefaultVariation(variation.id)">
                                         </div>
                                     </td>
                                     <td>
                                         <i class="bi bi-pencil-square" data-bs-toggle="modal"
                                             data-bs-target="#productVariationAndRateModal"
-                                            (click)="variationEdit(variation)"></i>
+                                            (click)="variationEdit(variation);btnShowProductVariationAddEditModal()"></i>
                                     </td>
                                 </tr>
                             </tbody>

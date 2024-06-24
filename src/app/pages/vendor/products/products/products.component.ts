@@ -35,10 +35,13 @@ export class ProductsComponent implements OnInit {
   showSubCards: boolean = false
   productImageName: string = '';
   previews: string[] = [];
-  variationDetails:any=[]
-  activeProductId: number = 0
+  variationDetails: any = []
+  activeProductId: number = 0;
+  showProductVariationAddEditModal: boolean = false;
+  ProductVariationAddEditModeValue:string='create';
 
   ngOnInit(): void {
+    
     this.getProductList();
   }
 
@@ -53,6 +56,9 @@ export class ProductsComponent implements OnInit {
     })
   }
 
+  btnShowProductVariationAddEditModal() {
+    this.showProductVariationAddEditModal = true;
+  }
   get controls() {
     return this.productForm.controls
   }
@@ -147,6 +153,16 @@ export class ProductsComponent implements OnInit {
   }
   variationEdit(variation: any) {
     this.variationDetails = variation
+    console.log(this.variationDetails)
+  }
+
+  setAsDefaultVariation(variationId: number) {
+    this.productService.setDefaultVariation(this.activeProductId, variationId).subscribe((result: any) => {
+      if (result.status) {
+        alert(result.message)
+        this.getProductVariationList()
+      }
+    })
   }
 }
 

@@ -1,6 +1,4 @@
-<div class="modal fade" id="productVariationAndRateModal" data-bs-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered  modal-lg">
-        <div class="modal-content">
+
             <form autocomplete="off" [formGroup]="variationForm" (ngSubmit)="VariationAddEdit()">
                 <div class="modal-header">
                     <h4 class="modal-title">Product Variation And Rate</h4>
@@ -8,10 +6,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <input type="hidden" class="form-control" formControlName="id">
+                        <input type="hidden" class="form-control" formControlName="id"  [value]="variation.id">
                         <div class="col-md-6">
                             <label for="">Packing Type</label>
-                            <select class="form-select" formControlName="productPackingId" (change)="onChange($event)">
+                            <select class="form-select" formControlName="productPackingId"  (change)="onChange($event)">
                                 <option [ngValue]="null" [disabled]="true" hidden>--Select Option--</option>
                                 <option *ngFor="let packing of productPackingList" [value]="packing.id">
                                     {{packing.packingType}}
@@ -26,7 +24,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="">Quantity</label>
-                            <input type="number" class="form-control" min="2" formControlName="quantity">
+                            <input type="number" class="form-control" min="2" formControlName="quantity" [value]="variation.quantity">
                         </div>
                     </div>
                     <div class="row mt-1">
@@ -46,7 +44,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="">Stock Quantity</label>
-                            <input type="number" class="form-control" min="1" formControlName="stockQuantity">
+                            <input type="number" class="form-control" min="1" [value]="variation.stockQuantity" formControlName="stockQuantity">
                             <div *ngIf="isFormValid && controls['stockQuantity'].errors">
                                 <div *ngIf="controls['stockQuantity'].errors['required']" class="text-danger">
                                     Stock quantity is required.
@@ -58,7 +56,7 @@
                         <div class="col-md-6">
                             <label for="">MRP</label>
                             <input type="number" class="form-control" min="1" formControlName="mrp"
-                                (input)="calculateDiscountPrice();calculatePriceAfterDiscount">
+                                (input)="calculateDiscountPrice();calculatePriceAfterDiscount" [value]="variation.mrp">
                             <div *ngIf="isFormValid && controls['mrp'].errors">
                                 <div *ngIf="controls['mrp'].errors['required']" class="text-danger">
                                     MRP is required.
@@ -68,7 +66,7 @@
                         <div class="col-md-6">
                             <label for="">Discount(%)</label>
                             <input type="number" class="form-control" min="0" max="100" formControlName="discount"
-                                (input)="calculateDiscountPrice();calculatePriceAfterDiscount">
+                                (input)="calculateDiscountPrice();calculatePriceAfterDiscount" [value]="variation.discount">
                             <div *ngIf="isFormValid && controls['discount'].errors">
                                 <div *ngIf="controls['discount'].errors['required']" class="text-danger">
                                     Discount is required.
@@ -79,21 +77,21 @@
                     <div class="row mt-1">
                         <div class="col-md-6">
                             <label for="">Discount Price</label>
-                            <input type="number" class="form-control" formControlName="discountPrice">
+                            <input type="number" class="form-control" formControlName="discountPrice" [value]="variation.discountPrice">
                         </div>
                         <div class="col-md-6">
                             <label for="">Price After Discount</label>
-                            <input type="text" class="form-control" formControlName="priceAfterDiscount">
+                            <input type="text" class="form-control" formControlName="priceAfterDiscount" [value]="variation.priceAfterDiscount">
                         </div>
                     </div>
                     <div class="row mt-1">
                         <div class="col-md-6">
                             <label for="">Show Product Weight</label>
-                            <input type="checkbox" class="form-check-input mx-3" formControlName="showProductWeight">
+                            <input type="checkbox" class="form-check-input mx-3" formControlName="showProductWeight" [value]="variation.showProductWeight">
                         </div>
                         <div class="col-md-4">
                             <label for="">IsActive</label>
-                            <input type="checkbox" class="form-check-input mx-3" formControlName="isActive">
+                            <input type="checkbox" class="form-check-input mx-3" formControlName="isActive" [value]="variation.isActive">
                         </div>
                     </div>
                     <!-- {{variation | json}} -->
@@ -104,6 +102,4 @@
                     </div>
                 </div>
             </form>
-        </div>
-    </div>
-</div>
+       

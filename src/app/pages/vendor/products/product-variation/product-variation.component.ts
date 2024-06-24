@@ -15,6 +15,7 @@ export class ProductVariationComponent implements OnInit {
 
   @Input() variation: any;
   @Input() activeProductId: any;
+  @Input() ProductVariationAddEditMode: string = '';
 
   formBuilder = inject(FormBuilder)
   productService = inject(ProductService)
@@ -32,6 +33,11 @@ export class ProductVariationComponent implements OnInit {
     this.variationForm.controls['discountPrice'].disable();
     this.variationForm.controls['priceAfterDiscount'].disable();
     this.variationForm.controls['quantity'].disable();
+    alert(this.ProductVariationAddEditMode);
+    if(this.ProductVariationAddEditMode == "create"){
+      this.variationForm.reset();
+    }
+
   }
 
   constructor() {
@@ -47,7 +53,7 @@ export class ProductVariationComponent implements OnInit {
       priceAfterDiscount: new FormControl(null, [Validators.required]),
       stockQuantity: new FormControl(null, [Validators.required]),
       showProductWeight: new FormControl(false),
-      isActive: new FormControl(false)
+      isActive: new FormControl(false),
     })
   }
 

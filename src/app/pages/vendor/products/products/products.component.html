@@ -1,5 +1,6 @@
 <div class="containers">
     <div class="row">
+
         <div class="col-md-12" *ngIf="!showForm">
             <div class="card mt-3">
                 <div class="card-header ">
@@ -41,6 +42,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-md-12" *ngIf="showForm">
 
             <div class="card mt-3">
@@ -75,7 +77,8 @@
                                         <div class="col-md-3">
                                             <label for="">Category</label>
                                             <select class="form-select" formControlName="categoryId">
-                                                <option [ngValue]="null" [disabled]="true" hidden >--Select Option--</option>
+                                                <option [ngValue]="null" [disabled]="true" hidden>--Select Option--
+                                                </option>
                                                 <option *ngFor="let category of categoryList" [value]="category.id">
                                                     {{category.categoryName}}
                                                 </option>
@@ -87,7 +90,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-5">
                                             <label for="">Product Image</label>
                                             <input type="file" formControlName="productImage" class="form-control"
                                                 accept="image/png, image/jpg, image/jpeg" (change)="uploadFile($event)">
@@ -111,7 +114,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-3">
                                             <br><label for="">IsActive</label>
                                             <input type="checkbox" formControlName="isActive" class="form-check-input">
                                         </div>
@@ -123,7 +126,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-1" *ngIf="previewImage">
-                                    <img src="{{previewImage}}" style="width: 180px; height: 165px;float: inline-end;">
+                                    <img src="{{previewImage}}" style="width: 160px; height: 148px;float: inline-end;">
                                 </div>
 
 
@@ -142,11 +145,21 @@
                         </div>
                         <div class="col-md-6 text-end">
                             <button class="btn btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#productVariationAndRateModal"><b>Add Variation And Rate</b></button>
+                                data-bs-target="#productVariationAndRateModal" (click)="btnShowProductVariationAddEditModal()"><b>Add Variation And Rate</b></button>
                         </div>
                     </div>
                 </div>
-                <app-product-variation></app-product-variation>
+                <div class="modal fade" id="productVariationAndRateModal" data-bs-backdrop="static">
+                    <div class="modal-dialog modal-dialog-centered  modal-lg">
+                        <div class="modal-content">
+                            
+                            @if(showProductVariationAddEditModal== true){
+                            <app-product-variation [variation]="variationDetails"
+                                [activeProductId]="activeProductId" [ProductVariationAddEditMode]='ProductVariationAddEditModeValue'></app-product-variation>
+                            }
+                            </div>
+                        </div>
+                    </div>
                 <div class="card-body">
                     <div class="table-responsive mt-2">
                         <table class="table table-bordered text-center table-hover">
@@ -157,31 +170,48 @@
                                     <th>Quantity</th>
                                     <th>Product Weight</th>
                                     <th>MRP</th>
-                                    <th>Discount(%)</th>
+                                    <th>Discount</th>
                                     <th>Price After Discount</th>
                                     <th>Stock Quantity</th>
                                     <th>Show Product Weight</th>
-                                    <th>Set As Default</th>
                                     <th>IsActive</th>
+                                    <th>Set As Default</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                <tr *ngFor="let variation of productVariationList;index as i">
+                                    <td>{{i+1}}</td>
+                                    <td>{{variation.packingType}}</td>
+                                    <td>{{variation.quantity}}</td>
+                                    <td>{{variation.productWeight}}</td>
+                                    <td>{{variation.mrp | currency:'INR'}}</td>
+                                    <td>{{variation.discount}}%</td>
+                                    <td>{{variation.priceAfterDiscount | currency:'INR'}}</td>
+                                    <td>{{variation.stockQuantity}}</td>
+                                    @if(variation.showProductWeight){
+                                    <td>Yes</td>
+                                    }
+                                    @else{
+                                    <td>No</td>
+                                    }
+                                    @if(variation.isActive){
+                                    <td>Yes</td>
+                                    }
+                                    @else{
+                                    <td>No</td>
+                                    }
+                                    <td>
+                                        <div class="form-check form-switch checkvalue">
+                                            <input type="checkbox" class="form-check-input checkborder"
+                                                [checked]="variation.setAsDefault ? true : false"
+                                                (change)="setAsDefaultVariation(variation.id)">
+                                        </div>
+                                    </td>
                                     <td>
                                         <i class="bi bi-pencil-square" data-bs-toggle="modal"
-                                            data-bs-target="#productVariationAndRateModal"></i>
+                                            data-bs-target="#productVariationAndRateModal"
+                                            (click)="variationEdit(variation);btnShowProductVariationAddEditModal()"></i>
                                     </td>
                                 </tr>
                             </tbody>

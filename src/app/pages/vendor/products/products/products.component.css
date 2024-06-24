@@ -71,3 +71,11 @@ min-height: 100vh;
 textarea{
   max-height:250px
 }
+.checkvalue{
+  font-size: 20px;
+  margin-left: -38px;
+}
+
+.checkborder{
+  border-color: gray;
+}

@@ -52,7 +52,7 @@ export class ProductDescriptionComponent {
     this.getProductDescription()
     this.getProductVariationList()
     this.getProductSpecification()
-    // this.getProductVariationImage()
+    this.getProductVariationImage()
     
     if (this.accountService.getUserId() > 0) {
       this.cartService.CheckProductInCart(this.ActiveProductId, this.accountService.getUserId()).subscribe((result: any) => {
@@ -72,7 +72,6 @@ export class ProductDescriptionComponent {
       this.mainImage = this.ProductDescription['0']
       this.selectedImage = this.baseUrl + this.mainImage['productImage']
     })
-
   }
 
   getProductVariationList() {
@@ -80,9 +79,6 @@ export class ProductDescriptionComponent {
       this.ProductVariationList = result
       this.variationObj =  this.ProductVariationList.filter((t: { setAsDefault: any; })=>t.setAsDefault ==1)[0];
       this.defaultVariationId = this.variationObj['id']
-
-      console.log(this.defaultVariationId)
-
     })
   }
 
@@ -93,20 +89,20 @@ export class ProductDescriptionComponent {
     })
   }
 
-  // getProductVariationImage() {
-  //   this.productService.getProductVariationImageById(this.ActiveProductId).subscribe(result => {
-  //     this.ProductVariationImage = result
-  //   })
-  // }
+  getProductVariationImage() {
+    this.productService.getProductVariationImageById(this.ActiveProductId).subscribe(result => {
+      this.ProductVariationImage = result
+    })
+  }
 
   setDefaultVariation(variationId: number) {
     this.productService.setDefaultVariation(this.ActiveProductId, variationId).subscribe((result: any) => {
       if (result.status) {
         this.defaultVariation = true
         this.getProductDescription()
-        // this.productService.getProductVariationImageById(variationId).subscribe(result => {
-        //   this.ProductVariationImage = result
-        // })
+        this.productService.getProductVariationImageById(variationId).subscribe(result => {
+          this.ProductVariationImage = result
+        })
       }
     })
   }

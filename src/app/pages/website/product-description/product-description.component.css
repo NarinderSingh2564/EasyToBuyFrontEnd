@@ -178,10 +178,11 @@ overflow: hidden;
 .card{
   height: 110px;
   width:190px;
-  border: 2px solid #61887e;
+  border: 2px solid #d1d1d1;
+  box-shadow: 2px 2px 3px #a5a5a5;
 }
 .card:hover{
-  border: 2px solid #d1d1d1;
+  border: 2px solid #61887e;
 
 }
 

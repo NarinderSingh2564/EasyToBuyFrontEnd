@@ -9,14 +9,12 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  getProductList(categoryId:number , searchText:string , vendorId:number,role:string) {
-    return this.http.get("https://localhost:7239/api/Product/GetProductList?categoryId=" + categoryId + "&searchText=" + searchText + "&vendorId=" + vendorId+"&role="+role)
+  getProductList(categoryId: number, searchText: string, vendorId: number, role: string) {
+    return this.http.get("https://localhost:7239/api/Product/GetProductList?categoryId=" + categoryId + "&searchText=" + searchText + "&vendorId=" + vendorId + "&role=" + role)
   }
 
   productAddEdit(productUIModel: any) {
-
-
-    return this.http.post("https://localhost:7239/api/Product/ProductAddEdit",productUIModel)
+    return this.http.post("https://localhost:7239/api/Product/ProductAddEdit", productUIModel)
   }
 
   getProductDescriptionById(id: number) {
@@ -27,23 +25,28 @@ export class ProductService {
     return this.http.get("https://localhost:7239/api/Product/GetProductWeightList")
   }
 
-   getProductSpecificationById(id: number){
+  getProductPackingList() {
+    return this.http.get("  https://localhost:7239/api/Product/GetProductPackingList")
+  }
+
+  productVariationAddEdit(variation:any){
+    return this.http.post("https://localhost:7239/api/Product/ProductVariationAndRateAddEdit", variation)
+  }
+
+  getProductSpecificationById(id: number) {
     return this.http.get("https://localhost:7239/api/Product/GetProductSpecificationById?productId=" + id)
-   }
+  }
 
-   getProductVariationListById(id: number){
+  getProductVariationListById(id: number) {
     return this.http.get("https://localhost:7239/api/Product/GetProductVariationListById?productId=" + id)
-   }
+  }
 
-   getProductVariationImageById(id: number){
+  getProductVariationImageById(id: number) {
     return this.http.get("https://localhost:7239/api/Product/GetProductVariationImageById?variationId=" + id)
-   }
+  }
 
-   
-setDefaultVariation(productId:number,variationId:number){
-  return this.http.post("https://localhost:7239/api/Product/SetDefaultVariation?productId=" + productId + "&variationId=" + variationId,productId)
- }
-
-
+  setDefaultVariation(productId: number, variationId: number) {
+    return this.http.post("https://localhost:7239/api/Product/SetDefaultVariation?productId=" + productId + "&variationId=" + variationId, productId)
+  }
 
 }

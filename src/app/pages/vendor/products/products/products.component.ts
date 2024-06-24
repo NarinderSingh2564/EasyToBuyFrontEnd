@@ -19,22 +19,24 @@ import { ProductVariationComponent } from '../product-variation/product-variatio
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
+
 export class ProductsComponent implements OnInit {
 
+  productForm: FormGroup;
+  baseUrl: string = EasyToBuyHelper.imageBaseUrl;
+  productRealImage: File | any = null;
   categoryList: any = [];
   productList: any = [];
-  productWeightList: any = [];
-  response: any = [];
-  productForm: FormGroup;
+  productVariationList: any = [];
   isFormValid: boolean = false;
   isEdit: boolean = false;
-  productRealImage: File | any = null;
   previewImage: any = null;
-  productImageName: string = '';
-  baseUrl: string = EasyToBuyHelper.imageBaseUrl;
-  previews: string[] = [];
   showForm: boolean = false
-  showSubCards: boolean = true
+  showSubCards: boolean = false
+  productImageName: string = '';
+  previews: string[] = [];
+  variationDetails:any=[]
+  activeProductId: number = 0
 
   ngOnInit(): void {
     this.getProductList();
@@ -46,7 +48,7 @@ export class ProductsComponent implements OnInit {
       productName: new FormControl("", [Validators.required]),
       productDescription: new FormControl("", [Validators.required]),
       productImage: new FormControl(File, [Validators.required]),
-      categoryId: new FormControl(0, [Validators.required]),
+      categoryId: new FormControl(null, [Validators.required]),
       isActive: new FormControl(false)
     })
   }
@@ -54,7 +56,6 @@ export class ProductsComponent implements OnInit {
   get controls() {
     return this.productForm.controls
   }
-
 
   closeProductForm() {
     this.showForm = false
@@ -74,15 +75,16 @@ export class ProductsComponent implements OnInit {
   }
 
   editProduct(product: any) {
+    this.activeProductId = product.id
     this.showForm = true
+    this.showSubCards = true
     this.isEdit = true
     this.productForm.patchValue(product)
     this.previewImage = EasyToBuyHelper.imageBaseUrl + product.productImage;
     this.productImageName = product.productImage;
     this.getCategoryList();
+    this.getProductVariationList();
   }
-
-
 
   getCategoryList() {
     this.categoryServivce.getCategoryList().subscribe((result: any) => {
@@ -96,14 +98,6 @@ export class ProductsComponent implements OnInit {
     })
   }
 
-
-
-  calculatePriceAfterDiscount() {
-    const priceAfterDiscount: any = this.productForm.value.mrp - (this.productForm.value.mrp * this.productForm.value.discount / 100)
-    this.productForm.controls['priceAfterDiscount'].patchValue(priceAfterDiscount)
-    return priceAfterDiscount
-  }
-
   uploadFile(event: any) {
     this.productRealImage = <File>event.target.files[0];
     const selectedFiles = event.target.files;
@@ -115,7 +109,6 @@ export class ProductsComponent implements OnInit {
           this.previewImage = e.target.result;
         };
         reader.readAsDataURL(this.productRealImage);
-        console.log(this.productRealImage)
         this.productImageName = this.productRealImage['name']
       }
     }
@@ -127,9 +120,7 @@ export class ProductsComponent implements OnInit {
       return;
     }
     else {
-
       const formData = new FormData();
-
       formData.set("id", this.productForm.value.id != null && this.productForm.value.id > 0 ? this.productForm.value.id : 0);
       formData.set("vendorId", this.accountService.getUserId());
       formData.set("productName", this.productForm.value.productName);
@@ -140,14 +131,22 @@ export class ProductsComponent implements OnInit {
       formData.set("createdBy", this.accountService.getUserId());
       formData.set("updatedBy", this.accountService.getUserId());
       formData.set("isActive", this.productForm.value.isActive == null ? "false" : "true");
-      this.productService.productAddEdit(formData).subscribe(result => {
-        this.response = result;
-        if (this.response.status) {
-          alert(this.response.message);
+      this.productService.productAddEdit(formData).subscribe((result: any) => {
+        if (result.status) {
+          alert(result.message);
           this.showSubCards = true
         }
       });
     }
+  }
+
+  getProductVariationList() {
+    this.productService.getProductVariationListById(this.activeProductId).subscribe(result => {
+      this.productVariationList = result
+    })
+  }
+  variationEdit(variation: any) {
+    this.variationDetails = variation
   }
 }
 

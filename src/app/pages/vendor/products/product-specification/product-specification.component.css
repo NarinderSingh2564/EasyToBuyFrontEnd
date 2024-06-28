@@ -1,11 +1,17 @@
-.modal-header{
+.modal-header {
     background-color: #3b6a5e;
     color: white;
 }
-.btn1{
+
+.btn1 {
     color: white;
     background-color: #3b6a5e;
 }
-textarea{
-    max-height:250px
+
+textarea {
+    max-height: 250px
+}
+
+.form-check-input {
+    border-color: gray;
 }

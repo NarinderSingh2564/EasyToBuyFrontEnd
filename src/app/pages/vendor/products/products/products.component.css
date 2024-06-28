@@ -1,8 +1,7 @@
-
-.containers{
-justify-content: center;
-align-items: center;
-min-height: 100vh;
+.containers {
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 .bi-pencil-square {
@@ -43,7 +42,7 @@ min-height: 100vh;
 }
 
 .btn-sm:hover {
-  color:#3b6a5e;
+  color: #3b6a5e;
   background-color: white;
   margin-left: 6px;
 }
@@ -57,25 +56,38 @@ min-height: 100vh;
   font-size: large;
 }
 
-.card-header{
-  background:  #549181;
+.card-header {
+  background: #549181;
 }
-.btn2{
+
+.btn2 {
   background: #3b6a5e;
-  color:white;
+  color: white;
   float: inline-end;
 }
-.modal-title{
+
+.modal-title {
   color: #3b6a5e;
 }
-textarea{
-  max-height:250px
+
+textarea {
+  max-height: 250px
 }
-.checkvalue{
+
+.checkvalue {
   font-size: 20px;
   margin-left: -38px;
 }
 
-.checkborder{
+.checkborder {
   border-color: gray;
+}
+
+td.col-md-3,
+td.col-md-9 {
+  border: hidden;
+}
+
+.tdhead ,.tdbot{
+  line-height: 2;
 }

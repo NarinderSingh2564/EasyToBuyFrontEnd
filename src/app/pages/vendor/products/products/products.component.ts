@@ -28,22 +28,18 @@ export class ProductsComponent implements OnInit {
   categoryList: any = [];
   productList: any = [];
   productVariationList: any = [];
+  productSpecificationList: any = [];
+  previews: string[] = [];
+  variationDetails: any = []
+  productImageName: string = '';
+  btnText:string='Add Specification';
+  activeProductId: number = 0;
   isFormValid: boolean = false;
   isEdit: boolean = false;
   previewImage: any = null;
   showForm: boolean = false
   showSubCards: boolean = false
-  productImageName: string = '';
-  previews: string[] = [];
-  variationDetails: any = []
-  activeProductId: number = 0;
   showProductVariationAddEditModal: boolean = false;
-  ProductVariationAddEditModeValue:string='create';
-
-  ngOnInit(): void {
-    
-    this.getProductList();
-  }
 
   constructor(private productService: ProductService, private categoryServivce: CategoryService, private accountService: AccountService, private formBuilder: FormBuilder) {
     this.productForm = this.formBuilder.group({
@@ -55,20 +51,18 @@ export class ProductsComponent implements OnInit {
       isActive: new FormControl(false)
     })
   }
-
-  btnShowProductVariationAddEditModal() {
-    this.showProductVariationAddEditModal = true;
+  
+  ngOnInit(): void {
+    this.getProductList();
   }
+
   get controls() {
     return this.productForm.controls
   }
 
   closeProductForm() {
     this.showForm = false
-  }
-
-  getImagesFromChild(images: any) {
-    this.previews = images
+    this.getProductList()
   }
 
   addProduct() {
@@ -90,6 +84,7 @@ export class ProductsComponent implements OnInit {
     this.productImageName = product.productImage;
     this.getCategoryList();
     this.getProductVariationList();
+    this.getProductSpecificationList();
   }
 
   getCategoryList() {
@@ -140,17 +135,32 @@ export class ProductsComponent implements OnInit {
       this.productService.productAddEdit(formData).subscribe((result: any) => {
         if (result.status) {
           alert(result.message);
-          this.showSubCards = true
         }
       });
     }
   }
 
+  showVariationAddEditModal() {
+    this.showProductVariationAddEditModal = true;
+  }
+
+  getValueFromChild(event: any) {
+    this.showProductVariationAddEditModal = event
+    this.getProductVariationList()
+    this.getProductSpecificationList()
+  }
+
   getProductVariationList() {
     this.productService.getProductVariationListById(this.activeProductId).subscribe(result => {
       this.productVariationList = result
+      console.log(this.productVariationList)
     })
   }
+
+  variationAdd() {
+    this.variationDetails = []
+  }
+
   variationEdit(variation: any) {
     this.variationDetails = variation
     console.log(this.variationDetails)
@@ -164,6 +174,16 @@ export class ProductsComponent implements OnInit {
       }
     })
   }
+
+  getProductSpecificationList(){
+    this.productService.getProductSpecificationById(this.activeProductId).subscribe(result=>{
+      this.productSpecificationList = result
+      if(this.productSpecificationList.length > 0){
+        this.btnText="Update Specification"
+      }
+    })
+  }
+
 }
 
 

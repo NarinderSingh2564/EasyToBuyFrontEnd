@@ -22,18 +22,11 @@
                                     width="250" height="150" alt="Card image">
                                 <div class="card-body">
                                     <div>
-                                        <h6 class="card-title">{{product.productName}}
+                                        <h6 class="card-title text-center">{{product.productName}}
                                             <span class="edit">
                                                 <i class="bi bi-pencil-square" (click)="editProduct(product)"></i>
                                             </span>
                                         </h6>
-                                        <h6 class="card-title">
-                                            <span class="p-1 product-price">₹{{product.priceAfterDiscount}}</span>
-                                            <small class="text-muted">({{product.productWeight}})</small>
-                                            <small class="text-muted"> M.R.P : <del>₹{{product.mrp}} </del></small>
-                                            <span class="text-success p-1">{{product.discount}}%off</span>
-                                        </h6>
-
                                     </div>
                                 </div>
                             </div>
@@ -145,21 +138,21 @@
                         </div>
                         <div class="col-md-6 text-end">
                             <button class="btn btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#productVariationAndRateModal" (click)="btnShowProductVariationAddEditModal()"><b>Add Variation And Rate</b></button>
+                                data-bs-target="#productVariationAndRateModal"
+                                (click)="showVariationAddEditModal();variationAdd()"><b>Add Variation And
+                                    Rate</b></button>
                         </div>
                     </div>
                 </div>
                 <div class="modal fade" id="productVariationAndRateModal" data-bs-backdrop="static">
                     <div class="modal-dialog modal-dialog-centered  modal-lg">
                         <div class="modal-content">
-                            
                             @if(showProductVariationAddEditModal== true){
-                            <app-product-variation [variation]="variationDetails"
-                                [activeProductId]="activeProductId" [ProductVariationAddEditMode]='ProductVariationAddEditModeValue'></app-product-variation>
+                            <app-product-variation [variationToEdit]="variationDetails" (showChildComponent)="getValueFromChild($event)" [activeProductId]="activeProductId"></app-product-variation>
                             }
-                            </div>
                         </div>
                     </div>
+                </div>
                 <div class="card-body">
                     <div class="table-responsive mt-2">
                         <table class="table table-bordered text-center table-hover">
@@ -170,7 +163,7 @@
                                     <th>Quantity</th>
                                     <th>Product Weight</th>
                                     <th>MRP</th>
-                                    <th>Discount</th>
+                                    <th>Discount(%)</th>
                                     <th>Price After Discount</th>
                                     <th>Stock Quantity</th>
                                     <th>Show Product Weight</th>
@@ -186,7 +179,7 @@
                                     <td>{{variation.quantity}}</td>
                                     <td>{{variation.productWeight}}</td>
                                     <td>{{variation.mrp | currency:'INR'}}</td>
-                                    <td>{{variation.discount}}%</td>
+                                    <td>{{variation.discount}}</td>
                                     <td>{{variation.priceAfterDiscount | currency:'INR'}}</td>
                                     <td>{{variation.stockQuantity}}</td>
                                     @if(variation.showProductWeight){
@@ -211,8 +204,11 @@
                                     <td>
                                         <i class="bi bi-pencil-square" data-bs-toggle="modal"
                                             data-bs-target="#productVariationAndRateModal"
-                                            (click)="variationEdit(variation);btnShowProductVariationAddEditModal()"></i>
+                                            (click)="variationEdit(variation);showVariationAddEditModal()"></i>
                                     </td>
+                                </tr>
+                                <tr *ngIf="productVariationList.length == 0">
+                                    <td colspan="12">No variation added</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -232,7 +228,7 @@
                         </div>
                     </div>
                 </div>
-                <app-product-images (childEvent)="getImagesFromChild($event)"></app-product-images>
+                <app-product-images></app-product-images>
                 <div class="card-body">
                     <div class="table-responsive mt-2">
                         <table class="table table-bordered text-center table-hover">
@@ -244,12 +240,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let preview of previews; index as i">
-                                    <td>{{i+1}}</td>
-                                    <td><img [src]="preview" class="preview" width="80px" height="80px" /></td>
-                                    <td><i class="bi bi-trash" style="font-size: 26px;"></i></td>
+                                <tr>
+                                    <!-- <td>{{i+1}}</td>
+                                    <td><img [src]="preview" class="preview" width="80px" height="80px"/></td>
+                                    <td><i class="bi bi-trash" style="font-size: 26px;"></i></td> -->
+                                    <td colspan="3">No images added</td>
                                 </tr>
-
                             </tbody>
                         </table>
                     </div>
@@ -263,16 +259,23 @@
                             Product Specifications
                         </div>
                         <div class="col-md-6 text-end">
-                            <button class="btn btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#productSpecificationModal"><b>Add Specifications</b></button>
+                            <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#productSpecificationModal" (click)="showVariationAddEditModal();"><b>{{btnText}}</b></button>
                         </div>
                     </div>
                 </div>
-                <app-product-specification></app-product-specification>
+                <div class="modal fade" id="productSpecificationModal" data-bs-backdrop="static">
+                    <div class="modal-dialog modal-dialog-centered  modal-lg">
+                        <div class="modal-content">
+                            @if(showProductVariationAddEditModal== true){
+                            <app-product-specification [specificationToEdit]="productSpecificationList" (showChildComponent)="getValueFromChild($event)" [activeProductId]="activeProductId"></app-product-specification>
+                            }
+                        </div>
+                    </div>
+                </div>
                 <div class="card-body">
-                    <div class="table-responsive mt-2">
-                        <table class="table table-bordered text-center table-hover">
-                            <thead>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <!-- <thead>
                                 <tr>
                                     <th>Sr. No.</th>
                                     <th>Speciality</th>
@@ -281,25 +284,48 @@
                                     <th>Ingredients</th>
                                     <th>Shelf Life</th>
                                     <th>Benefits</th>
-                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <i class="bi bi-pencil-square" data-bs-toggle="modal"
-                                            data-bs-target="#productSpecificationModal"></i>
-                                    </td>
+                                <tr *ngFor="let specification of productSpecificationList;index as i">
+                                    <td>{{i+1}}</td>
+                                    <td>{{specification.speciality}}</td>
+                                    <td>{{specification.ingredientType}}</td>
+                                    <td>{{specification.manufacturer}}</td>
+                                    <td>{{specification.ingredients}}</td>
+                                    <td>{{specification.shelfLife}}</td>
+                                    <td>{{specification.benefits}}</td>
                                 </tr>
-                            </tbody>
+                            </tbody> -->
+                            <div *ngFor="let specification of productSpecificationList;index as i">
+                                <tbody>
+                                    <tr><td class="col-md-3 tdhead"><b>Speciality</b></td><td class="col-md-9 tdbot">{{specification.speciality}}</td></tr>
+                                    
+                                    <tr><td class="col-md-3 tdhead"><b>Ingredient Type</b></td><td class="col-md-9 tdbot">{{specification.ingredientType}}</td></tr>
+                                    
+                                    <tr><td class="col-md-3 tdhead"><b>Ingredient</b></td><td class="col-md-9 tdbot">{{specification.ingredients}}</td></tr>
+                                    
+                                    <tr><td class="col-md-3 tdhead"><b>Manufacturer</b></td><td class="col-md-9 tdbot">{{specification.manufacturer}}</td></tr>
+                                                                        
+                                    <tr><td class="col-md-3 tdhead"><b>Shelf Life</b></td><td class="col-md-9 tdbot">{{specification.shelfLife}}</td></tr>
+                                    
+                                    <tr><td class="col-md-3 tdhead"><b>Benefits</b></td><td class="col-md-9 tdbot">{{specification.benefits}}</td></tr>
+
+                                    <tr><td class="col-md-3 tdhead"><b>IsActive</b></td>
+                                        @if(specification.isActive){
+                                            <td class="col-md-9 tdbot">Yes</td>
+                                        }
+                                        @else{
+                                            <td class="col-md-9 tdbot">No</td>
+                                        }
+                                    </tr>
+                                    
+                                </tbody>
+                            </div>
                         </table>
+                        <div *ngIf="productSpecificationList.length==0">
+                           <p class="text-center">No specification added</p>
+                        </div>
                     </div>
                 </div>
             </div>

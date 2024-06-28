@@ -3,8 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Upload Product Images</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    (click)=" sendImagesToParent()"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <label for="">Variation Type</label>
@@ -12,11 +11,11 @@
                     <option value="">--Select option--</option>
                 </select>
                 <label for="">Images</label>
-                <input type="file" name="" id="" multiple class="form-control" (change)="selectFiles($event)">
+                <input type="file" name="" id="" multiple class="form-control">
             </div>
             <div class="modal-footer">
                 <div class="text-end">
-                    <button class="btn" (click)="uploadImages()">Upload</button>
+                    <button class="btn">Upload</button>
                 </div>
             </div>
         </div>

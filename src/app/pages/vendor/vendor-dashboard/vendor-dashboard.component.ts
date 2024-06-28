@@ -13,7 +13,7 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class VendorDashboardComponent {
 
-   vendorOrdersCountList:any;
+  vendorOrdersCountList:any;
 
   constructor(private vendorService: VendorService, private accountService: AccountService,private router:Router) {
     this.getVendorOrderCount()
@@ -22,7 +22,6 @@ export class VendorDashboardComponent {
   getVendorOrderCount(){
     this.vendorService.vendorOrdersCount(this.accountService.getUserId()).subscribe(result=>{
       this.vendorOrdersCountList= result;
-      console.log(this.vendorOrdersCountList)
     })
   }
   

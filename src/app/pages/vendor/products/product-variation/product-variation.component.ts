@@ -1,7 +1,7 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, inject } from '@angular/core';
 import { ProductService } from '../../../../services/product.service';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AccountService } from '../../../../services/account.service';
 
 @Component({
@@ -10,35 +10,24 @@ import { AccountService } from '../../../../services/account.service';
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './product-variation.component.html',
   styleUrl: './product-variation.component.css',
+  outputs: ['showChildComponent']
 })
 export class ProductVariationComponent implements OnInit {
 
-  @Input() variation: any;
+  @Input() variationToEdit: any;
   @Input() activeProductId: any;
-  @Input() ProductVariationAddEditMode: string = '';
 
   formBuilder = inject(FormBuilder)
   productService = inject(ProductService)
   accountService = inject(AccountService)
 
+  variationForm: FormGroup;
+  showChildComponent = new EventEmitter()
+
   productWeightList: any = [];
   productPackingList: any = [];
-  variationForm: any = [];
-
   isFormValid: boolean = false;
-
-  ngOnInit(): void {
-    this.getProductWeightList()
-    this.getProductPackingList()
-    this.variationForm.controls['discountPrice'].disable();
-    this.variationForm.controls['priceAfterDiscount'].disable();
-    this.variationForm.controls['quantity'].disable();
-    alert(this.ProductVariationAddEditMode);
-    if(this.ProductVariationAddEditMode == "create"){
-      this.variationForm.reset();
-    }
-
-  }
+  btnText: string = "";
 
   constructor() {
     this.variationForm = this.formBuilder.group({
@@ -57,8 +46,27 @@ export class ProductVariationComponent implements OnInit {
     })
   }
 
+  ngOnInit(): void {
+    this.getProductWeightList()
+    this.getProductPackingList()
+    this.variationForm.controls['discountPrice'].disable();
+    this.variationForm.controls['priceAfterDiscount'].disable();
+    this.variationForm.controls['quantity'].disable();
+    this.variationForm.patchValue(this.variationToEdit)
+    if (this.variationToEdit.length == 0) {
+      this.btnText = "Save"
+    }
+    else {
+      this.btnText = "Update"
+    }
+  }
+
   get controls() {
     return this.variationForm.controls;
+  }
+
+  disableChildComponent() {
+    this.showChildComponent.emit(false)
   }
 
   getProductWeightList() {
@@ -92,12 +100,12 @@ export class ProductVariationComponent implements OnInit {
     return discountPrice
   }
 
-  calculatePriceAfterDiscount(){
+  calculatePriceAfterDiscount() {
     const priceAfterDiscount: any = this.variationForm.value.mrp - (this.variationForm.value.mrp * this.variationForm.value.discount / 100)
     return priceAfterDiscount
   }
 
-  VariationAddEdit() {
+  variationAddEdit() {
     this.isFormValid = true
     if (this.variationForm.invalid) {
       return;
@@ -107,7 +115,7 @@ export class ProductVariationComponent implements OnInit {
         id: this.variationForm.value.id != null && this.variationForm.value.id > 0 ? this.variationForm.value.id : 0,
         productId: this.activeProductId,
         productPackingId: Number(this.variationForm.value.productPackingId),
-        quantity: this.variationForm.value.quantity,
+        quantity: this.variationForm.value.quantity == undefined ? 1 : this.variationForm.value.quantity,
         productWeightId: Number(this.variationForm.value.productWeightId),
         mrp: this.variationForm.value.mrp,
         discount: this.variationForm.value.discount,
@@ -119,16 +127,17 @@ export class ProductVariationComponent implements OnInit {
         createdBy: this.accountService.getUserId(),
         updatedBy: this.accountService.getUserId(),
       }
-      console.log(variation)
-      if(this.variationForm.value.productPackingId=="8" && this.variationForm.value.quantity==1){
+      if (this.variationForm.value.productPackingId == "8" && this.variationForm.value.quantity == 1) {
         alert("Quantity should be more than 1 in case of multipack.")
       }
-      else{
-        this.productService.productVariationAddEdit(variation).subscribe((result:any)=>{
+      else {
+        this.productService.productVariationAddEdit(variation).subscribe((result: any) => {
           alert(result.message)
+          if (result.status) {
+            this.isFormValid = false
+          }
         })
       }
     }
   }
-
 }

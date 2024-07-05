@@ -1,59 +1,86 @@
-<div class="modal fade" id="productSpecificationModal" data-bs-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered  modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Product Specifications</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="">Speciality</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="">Ingredient Type</label>
-                        <select name=""  id="" class="form-select">
-                            <option value="" disabled selected hidden>--Select option--</option>
-                        <option value="Vegetarian">Vegetarian</option>
-                        <option value="Non-Vegetarian">Non-Vegetarian</option>
-                    </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="">Manufacturer</label>
-                        <input type="text" class="form-control">
-                    </div>
-                   
-                    <div class="col-md-6">
-                        <label for="">Shelf Life</label>
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="">Ingredients</label>
-                        <textarea name="" id="" class="form-control"></textarea>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="">Benefits</label>
-                        <textarea name="" id="" class="form-control"></textarea>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <label for="">IsActive</label>
-                        <input type="checkbox" class="form-check-input mx-3">
+<form autocomplete="off" [formGroup]="specificationForm" (ngSubmit)="specificationAddEdit()">
+    <div class="modal-header">
+        <h4 class="modal-title">Product Specifications</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="disableChildComponent()"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <input type="hidden" formControlName="id">
+            <div class="col-md-6">
+                <label for="">Speciality</label>
+                <input type="text" class="form-control" formControlName="speciality" maxLength="150">
+                <div *ngIf="isFormValid && controls['speciality'].errors">
+                    <div *ngIf="controls['speciality'].errors['required']" class="text-danger">
+                        Speciality is required.
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <div class="text-end">
-                    <button class="btn btn1">Save</button>&nbsp;
-                    <button class="btn btn-danger">Clear</button>
+            <div class="col-md-6">
+                <label for="">Ingredient Type</label>
+                <select name="" id="" class="form-select" formControlName="ingredientType">
+                    <option [ngValue]="null" [disabled]="true" hidden>--Select Option--</option>
+                    <option value="Vegetarian">Vegetarian</option>
+                    <option value="Non-Vegetarian">Non-Vegetarian</option>
+                </select>
+                <div *ngIf="isFormValid && controls['ingredientType'].errors">
+                    <div *ngIf="controls['ingredientType'].errors['required']" class="text-danger">
+                        Ingredient Type is required.
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="row mt-1">
+            <div class="col-md-6">
+                <label for="">Manufacturer</label>
+                <input type="text" class="form-control" formControlName="manufacturer"  maxLength="30">
+                <div *ngIf="isFormValid && controls['manufacturer'].errors">
+                    <div *ngIf="controls['manufacturer'].errors['required']" class="text-danger">
+                        Manufacturer is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label for="">Shelf Life</label>
+                <input type="text" class="form-control" formControlName="shelfLife"  maxLength="50">
+                <div *ngIf="isFormValid && controls['shelfLife'].errors">
+                    <div *ngIf="controls['shelfLife'].errors['required']" class="text-danger">
+                        Shelf Life is required.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-md-6">
+                <label for="">Ingredients</label>
+                <textarea name="" id="" class="form-control" formControlName="ingredients"  maxLength="250"></textarea>
+                <div *ngIf="isFormValid && controls['ingredients'].errors">
+                    <div *ngIf="controls['ingredients'].errors['required']" class="text-danger">
+                        Ingredients is required.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="">Benefits</label>
+                <textarea name="" id="" class="form-control" formControlName="benefits"  maxLength="150"></textarea>
+                <div *ngIf="isFormValid && controls['benefits'].errors">
+                    <div *ngIf="controls['benefits'].errors['required']" class="text-danger">
+                        Benefits is required.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-md-4">
+                <label for="">IsActive</label>
+                <input type="checkbox" class="form-check-input mx-3" formControlName="isActive">
+            </div>
+        </div>
+         <!-- {{specificationToEdit | json}}  -->
     </div>
-</div>
+    <div class="modal-footer">
+        <div class="text-end">
+            <button class="btn btn1">{{btnText}}</button>
+        </div>
+    </div>
+</form>

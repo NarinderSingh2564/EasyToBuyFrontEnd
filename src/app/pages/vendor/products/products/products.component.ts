@@ -19,26 +19,29 @@ import { ProductVariationComponent } from '../product-variation/product-variatio
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
+
 export class ProductsComponent implements OnInit {
 
+  productForm: FormGroup;
+  baseUrl: string = EasyToBuyHelper.imageBaseUrl;
+  variationImgBaseUrl :string = EasyToBuyHelper.imageVariationBaseUrl;
+  productRealImage: File | any = null;
   categoryList: any = [];
   productList: any = [];
-  productWeightList: any = [];
-  response: any = [];
-  productForm: FormGroup;
+  productVariationList: any = [];
+  variationImagesList:any=[]
+  productSpecificationList: any = [];
+  previews: string[] = [];
+  variationDetails: any = []
+  productImageName: string = '';
+  btnText:string='Add Specification';
+  activeProductId: number = 0;
   isFormValid: boolean = false;
   isEdit: boolean = false;
-  productRealImage: File | any = null;
   previewImage: any = null;
-  productImageName: string = '';
-  baseUrl: string = EasyToBuyHelper.imageBaseUrl;
-  previews: string[] = [];
   showForm: boolean = false
-  showSubCards: boolean = true
-
-  ngOnInit(): void {
-    this.getProductList();
-  }
+  showSubCards: boolean = false
+  showModal: boolean = false;
 
   constructor(private productService: ProductService, private categoryServivce: CategoryService, private accountService: AccountService, private formBuilder: FormBuilder) {
     this.productForm = this.formBuilder.group({
@@ -46,22 +49,22 @@ export class ProductsComponent implements OnInit {
       productName: new FormControl("", [Validators.required]),
       productDescription: new FormControl("", [Validators.required]),
       productImage: new FormControl(File, [Validators.required]),
-      categoryId: new FormControl(0, [Validators.required]),
+      categoryId: new FormControl(null, [Validators.required]),
       isActive: new FormControl(false)
     })
+  }
+  
+  ngOnInit(): void {
+    this.getProductList();
   }
 
   get controls() {
     return this.productForm.controls
   }
 
-
   closeProductForm() {
     this.showForm = false
-  }
-
-  getImagesFromChild(images: any) {
-    this.previews = images
+    this.getProductList()
   }
 
   addProduct() {
@@ -74,15 +77,18 @@ export class ProductsComponent implements OnInit {
   }
 
   editProduct(product: any) {
+    this.activeProductId = product.id
     this.showForm = true
+    this.showSubCards = true
     this.isEdit = true
     this.productForm.patchValue(product)
     this.previewImage = EasyToBuyHelper.imageBaseUrl + product.productImage;
     this.productImageName = product.productImage;
     this.getCategoryList();
+    this.getProductVariationList();
+    this.getVariationImagesList();
+    this.getProductSpecificationList();
   }
-
-
 
   getCategoryList() {
     this.categoryServivce.getCategoryList().subscribe((result: any) => {
@@ -96,14 +102,6 @@ export class ProductsComponent implements OnInit {
     })
   }
 
-
-
-  calculatePriceAfterDiscount() {
-    const priceAfterDiscount: any = this.productForm.value.mrp - (this.productForm.value.mrp * this.productForm.value.discount / 100)
-    this.productForm.controls['priceAfterDiscount'].patchValue(priceAfterDiscount)
-    return priceAfterDiscount
-  }
-
   uploadFile(event: any) {
     this.productRealImage = <File>event.target.files[0];
     const selectedFiles = event.target.files;
@@ -115,8 +113,7 @@ export class ProductsComponent implements OnInit {
           this.previewImage = e.target.result;
         };
         reader.readAsDataURL(this.productRealImage);
-        console.log(this.productRealImage)
-        this.productImageName = this.productRealImage['name']
+        //  this.productImageName = this.productRealImage['name']
       }
     }
   }
@@ -127,9 +124,7 @@ export class ProductsComponent implements OnInit {
       return;
     }
     else {
-
       const formData = new FormData();
-
       formData.set("id", this.productForm.value.id != null && this.productForm.value.id > 0 ? this.productForm.value.id : 0);
       formData.set("vendorId", this.accountService.getUserId());
       formData.set("productName", this.productForm.value.productName);
@@ -140,15 +135,66 @@ export class ProductsComponent implements OnInit {
       formData.set("createdBy", this.accountService.getUserId());
       formData.set("updatedBy", this.accountService.getUserId());
       formData.set("isActive", this.productForm.value.isActive == null ? "false" : "true");
-      this.productService.productAddEdit(formData).subscribe(result => {
-        this.response = result;
-        if (this.response.status) {
-          alert(this.response.message);
-          this.showSubCards = true
+      
+      formData.forEach(entries => console.log(entries));
+      this.productService.productAddEdit(formData).subscribe((result: any) => {
+        if (result.status) {
+          alert(result.message);
         }
       });
     }
   }
+
+  showVariationAddEditModal() {
+    this.showModal = true;
+  }
+
+  getValueFromChild(event: any) {
+    this.showModal = event
+    this.getProductVariationList()
+    this.getVariationImagesList()
+    this.getProductSpecificationList()
+  }
+
+  getProductVariationList() {
+    this.productService.getProductVariationListById(this.activeProductId).subscribe(result => {
+      this.productVariationList = result
+    })
+  }
+
+  variationAdd() {
+    this.variationDetails = []
+  }
+
+  variationEdit(variation: any) {
+    this.variationDetails = variation
+  }
+
+  setAsDefaultVariation(variationId: number) {
+    this.productService.setDefaultVariation(this.activeProductId, variationId).subscribe((result: any) => {
+      if (result.status) {
+        alert(result.message)
+        this.getProductVariationList()
+      }
+    })
+  }
+
+  getVariationImagesList(){
+    this.productService.getVariationImagesListByProductId(this.activeProductId).subscribe((result:any)=>{
+      this.variationImagesList = result
+      console.log(this.variationImagesList)
+    })
+  }
+
+  getProductSpecificationList(){
+    this.productService.getProductSpecificationById(this.activeProductId).subscribe(result=>{
+      this.productSpecificationList = result
+      if(this.productSpecificationList.length > 0){
+        this.btnText="Update Specification"
+      }
+    })
+  }
+
 }
 
 

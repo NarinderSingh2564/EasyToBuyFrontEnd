@@ -176,6 +176,7 @@ overflow: hidden;
 #lens, .slideshow-items, .slideshow-thumbnails, #result { border: solid var(--light-grey-2) 1px; }
 
 .card{
+
   height: 65px;
   width:115px;
   box-shadow: 2px 2px 5px #6b8982;

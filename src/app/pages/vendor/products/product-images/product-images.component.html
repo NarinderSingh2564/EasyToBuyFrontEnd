@@ -1,23 +1,33 @@
-<div class="modal fade" id="productImagesModal" data-bs-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Upload Product Images</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <label for="">Variation Type</label>
-                <select class="form-select">
-                    <option value="">--Select option--</option>
-                </select>
-                <label for="">Images</label>
-                <input type="file" name="" id="" multiple class="form-control">
-            </div>
-            <div class="modal-footer">
-                <div class="text-end">
-                    <button class="btn">Upload</button>
-                </div>
+<form autocomplete="off" [formGroup]="variationImagesForm" (ngSubmit)="productVariationImagesUpload()">
+    <div class="modal-header">
+        <h5 class="modal-title">Upload Product Images</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="disableChildComponent()"></button>
+    </div>
+    <div class="modal-body">
+        <label for="" class="mt-1">Variation Type</label>
+        <select class="form-select" formControlName="variationId">
+            <option [ngValue]="null" [disabled]="true" hidden>--Select Option--</option>
+            <option *ngFor="let variation of ProductVariationList" [value]="variation.variationId">{{variation.variation}}</option>
+            <option value="" *ngIf="ProductVariationList.length == 0" disabled>No variation added</option>
+        </select>
+        <div *ngIf="isFormValid && controls['variationId'].errors">
+            <div *ngIf="controls['variationId'].errors['required']" class="text-danger">
+                Variation is required.
             </div>
         </div>
+        <label for="" class="mt-1">Images</label>
+        <input type="file" multiple class="form-control" formControlName="images" (change)="selectedImages($event)">
+        <div *ngIf="isFormValid && controls['images'].errors">
+            <div *ngIf="controls['images'].errors['required']" class="text-danger">
+                Images is required.
+            </div>
+        </div>
+        <!-- <label for="" class="mt-1">IsActive</label>
+        <input type="checkbox" class="form-check-input mx-3 mt-2" formControlName="isActive"> -->
     </div>
-</div>
+    <div class="modal-footer">
+        <div class="text-end">
+            <button class="btn" [disabled]="ProductVariationList.length == 0 ? true : false">Upload</button>
+        </div>
+    </div>
+</form>

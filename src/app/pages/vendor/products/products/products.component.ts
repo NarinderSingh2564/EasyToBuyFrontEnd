@@ -24,10 +24,12 @@ export class ProductsComponent implements OnInit {
 
   productForm: FormGroup;
   baseUrl: string = EasyToBuyHelper.imageBaseUrl;
+  variationImgBaseUrl :string = EasyToBuyHelper.imageVariationBaseUrl;
   productRealImage: File | any = null;
   categoryList: any = [];
   productList: any = [];
   productVariationList: any = [];
+  variationImagesList:any=[]
   productSpecificationList: any = [];
   previews: string[] = [];
   variationDetails: any = []
@@ -39,7 +41,7 @@ export class ProductsComponent implements OnInit {
   previewImage: any = null;
   showForm: boolean = false
   showSubCards: boolean = false
-  showProductVariationAddEditModal: boolean = false;
+  showModal: boolean = false;
 
   constructor(private productService: ProductService, private categoryServivce: CategoryService, private accountService: AccountService, private formBuilder: FormBuilder) {
     this.productForm = this.formBuilder.group({
@@ -84,6 +86,7 @@ export class ProductsComponent implements OnInit {
     this.productImageName = product.productImage;
     this.getCategoryList();
     this.getProductVariationList();
+    this.getVariationImagesList();
     this.getProductSpecificationList();
   }
 
@@ -110,7 +113,7 @@ export class ProductsComponent implements OnInit {
           this.previewImage = e.target.result;
         };
         reader.readAsDataURL(this.productRealImage);
-        this.productImageName = this.productRealImage['name']
+        //  this.productImageName = this.productRealImage['name']
       }
     }
   }
@@ -132,6 +135,8 @@ export class ProductsComponent implements OnInit {
       formData.set("createdBy", this.accountService.getUserId());
       formData.set("updatedBy", this.accountService.getUserId());
       formData.set("isActive", this.productForm.value.isActive == null ? "false" : "true");
+      
+      formData.forEach(entries => console.log(entries));
       this.productService.productAddEdit(formData).subscribe((result: any) => {
         if (result.status) {
           alert(result.message);
@@ -141,19 +146,19 @@ export class ProductsComponent implements OnInit {
   }
 
   showVariationAddEditModal() {
-    this.showProductVariationAddEditModal = true;
+    this.showModal = true;
   }
 
   getValueFromChild(event: any) {
-    this.showProductVariationAddEditModal = event
+    this.showModal = event
     this.getProductVariationList()
+    this.getVariationImagesList()
     this.getProductSpecificationList()
   }
 
   getProductVariationList() {
     this.productService.getProductVariationListById(this.activeProductId).subscribe(result => {
       this.productVariationList = result
-      console.log(this.productVariationList)
     })
   }
 
@@ -163,7 +168,6 @@ export class ProductsComponent implements OnInit {
 
   variationEdit(variation: any) {
     this.variationDetails = variation
-    console.log(this.variationDetails)
   }
 
   setAsDefaultVariation(variationId: number) {
@@ -172,6 +176,13 @@ export class ProductsComponent implements OnInit {
         alert(result.message)
         this.getProductVariationList()
       }
+    })
+  }
+
+  getVariationImagesList(){
+    this.productService.getVariationImagesListByProductId(this.activeProductId).subscribe((result:any)=>{
+      this.variationImagesList = result
+      console.log(this.variationImagesList)
     })
   }
 

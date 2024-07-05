@@ -8,7 +8,7 @@
             <input type="hidden" formControlName="id">
             <div class="col-md-6">
                 <label for="">Speciality</label>
-                <input type="text" class="form-control" #s formControlName="speciality" maxLength="150">
+                <input type="text" class="form-control" formControlName="speciality" maxLength="150">
                 <div *ngIf="isFormValid && controls['speciality'].errors">
                     <div *ngIf="controls['speciality'].errors['required']" class="text-danger">
                         Speciality is required.

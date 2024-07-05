@@ -94,27 +94,9 @@ export class ProductDescriptionComponent {
     })
   }
 
-
   getProductVariationImage(){
     this.productService.getProductVariationImageById(this.ActiveVariationId).subscribe(result => {
       this.ProductVariationImage = result
-
-  getProductVariationImage() {
-    this.productService.getProductVariationImageById(this.ActiveProductId).subscribe(result => {
-      this.ProductVariationImage = result
-    })
-  }
-
-  setDefaultVariation(variationId: number) {
-    this.productService.setDefaultVariation(this.ActiveProductId, variationId).subscribe((result: any) => {
-      if (result.status) {
-        this.defaultVariation = true
-        this.getProductDescription()
-        this.productService.getProductVariationImageById(variationId).subscribe(result => {
-          this.ProductVariationImage = result
-        })
-      }
-
     })
   }
 

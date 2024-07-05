@@ -42,8 +42,8 @@ export class ProductSpecificationComponent implements OnInit {
     })
   }
   ngOnInit(): void {
-    this.specificationForm.patchValue(this.specificationToEdit[0])
-    if(this.specificationToEdit[0] != null){
+    this.specificationForm.patchValue(this.specificationToEdit)
+    if(this.specificationToEdit != null){
       this.btnText = "Update"
     }
   }

@@ -18,8 +18,7 @@
                         <div class="col-md-3" *ngFor="let product of productList"
                             style=" padding-bottom: calc(var(--bs-gutter-x)* .5);">
                             <div class="card product-card">
-                                <img class="card-img-top mx-auto d-block mt-2" [src]="baseUrl+product.productImage"
-                                    width="250" height="150" alt="Card image">
+                                <img class="card-img-top mx-auto d-block mt-2" [src]="baseUrl+product.productImage" width="250" height="150" alt="Card image">
                                 <div class="card-body">
                                     <div>
                                         <h6 class="card-title text-center">{{product.productName}}
@@ -37,7 +36,6 @@
         </div>
 
         <div class="col-md-12" *ngIf="showForm">
-
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="row">
@@ -66,30 +64,25 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="col-md-3">
                                             <label for="">Category</label>
                                             <select class="form-select" formControlName="categoryId">
-                                                <option [ngValue]="null" [disabled]="true" hidden>--Select Option--
-                                                </option>
+                                                <option [ngValue]="null" [disabled]="true" hidden>--Select Option--</option>
                                                 <option *ngFor="let category of categoryList" [value]="category.id">
                                                     {{category.categoryName}}
                                                 </option>
                                             </select>
                                             <div *ngIf="isFormValid && controls['categoryId'].errors">
-                                                <div *ngIf="controls['categoryId'].errors['required']"
-                                                    class="text-danger">
+                                                <div *ngIf="controls['categoryId'].errors['required']" class="text-danger">
                                                     Category is required.
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-5">
                                             <label for="">Product Image</label>
-                                            <input type="file" formControlName="productImage" class="form-control"
-                                                accept="image/png, image/jpg, image/jpeg" (change)="uploadFile($event)">
+                                            <input type="file" formControlName="productImage" class="form-control" accept="image/png, image/jpg, image/jpeg" (change)="uploadFile($event)">
                                             <div *ngIf="isFormValid && controls['productImage'].errors">
-                                                <div *ngIf="controls['productImage'].errors['required']"
-                                                    class="text-danger">
+                                                <div *ngIf="controls['productImage'].errors['required']" class="text-danger">
                                                     Product image is required.
                                                 </div>
                                             </div>
@@ -98,11 +91,9 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label for="">Description</label>
-                                            <textarea formControlName="productDescription"
-                                                class="form-control"></textarea>
+                                            <textarea formControlName="productDescription" class="form-control"></textarea>
                                             <div *ngIf="isFormValid && controls['productDescription'].errors">
-                                                <div *ngIf="controls['productDescription'].errors['required']"
-                                                    class="text-danger">
+                                                <div *ngIf="controls['productDescription'].errors['required']" class="text-danger">
                                                     Description is required.
                                                 </div>
                                             </div>
@@ -121,15 +112,12 @@
                                 <div class="col-md-1" *ngIf="previewImage">
                                     <img src="{{previewImage}}" style="width: 160px; height: 148px;float: inline-end;">
                                 </div>
-
-
                             </div>
                         </div>
                     </form>
-
                 </div>
             </div>
-
+            
             <div class="card mt-3 mb-3" *ngIf="showSubCards">
                 <div class="card-header">
                     <div class="row">
@@ -137,18 +125,17 @@
                             Product Variations And Rate
                         </div>
                         <div class="col-md-6 text-end">
-                            <button class="btn btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#productVariationAndRateModal"
-                                (click)="showVariationAddEditModal();variationAdd()"><b>Add Variation And
-                                    Rate</b></button>
+                            <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#productVariationAndRateModal" (click)="showVariationAddEditModal();variationAdd()"><b>Add Variation And Rate</b></button>
                         </div>
                     </div>
                 </div>
                 <div class="modal fade" id="productVariationAndRateModal" data-bs-backdrop="static">
                     <div class="modal-dialog modal-dialog-centered  modal-lg">
                         <div class="modal-content">
-                            @if(showProductVariationAddEditModal== true){
-                            <app-product-variation [variationToEdit]="variationDetails" (showChildComponent)="getValueFromChild($event)" [activeProductId]="activeProductId"></app-product-variation>
+                            @if(showModal== true){
+                            <app-product-variation [variationToEdit]="variationDetails"
+                                (showChildComponent)="getValueFromChild($event)"
+                                [activeProductId]="activeProductId"></app-product-variation>
                             }
                         </div>
                     </div>
@@ -196,15 +183,11 @@
                                     }
                                     <td>
                                         <div class="form-check form-switch checkvalue">
-                                            <input type="checkbox" class="form-check-input checkborder"
-                                                [checked]="variation.setAsDefault ? true : false"
-                                                (change)="setAsDefaultVariation(variation.id)">
+                                            <input type="checkbox" class="form-check-input checkborder" [checked]="variation.setAsDefault ? true : false" (change)="setAsDefaultVariation(variation.id)">
                                         </div>
                                     </td>
                                     <td>
-                                        <i class="bi bi-pencil-square" data-bs-toggle="modal"
-                                            data-bs-target="#productVariationAndRateModal"
-                                            (click)="variationEdit(variation);showVariationAddEditModal()"></i>
+                                        <i class="bi bi-pencil-square" data-bs-toggle="modal" data-bs-target="#productVariationAndRateModal" (click)="variationEdit(variation);showVariationAddEditModal()"></i>
                                     </td>
                                 </tr>
                                 <tr *ngIf="productVariationList.length == 0">
@@ -216,35 +199,46 @@
                 </div>
             </div>
 
-            <div class="card mt-3" *ngIf="showSubCards">
+            <div class="card mt-3 img-card" *ngIf="showSubCards">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-6 text-white">
                             Product Images
                         </div>
                         <div class="col-md-6 text-end">
-                            <button class="btn btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#productImagesModal"><b>Add More Images</b></button>
+                            <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#productImagesModal" (click)="showVariationAddEditModal()"><b>Add More Images</b></button>
                         </div>
                     </div>
                 </div>
-                <app-product-images></app-product-images>
+                <div class="modal fade" id="productImagesModal" data-bs-backdrop="static">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            @if(showModal== true){
+                            <app-product-images (showChildComponent)="getValueFromChild($event)" [activeProductId]="activeProductId"></app-product-images>
+                            }
+                        </div>
+                    </div>
+                </div>
                 <div class="card-body">
                     <div class="table-responsive mt-2">
                         <table class="table table-bordered text-center table-hover">
                             <thead>
                                 <tr>
                                     <th>Sr. No.</th>
+                                    <th class="col-5">Variation</th>
                                     <th>Image</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <!-- <td>{{i+1}}</td>
-                                    <td><img [src]="preview" class="preview" width="80px" height="80px"/></td>
-                                    <td><i class="bi bi-trash" style="font-size: 26px;"></i></td> -->
-                                    <td colspan="3">No images added</td>
+                                <tr *ngFor="let image of variationImagesList;index as i">
+                                    <td>{{i+1}}</td>
+                                    <td>{{image.variation}}</td>
+                                    <td><img [src]="variationImgBaseUrl + image.image" class="preview" width="80px" height="80px"/></td>
+                                    <td><i class="bi bi-trash" style="font-size: 26px;"></i></td>
+                                </tr>
+                                <tr *ngIf="variationImagesList.length == 0">
+                                    <td colspan="4" >No images added</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -259,15 +253,19 @@
                             Product Specifications
                         </div>
                         <div class="col-md-6 text-end">
-                            <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#productSpecificationModal" (click)="showVariationAddEditModal();"><b>{{btnText}}</b></button>
+                            <button class="btn btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#productSpecificationModal"
+                                (click)="showVariationAddEditModal();"><b>{{btnText}}</b></button>
                         </div>
                     </div>
                 </div>
                 <div class="modal fade" id="productSpecificationModal" data-bs-backdrop="static">
                     <div class="modal-dialog modal-dialog-centered  modal-lg">
                         <div class="modal-content">
-                            @if(showProductVariationAddEditModal== true){
-                            <app-product-specification [specificationToEdit]="productSpecificationList" (showChildComponent)="getValueFromChild($event)" [activeProductId]="activeProductId"></app-product-specification>
+                            @if(showModal== true){
+                            <app-product-specification [specificationToEdit]="productSpecificationList"
+                                (showChildComponent)="getValueFromChild($event)"
+                                [activeProductId]="activeProductId"></app-product-specification>
                             }
                         </div>
                     </div>
@@ -275,60 +273,51 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table">
-                            <!-- <thead>
-                                <tr>
-                                    <th>Sr. No.</th>
-                                    <th>Speciality</th>
-                                    <th>Ingredient Type</th>
-                                    <th>Manufacturer</th>
-                                    <th>Ingredients</th>
-                                    <th>Shelf Life</th>
-                                    <th>Benefits</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let specification of productSpecificationList;index as i">
-                                    <td>{{i+1}}</td>
-                                    <td>{{specification.speciality}}</td>
-                                    <td>{{specification.ingredientType}}</td>
-                                    <td>{{specification.manufacturer}}</td>
-                                    <td>{{specification.ingredients}}</td>
-                                    <td>{{specification.shelfLife}}</td>
-                                    <td>{{specification.benefits}}</td>
-                                </tr>
-                            </tbody> -->
                             <div *ngFor="let specification of productSpecificationList;index as i">
                                 <tbody>
-                                    <tr><td class="col-md-3 tdhead"><b>Speciality</b></td><td class="col-md-9 tdbot">{{specification.speciality}}</td></tr>
-                                    
-                                    <tr><td class="col-md-3 tdhead"><b>Ingredient Type</b></td><td class="col-md-9 tdbot">{{specification.ingredientType}}</td></tr>
-                                    
-                                    <tr><td class="col-md-3 tdhead"><b>Ingredient</b></td><td class="col-md-9 tdbot">{{specification.ingredients}}</td></tr>
-                                    
-                                    <tr><td class="col-md-3 tdhead"><b>Manufacturer</b></td><td class="col-md-9 tdbot">{{specification.manufacturer}}</td></tr>
-                                                                        
-                                    <tr><td class="col-md-3 tdhead"><b>Shelf Life</b></td><td class="col-md-9 tdbot">{{specification.shelfLife}}</td></tr>
-                                    
-                                    <tr><td class="col-md-3 tdhead"><b>Benefits</b></td><td class="col-md-9 tdbot">{{specification.benefits}}</td></tr>
-
-                                    <tr><td class="col-md-3 tdhead"><b>IsActive</b></td>
+                                    <tr>
+                                        <td class="col-md-3 tdhead"><b>Speciality</b></td>
+                                        <td class="col-md-9 tdbot">{{specification.speciality}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-3 tdhead"><b>Ingredient Type</b></td>
+                                        <td class="col-md-9 tdbot">{{specification.ingredientType}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-3 tdhead"><b>Ingredient</b></td>
+                                        <td class="col-md-9 tdbot">{{specification.ingredients}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-3 tdhead"><b>Manufacturer</b></td>
+                                        <td class="col-md-9 tdbot">{{specification.manufacturer}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-3 tdhead"><b>Shelf Life</b></td>
+                                        <td class="col-md-9 tdbot">{{specification.shelfLife}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-3 tdhead"><b>Benefits</b></td>
+                                        <td class="col-md-9 tdbot">{{specification.benefits}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-3 tdhead"><b>IsActive</b></td>
                                         @if(specification.isActive){
-                                            <td class="col-md-9 tdbot">Yes</td>
+                                        <td class="col-md-9 tdbot">Yes</td>
                                         }
                                         @else{
-                                            <td class="col-md-9 tdbot">No</td>
+                                        <td class="col-md-9 tdbot">No</td>
                                         }
                                     </tr>
-                                    
                                 </tbody>
                             </div>
                         </table>
                         <div *ngIf="productSpecificationList.length==0">
-                           <p class="text-center">No specification added</p>
+                            <p class="text-center">No specification added</p>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

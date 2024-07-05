@@ -98,9 +98,7 @@
     display: block;
   }
   
-  .dropdown:hover .dropbtn {
-    background-color: green;
-  }
+
   .icon {
     font-size: 24px;
     color: black;

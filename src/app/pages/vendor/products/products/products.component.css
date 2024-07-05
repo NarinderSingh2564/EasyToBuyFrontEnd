@@ -91,3 +91,10 @@ td.col-md-9 {
 .tdhead ,.tdbot{
   line-height: 2;
 }
+.img-card{
+  max-height: 405px !important;
+}
+.img-card .card-body{
+  overflow-y: scroll;
+  overflow-x: hidden; 
+}

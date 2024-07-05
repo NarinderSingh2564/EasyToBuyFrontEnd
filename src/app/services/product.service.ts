@@ -53,4 +53,15 @@ export class ProductService {
     return this.http.post("https://localhost:7239/api/Product/ProductSpecificationAddEdit",specification)
   }
 
+  getProductVariationListByProductId(productId:number){
+    return this.http.get("https://localhost:7239/api/Product/GetProductVariationListByProductId?productId=" + productId)
+  }
+
+  productVariationImagesAdd(imagesObj:any){
+    return this.http.post("https://localhost:7239/api/Product/ProductVariationImagesAdd",imagesObj)
+  }
+  getVariationImagesListByProductId(productId:number){
+    return this.http.get("https://localhost:7239/api/Product/GetVariationImagesListByProductId?productId=" + productId)
+  }
+  
 }

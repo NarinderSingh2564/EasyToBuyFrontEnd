@@ -273,35 +273,35 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table">
-                            <div *ngFor="let specification of productSpecificationList;index as i">
-                                <tbody>
+                            <div>
+                                <tbody  *ngIf="productSpecificationList != null">
                                     <tr>
                                         <td class="col-md-3 tdhead"><b>Speciality</b></td>
-                                        <td class="col-md-9 tdbot">{{specification.speciality}}</td>
+                                        <td class="col-md-9 tdbot">{{productSpecificationList.speciality}}</td>
                                     </tr>
                                     <tr>
                                         <td class="col-md-3 tdhead"><b>Ingredient Type</b></td>
-                                        <td class="col-md-9 tdbot">{{specification.ingredientType}}</td>
+                                        <td class="col-md-9 tdbot">{{productSpecificationList.ingredientType}}</td>
                                     </tr>
                                     <tr>
                                         <td class="col-md-3 tdhead"><b>Ingredient</b></td>
-                                        <td class="col-md-9 tdbot">{{specification.ingredients}}</td>
+                                        <td class="col-md-9 tdbot">{{productSpecificationList.ingredients}}</td>
                                     </tr>
                                     <tr>
                                         <td class="col-md-3 tdhead"><b>Manufacturer</b></td>
-                                        <td class="col-md-9 tdbot">{{specification.manufacturer}}</td>
+                                        <td class="col-md-9 tdbot">{{productSpecificationList.manufacturer}}</td>
                                     </tr>
                                     <tr>
                                         <td class="col-md-3 tdhead"><b>Shelf Life</b></td>
-                                        <td class="col-md-9 tdbot">{{specification.shelfLife}}</td>
+                                        <td class="col-md-9 tdbot">{{productSpecificationList.shelfLife}}</td>
                                     </tr>
                                     <tr>
                                         <td class="col-md-3 tdhead"><b>Benefits</b></td>
-                                        <td class="col-md-9 tdbot">{{specification.benefits}}</td>
+                                        <td class="col-md-9 tdbot">{{productSpecificationList.benefits}}</td>
                                     </tr>
                                     <tr>
                                         <td class="col-md-3 tdhead"><b>IsActive</b></td>
-                                        @if(specification.isActive){
+                                        @if(productSpecificationList.isActive){
                                         <td class="col-md-9 tdbot">Yes</td>
                                         }
                                         @else{
@@ -311,7 +311,7 @@
                                 </tbody>
                             </div>
                         </table>
-                        <div *ngIf="productSpecificationList.length==0">
+                        <div *ngIf="productSpecificationList == null">
                             <p class="text-center">No specification added</p>
                         </div>
                     </div>

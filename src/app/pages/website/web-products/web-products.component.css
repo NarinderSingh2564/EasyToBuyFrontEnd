@@ -4,12 +4,11 @@
 
 .offercard{
   text-align: center;
+img{
+width: 80%;
+}
 }
 
-img{
-  width: 50%;
-  height: auto;
-}
 
 .bookmark {
   border: 1px solid gainsboro;

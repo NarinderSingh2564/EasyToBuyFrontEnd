@@ -50,15 +50,15 @@ export class ProductImagesComponent implements OnInit {
   getProductVariationListByProductId() {
     this.productService.getProductVariationListByProductId(this.activeProductId).subscribe((result: any) => {
       this.ProductVariationList = result
+      this.ProductVariationList =  this.ProductVariationList.filter((t: { isActive: any; })=>t.isActive == 1)
     })
   }
 
   selectedImages(event: any) {
-    if(event.target.files.length > 5){
-      alert("You can not upload more than 5 images.")
+    if(event.target.files.length > 3){
+      alert("You can not upload more than 3 images.")
       this.isFormValid = false
       this.variationImagesForm.controls['images'].reset();
-
     }
     else{
       for (var i = 0; i < event.target.files.length; i++) {

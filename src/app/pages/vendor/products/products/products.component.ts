@@ -33,7 +33,7 @@ export class ProductsComponent implements OnInit {
   productSpecificationList: any = [];
   previews: string[] = [];
   variationDetails: any = []
-  productImageName: string = '';
+  productImageName: string = 'potato';
   btnText:string='Add Specification';
   activeProductId: number = 0;
   isFormValid: boolean = false;
@@ -70,10 +70,12 @@ export class ProductsComponent implements OnInit {
   addProduct() {
     this.showForm = true
     this.isEdit = false
+    this.showSubCards = false
     this.productForm.reset()
     this.isFormValid = false
     this.previewImage = ''
     this.getCategoryList();
+
   }
 
   editProduct(product: any) {
@@ -182,19 +184,16 @@ export class ProductsComponent implements OnInit {
   getVariationImagesList(){
     this.productService.getVariationImagesListByProductId(this.activeProductId).subscribe((result:any)=>{
       this.variationImagesList = result
-      console.log(this.variationImagesList)
     })
   }
 
   getProductSpecificationList(){
     this.productService.getProductSpecificationById(this.activeProductId).subscribe(result=>{
       this.productSpecificationList = result
-      if(this.productSpecificationList.length > 0){
+      if(this.productSpecificationList != null){
         this.btnText="Update Specification"
       }
     })
   }
 
 }
-
-

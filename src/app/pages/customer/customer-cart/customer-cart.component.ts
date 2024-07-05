@@ -22,7 +22,6 @@ export class CustomerCartComponent {
   cartService = inject(CartService)
   accountService = inject(AccountService)
 
-
   cartList: any = [];
   priceDetails: any = [];
   totalCartItems: number = 0;
@@ -70,7 +69,7 @@ export class CustomerCartComponent {
       item.quantity--
       const cart = {
         userId: this.accountService.getUserId(),
-        productId: item.productId,
+        variationId: item.variationId,
         quantity: item.quantity,
         requestFrom: "Cart"
       }
@@ -88,7 +87,7 @@ export class CustomerCartComponent {
       item.quantity++;
       const cart = {
         userId: this.accountService.getUserId(),
-        productId: item.productId,
+        variationId: item.variationId,
         quantity: item.quantity,
         requestFrom: "Cart"
       }

@@ -1,10 +1,10 @@
 <section class="Product-Image-Description">
-  
-  <div class="row" *ngFor="let product of ProductDescription">
+    
+  <div class="row" >
        <div class="col-md-1 myside">
          <ul class="thumblist2">
           <li class="imageList" >
-            <img [src]="baseUrl + product.productImage" class="thumbimag1"  alt="" (click)="onThumbClick(product.productImage, 0)">
+            <img [src] = "baseUrl + ProductDescription.productImage" class="thumbimag1"  alt="" (click)="onThumbClick(ProductDescription.productImage, 0)">
         </li>
         <li class="imageList" *ngFor="let variationImg of ProductVariationImage">
             <img [src]="variationImageBaseUrl + variationImg.image" class="thumbimag1"  alt="" (click)="onThumbClick(variationImg.image, 1)">
@@ -15,14 +15,14 @@
        <div class="col-md-4 MainImage" id="myimagehover">
           <div id='lens'></div>
            <img [src]="selectedImage"   alt="" class="slideshow-items active" >
-
            <div id='result'></div>
        </div>
        
        <div class="col-md-6 rightPannel">
         <div></div>
-        <h3>{{product.productName}}</h3>
-        <div class="row pt-2">
+        <h3>{{ProductDescription.productName}}</h3>
+        <p>{{ProductDescription.productDescription}}</p>
+        <div class="row pt-3">
           <div class="col-md-2">
             <span class="labels1">4.6 <span class="bi bi-star-fill"></span></span>
           </div>
@@ -31,27 +31,28 @@
           </div>
        </div>
 
-       <div class="pt-2" >
-        <h4><strong>&#8377;{{product.priceAfterDiscount}} &nbsp; &nbsp;</strong><span style="color: rgb(153, 152, 152); font-size: 16px;"><del>&#8377;{{product.mrp}}</del>&nbsp;&nbsp; &nbsp; &nbsp;<span style="color: rgb(5, 118, 5); font-size: 16px; font-weight: 700;">{{product.discount}}% off</span></span> </h4>
+       <div class="pt-2" > 
+        <h4><strong>&#8377;{{ProductDescription.priceAfterDiscount}} &nbsp; &nbsp;</strong><span style="color: rgb(153, 152, 152); font-size: 16px;"><del>&#8377;{{ProductDescription.mrp}}</del>&nbsp;&nbsp; &nbsp; &nbsp;<span style="color: rgb(5, 118, 5); font-size: 16px; font-weight: 700;">{{ProductDescription.discount}}% off</span></span> </h4>
        </div><br>
        <h5>Pack Size</h5>
        <div class="row">
-        <div class="col-md-4" *ngFor="let variation of ProductVariationList"> 
-          <div class="card mt-2" (click)="setDefaultVariation(variation.id)" >
+        <div class="col-md-2 sidepannels" *ngFor="let items of  ProductVariationList"> 
+          <div class="card mt-2" (click)="getVariationDetails(items)">
         <div class="card-body">
-         <h5 *ngIf="variation.quantity == 1">{{variation.productWeight}}</h5>
-         <h5 *ngIf="variation.quantity > 1">{{variation.quantity}} * {{variation.productWeight}}</h5>
-
-         <p class="myrate pt-2"><b>&#8377;{{variation.priceAfterDiscount}}</b>&nbsp;&nbsp;&nbsp;&nbsp;
-        &#8377;<del>{{variation.mrp}}</del>&nbsp;&nbsp;&nbsp; <span class="text-per">{{variation.discount}}% off</span> </p>
-         <p class="myrate pt-2">{{variation.packingType}}</p>
+         <p *ngIf="items.quantity == 1"><strong>{{items.productWeight}}</strong></p>
+         <p *ngIf="items.quantity > 1"><strong>{{items.quantity}} * {{items.productWeight}}</strong></p>
+         @if(items.stockQuantity == 0){
+          <p class="myrate pt-1"><span style="color: red; font-weight: 500">Out of Stock</span></p>
+         }
+         @else{
+          <p class="myrate pt-1"><span style="font-weight: 500">&#8377;{{items.priceAfterDiscount}}</span></p>
+         }
         </div>
        </div>
       </div>
     </div>
-       
 
-      <div class="row pt-5">
+      <div class="row pt-5"> 
         <div class="col-md-1">
           <strong>Delivery</strong>
         </div>
@@ -59,11 +60,11 @@
         <div class=" col-md-5" style="border:0px;border-bottom:1px solid #2874f0;width:40%; position:relative; left:7%;" >
           <span class="bi bi-geo-alt col-md-2" style="color:#2874f0;padding-right:4px; margin-right:0px;"></span>
           <input type="text" placeholder="PIN Code" style="border:0;  outline: none; padding-left: 5px;" class="col-md-7">
-          <a href=" " class="col-md-2" style="padding-left:3px;text-decoration:none;">Change</a>
+          <a href=" " class="col-md-2" style="padding-left:3px;text-decoration:none;">Check</a>
         </div>
                   
       <div id="delivery-time" style="position:relative;left:15%;">
-          <h6>Delivery in 3-4 days | <a href="" style="color:green;text-decoration:none;">Free</a></h6>
+          <h6>Delivery in 1 days | <a href="" style="color:green;text-decoration:none;">Free</a></h6>
       </div>
      </div>
     </div>
@@ -71,9 +72,9 @@
 </section>
 
 <section class="Products-Specification">
-  <div class="row" *ngFor="let product of ProductDescription">
-    <div class="col-md-6"> <div class="imageButtons">
-      <button class="btn1" (click)="AddToCart(product.id)"  routerLink="customer-cart"><strong><span class="bi bi-cart-check-fill"></span> &nbsp;{{buttonText}} </strong></button>
+  <div class="row">
+    <div class="col-md-5"> <div class="imageButtons"> 
+      <button class="btn1" (click)="AddToCart(ProductDescription.id, selectedVariationId)"  routerLink="customer-cart"><strong><span class="bi bi-cart-check-fill"></span> &nbsp;{{buttonText}} </strong></button>
       <button class="btn2"><strong><i class="fa fa-bolt" style="font-size:1.2em;"></i> BUY NOW</strong></button>
      </div></div>
   <div class="col-md-6 myspec">
@@ -81,32 +82,32 @@
     <div class="panel-heading" style="background-color:#fff; border-bottom: 1px solid lightgray; padding-bottom: 10px;">
       <h4>Specifications</h4>
     </div>
-    <div class="panel-body" *ngFor="let specification of ProductSpecification">
+    <div class="panel-body">
       <table class="table table-default">
         <tbody>
-          <tr><td class="col-md-4 tdhead">Speciality</td> <td class="col-md-8 tdbot">{{specification.speciality}}</td></tr>
+          <tr><td class="col-md-4 tdhead">Speciality</td> <td class="col-md-8 tdbot">{{ProductSpecification.speciality}}</td></tr>
           
-          <tr><td class="col-md-4 tdhead">Ingredient Type</td>  <td class="col-md-8 tdbot">{{specification.ingredientType}}</td></tr>
+          <tr><td class="col-md-4 tdhead">Ingredient Type</td>  <td class="col-md-8 tdbot">{{ProductSpecification.ingredientType}}</td></tr>
           
-          <tr><td class="col-md-4 tdhead">Ingredient</td>  <td class="col-md-8 tdbot">{{specification.ingredients}}</td></tr>
+          <tr><td class="col-md-4 tdhead">Ingredient</td>  <td class="col-md-8 tdbot">{{ProductSpecification.ingredients}}</td></tr>
           
-          <tr><td class="col-md-4 tdhead">Manufacturer</td>  <td class="col-md-8 tdbot">{{specification.manufacturer}}</td></tr>
+          <tr><td class="col-md-4 tdhead">Manufacturer</td>  <td class="col-md-8 tdbot">{{ProductSpecification.manufacturer}}</td></tr>
           
           <tr><td class="col-md-4 tdhead">Type</td>  <td class="col-md-8 tdbot">Fresh</td></tr>
 
-          <tr><td class="col-md-4 tdhead">Shelf Life</td>  <td class="col-md-8 tdbot">{{specification.shelfLife}}</td></tr>
+          <tr><td class="col-md-4 tdhead">Shelf Life</td>  <td class="col-md-8 tdbot">{{ProductSpecification.shelfLife}}</td></tr>
          
-          <tr><td class="col-md-4 tdhead">Benefits</td>  <td class="col-md-8 tdbot">{{specification.benefits}}</td></tr>
+          <tr><td class="col-md-4 tdhead">Benefits</td>  <td class="col-md-8 tdbot">{{ProductSpecification.benefits}}</td></tr>
        
         </tbody>
         
       </table>
     
     </div>
-    <div class="panel-footer pt-2">
+    <!-- <div class="panel-footer pt-2">
       <h5>PRODUCT DESCRIPTION</h5>
       <p>{{product.productDescription}}</p>
-      </div>
+      </div> -->
   </div>
   </div>
 </div>
@@ -172,8 +173,8 @@
       </div>
      </div>
     </div>
-         <hr>
-      </footer>
+    <hr>
+  </footer>
 </section>
 <script src="/assets/js/ImageMagnifier.js"></script>
 

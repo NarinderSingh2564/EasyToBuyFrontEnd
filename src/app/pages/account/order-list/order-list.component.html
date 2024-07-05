@@ -37,15 +37,15 @@
 
                         <td class="abc">
                             <!-- <img src="https://www.bigbasket.com/media/uploads/p/l/40013625_12-fresho-brown-bread-safe-preservative-free.jpg" alt=""> -->
-                            {{order.productName}}&nbsp;({{order.productWeight}})
+                              {{order.productName}}&nbsp;({{order.productWeight}})<br>({{order.packingType}})
                         </td>
                         <td>{{order.mrp | currency:'INR'}}</td>
                         <td>{{order.discount}}</td>
                         <td>{{order.quantity}}</td>
                         <td>{{order.amountToBePaid | currency:'INR'}}</td>
                         <td 
-                            [ngClass]="order.status == 'Cancelled' ? 'table-danger' : order.status == 'Delivered' ? 'table-success' : order.status == 'Ordered' ? 'table-warning' : order.status == 'Shipped' ? 'table-primary' : 'table-active'">
-                            {{order.status}}</td>
+                        [ngClass]="order.status == 'Cancelled' ? 'table-danger' : order.status == 'Delivered' ? 'table-success' : order.status == 'Ordered' ? 'table-warning' : order.status == 'Shipped' ? 'table-primary' : 'table-active'">
+                        {{order.status}}</td>
                     </tr>
                     <tr *ngIf="orderList.length == 0">
                         <td colspan="10">No orders found</td>

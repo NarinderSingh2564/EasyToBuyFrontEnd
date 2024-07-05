@@ -11,6 +11,11 @@
   z-index: 1;
 }
 
+.logoimg{
+  height: 50px;
+  width: 180px;
+}
+
 .navbar-brand:hover {
   color: white
 }
@@ -40,8 +45,8 @@
 .dropbtn {
   background-color: #61887e;
   color: white;
-  
-  font-size: 16px;
+  font-size: 20px;
+  font-weight: 500;
   border: none;
   cursor: pointer;
 }

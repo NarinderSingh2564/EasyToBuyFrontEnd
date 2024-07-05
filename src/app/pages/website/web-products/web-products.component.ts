@@ -24,6 +24,7 @@ export class WebProductsComponent {
 
   productList: any = [];
   activeCategoryId: number = 0;
+  activeVariationId: number = 0;
   productIdDec:string = "";
   searchText: string = "";
   baseUrl:string = EasyToBuyHelper.imageBaseUrl;
@@ -31,8 +32,9 @@ export class WebProductsComponent {
   constructor(private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe((result: any) => {
       this.activeCategoryId = (result.id) ? result.id : 0;
+      this.activeVariationId = result.VariationId;
       this.searchText = (result.searchText)?result.searchText:"";
-      this.getProductList()
+      this.getProductList();
     })
   }
 
@@ -56,11 +58,12 @@ export class WebProductsComponent {
     }
   }
 
-  AddToCart(productId: number, productQuantity: number) {
+  AddToCart(productId: number, productQuantity: number, variationId: number) {
     if (this.accountService.getUserId() > 0) {
         const cart = {
         userId: this.accountService.getUserId(),
         productId: productId,
+        variationId: variationId,
         quantity: productQuantity,
         requestFrom:""
       }

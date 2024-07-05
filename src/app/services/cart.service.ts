@@ -25,7 +25,7 @@ export class CartService {
     return this.http.post("https://localhost:7239/api/Cart/RemoveProductFromCart?id=" + id, id)
   }
 
-  CheckProductInCart(ProductId : number, CustomerId: number){
-    return this.http.get("https://localhost:7239/api/Cart/CheckProductInCart?ProductId=" + ProductId + "&CustomerId=" + CustomerId)
+  CheckProductInCart(VariationId : number, CustomerId: number){
+    return this.http.get("https://localhost:7239/api/Cart/CheckProductInCart?VariationId=" + VariationId + "&CustomerId=" + CustomerId)
   }
 }

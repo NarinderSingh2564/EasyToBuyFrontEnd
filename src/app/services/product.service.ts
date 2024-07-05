@@ -43,7 +43,14 @@ export class ProductService {
 
   getProductVariationImageById(id: number) {
     return this.http.get("https://localhost:7239/api/Product/GetProductVariationImageById?variationId=" + id)
-  }
+
+   }
+   
+   getDefaultVariation(productId:number, variationId:number){
+    return this.http.post("https://localhost:7239/api/Product/GetDefaultVariation?productId=" + productId + "&variationId=" + variationId,productId)
+   }
+
+  
 
   setDefaultVariation(productId: number, variationId: number) {
     return this.http.post("https://localhost:7239/api/Product/GetDefaultVariation?productId=" + productId + "&variationId=" + variationId, productId)
@@ -56,6 +63,7 @@ export class ProductService {
   getProductVariationListByProductId(productId:number){
     return this.http.get("https://localhost:7239/api/Product/GetProductVariationListByProductId?productId=" + productId)
   }
+
 
   productVariationImagesAdd(imagesObj:any){
     return this.http.post("https://localhost:7239/api/Product/ProductVariationImagesAdd",imagesObj)

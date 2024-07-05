@@ -97,26 +97,26 @@ export const routes: Routes = [
             {
                 path: 'customer-cart',
                 component: CustomerCartComponent,
-                canActivate: [customerAuthGuard],
+                canActivate: [customerAuthGuard]
             },
             {
-                path: 'product-description/:id',
+                path: 'product-description/:id/:variationId',
                 component: ProductDescriptionComponent
             },
             {
                 path: 'place-order',
                 component:PlaceOrderComponent,
-                canActivate: [customerAuthGuard],
+                canActivate: [customerAuthGuard]
             },
             {
                 path: 'customer-order',
                 component:CustomerOrdersComponent,
-                canActivate: [customerAuthGuard],
+                canActivate: [customerAuthGuard]
             },
             {
                 path:'account-profile',
                 component:AccountProfileComponent,
-                canActivate: [customerAuthGuard],
+                canActivate: [customerAuthGuard]
             }
         ]
     },

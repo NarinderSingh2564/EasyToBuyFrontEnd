@@ -10,9 +10,8 @@
 }
 
 .container{
-    max-width: 1200px;
+    max-width: 1300px;
     padding: 10px 10px 10px 60px;
-   
 }
 
 .card{
@@ -99,4 +98,25 @@ li {
 .col-form-label{
     color: #61887e;
     font-weight: 500;
+}
+
+.war{
+   padding-left: 5%;
+   padding-right: 5%;
+}
+
+.accCard{
+    min-height: 40vh;
+}
+
+.check{
+   height: 24px;
+   width: 34px;
+   border: #b3b3b3;
+}
+
+.deactivate-account{
+    width: 150px;
+    height: 40px;
+    font-weight: 600;
 }

@@ -1,10 +1,13 @@
 <div class="container-fluid mt-3" *ngIf="productList.length>0">
-  <h1 class="text-center" id="heading">Bestseller Products</h1>
-  <div class="card-body">
+    <div class="offercard">
+        <img src="../assets/images/offer/Sale.png" class="offersale" alt="">
+    </div>
+
+  <div class="card-body mt-4">
     <div class="row">
       <div class="col-md-3" *ngFor="let product of productList" style=" padding-bottom: calc(var(--bs-gutter-x)* .5);">
         <div class="card" >
-          <img class="card-img-top mx-auto d-block mt-2" routerLink="/product-description/{{product.id}}" [src]="baseUrl+product.productImage" alt="Card image">
+          <img class="card-img-top mx-auto d-block mt-2" routerLink="/product-description/{{product.id}}/{{product.variationId}}" [src]="baseUrl+product.productImage" alt="Card image">
           <div class="card-body">
             <div class="row mb-3 block-ellipsis">
               <p><small>{{product.productDescription}}</small></p>
@@ -26,7 +29,7 @@
               <span class=" p-2">{{product.quantity}}</span>
               <button class="btn btn-sm btnCount" (click)="increment(product)">+</button>
               <span class="p-4 "><button class="btn btnCart btn-sm"
-                  (click)="AddToCart(product.id,product.quantity)"><i class="bi bi-cart-fill"></i></button></span>
+                  (click)="AddToCart(product.id,product.quantity,product.variationId)"><i class="bi bi-cart-fill"></i></button></span>
             </div>
           </div>
         </div>

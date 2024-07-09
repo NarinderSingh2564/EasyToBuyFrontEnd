@@ -13,11 +13,9 @@ import { ProductService } from '../../../../services/product.service';
   outputs: ['showChildComponent']
 })
 export class ProductImagesComponent implements OnInit {
+
   @Input() activeProductId: any;
-
   showChildComponent = new EventEmitter()
-
-
   variationImagesForm: FormGroup;
 
   formBuilder = inject(FormBuilder)
@@ -27,12 +25,14 @@ export class ProductImagesComponent implements OnInit {
   isFormValid: boolean = false
   ProductVariationList: any = []
   imageList: any = []
+  btnUpload:boolean= false
+  imgCountAlert:boolean = false
+  remainingImagesCount : number =0
 
   constructor() {
     this.variationImagesForm = this.formBuilder.group({
       variationId: new FormControl(null, [Validators.required]),
       images: new FormControl(null, [Validators.required]),
-      // isActive: new FormControl(false),
     })
   }
 
@@ -43,6 +43,7 @@ export class ProductImagesComponent implements OnInit {
   get controls() {
     return this.variationImagesForm.controls
   }
+
   disableChildComponent() {
     this.showChildComponent.emit(false)
   }
@@ -54,13 +55,30 @@ export class ProductImagesComponent implements OnInit {
     })
   }
 
+  onVariationChange(event:any){
+    this.productService.checkVariationImagesCountById(event.target.value).subscribe((result:any)=>{
+      if(!result.status){
+        alert(result.message)
+      }
+      else{
+        this.remainingImagesCount = result.response
+        this.imgCountAlert = true
+      }
+    })
+  }
+
   selectedImages(event: any) {
-    if(event.target.files.length > 3){
-      alert("You can not upload more than 3 images.")
-      this.isFormValid = false
+    if(event.target.files.length > 5){
+      alert("You can not upload more than 5 images.")
+      this.variationImagesForm.controls['images'].reset();
+    }
+    else if(this.imgCountAlert && event.target.files.length > this.remainingImagesCount){
+      alert("You can only add " + this.remainingImagesCount + " more images of this variation.")
       this.variationImagesForm.controls['images'].reset();
     }
     else{
+      this.btnUpload = true
+      this.imageList = []
       for (var i = 0; i < event.target.files.length; i++) {
         this.imageList.push(event.target.files[i]);
       }
@@ -72,14 +90,13 @@ export class ProductImagesComponent implements OnInit {
     if (this.variationImagesForm.invalid) {
       return;
     }
-    else {
+    else{
       const formData = new FormData();
       formData.set("variationId", this.variationImagesForm.value.variationId);
+      formData.set("createdBy", this.accountService.getUserId());
       for (var i = 0; i < this.imageList.length; i++) {
         formData.append("images", this.imageList[i]);
       }
-      formData.set("createdBy", this.accountService.getUserId());
-      // formData.set("isActive", this.variationImagesForm.value.isActive == null ? "false" : "true")
       this.productService.productVariationImagesAdd(formData).subscribe((result:any)=>{
         alert(result.message)
         if (result.status) {

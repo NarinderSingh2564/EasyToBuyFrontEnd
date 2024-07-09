@@ -11,7 +11,6 @@ import { ProductImagesComponent } from '../product-images/product-images.compone
 import { ProductSpecificationComponent } from '../product-specification/product-specification.component';
 import { ProductVariationComponent } from '../product-variation/product-variation.component';
 
-
 @Component({
   selector: 'app-products',
   standalone: true,
@@ -33,7 +32,7 @@ export class ProductsComponent implements OnInit {
   productSpecificationList: any = [];
   previews: string[] = [];
   variationDetails: any = []
-  productImageName: string = 'potato';
+  productImageName: string = '';
   btnText:string='Add Specification';
   activeProductId: number = 0;
   isFormValid: boolean = false;
@@ -115,7 +114,6 @@ export class ProductsComponent implements OnInit {
           this.previewImage = e.target.result;
         };
         reader.readAsDataURL(this.productRealImage);
-        //  this.productImageName = this.productRealImage['name']
       }
     }
   }
@@ -137,11 +135,14 @@ export class ProductsComponent implements OnInit {
       formData.set("createdBy", this.accountService.getUserId());
       formData.set("updatedBy", this.accountService.getUserId());
       formData.set("isActive", this.productForm.value.isActive == null ? "false" : "true");
-      
-      formData.forEach(entries => console.log(entries));
+
       this.productService.productAddEdit(formData).subscribe((result: any) => {
         if (result.status) {
           alert(result.message);
+          if(!this.showSubCards){
+            this.showForm = false
+          }
+          this.getProductList()
         }
       });
     }

@@ -5,7 +5,7 @@
     </div>
     <div class="modal-body">
         <label for="" class="mt-1">Variation Type</label>
-        <select class="form-select" formControlName="variationId">
+        <select class="form-select" formControlName="variationId" (change)="onVariationChange($event)">
             <option [ngValue]="null" [disabled]="true" hidden>--Select Option--</option>
             <option *ngFor="let variation of ProductVariationList" [value]="variation.variationId">{{variation.variation}}</option>
             <option value="" *ngIf="ProductVariationList.length == 0" disabled>No variation added</option>
@@ -22,12 +22,10 @@
                 Images is required.
             </div>
         </div>
-        <!-- <label for="" class="mt-1">IsActive</label>
-        <input type="checkbox" class="form-check-input mx-3 mt-2" formControlName="isActive"> -->
     </div>
     <div class="modal-footer">
         <div class="text-end">
-            <button class="btn" [disabled]="ProductVariationList.length == 0 ? true : false">Upload</button>
+            <button class="btn" [disabled]="btnUpload ? false : true">Upload</button>
         </div>
     </div>
 </form>

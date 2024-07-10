@@ -62,5 +62,13 @@ export class ProductService {
   getVariationImagesListByProductId(productId:number){
     return this.http.get("https://localhost:7239/api/Product/GetVariationImagesListByProductId?productId=" + productId)
   }
+
+  checkVariationImagesCountById(variationId:number){
+    return this.http.get("https://localhost:7239/api/Product/CheckVariationImagesCountById?variationId=" + variationId)
+  }
+  
+  deleteProductVariationImage(imageId : number){
+    return this.http.delete("https://localhost:7239/api/Product/DeleteProductVariationImage?imageId=" + imageId)
+  }
   
 }

@@ -147,7 +147,6 @@
                                 <tr>
                                     <th>Sr. No.</th>
                                     <th>Packing Type</th>
-                                    <th>Quantity</th>
                                     <th>Product Weight</th>
                                     <th>MRP</th>
                                     <th>Discount(%)</th>
@@ -162,8 +161,7 @@
                             <tbody>
                                 <tr *ngFor="let variation of productVariationList;index as i">
                                     <td>{{i+1}}</td>
-                                    <td>{{variation.packingType}}</td>
-                                    <td>{{variation.quantity}}</td>
+                                    <td>{{variation.packingType}}<br><span *ngIf="variation.quantity > 1">(Pack of {{variation.quantity}})</span></td>
                                     <td>{{variation.productWeight}}</td>
                                     <td>{{variation.mrp | currency:'INR'}}</td>
                                     <td>{{variation.discount}}</td>
@@ -203,7 +201,7 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-6 text-white">
-                            Product Images
+                            Product Variation Images
                         </div>
                         <div class="col-md-6 text-end">
                             <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#productImagesModal" (click)="showVariationAddEditModal()"><b>Add More Images</b></button>
@@ -235,7 +233,7 @@
                                     <td>{{i+1}}</td>
                                     <td>{{image.variation}}</td>
                                     <td><img [src]="variationImgBaseUrl + image.image" class="preview" width="80px" height="80px"/></td>
-                                    <td><i class="bi bi-trash" style="font-size: 26px;"></i></td>
+                                    <td><i class="bi bi-trash" style="font-size: 26px;" (click)="deleteImage(image.id)"></i></td>
                                 </tr>
                                 <tr *ngIf="variationImagesList.length == 0">
                                     <td colspan="4" >No images added</td>

@@ -89,6 +89,9 @@ export class ProductsComponent implements OnInit {
     this.getProductVariationList();
     this.getVariationImagesList();
     this.getProductSpecificationList();
+    if(this.productSpecificationList != null){
+      this.btnText="Update Specification"
+    }
   }
 
   getCategoryList() {
@@ -188,12 +191,18 @@ export class ProductsComponent implements OnInit {
     })
   }
 
+  deleteImage(imageId:number){
+    this.productService.deleteProductVariationImage(imageId).subscribe((result:any)=>{
+      alert(result.message)
+      if(result.status){
+        this.getVariationImagesList();
+      }
+    })
+  }
+
   getProductSpecificationList(){
     this.productService.getProductSpecificationById(this.activeProductId).subscribe(result=>{
       this.productSpecificationList = result
-      if(this.productSpecificationList != null){
-        this.btnText="Update Specification"
-      }
     })
   }
 

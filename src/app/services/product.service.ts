@@ -67,4 +67,8 @@ export class ProductService {
     return this.http.get("https://localhost:7239/api/Product/CheckVariationImagesCountById?variationId=" + variationId)
   }
   
+  deleteProductVariationImage(imageId : number){
+    return this.http.delete("https://localhost:7239/api/Product/DeleteProductVariationImage?imageId=" + imageId)
+  }
+  
 }

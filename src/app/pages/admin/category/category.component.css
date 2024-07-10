@@ -28,6 +28,7 @@
 }
 .form-check-input{
     margin-right: 2%;
+    border-color: gray;
 }
 .invalid{
     border-color: red;

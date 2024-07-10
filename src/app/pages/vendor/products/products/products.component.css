@@ -79,10 +79,9 @@ textarea {
   margin-left: -38px;
 }
 
-.checkborder {
-  border-color: gray;
+.form-check-input{
+    border-color: gray;
 }
-
 td.col-md-3,
 td.col-md-9 {
   border: hidden;

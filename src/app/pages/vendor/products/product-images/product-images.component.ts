@@ -25,7 +25,7 @@ export class ProductImagesComponent implements OnInit {
   isFormValid: boolean = false
   ProductVariationList: any = []
   imageList: any = []
-  btnUpload:boolean= false
+  btnSubmit:boolean= false
   imgCountAlert:boolean = false
   remainingImagesCount : number =0
 
@@ -77,7 +77,7 @@ export class ProductImagesComponent implements OnInit {
       this.variationImagesForm.controls['images'].reset();
     }
     else{
-      this.btnUpload = true
+      this.btnSubmit = true
       this.imageList = []
       for (var i = 0; i < event.target.files.length; i++) {
         this.imageList.push(event.target.files[i]);

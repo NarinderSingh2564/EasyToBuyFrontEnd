@@ -27,7 +27,6 @@ export class ProductVariationComponent implements OnInit {
   productWeightList: any = [];
   productPackingList: any = [];
   isFormValid: boolean = false;
-  btnText: string = "";
 
   constructor() {
     this.variationForm = this.formBuilder.group({
@@ -53,12 +52,6 @@ export class ProductVariationComponent implements OnInit {
     this.variationForm.controls['priceAfterDiscount'].disable();
     this.variationForm.controls['quantity'].disable();
     this.variationForm.patchValue(this.variationToEdit)
-    if (this.variationToEdit.length == 0) {
-      this.btnText = "Save"
-    }
-    else {
-      this.btnText = "Update"
-    }
   }
 
   get controls() {
@@ -84,6 +77,7 @@ export class ProductVariationComponent implements OnInit {
   onChange(type: any) {
     if (type.target.value != "")
       if (type.target.value != 8) {
+        this.variationForm.controls['quantity'].disable();
         this.variationForm.controls['quantity'].patchValue(1);
       }
       else {
@@ -127,17 +121,12 @@ export class ProductVariationComponent implements OnInit {
         createdBy: this.accountService.getUserId(),
         updatedBy: this.accountService.getUserId(),
       }
-      if (this.variationForm.value.productPackingId == "8" && this.variationForm.value.quantity == 1) {
-        alert("Quantity should be more than 1 in case of multipack.")
-      }
-      else {
-        this.productService.productVariationAddEdit(variation).subscribe((result: any) => {
-          alert(result.message)
-          if (result.status) {
-            this.isFormValid = false
-          }
-        })
-      }
+      this.productService.productVariationAddEdit(variation).subscribe((result: any) => {
+        alert(result.message)
+        if (result.status) {
+          this.isFormValid = false
+        }
+      })
     }
   }
 }

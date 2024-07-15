@@ -18,10 +18,13 @@
                         <div class="col-md-3" *ngFor="let product of productList"
                             style=" padding-bottom: calc(var(--bs-gutter-x)* .5);">
                             <div class="card product-card">
-                                <img class="card-img-top mx-auto d-block mt-2" [src]="baseUrl+product.productImage" width="250" height="150" alt="Card image">
+                                <img class="card-img-top mx-auto d-block mt-2" [src]="baseUrl+product.productImage"
+                                    width="250" height="150" alt="Card image">
                                 <div class="card-body">
                                     <div>
-                                        <h6 class="card-title text-center">{{product.productName}}
+                                        <h6 class="card-title ms-3">{{product.productName}}<br>
+                                            <span class="text-secondary">Total Volume:- {{product.totalVolume}}
+                                                {{product.packingMode}}</span>
                                             <span class="edit">
                                                 <i class="bi bi-pencil-square" (click)="editProduct(product)"></i>
                                             </span>
@@ -48,13 +51,13 @@
                     </div>
                 </div>
                 <div class="card-body px-5">
-                    <form autocomplete="off" [formGroup]="productForm" (ngSubmit)="ProductAddEdit()">
+                    <form autocomplete="off" [formGroup]="productForm" >
                         <input type="hidden" class="form-control" formControlName="id">
                         <div>
                             <div class="row">
-                                <div class="col-md-11">
+                                <div class="col-md-10">
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-6">
                                             <label for="">Product Name</label>
                                             <input type="text" formControlName="productName" class="form-control">
                                             <div *ngIf="isFormValid && controls['productName'].errors">
@@ -64,60 +67,92 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
-                                            <label for="">Category</label>
-                                            <select class="form-select" formControlName="categoryId">
-                                                <option [ngValue]="null" [disabled]="true" hidden>--Select Option--</option>
-                                                <option *ngFor="let category of categoryList" [value]="category.id">
-                                                    {{category.categoryName}}
-                                                </option>
-                                            </select>
-                                            <div *ngIf="isFormValid && controls['categoryId'].errors">
-                                                <div *ngIf="controls['categoryId'].errors['required']" class="text-danger">
-                                                    Category is required.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-5">
+                                        <div class="col-md-6">
                                             <label for="">Product Image</label>
-                                            <input type="file" formControlName="productImage" class="form-control" accept="image/png, image/jpg, image/jpeg" (change)="uploadFile($event)">
+                                            <input type="file" formControlName="productImage" class="form-control"
+                                                accept="image/png, image/jpg, image/jpeg" (change)="uploadFile($event)">
                                             <div *ngIf="isFormValid && controls['productImage'].errors">
-                                                <div *ngIf="controls['productImage'].errors['required']" class="text-danger">
+                                                <div *ngIf="controls['productImage'].errors['required']"
+                                                    class="text-danger">
                                                     Product image is required.
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row mt-1">
                                         <div class="col-md-6">
-                                            <label for="">Description</label>
-                                            <textarea formControlName="productDescription" class="form-control"></textarea>
-                                            <div *ngIf="isFormValid && controls['productDescription'].errors">
-                                                <div *ngIf="controls['productDescription'].errors['required']" class="text-danger">
-                                                    Description is required.
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="">Category</label>
+                                                    <select class="form-select" formControlName="categoryId"
+                                                        (change)="onCategoryChange($event)">
+                                                        <option [ngValue]="null" [disabled]="true" hidden>--Select
+                                                            Option--</option>
+                                                        <option *ngFor="let category of categoryList"
+                                                            [value]="category.id">
+                                                            {{category.categoryName}}
+                                                        </option>
+                                                    </select>
+                                                    <div *ngIf="isFormValid && controls['categoryId'].errors">
+                                                        <div *ngIf="controls['categoryId'].errors['required']"
+                                                            class="text-danger">
+                                                            Category is required.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>Packing Mode</label>
+                                                    <input type="text" class="form-control"
+                                                        formControlName="packingMode">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>Total Volume</label>
+                                                    <input type="number" class="form-control"
+                                                        formControlName="totalVolume">
+                                                    <div *ngIf="isFormValid && controls['totalVolume'].errors">
+                                                        <div *ngIf="controls['totalVolume'].errors['required']"
+                                                            class="text-danger" min="1">
+                                                             Volume is required.
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="col-md-12">
+                                                <label for="">Description</label>
+                                                <textarea formControlName="productDescription"
+                                                    class="form-control"></textarea>
+                                                <div *ngIf="isFormValid && controls['productDescription'].errors">
+                                                    <div *ngIf="controls['productDescription'].errors['required']"
+                                                        class="text-danger">
+                                                        Description is required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row mt-1">
                                         <div class="col-md-3">
                                             <br><label for="">IsActive</label>
                                             <input type="checkbox" formControlName="isActive" class="form-check-input">
                                         </div>
-
-                                        <div class="col-md-2">
-                                            <br><button class="btn btn2" *ngIf="!showSubCards">Save</button>
-                                            <button class="btn btn2" *ngIf="showSubCards">Update</button>
-                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-1" *ngIf="previewImage">
+                                <div class="col-md-2" *ngIf="previewImage">
                                     <img src="{{previewImage}}" style="width: 160px; height: 148px;float: inline-end;">
                                 </div>
+                            </div>
+                            <div class="row" style="justify-content:center;">
+                                    <button class="btn btn2" (click)="ProductAddEdit()">Submit</button>&nbsp;
+                                    <button class="btn btn-danger" style="width: 20%;" (click)="clearControls()">Cancel</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-            
+
             <div class="card mt-3 mb-3" *ngIf="showSubCards">
                 <div class="card-header">
                     <div class="row">
@@ -125,7 +160,10 @@
                             Product Variations And Rate
                         </div>
                         <div class="col-md-6 text-end">
-                            <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#productVariationAndRateModal" (click)="showVariationAddEditModal();variationAdd()"><b>Add Variation And Rate</b></button>
+                            <button class="btn btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#productVariationAndRateModal"
+                                (click)="showVariationAddEditModal();variationAdd()"><b>Add Variation And
+                                    Rate</b></button>
                         </div>
                     </div>
                 </div>
@@ -146,15 +184,16 @@
                             <thead>
                                 <tr>
                                     <th>Sr. No.</th>
-                                    <th>Packing Type</th>
-                                    <th>Product Weight</th>
+                                    <th width="25%">Packing Type</th>
+                                    <th>Weight</th>
                                     <th>MRP</th>
-                                    <th>Discount(%)</th>
-                                    <th>Price After Discount</th>
-                                    <th>Stock Quantity</th>
-                                    <th>Show Product Weight</th>
-                                    <th>IsActive</th>
-                                    <th>Set As Default</th>
+                                    <th>Dis(%)</th>
+                                    <th>Rate</th>
+                                    <th>Stock Qty.</th>
+                                    <th>Total Items</th>
+                                    <th>Show Wt.</th>
+                                    <th>Active</th>
+                                    <th>Is Default</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -167,6 +206,7 @@
                                     <td>{{variation.discount}}</td>
                                     <td>{{variation.priceAfterDiscount | currency:'INR'}}</td>
                                     <td>{{variation.stockQuantity}}</td>
+                                    <td>{{variation.stockQuantity * variation.quantity}}</td>
                                     @if(variation.showProductWeight){
                                     <td>Yes</td>
                                     }
@@ -181,11 +221,15 @@
                                     }
                                     <td>
                                         <div class="form-check form-switch checkvalue">
-                                            <input type="checkbox" class="form-check-input checkborder" [checked]="variation.setAsDefault ? true : false" (change)="setAsDefaultVariation(variation.id)">
+                                            <input type="checkbox" class="form-check-input"
+                                                [checked]="variation.setAsDefault ? true : false"
+                                                (change)="setAsDefaultVariation(variation.id)">
                                         </div>
                                     </td>
                                     <td>
-                                        <i class="bi bi-pencil-square" data-bs-toggle="modal" data-bs-target="#productVariationAndRateModal" (click)="variationEdit(variation);showVariationAddEditModal()"></i>
+                                        <i class="bi bi-pencil-square" data-bs-toggle="modal"
+                                            data-bs-target="#productVariationAndRateModal"
+                                            (click)="variationEdit(variation);showVariationAddEditModal()"></i>
                                     </td>
                                 </tr>
                                 <tr *ngIf="productVariationList.length == 0">
@@ -204,7 +248,8 @@
                             Product Variation Images
                         </div>
                         <div class="col-md-6 text-end">
-                            <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#productImagesModal" (click)="showVariationAddEditModal()"><b>Add More Images</b></button>
+                            <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#productImagesModal"
+                                (click)="showVariationAddEditModal()"><b>Add More Images</b></button>
                         </div>
                     </div>
                 </div>
@@ -212,7 +257,8 @@
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             @if(showModal== true){
-                            <app-product-images (showChildComponent)="getValueFromChild($event)" [activeProductId]="activeProductId"></app-product-images>
+                            <app-product-images (showChildComponent)="getValueFromChild($event)"
+                                [activeProductId]="activeProductId"></app-product-images>
                             }
                         </div>
                     </div>
@@ -232,11 +278,13 @@
                                 <tr *ngFor="let image of variationImagesList;index as i">
                                     <td>{{i+1}}</td>
                                     <td>{{image.variation}}</td>
-                                    <td><img [src]="variationImgBaseUrl + image.image" class="preview" width="80px" height="80px"/></td>
-                                    <td><i class="bi bi-trash" style="font-size: 26px;" (click)="deleteImage(image.id)"></i></td>
+                                    <td><img [src]="variationImgBaseUrl + image.image" class="preview" width="80px"
+                                            height="80px" /></td>
+                                    <td><i class="bi bi-trash" style="font-size: 26px;"
+                                            (click)="deleteImage(image.id)"></i></td>
                                 </tr>
                                 <tr *ngIf="variationImagesList.length == 0">
-                                    <td colspan="4" >No images added</td>
+                                    <td colspan="4">No images added</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -272,7 +320,7 @@
                     <div class="table-responsive">
                         <table class="table">
                             <div>
-                                <tbody  *ngIf="productSpecificationList != null">
+                                <tbody *ngIf="productSpecificationList != null">
                                     <tr>
                                         <td class="col-md-3 tdhead"><b>Speciality</b></td>
                                         <td class="col-md-9 tdbot">{{productSpecificationList.speciality}}</td>

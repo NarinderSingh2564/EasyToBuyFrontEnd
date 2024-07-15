@@ -21,6 +21,7 @@ export class CategoryComponent implements OnInit  {
   categoryForm: FormGroup;
   isFormValid: boolean = false;
   isEdit: boolean = false;
+  display = "none";
 
   ngOnInit(): void {
     this.getCategoryList()
@@ -39,7 +40,6 @@ export class CategoryComponent implements OnInit  {
     return this.categoryForm.controls;
   }
 
-  display = "none";
   
   openModal() {
       this.display = "block";

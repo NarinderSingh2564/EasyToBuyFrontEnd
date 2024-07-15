@@ -23,17 +23,18 @@ export class ProductsComponent implements OnInit {
 
   productForm: FormGroup;
   baseUrl: string = EasyToBuyHelper.imageBaseUrl;
-  variationImgBaseUrl :string = EasyToBuyHelper.imageVariationBaseUrl;
+  variationImgBaseUrl: string = EasyToBuyHelper.imageVariationBaseUrl;
   productRealImage: File | any = null;
   categoryList: any = [];
   productList: any = [];
   productVariationList: any = [];
-  variationImagesList:any=[]
+  variationImagesList: any = []
   productSpecificationList: any = [];
   previews: string[] = [];
   variationDetails: any = []
   productImageName: string = '';
-  btnText:string='Add Specification';
+  packingMode: string = ''
+  btnText: string = '';
   activeProductId: number = 0;
   isFormValid: boolean = false;
   isEdit: boolean = false;
@@ -49,16 +50,25 @@ export class ProductsComponent implements OnInit {
       productDescription: new FormControl("", [Validators.required]),
       productImage: new FormControl(File, [Validators.required]),
       categoryId: new FormControl(null, [Validators.required]),
+      totalVolume: new FormControl(null, [Validators.required]),
+      packingMode: new FormControl({ value: '', disabled: true, }),
       isActive: new FormControl(false)
     })
   }
-  
+
   ngOnInit(): void {
     this.getProductList();
   }
 
   get controls() {
     return this.productForm.controls
+  }
+
+  clearControls(){
+    this.isFormValid = false
+    this.showSubCards = false
+    this.previewImage = false
+    this.productForm.reset()
   }
 
   closeProductForm() {
@@ -85,13 +95,11 @@ export class ProductsComponent implements OnInit {
     this.productForm.patchValue(product)
     this.previewImage = EasyToBuyHelper.imageBaseUrl + product.productImage;
     this.productImageName = product.productImage;
+    this.packingMode = product.packingMode
     this.getCategoryList();
     this.getProductVariationList();
     this.getVariationImagesList();
     this.getProductSpecificationList();
-    if(this.productSpecificationList != null){
-      this.btnText="Update Specification"
-    }
   }
 
   getCategoryList() {
@@ -104,6 +112,11 @@ export class ProductsComponent implements OnInit {
     this.productService.getProductList(0, "", this.accountService.getUserId(), "Vendor").subscribe(result => {
       this.productList = result
     })
+  }
+
+  onCategoryChange(event: any) {
+    this.productForm.controls['packingMode'].patchValue(this.categoryList.filter((t: { id: any; }) => t.id == event.target.value)[0].packingMode)
+    this.packingMode = this.categoryList.filter((t: { id: any; }) => t.id == event.target.value)[0].packingMode
   }
 
   uploadFile(event: any) {
@@ -135,6 +148,8 @@ export class ProductsComponent implements OnInit {
       formData.set("ProductImage", this.productRealImage);
       formData.set("ProductImageName", this.productImageName);
       formData.set("categoryId", this.productForm.value.categoryId);
+      formData.set("totalVolume", this.productForm.value.totalVolume);
+      formData.set("packingMode", this.packingMode);
       formData.set("createdBy", this.accountService.getUserId());
       formData.set("updatedBy", this.accountService.getUserId());
       formData.set("isActive", this.productForm.value.isActive == null ? "false" : "true");
@@ -185,24 +200,33 @@ export class ProductsComponent implements OnInit {
     })
   }
 
-  getVariationImagesList(){
-    this.productService.getVariationImagesListByProductId(this.activeProductId).subscribe((result:any)=>{
+  getVariationImagesList() {
+    this.productService.getVariationImagesListByProductId(this.activeProductId).subscribe((result: any) => {
       this.variationImagesList = result
     })
   }
 
-  deleteImage(imageId:number){
-    this.productService.deleteProductVariationImage(imageId).subscribe((result:any)=>{
-      alert(result.message)
-      if(result.status){
-        this.getVariationImagesList();
-      }
-    })
+  deleteImage(imageId: number) {
+    var confirmDelete = confirm("Are you sure to delete this image?");
+    if(confirmDelete){
+      this.productService.deleteProductVariationImage(imageId).subscribe((result: any) => {
+        alert(result.message)
+        if (result.status) {
+          this.getVariationImagesList();
+        }
+      })
+    }
   }
 
-  getProductSpecificationList(){
-    this.productService.getProductSpecificationById(this.activeProductId).subscribe(result=>{
+  getProductSpecificationList() {
+    this.productService.getProductSpecificationById(this.activeProductId).subscribe(result => {
       this.productSpecificationList = result
+      if (this.productSpecificationList != null) {
+        this.btnText = "Update Specification"
+      }
+      else {
+        this.btnText = "Add Specification"
+      }
     })
   }
 

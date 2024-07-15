@@ -8,7 +8,7 @@
             <input type="hidden" class="form-control" formControlName="id">
             <div class="col-md-6">
                 <label for="">Packing Type</label>
-                <select class="form-select" formControlName="productPackingId" (change)="onChange($event)">
+                <select class="form-select" formControlName="productPackingId" (change)="onChange($event)" #packingId>
                     <option [ngValue]="null" [disabled]="true" hidden>--Select Option--</option>
                     <option *ngFor="let packing of productPackingList" [value]="packing.id">
                         {{packing.packingType}}
@@ -22,7 +22,10 @@
             </div>
             <div class="col-md-6">
                 <label for="">Quantity</label>
-                <input type="number" class="form-control" min="2" formControlName="quantity">
+                <input type="number" class="form-control" min="2" formControlName="quantity" #quantity>
+                <div *ngIf="packingId.value == '8' && quantity.value=='1'" class="text-danger">
+                    Quantity should be more than 1 in case of multipack.
+                </div>
             </div>
         </div>
         <div class="row mt-1">
@@ -93,7 +96,7 @@
     </div>
     <div class="modal-footer">
         <div class="text-end">
-            <button class="btn btn1">{{btnText}}</button>
+            <button class="btn btn1">Submit</button>
         </div>
     </div>
 </form>

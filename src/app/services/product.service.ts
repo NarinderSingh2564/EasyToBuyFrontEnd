@@ -46,8 +46,8 @@ export class ProductService {
 
    }
    
-   setDefaultVariation(productId:number, variationId:number){
-    return this.http.post("https://localhost:7239/api/Product/SetDefaultVariation?productId=" + productId + "&variationId=" + variationId,productId)
+   setDefaultVariation(productId:number, variationId:number, status:boolean){
+    return this.http.post("https://localhost:7239/api/Product/SetDefaultVariation?productId=" + productId +"&variationId=" + variationId + "&status="+ status,productId)
    }
 
   productSpecificationAddEdit(specification:any){

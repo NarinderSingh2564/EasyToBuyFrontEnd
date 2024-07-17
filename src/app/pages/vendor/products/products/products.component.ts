@@ -42,6 +42,8 @@ export class ProductsComponent implements OnInit {
   showForm: boolean = false
   showSubCards: boolean = false
   showModal: boolean = false;
+  totalVolume : any
+  remainingVolume : any
 
   constructor(private productService: ProductService, private categoryServivce: CategoryService, private accountService: AccountService, private formBuilder: FormBuilder) {
     this.productForm = this.formBuilder.group({
@@ -69,6 +71,7 @@ export class ProductsComponent implements OnInit {
     this.showSubCards = false
     this.previewImage = false
     this.productForm.reset()
+    this.productForm.controls['categoryId'].enable()    
   }
 
   closeProductForm() {
@@ -84,7 +87,6 @@ export class ProductsComponent implements OnInit {
     this.isFormValid = false
     this.previewImage = ''
     this.getCategoryList();
-
   }
 
   editProduct(product: any) {
@@ -96,10 +98,12 @@ export class ProductsComponent implements OnInit {
     this.previewImage = EasyToBuyHelper.imageBaseUrl + product.productImage;
     this.productImageName = product.productImage;
     this.packingMode = product.packingMode
+    this.totalVolume = product.totalVolume
     this.getCategoryList();
     this.getProductVariationList();
     this.getVariationImagesList();
     this.getProductSpecificationList();
+    this.productForm.controls['categoryId'].disable()    
   }
 
   getCategoryList() {
@@ -147,7 +151,7 @@ export class ProductsComponent implements OnInit {
       formData.set("productDescription", this.productForm.value.productDescription);
       formData.set("ProductImage", this.productRealImage);
       formData.set("ProductImageName", this.productImageName);
-      formData.set("categoryId", this.productForm.value.categoryId);
+      formData.set("categoryId", this.productForm.value.categoryId == undefined ? this.productForm.controls['categoryId'].value : this.productForm.value.categoryId);
       formData.set("totalVolume", this.productForm.value.totalVolume);
       formData.set("packingMode", this.packingMode);
       formData.set("createdBy", this.accountService.getUserId());
@@ -159,6 +163,7 @@ export class ProductsComponent implements OnInit {
           alert(result.message);
           if(!this.showSubCards){
             this.showForm = false
+            this.totalVolume = this.productForm.value.totalVolume
           }
           this.getProductList()
         }
@@ -166,7 +171,7 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  showVariationAddEditModal() {
+  showAddEditModal() {
     this.showModal = true;
   }
 
@@ -181,18 +186,32 @@ export class ProductsComponent implements OnInit {
     this.productService.getProductVariationListById(this.activeProductId).subscribe(result => {
       this.productVariationList = result
     })
+   
   }
 
   variationAdd() {
     this.variationDetails = []
+    let volumeAdded = 0
+    for (let item of this.productVariationList.filter((t: { isActive: any; })=>t.isActive == 1)) {
+      if(this.packingMode == 'kg'){
+        volumeAdded += item.productWeightValue * item.stockQuantity * item.quantity
+      }
+      else{
+        volumeAdded += item.stockQuantity * item.quantity
+      }
+    }
+    this.remainingVolume = this.totalVolume - volumeAdded
+    if(this.remainingVolume <= 0){
+      alert("You can not add more variation of this product.")
+    }
   }
 
   variationEdit(variation: any) {
     this.variationDetails = variation
   }
 
-  setAsDefaultVariation(variationId: number) {
-    this.productService.setDefaultVariation(this.activeProductId, variationId).subscribe((result: any) => {
+  setAsDefaultVariation(variationId: number,status:boolean) {
+    this.productService.setDefaultVariation(this.activeProductId, variationId,status).subscribe((result: any) => {
       if (result.status) {
         alert(result.message)
         this.getProductVariationList()

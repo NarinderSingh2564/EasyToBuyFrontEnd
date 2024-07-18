@@ -42,8 +42,8 @@ export class ProductsComponent implements OnInit {
   showForm: boolean = false
   showSubCards: boolean = false
   showModal: boolean = false;
-  totalVolume : any
-  remainingVolume : any
+  totalVolume: number = 0
+  remainingVolume: number = 0
 
   constructor(private productService: ProductService, private categoryServivce: CategoryService, private accountService: AccountService, private formBuilder: FormBuilder) {
     this.productForm = this.formBuilder.group({
@@ -66,12 +66,12 @@ export class ProductsComponent implements OnInit {
     return this.productForm.controls
   }
 
-  clearControls(){
+  clearControls() {
     this.isFormValid = false
     this.showSubCards = false
     this.previewImage = false
     this.productForm.reset()
-    this.productForm.controls['categoryId'].enable()    
+    this.productForm.controls['categoryId'].enable()
   }
 
   closeProductForm() {
@@ -103,7 +103,7 @@ export class ProductsComponent implements OnInit {
     this.getProductVariationList();
     this.getVariationImagesList();
     this.getProductSpecificationList();
-    this.productForm.controls['categoryId'].disable()    
+    this.productForm.controls['categoryId'].disable()
   }
 
   getCategoryList() {
@@ -161,7 +161,7 @@ export class ProductsComponent implements OnInit {
       this.productService.productAddEdit(formData).subscribe((result: any) => {
         if (result.status) {
           alert(result.message);
-          if(!this.showSubCards){
+          if (!this.showSubCards) {
             this.showForm = false
             this.totalVolume = this.productForm.value.totalVolume
           }
@@ -183,35 +183,71 @@ export class ProductsComponent implements OnInit {
   }
 
   getProductVariationList() {
-    this.productService.getProductVariationListById(this.activeProductId).subscribe(result => {
-      this.productVariationList = result
+    this.productService.getProductVariationListById(this.activeProductId).subscribe((result: any) => {
+      this.productVariationList = result.filter((t: { isDeleted: any }) => t.isDeleted == false)
     })
-   
+  }
+
+  setShowProductWeight(variationId: number, showProductWeight: boolean) {
+    this.productService.setShowProductWeight(variationId, showProductWeight).subscribe((result: any) => {
+      if (result.status) {
+        this.getProductVariationList()
+      }
+    })
+  }
+
+  setVariationIsActive(variationId: number, isActive: boolean) {
+    this.productService.setVariationIsActive(variationId, isActive).subscribe((result: any) => {
+      if (result.status) {
+        this.getProductVariationList()
+      }
+    })
+  }
+
+  deleteProductVariation(variationId: number) {
+    var confirmDelete = confirm("Are you sure to delete this variation?")
+    if (confirmDelete) {
+      this.productService.deleteProductVariation(variationId).subscribe((result: any) => {
+        if (result.status) {
+          this.getProductVariationList()
+        }
+        else {
+          alert(result.message)
+        }
+      })
+    }
   }
 
   variationAdd() {
     this.variationDetails = []
     let volumeAdded = 0
-    for (let item of this.productVariationList.filter((t: { isActive: any; })=>t.isActive == 1)) {
-      if(this.packingMode == 'kg'){
+    for (let item of this.productVariationList) {
+      if (this.packingMode == 'kg') {
         volumeAdded += item.productWeightValue * item.stockQuantity * item.quantity
       }
-      else{
+      else {
         volumeAdded += item.stockQuantity * item.quantity
       }
     }
     this.remainingVolume = this.totalVolume - volumeAdded
-    if(this.remainingVolume <= 0){
-      alert("You can not add more variation of this product.")
-    }
   }
 
   variationEdit(variation: any) {
     this.variationDetails = variation
+    let volumeAdded = 0
+    for (let item of this.productVariationList) {
+      if (this.packingMode == 'kg') {
+        volumeAdded += item.productWeightValue * item.stockQuantity * item.quantity
+      }
+      else {
+        volumeAdded += item.stockQuantity * item.quantity
+      }
+    }
+    this.remainingVolume = this.totalVolume - volumeAdded
   }
 
-  setAsDefaultVariation(variationId: number,status:boolean) {
-    this.productService.setDefaultVariation(this.activeProductId, variationId,status).subscribe((result: any) => {
+  setAsDefaultVariation(variationId: number, status: boolean) {
+    this.productService.setDefaultVariation(this.activeProductId, variationId, status).subscribe((result: any) => {
       if (result.status) {
         alert(result.message)
         this.getProductVariationList()
@@ -227,7 +263,7 @@ export class ProductsComponent implements OnInit {
 
   deleteImage(imageId: number) {
     var confirmDelete = confirm("Are you sure to delete this image?");
-    if(confirmDelete){
+    if (confirmDelete) {
       this.productService.deleteProductVariationImage(imageId).subscribe((result: any) => {
         alert(result.message)
         if (result.status) {

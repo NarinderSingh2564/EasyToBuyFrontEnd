@@ -175,9 +175,9 @@
                                 (showChildComponent)="getValueFromChild($event)" [activeProductId]="activeProductId"
                                 [remainingVolume]="remainingVolume" [packingMode]="packingMode"></app-product-variation>
                             }
-                            </div>
                         </div>
                     </div>
+                </div>
                 <div class="card-body">
                     <div class="table-responsive mt-2">
                         <table class="table table-bordered text-center table-hover">
@@ -212,18 +212,20 @@
                                     </td>
                                     <td *ngIf="packingMode == 'kg'">{{variation.stockQuantity *
                                         variation.productWeightValue * variation.quantity | number}}</td>
-                                    @if(variation.showProductWeight){
-                                    <td>Yes</td>
-                                    }
-                                    @else{
-                                    <td>No</td>
-                                    }
-                                    @if(variation.isActive){
-                                    <td class="table-success">Yes</td>
-                                    }
-                                    @else{
-                                    <td class="table-danger">No</td>
-                                    }
+                                    <td>
+                                        <div class="form-check form-switch checkvalue">
+                                            <input type="checkbox" class="form-check-input" 
+                                                [checked]="variation.showProductWeight ? true : false" #weight
+                                                (change)="setShowProductWeight(variation.id,weight.checked)">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check form-switch checkvalue">
+                                            <input type="checkbox" class="form-check-input" 
+                                            [checked]="variation.isActive ? true : false" #isActive
+                                            (change)="setVariationIsActive(variation.id,isActive.checked)">
+                                        </div>
+                                    </td>
                                     <td>
                                         <div class="form-check form-switch checkvalue">
                                             <input type="checkbox" class="form-check-input" #checkbox
@@ -234,7 +236,8 @@
                                     <td>
                                         <i class="bi bi-pencil-square" data-bs-toggle="modal"
                                             data-bs-target="#productVariationAndRateModal"
-                                            (click)="variationEdit(variation);showAddEditModal()"></i>
+                                            (click)="variationEdit(variation);showAddEditModal()"></i> <span> | </span>
+                                        <i class="bi bi-trash" (click)="deleteProductVariation(variation.id)"></i>
                                     </td>
                                 </tr>
                                 <tr *ngIf="productVariationList.length == 0">

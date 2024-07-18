@@ -1,7 +1,7 @@
 
             <form autocomplete="off" [formGroup]="variationForm" (ngSubmit)="variationAddEdit()">
                 <div class="modal-header">
-                    <h4 class="modal-title">Product Variation And Rate</h4>
+                    <h4 class="modal-title">Product Variation And Rate</h4> {{remainingVolume}}
                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                         (click)="disableChildComponent()"></button>
                 </div>
@@ -88,7 +88,7 @@
                             <input type="text" class="form-control" formControlName="priceAfterDiscount">
                         </div>
                     </div>
-                    <div class="row mt-1">
+                    <!-- <div class="row mt-1">
                         <div class="col-md-6">
                             <label for="">Show Product Weight</label>
                             <input type="checkbox" class="form-check-input mx-3" formControlName="showProductWeight">
@@ -97,7 +97,7 @@
                             <label for="">IsActive</label>
                             <input type="checkbox" class="form-check-input mx-3" formControlName="isActive">
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="modal-footer">
                     <div class="text-end">

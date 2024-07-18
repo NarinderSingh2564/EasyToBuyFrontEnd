@@ -29,7 +29,6 @@ export class ProductVariationComponent implements OnInit {
   productWeightList: any = [];
   productPackingList: any = [];
   isFormValid: boolean = false;
-  item: any;
 
   constructor() {
     this.variationForm = this.formBuilder.group({
@@ -54,7 +53,13 @@ export class ProductVariationComponent implements OnInit {
     this.variationForm.controls['discountPrice'].disable();
     this.variationForm.controls['priceAfterDiscount'].disable();
     this.variationForm.controls['quantity'].disable();
-    this.variationForm.patchValue(this.variationToEdit)
+    if (this.variationToEdit.length == (null || undefined)) {
+      this.variationForm.patchValue(this.variationToEdit)
+      this.variationForm.controls['productPackingId'].disable();
+      this.variationForm.controls['productWeightId'].disable();
+      this.variationForm.controls['stockQuantity'].disable();
+    }
+    alert(this.variationForm.value.id)
   }
 
   get controls() {
@@ -100,23 +105,26 @@ export class ProductVariationComponent implements OnInit {
   }
 
   calculateDiscountPrice() {
-    const priceAfterDiscount: any = Number((this.variationForm.value.mrp - (this.variationForm.value.mrp * this.variationForm.value.discount / 100))).toFixed(3)
-    const discountPrice: any = Number(this.variationForm.value.mrp - priceAfterDiscount).toFixed(3)
+    const priceAfterDiscount: any = Number((this.variationForm.value.mrp - (this.variationForm.value.mrp * this.variationForm.value.discount / 100))).toFixed(1)
+    const discountPrice: any = Number(this.variationForm.value.mrp - priceAfterDiscount).toFixed(1)
     this.variationForm.controls['priceAfterDiscount'].patchValue(priceAfterDiscount)
     this.variationForm.controls['discountPrice'].patchValue(discountPrice)
     return discountPrice
   }
 
   calculatePriceAfterDiscount() {
-    const priceAfterDiscount: any = Number(this.variationForm.value.mrp - (this.variationForm.value.mrp * this.variationForm.value.discount / 100)).toFixed(3)
+    const priceAfterDiscount: any = Number(this.variationForm.value.mrp - (this.variationForm.value.mrp * this.variationForm.value.discount / 100)).toFixed(1)
     return priceAfterDiscount
   }
 
   getWeightValue(id: number) {
-    return this.productWeightList.filter((t: { id: any }) => t.id == id)[0].productWeightValue
+    if (this.packingMode == 'kg') {
+      return this.productWeightList.filter((t: { id: any }) => t.id == id)[0].productWeightValue
+    }
+    else {
+      return 1;
+    }
   }
-
-
 
   variationAddEdit() {
     this.isFormValid = true
@@ -124,24 +132,33 @@ export class ProductVariationComponent implements OnInit {
       return;
     }
     else {
-      const variation: any = {
-        id: this.variationForm.value.id != null && this.variationForm.value.id > 0 ? this.variationForm.value.id : 0,
-        productId: this.activeProductId,
-        productPackingId: Number(this.variationForm.value.productPackingId),
-        quantity: this.variationForm.value.quantity == undefined ? 1 : this.variationForm.value.quantity,
-        productWeightId: Number(this.variationForm.value.productWeightId),
-        mrp: this.variationForm.value.mrp,
-        discount: this.variationForm.value.discount,
-        discountPrice: this.calculateDiscountPrice(),
-        priceAfterDiscount: this.calculatePriceAfterDiscount(),
-        stockQuantity: this.variationForm.value.stockQuantity,
-        showProductWeight: this.variationForm.value.showProductWeight,
-        isActive: this.variationForm.value.isActive,
-        createdBy: this.accountService.getUserId(),
-        updatedBy: this.accountService.getUserId(),
+      if (this.variationForm.value.id == 0) {
+        var variation: any = {
+          id: this.variationForm.value.id,
+          productId: this.activeProductId,
+          productPackingId: Number(this.variationForm.controls['productPackingId'].value),
+          quantity: this.variationForm.value.quantity == undefined ? 1 : this.variationForm.value.quantity,
+          productWeightId: Number(this.variationForm.controls['productWeightId'].value),
+          mrp: this.variationForm.value.mrp,
+          discount: this.variationForm.value.discount,
+          discountPrice: this.calculateDiscountPrice(),
+          priceAfterDiscount: this.calculatePriceAfterDiscount(),
+          stockQuantity: this.variationForm.controls['stockQuantity'].value,
+          createdBy: this.accountService.getUserId(),
+          updatedBy: this.accountService.getUserId(),
+        }
+      }
+      else {
+        var variation: any = {
+          id: this.variationForm.value.id,
+          mrp: this.variationForm.value.mrp,
+          discount: this.variationForm.value.discount,
+          discountPrice: this.calculateDiscountPrice(),
+          priceAfterDiscount: this.calculatePriceAfterDiscount(),
+        }
       }
       if (this.getWeightValue(variation.productWeightId) * variation.quantity * variation.stockQuantity > this.remainingVolume) {
-        alert("You can not add variation of more than " + this.remainingVolume + this.packingMode)
+        alert(this.remainingVolume > 0 ? "You can not add variation of more than " + this.remainingVolume + " " + this.packingMode : "You can not add more variations.")
       }
       else {
         this.productService.productVariationAddEdit(variation).subscribe((result: any) => {
@@ -151,7 +168,6 @@ export class ProductVariationComponent implements OnInit {
           }
         })
       }
-
     }
   }
 }

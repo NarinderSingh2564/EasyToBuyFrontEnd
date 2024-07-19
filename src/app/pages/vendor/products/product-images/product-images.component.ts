@@ -68,6 +68,7 @@ export class ProductImagesComponent implements OnInit {
   }
 
   selectedImages(event: any) {
+    console.log(event.target.files)
     if(event.target.files.length > 5){
       alert("You can not upload more than 5 images.")
       this.variationImagesForm.controls['images'].reset();

@@ -3,6 +3,7 @@ import { Component, Input, inject } from '@angular/core';
 import { OrderService } from '../../../services/order.service';
 import { AccountService } from '../../../services/account.service';
 import { ActivatedRoute } from '@angular/router';
+import { EasyToBuyHelper } from '../../../helpers/EasyToBuyHelper';
 
 @Component({
   selector: 'app-order-list',
@@ -20,6 +21,7 @@ export class OrderListComponent {
   role: string = this.accountService.getUserRole();
   statusId: number = 0;
   header: string = ""
+  variationImgUrl = EasyToBuyHelper.imageVariationBaseUrl
 
   constructor(private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe((result: any) => {

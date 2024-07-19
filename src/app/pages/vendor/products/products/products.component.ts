@@ -161,9 +161,9 @@ export class ProductsComponent implements OnInit {
       this.productService.productAddEdit(formData).subscribe((result: any) => {
         if (result.status) {
           alert(result.message);
+          this.totalVolume = this.productForm.value.totalVolume
           if (!this.showSubCards) {
             this.showForm = false
-            this.totalVolume = this.productForm.value.totalVolume
           }
           this.getProductList()
         }
@@ -249,7 +249,6 @@ export class ProductsComponent implements OnInit {
   setAsDefaultVariation(variationId: number, status: boolean) {
     this.productService.setDefaultVariation(this.activeProductId, variationId, status).subscribe((result: any) => {
       if (result.status) {
-        alert(result.message)
         this.getProductVariationList()
       }
     })

@@ -59,7 +59,6 @@ export class ProductVariationComponent implements OnInit {
       this.variationForm.controls['productWeightId'].disable();
       this.variationForm.controls['stockQuantity'].disable();
     }
-    alert(this.variationForm.value.id)
   }
 
   get controls() {

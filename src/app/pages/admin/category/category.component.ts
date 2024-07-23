@@ -80,18 +80,17 @@ export class CategoryComponent implements OnInit {
         updatedBy: this.accountService.getUserId(),
         isActive: this.categoryForm.value.isActive == null ? false : true,
       }
-      console.log(category)
-      // this.categoryService.categoryAddEdit(category).subscribe(result => {
-      //   this.response = result;
-      //   if (this.response.status) {
-      //     alert(this.response.message);
-      //     this.closeModal();
-      //     this.getCategoryList();
-      //   }
-      //   else {
-      //     alert(this.response.message);
-      //   }
-      // });
+      this.categoryService.categoryAddEdit(category).subscribe(result => {
+        this.response = result;
+        if (this.response.status) {
+          alert(this.response.message);
+          this.closeModal();
+          this.getCategoryList();
+        }
+        else {
+          alert(this.response.message);
+        }
+      });
     }
   }
 

@@ -40,6 +40,7 @@ export class ProductSpecificationComponent implements OnInit {
       isActive: new FormControl(false),
     })
   }
+  
   ngOnInit(): void {
     this.specificationForm.patchValue(this.specificationToEdit)
   }

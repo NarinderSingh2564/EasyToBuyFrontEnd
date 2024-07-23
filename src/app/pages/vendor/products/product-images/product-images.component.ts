@@ -22,10 +22,10 @@ export class ProductImagesComponent implements OnInit {
   productService = inject(ProductService)
   accountService = inject(AccountService)
 
-  isFormValid: boolean = false
-  ProductVariationList: any = []
   imageList: any = []
+  ProductVariationList: any = []
   btnSubmit:boolean= false
+  isFormValid: boolean = false
   imgCountAlert:boolean = false
   remainingImagesCount : number =0
 

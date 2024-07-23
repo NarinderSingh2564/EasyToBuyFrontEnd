@@ -23,8 +23,8 @@
                                 <div class="card-body">
                                     <div>
                                         <h6 class="card-title ms-3">{{product.productName}}<br>
-                                            <span class="text-secondary">Total Volume:- {{product.totalVolume}}
-                                                {{product.packingMode}}</span>
+                                            <span class="text-secondary" *ngIf="product.packingModeId == 1">Total Volume :- {{product.totalVolume}} {{product.packingMode}}</span>
+                                                <span class="text-secondary" *ngIf="product.packingModeId == 2">Total Items :- {{product.totalVolume}}</span>
                                             <span class="edit">
                                                 <i class="bi bi-pencil-square" (click)="editProduct(product)"></i>
                                             </span>
@@ -102,17 +102,23 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <label>Packing Mode</label>
+                                                    <input type="hidden" class="form-control"
+                                                    formControlName="packingModeId">
                                                     <input type="text" class="form-control"
                                                         formControlName="packingMode">
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <label>Total Volume</label>
+                                                    <label *ngIf="packingModeId == 0">Total Volume/Items</label>
+                                                    <label *ngIf="packingModeId == 1">Total Volume</label>
+                                                    <label *ngIf="packingModeId == 2">Total Items</label>
                                                     <input type="number" class="form-control"
                                                         formControlName="totalVolume" min="1">
                                                     <div *ngIf="isFormValid && controls['totalVolume'].errors">
                                                         <div *ngIf="controls['totalVolume'].errors['required']"
                                                             class="text-danger">
-                                                            Volume is required.
+                                                            <span *ngIf="packingModeId == 0">Total volume/items is required.</span>
+                                                            <span *ngIf="packingModeId == 1">Total volume is required.</span>
+                                                            <span *ngIf="packingModeId == 2">Total items is required.</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -172,8 +178,7 @@
                         <div class="modal-content">
                             @if(showModal == true){
                             <app-product-variation [variationToEdit]="variationDetails"
-                                (showChildComponent)="getValueFromChild($event)" [activeProductId]="activeProductId"
-                                [remainingVolume]="remainingVolume" [packingMode]="packingMode"></app-product-variation>
+                                (showChildComponent)="getValueFromChild($event)" [activeProductId]="activeProductId" [packingModeId]="packingModeId"></app-product-variation>
                             }
                         </div>
                     </div>
@@ -190,11 +195,11 @@
                                     <th>Dis (%)</th>
                                     <th>Rate</th>
                                     <th>Stock Qty.</th>
-                                    <th *ngIf="packingMode == 'item'">Total Items</th>
-                                    <th *ngIf="packingMode == 'kg'">Total Vol (kg)</th>
+                                    <th *ngIf="packingModeId == 1">Total Vol (kg)</th>
+                                    <th *ngIf="packingModeId == 2">Total Items</th>
                                     <th>Show Wt.</th>
                                     <th>Active</th>
-                                    <th>Is Default</th>
+                                    <th>Set Default</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -208,10 +213,10 @@
                                     <td>{{variation.discount}}</td>
                                     <td>{{variation.priceAfterDiscount | currency:'INR'}}</td>
                                     <td>{{variation.stockQuantity}}</td>
-                                    <td *ngIf="packingMode == 'item'">{{variation.stockQuantity * variation.quantity}}
+                                    <td *ngIf="packingModeId == 1">{{variation.stockQuantity *
+                                        variation.productWeightValue * variation.quantity | number}}
                                     </td>
-                                    <td *ngIf="packingMode == 'kg'">{{variation.stockQuantity *
-                                        variation.productWeightValue * variation.quantity | number}}</td>
+                                    <td *ngIf="packingModeId == 2">{{variation.stockQuantity * variation.quantity}}</td>
                                     <td>
                                         <div class="form-check form-switch checkvalue">
                                             <input type="checkbox" class="form-check-input" 
@@ -354,7 +359,7 @@
                                         <td class="col-md-9 tdbot">{{productSpecificationList.benefits}}</td>
                                     </tr>
                                     <tr>
-                                        <td class="col-md-3 tdhead"><b>IsActive</b></td>
+                                        <td class="col-md-3 tdhead"><b>Active</b></td>
                                         @if(productSpecificationList.isActive){
                                         <td class="col-md-9 tdbot">Yes</td>
                                         }

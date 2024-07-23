@@ -33,7 +33,7 @@ export class ProductsComponent implements OnInit {
   previews: string[] = [];
   variationDetails: any = []
   productImageName: string = '';
-  packingMode: string = ''
+  packingModeId: number = 0
   btnText: string = '';
   activeProductId: number = 0;
   isFormValid: boolean = false;
@@ -42,8 +42,6 @@ export class ProductsComponent implements OnInit {
   showForm: boolean = false
   showSubCards: boolean = false
   showModal: boolean = false;
-  totalVolume: number = 0
-  remainingVolume: number = 0
 
   constructor(private productService: ProductService, private categoryServivce: CategoryService, private accountService: AccountService, private formBuilder: FormBuilder) {
     this.productForm = this.formBuilder.group({
@@ -54,6 +52,7 @@ export class ProductsComponent implements OnInit {
       categoryId: new FormControl(null, [Validators.required]),
       totalVolume: new FormControl(null, [Validators.required]),
       packingMode: new FormControl({ value: '', disabled: true, }),
+      packingModeId : new FormControl(0),
       isActive: new FormControl(false)
     })
   }
@@ -87,6 +86,7 @@ export class ProductsComponent implements OnInit {
     this.isFormValid = false
     this.previewImage = ''
     this.getCategoryList();
+    this.productForm.controls['categoryId'].enable()
   }
 
   editProduct(product: any) {
@@ -97,8 +97,7 @@ export class ProductsComponent implements OnInit {
     this.productForm.patchValue(product)
     this.previewImage = EasyToBuyHelper.imageBaseUrl + product.productImage;
     this.productImageName = product.productImage;
-    this.packingMode = product.packingMode
-    this.totalVolume = product.totalVolume
+    this.packingModeId = product.packingModeId
     this.getCategoryList();
     this.getProductVariationList();
     this.getVariationImagesList();
@@ -120,7 +119,6 @@ export class ProductsComponent implements OnInit {
 
   onCategoryChange(event: any) {
     this.productForm.controls['packingMode'].patchValue(this.categoryList.filter((t: { id: any; }) => t.id == event.target.value)[0].packingMode)
-    this.packingMode = this.categoryList.filter((t: { id: any; }) => t.id == event.target.value)[0].packingMode
   }
 
   uploadFile(event: any) {
@@ -153,7 +151,7 @@ export class ProductsComponent implements OnInit {
       formData.set("ProductImageName", this.productImageName);
       formData.set("categoryId", this.productForm.value.categoryId == undefined ? this.productForm.controls['categoryId'].value : this.productForm.value.categoryId);
       formData.set("totalVolume", this.productForm.value.totalVolume);
-      formData.set("packingMode", this.packingMode);
+      formData.set("packingModeId", this.productForm.value.packingModeId);
       formData.set("createdBy", this.accountService.getUserId());
       formData.set("updatedBy", this.accountService.getUserId());
       formData.set("isActive", this.productForm.value.isActive == null ? "false" : "true");
@@ -161,7 +159,6 @@ export class ProductsComponent implements OnInit {
       this.productService.productAddEdit(formData).subscribe((result: any) => {
         if (result.status) {
           alert(result.message);
-          this.totalVolume = this.productForm.value.totalVolume
           if (!this.showSubCards) {
             this.showForm = false
           }
@@ -220,30 +217,10 @@ export class ProductsComponent implements OnInit {
 
   variationAdd() {
     this.variationDetails = []
-    let volumeAdded = 0
-    for (let item of this.productVariationList) {
-      if (this.packingMode == 'kg') {
-        volumeAdded += item.productWeightValue * item.stockQuantity * item.quantity
-      }
-      else {
-        volumeAdded += item.stockQuantity * item.quantity
-      }
-    }
-    this.remainingVolume = this.totalVolume - volumeAdded
   }
 
   variationEdit(variation: any) {
     this.variationDetails = variation
-    let volumeAdded = 0
-    for (let item of this.productVariationList) {
-      if (this.packingMode == 'kg') {
-        volumeAdded += item.productWeightValue * item.stockQuantity * item.quantity
-      }
-      else {
-        volumeAdded += item.stockQuantity * item.quantity
-      }
-    }
-    this.remainingVolume = this.totalVolume - volumeAdded
   }
 
   setAsDefaultVariation(variationId: number, status: boolean) {

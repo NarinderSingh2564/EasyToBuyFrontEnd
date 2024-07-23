@@ -1,7 +1,7 @@
 
             <form autocomplete="off" [formGroup]="variationForm" (ngSubmit)="variationAddEdit()">
                 <div class="modal-header">
-                    <h4 class="modal-title">Product Variation And Rate</h4> {{remainingVolume}}
+                    <h4 class="modal-title">Product Variation And Rate</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                         (click)="disableChildComponent()"></button>
                 </div>
@@ -70,7 +70,7 @@
                         <div class="col-md-6">
                             <label for="">Discount(%)</label>
                             <input type="number" class="form-control" min="0" max="100" formControlName="discount"
-                                (keydown)="key($event);" (input)="calculateDiscountPrice();calculatePriceAfterDiscount">
+                               (input)="calculateDiscountPrice();calculatePriceAfterDiscount">
                             <div *ngIf="isFormValid && controls['discount'].errors">
                                 <div *ngIf="controls['discount'].errors['required']" class="text-danger">
                                     Discount is required.

@@ -16,8 +16,7 @@ export class ProductVariationComponent implements OnInit {
 
   @Input() variationToEdit: any;
   @Input() activeProductId: any;
-  @Input() remainingVolume: any;
-  @Input() packingMode: any;
+  @Input() packingModeId: any;
 
   formBuilder = inject(FormBuilder)
   productService = inject(ProductService)
@@ -57,7 +56,6 @@ export class ProductVariationComponent implements OnInit {
       this.variationForm.patchValue(this.variationToEdit)
       this.variationForm.controls['productPackingId'].disable();
       this.variationForm.controls['productWeightId'].disable();
-      this.variationForm.controls['stockQuantity'].disable();
     }
   }
 
@@ -76,8 +74,8 @@ export class ProductVariationComponent implements OnInit {
   }
 
   getProductPackingList() {
-    this.productService.getProductPackingList().subscribe(result => {
-      this.productPackingList = result
+    this.productService.getProductPackingList().subscribe((result:any) => {
+      this.productPackingList = result.filter((t: {packingModeId : any}) => t.packingModeId == this.packingModeId)
     })
   }
 
@@ -93,15 +91,15 @@ export class ProductVariationComponent implements OnInit {
       }
   }
 
-  key(e: any) {
-    if (e.key == 'ArrowUp' || e.key == 'ArrowDown' || e.key == 'Backspace') {
-      return true;
-    }
-    else {
-      e.preventDefault();
-      return false;
-    }
-  }
+  // key(e: any) {
+  //   if (e.key == 'ArrowUp' || e.key == 'ArrowDown' || e.key == 'Backspace') {
+  //     return true;
+  //   }
+  //   else {
+  //     e.preventDefault();
+  //     return false;
+  //   }
+  // }
 
   calculateDiscountPrice() {
     const priceAfterDiscount: any = Number((this.variationForm.value.mrp - (this.variationForm.value.mrp * this.variationForm.value.discount / 100))).toFixed(1)
@@ -116,57 +114,33 @@ export class ProductVariationComponent implements OnInit {
     return priceAfterDiscount
   }
 
-  getWeightValue(id: number) {
-    if (this.packingMode == 'kg') {
-      return this.productWeightList.filter((t: { id: any }) => t.id == id)[0].productWeightValue
-    }
-    else {
-      return 1;
-    }
-  }
-
   variationAddEdit() {
     this.isFormValid = true
     if (this.variationForm.invalid) {
       return;
     }
     else {
-      if (this.variationForm.value.id == 0) {
-        var variation: any = {
-          id: this.variationForm.value.id,
-          productId: this.activeProductId,
-          productPackingId: Number(this.variationForm.controls['productPackingId'].value),
-          quantity: this.variationForm.value.quantity == undefined ? 1 : this.variationForm.value.quantity,
-          productWeightId: Number(this.variationForm.controls['productWeightId'].value),
-          mrp: this.variationForm.value.mrp,
-          discount: this.variationForm.value.discount,
-          discountPrice: this.calculateDiscountPrice(),
-          priceAfterDiscount: this.calculatePriceAfterDiscount(),
-          stockQuantity: this.variationForm.controls['stockQuantity'].value,
-          createdBy: this.accountService.getUserId(),
-          updatedBy: this.accountService.getUserId(),
+      const variation: any = {
+        id: this.variationForm.value.id,
+        productId: this.activeProductId,
+        productPackingId: Number(this.variationForm.controls['productPackingId'].value),
+        quantity: this.variationForm.controls['quantity'].value,
+        productWeightId: Number(this.variationForm.controls['productWeightId'].value),
+        mrp: this.variationForm.value.mrp,
+        discount: this.variationForm.value.discount,
+        discountPrice: Number(this.calculateDiscountPrice()),
+        priceAfterDiscount: Number(this.calculatePriceAfterDiscount()),
+        stockQuantity: this.variationForm.controls['stockQuantity'].value,
+        createdBy: this.accountService.getUserId(),
+        updatedBy: this.accountService.getUserId(),
+      }
+      this.productService.productVariationAddEdit(variation).subscribe((result: any) => {
+        alert(result.message)
+        if (result.status) {
+          this.isFormValid = false
+          this.variationForm.reset()
         }
-      }
-      else {
-        var variation: any = {
-          id: this.variationForm.value.id,
-          mrp: this.variationForm.value.mrp,
-          discount: this.variationForm.value.discount,
-          discountPrice: this.calculateDiscountPrice(),
-          priceAfterDiscount: this.calculatePriceAfterDiscount(),
-        }
-      }
-      if (this.getWeightValue(variation.productWeightId) * variation.quantity * variation.stockQuantity > this.remainingVolume) {
-        alert(this.remainingVolume > 0 ? "You can not add variation of more than " + this.remainingVolume + " " + this.packingMode : "You can not add more variations.")
-      }
-      else {
-        this.productService.productVariationAddEdit(variation).subscribe((result: any) => {
-          alert(result.message)
-          if (result.status) {
-            this.isFormValid = false
-          }
-        })
-      }
+      })
     }
   }
 }

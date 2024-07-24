@@ -1,19 +1,31 @@
+<div class="mains">
+  <h2 style="text-align: center; color: #61887e;"> Best Products</h2>
 <div class="container-fluid mt-3" *ngIf="productList.length>0">
-    <div class="offercard">
-        <img src="../assets/images/offer/Sale.png" height="350" class="offersale" alt="">
-    </div>
 
-  <div class="card-body mt-4">
+        <div class="wrapper">
+          <owl-carousel-o [options]="customOptions">
+            <ng-container>
+              <ng-template class="slide" carouselSlide>
+                <img src="../assets/images/offer/off2.png" height="300" class="offersale" alt="">
+              </ng-template>
+              <ng-template class="slide" carouselSlide>
+                <img src="../assets/images/offer/off1.png" height="300" class="offersale" alt="">
+              </ng-template>
+            </ng-container>
+          </owl-carousel-o>  
+        </div>
+
+  <div class="card-body mt-1">
     <div class="row">
       <div class="col-md-3" *ngFor="let product of productList" style=" padding-bottom: calc(var(--bs-gutter-x)* .5);">
-        <div class="card" >
-          <img class="card-img-top mx-auto d-block mt-2" routerLink="/product-description/{{product.id}}/{{product.variationId}}" [src]="baseUrl+product.productImage" alt="Card image">
+        <div class="card">
+          <img class="card-img-top mx-auto d-block mt-3" routerLink="/product-description/{{product.id}}/{{product.variationId}}" [src]="baseUrl+product.productImage" height="140" alt="Card image">
           <div class="card-body">
             <div class="row mb-3 block-ellipsis">
               <p><small>{{product.productDescription}}</small></p>
             </div>
             <div class="row text-center">
-              <div class="col-md-12">
+              <div class="col-md-12 ">
                 <span class="spnProductPrice">₹{{product.priceAfterDiscount}}</span>
                 <span class="spnMRP" *ngIf="product.showProductWeight==true"> ({{product.productWeight}}) </span>
                 <span class="spnMRP"> M.R.P :<span class="actualPrice" *ngIf="product.discount > 0">₹{{product.mrp}}</span></span>
@@ -46,7 +58,7 @@
 </div>
 
 <section class="Product-Description-Footer">
-  <footer class="page-footer container-fluid col-md-12" style="top: 5em; background: #61887e;">
+  <footer class="page-footer container-fluid col-md-12" style="background: #61887e;">
     <hr>
     <div class="container" style="max-width: 1240px; ">
     <div class="row" id="kkll">
@@ -82,27 +94,14 @@
     </div>
     </div>
     
-     <div class="container-fluid" style="position:relative;top:3em;margin-bottom:60px;">
+     <div class="container-fluid" style="position:relative;top:1em; margin-bottom:40px;">
        <div class="row">
-       <div class="col-md-5">
-         <h5 style="font-size:0.95em;padding-left: 25px; color: white;">Policies: <a href=""  style="text-decoration:none; color: black;"> Return Policy </a>|<a href=""  style="text-decoration:none; color: black;"> Terms of use </a>|<a href=""  style="text-decoration:none; color: black;"> Security </a>|<a href=""  style="text-decoration:none; color: black;"> Privacy </a>|<a href=""  style="text-decoration:none; color: black;"> Infringement</a></h5>
-       </div>
-       <div class="col-md-3">
-         <h5 style="font-size:0.95em; color: white;">&copy; LIFESTYLE STORE</h5>
-       </div>
-       <div class="col-md-4 row contact">
-         <h5 class="col-md-5" style="font-size:0.95em; color: white;">EasyToBuy</h5>
-         <div class="col-md-7">
-           <button class="btn btn-default" style="border-radius:50%;width:40px;height:40px; background: #2874f0; color: white;"><i class="fa fa-facebook-f"></i></button>&nbsp;
-            <button class="btn btn-default" style="border-radius:50%;width:40px;height:40px; background: rgb(18, 55, 205); color: white;"><i class="fa fa-twitter"></i></button>&nbsp;
-            <button class="btn btn-default" style="border-radius:50%;width:40px;height:40px; background: rgb(16, 217, 29); color: white;"><i class="fa fa-google"></i></button>&nbsp;
-            <button class="btn btn-default" style="border-radius:50%;width:40px;height:40px; background: red; color: white;"><i class="fa fa-youtube"></i></button>&nbsp;
-         </div>
+       <div class="flogo">
+        <img src="../assets/images/logo/Logo.jpg" class="logoimg" alt="">
        </div>
       </div>
      </div>
-         <hr>
+      <hr>
       </footer>
 </section>
-
-
+</div>

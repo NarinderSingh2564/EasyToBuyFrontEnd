@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+/* 
 .main-bodys{
    min-height: 100vh;
    background: rgb(228, 228, 228);
@@ -100,14 +100,39 @@ li {
     font-weight: 500;
 }
 
-.war{
-   padding-left: 5%;
-   padding-right: 5%;
+
+*/
+
+.content{
+    padding-left: 40px;
+    padding-right: 40px;
+}
+.container{
+    min-height: 45vh;
+    width: 40vw;
+    background: white;
+    margin-top: 50px;
+    border: 2px solid white;
+    border-radius: 0.5rem;
 }
 
-.accCard{
-    min-height: 40vh;
+.card-headers{
+    margin: 0;
+    height: 6vh;
+    margin-left: -2px;
+    margin-right: -2px;
+    margin-top: -2px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 5px 10px 5px 10px;
+    background: linear-gradient(to right, #42655c , rgb(226, 226, 93)); 
+    color: white;
 }
+
+.war{
+    padding-left: 5%;
+    padding-right: 5%;
+ }
 
 .check{
    height: 24px;
@@ -119,4 +144,117 @@ li {
     width: 150px;
     height: 40px;
     font-weight: 600;
+} 
+
+
+
+
+.main{
+    background: #a2c0af;
+    min-height: 95vh;
+}
+
+.card {
+    position: relative;
+    height: 65vh;
+    width: 45vw;
+    background-color: #fff;
+    border: 0 solid white;
+    border-radius: 0.5rem;
+    margin-left: 5%;
+    top: 50px;
+}
+
+.card-header{
+    padding: 5px 10px 5px 10px;
+    background: linear-gradient(to right, #42655c , rgb(226, 226, 93)); 
+    color: white;
+}
+
+.card-body {
+    padding: 1rem 1.5rem;
+}
+
+.row {
+    padding-left: 15px;
+}
+
+.form-label, .col-form-label {
+    text-transform: uppercase;
+}
+
+.form-label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #566a7f;
+}
+
+.form-control {
+    width: 90%;
+    padding: 0.4375rem 0.475rem;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    line-height: 1.53;
+    color: #0b0b0b;
+    background: #fff;
+    -webkit-box-shadow: none;
+    border-color: #a9abaa;
+    box-shadow: none;
+}
+
+.form-control:hover{
+    border-color:#42655c;
+}
+
+.form-select{
+    width: 90%;
+    padding: 0.3375rem 0.475rem;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    color: #0b0b0b;
+    background: #fff;
+    border-color: #a9abaa;
+   -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.form-select:hover{
+    border-color:#42655c;
+}
+
+input[type="text" i] {
+    padding-block:4px;
+    padding-inline: 2px;
+}
+
+.profbtn{
+    margin-left: 3%;
+}
+
+.savebtn{
+    padding: 6px 6px 6px 6px;
+    outline-style: none;
+    font-weight: 500;
+    color: white;
+    border-radius: 5px;
+    background:#51715f; 
+}
+
+.resetbtn{
+    padding: 6px 10px 6px 10px;
+    outline-style: none;
+    color: white;
+    font-weight: 500;
+    border-radius: 5px;
+    background:#c03239; 
+}
+
+.Accountdel{
+    padding: 6px 10px 6px 10px;
+    outline-style: none;
+    color: white;
+    font-weight: 500;
+    border-radius: 5px;
+    background: #c03239; 
+    margin-left: 2%;
 }

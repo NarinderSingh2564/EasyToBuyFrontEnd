@@ -66,5 +66,13 @@ export class ProductService {
   getProductSliderItemsByCategoryId(categoryId: number, productId: number) {
     return this.http.get("https://localhost:7239/api/Product/GetProductSliderItemsByCategoryId?categoryId=" + categoryId + "&productId=" + productId )
   }
+
+    checkVariationImagesCountById(variationId:number){
+    return this.http.get("https://localhost:7239/api/Product/CheckVariationImagesCountById?variationId=" + variationId)
+  }
+  
+  deleteProductVariationImage(imageId : number){
+    return this.http.delete("https://localhost:7239/api/Product/DeleteProductVariationImage?imageId=" + imageId)
+  }
   
 }

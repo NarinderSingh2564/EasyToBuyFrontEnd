@@ -4,7 +4,7 @@
 }
 
 .navbar{
-  background: #549181;
+  background:#61887e;
 }
 
 .myoutlet{
@@ -118,3 +118,7 @@
     margin-bottom: auto;
   }
 
+  .logoimg{
+    height: 50px;
+    width: 180px;
+  }

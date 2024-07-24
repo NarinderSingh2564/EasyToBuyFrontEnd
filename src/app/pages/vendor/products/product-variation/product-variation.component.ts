@@ -28,11 +28,11 @@ export class ProductVariationComponent implements OnInit {
   productWeightList: any = [];
   productPackingList: any = [];
   isFormValid: boolean = false;
+  productWeightValue: any
 
   constructor() {
     this.variationForm = this.formBuilder.group({
       id: new FormControl(0),
-      productId: new FormControl(0, [Validators.required]),
       productPackingId: new FormControl(null, [Validators.required]),
       quantity: new FormControl("", [Validators.required]),
       productWeightId: new FormControl(null, [Validators.required]),
@@ -41,8 +41,7 @@ export class ProductVariationComponent implements OnInit {
       discountPrice: new FormControl(null, [Validators.required]),
       priceAfterDiscount: new FormControl(null, [Validators.required]),
       stockQuantity: new FormControl(null, [Validators.required]),
-      showProductWeight: new FormControl(false),
-      isActive: new FormControl(false),
+      totalVolume: new FormControl({ value: '', disabled: true, }),
     })
   }
 
@@ -56,11 +55,20 @@ export class ProductVariationComponent implements OnInit {
       this.variationForm.patchValue(this.variationToEdit)
       this.variationForm.controls['productPackingId'].disable();
       this.variationForm.controls['productWeightId'].disable();
+      const totalVolume = (this.variationToEdit.quantity * this.variationToEdit.stockQuantity * (this.packingModeId == 1 ? this.variationToEdit.productWeightValue : 1)).toFixed(this.packingModeId == 1 ? 2 : 0)
+      this.variationForm.controls['totalVolume'].patchValue(totalVolume)
     }
   }
 
   get controls() {
     return this.variationForm.controls;
+  }
+
+  clearControls(){
+    this.isFormValid = false
+    this.variationForm.reset()
+    this.variationForm.controls['productPackingId'].enable();
+    this.variationForm.controls['productWeightId'].enable();
   }
 
   disableChildComponent() {
@@ -74,12 +82,12 @@ export class ProductVariationComponent implements OnInit {
   }
 
   getProductPackingList() {
-    this.productService.getProductPackingList().subscribe((result:any) => {
-      this.productPackingList = result.filter((t: {packingModeId : any}) => t.packingModeId == this.packingModeId)
+    this.productService.getProductPackingList().subscribe((result: any) => {
+      this.productPackingList = result.filter((t: { packingModeId: any }) => t.packingModeId == this.packingModeId)
     })
   }
 
-  onChange(type: any) {
+  onPackingTypeChange(type: any) {
     if (type.target.value != "")
       if (type.target.value != 8) {
         this.variationForm.controls['quantity'].disable();
@@ -91,15 +99,19 @@ export class ProductVariationComponent implements OnInit {
       }
   }
 
-  // key(e: any) {
-  //   if (e.key == 'ArrowUp' || e.key == 'ArrowDown' || e.key == 'Backspace') {
-  //     return true;
-  //   }
-  //   else {
-  //     e.preventDefault();
-  //     return false;
-  //   }
-  // }
+  onProductWeightChange(event: any) {
+    this.productWeightValue = this.productWeightList.filter((t: { id: any }) => t.id == event.target.value)[0].productWeightValue
+  }
+
+  calculateTotalVolume() {
+    if(this.variationToEdit.length == 0){
+      var totalVolume = (this.variationForm.controls['quantity'].value * this.variationForm.controls['stockQuantity'].value * (this.packingModeId == 1 ? this.productWeightValue : 1)).toFixed(this.packingModeId == 1 ? 2 : 0)
+    }
+    else{
+      var totalVolume = (this.variationToEdit.quantity * this.variationForm.controls['stockQuantity'].value * (this.packingModeId == 1 ? this.variationToEdit.productWeightValue : 1)).toFixed(this.packingModeId == 1 ? 2 : 0)
+    }
+    this.variationForm.controls['totalVolume'].patchValue(totalVolume)
+  }
 
   calculateDiscountPrice() {
     const priceAfterDiscount: any = Number((this.variationForm.value.mrp - (this.variationForm.value.mrp * this.variationForm.value.discount / 100))).toFixed(1)
@@ -121,7 +133,7 @@ export class ProductVariationComponent implements OnInit {
     }
     else {
       const variation: any = {
-        id: this.variationForm.value.id,
+        id: this.variationForm.value.id == null ? 0 : this.variationForm.value.id,
         productId: this.activeProductId,
         productPackingId: Number(this.variationForm.controls['productPackingId'].value),
         quantity: this.variationForm.controls['quantity'].value,
@@ -138,9 +150,9 @@ export class ProductVariationComponent implements OnInit {
         alert(result.message)
         if (result.status) {
           this.isFormValid = false
-          this.variationForm.reset()
         }
       })
     }
   }
+  
 }

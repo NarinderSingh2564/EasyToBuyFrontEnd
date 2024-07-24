@@ -30,7 +30,6 @@ export class ProductsComponent implements OnInit {
   productVariationList: any = [];
   variationImagesList: any = []
   productSpecificationList: any = [];
-  previews: string[] = [];
   variationDetails: any = []
   productImageName: string = '';
   packingModeId: number = 0
@@ -68,7 +67,7 @@ export class ProductsComponent implements OnInit {
   clearControls() {
     this.isFormValid = false
     this.showSubCards = false
-    this.previewImage = false
+    this.previewImage = ''
     this.productForm.reset()
     this.productForm.controls['categoryId'].enable()
   }
@@ -147,24 +146,26 @@ export class ProductsComponent implements OnInit {
       formData.set("vendorId", this.accountService.getUserId());
       formData.set("productName", this.productForm.value.productName);
       formData.set("productDescription", this.productForm.value.productDescription);
-      formData.set("ProductImage", this.productRealImage);
-      formData.set("ProductImageName", this.productImageName);
+      formData.set("productImage", this.productRealImage);
+      formData.set("productImageName", this.productImageName);
       formData.set("categoryId", this.productForm.value.categoryId == undefined ? this.productForm.controls['categoryId'].value : this.productForm.value.categoryId);
       formData.set("totalVolume", this.productForm.value.totalVolume);
       formData.set("packingModeId", this.productForm.value.packingModeId);
       formData.set("createdBy", this.accountService.getUserId());
       formData.set("updatedBy", this.accountService.getUserId());
-      formData.set("isActive", this.productForm.value.isActive == null ? "false" : "true");
+      formData.set("isActive", this.productForm.value.isActive);
+      
+      formData.forEach(entries => console.log(entries));
 
-      this.productService.productAddEdit(formData).subscribe((result: any) => {
-        if (result.status) {
-          alert(result.message);
-          if (!this.showSubCards) {
-            this.showForm = false
-          }
-          this.getProductList()
-        }
-      });
+      // this.productService.productAddEdit(formData).subscribe((result: any) => {
+      //   if (result.status) {
+      //     alert(result.message);
+      //     if (!this.showSubCards) {
+      //       this.showForm = false
+      //     }
+      //     this.getProductList()
+      //   }
+      // });
     }
   }
 

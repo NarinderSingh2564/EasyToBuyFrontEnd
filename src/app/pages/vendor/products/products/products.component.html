@@ -70,7 +70,7 @@
                                         <div class="col-md-6">
                                             <label for="">Product Image</label>
                                             <input type="file" formControlName="productImage" class="form-control"
-                                                accept="image/png, image/jpg, image/jpeg" (change)="uploadFile($event)">
+                                                accept="image/png, image/jpg, image/jpeg" (input)="uploadFile($event)">
                                             <div *ngIf="isFormValid && controls['productImage'].errors">
                                                 <div *ngIf="controls['productImage'].errors['required']"
                                                     class="text-danger">
@@ -192,7 +192,7 @@
                                     <th width="15%">Packing Type</th>
                                     <th>Weight</th>
                                     <th>MRP</th>
-                                    <th>Dis (%)</th>
+                                    <th>Discount</th>
                                     <th>Rate</th>
                                     <th>Stock Qty.</th>
                                     <th *ngIf="packingModeId == 1">Total Vol (kg)</th>
@@ -206,11 +206,10 @@
                             <tbody>
                                 <tr *ngFor="let variation of productVariationList;index as i">
                                     <td>{{i+1}}</td>
-                                    <td>{{variation.packingType}}<br><span *ngIf="variation.quantity > 1">(Pack of
-                                            {{variation.quantity}})</span></td>
+                                    <td>{{variation.packingType}}<br><span *ngIf="variation.quantity > 1">(Pack of {{variation.quantity}})</span></td>
                                     <td>{{variation.productWeight}}</td>
                                     <td>{{variation.mrp | currency:'INR'}}</td>
-                                    <td>{{variation.discount}}</td>
+                                    <td>{{variation.discount}}%</td>
                                     <td>{{variation.priceAfterDiscount | currency:'INR'}}</td>
                                     <td>{{variation.stockQuantity}}</td>
                                     <td *ngIf="packingModeId == 1">{{variation.stockQuantity *

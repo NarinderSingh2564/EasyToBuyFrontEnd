@@ -4,7 +4,7 @@
 }
 
 .Product-Image-Description{
-max-height: 50%;
+min-height:60vh;
 margin-top: 3%;
 padding-bottom: 20px;
 }
@@ -12,8 +12,8 @@ padding-bottom: 20px;
 .imageList{
 list-style: none;
 margin: 8px;
-max-width: 80px;
-max-height: 85px;
+max-width: 6vw;
+max-height: 15vh;
 border: 2px solid gray;
 overflow: hidden;
 }
@@ -27,7 +27,6 @@ padding-left: 60px;
 padding-top: 30px;
 padding-bottom: 60px;
 max-height: 50%;
-
 }
 
 
@@ -44,13 +43,13 @@ padding: 4px;
 border: 1px solid #ddd; 
 margin-right: auto;
 margin-left: auto;
-max-width: 120%;
-max-height: 300px;
+max-width: 40vw;
+max-height: 40vh;
 padding-bottom: 10px;
 }
 
 .imageButtons{
-width: 120%;
+width: 50vw;
 padding-left: 25%;
 }
 
@@ -58,7 +57,7 @@ padding-left: 25%;
 background-color:#fb531b; 
 color:#fff; 
 font-size:15px;
-width: 200px;
+width: 15vw;
 height: 50px;
 border-radius: 8px;
 border-color: #fb531b;
@@ -68,7 +67,7 @@ border-color: #fb531b;
 background-color:rgb(52, 115, 34); 
 color:#fff; 
 font-size:15px;
-width: 200px;
+width: 15vw;
 padding: 5px;
 height: 50px;
 margin-left: 2%;
@@ -93,7 +92,8 @@ max-height: 50%;
 .Products-Specification{
 margin-top: 1%;
 padding-bottom:10px;
-min-height: 90vh;
+min-height: 75vh;
+width: 98vw;
 }
 
 .myspec{
@@ -106,6 +106,7 @@ margin-left: 50px;
 border: 1px solid rgb(156, 155, 155);
 border-radius: 4px;
 padding: 20px 20px 20px 20px ;
+width: 45vw;
 }
 
 .panel-footer{
@@ -129,14 +130,14 @@ font-weight: 500;
 }
 
 .Products-Image-Slider{
-padding-top: 10px;
-padding-bottom:20px;
-min-height: 80vh;
-background: rgb(211, 211, 211);
-}
+padding-left: 20px;
+padding-right: 20px;
+height: 60vh;
+width:98vw;
+} 
 
 .Product-Description-Footer{
-padding-top: 20px;
+padding-top: 10px;
 min-height: 40vh;
 max-height: 40%;
 }
@@ -167,6 +168,17 @@ border: 2px solid gray;
 overflow: hidden;
 }
 
+.footlogo{
+  text-align: right;
+  padding-right: 40px;
+}
+
+.logoimgfooter{
+  height: 10vh;
+  width: 180px;
+ 
+}
+
 #lens { background-color: rgba( 233, 233, 233, 0.4 )}
 #lens, #result { position: absolute; display: none; z-index: 1; }
 .slideshow-items { display: none; }
@@ -175,24 +187,32 @@ overflow: hidden;
 .slideshow-thumbnails.active { opacity: 1; }
 #lens, .slideshow-items, .slideshow-thumbnails, #result { border: solid var(--light-grey-2) 1px; }
 
-.card{
-
+.varcard{
   height: 65px;
-  width:115px;
-  box-shadow: 2px 2px 5px #6b8982;
+  width:110px;
+  border: 2px solid #538a7c;
+  box-shadow: 2px 2px 5px #a0aeab;
+}
+ 
+.varcard:hover{
+ transform: scale(1.1); 
+} 
+
+.defaultcards{
+  box-shadow: 2px 2px 5px #a0aeab;
+  width:110px;
 }
 
-.card:hover{
-  border: 2px solid #61887e;
- transform: scale(1.1); 
-}
+.defaultcards:hover{
+  transform: scale(1.1); 
+ } 
 
 .sidepannels{
-margin-right: 5%;
+margin-right: 22px;
 }
 
 .card-body{
-  padding: 5px 10px 10px 10px;
+  padding: 5px 5px 5px 5px;
 }
 
 .text-per{
@@ -200,3 +220,130 @@ margin-right: 5%;
   font-size: 16px;
   font-weight: 700;
 }
+
+ /* SLIDER FOR IMAGES  */
+
+ .wrapper {
+  position: relative;
+  margin-left: 19px;
+  margin-right: 19px;
+  border: 1.5px solid #cdcdcd;
+  border-radius: 4px;
+}
+
+
+.owl-item {
+  height: 60vh;
+  width: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+/* Feel free to change duration  */ 
+.animated  {
+  -webkit-animation-duration : 10 ms  ;
+  animation-duration : 10 ms  ;
+  -webkit-animation-fill-mode : both  ;
+  animation-fill-mode : both  ;
+}  
+/* .owl-animated-out - only for current item */ 
+/* This is very important class. Use z-index if you want move Out item above In item */ 
+.owl-animated-out {
+  z-index : 0 
+   }
+/* .owl-animated-in - only for upcoming item
+/* This is very important class. Use z-index if you want move In item above Out item */ 
+.owl-animated-in {
+  z-index : 0 
+   }
+/* .fadeOut is style taken from Animation.css and this is how it looks in owl.carousel.css:  */ 
+.fadeOut  {
+  -webkit-animation-name : fadeOut  ;
+  animation-name : fadeOut  ;
+}  
+@-webkit-keyframes  fadeOut  {
+  0% {
+    opacity : 1   ;
+  }  
+  100% {
+    opacity : 0   ;
+  }  
+}
+@keyframes  fadeOut  {
+  0% {
+    opacity : 1   ;
+  }  
+  100% {
+    opacity : 0   ;
+  }  
+}
+
+.slidecards{
+  margin-top: 10px;
+  height:38vh; 
+  width:17vw;
+  border: none;
+  margin: auto;
+}
+
+.imgcard{
+  top: 1px;
+  text-decoration: none;
+  border: none;
+  width: 15vw;
+  padding-right: 5px;
+  transform: scale(1.1);
+}
+
+.ProDesc{
+  display: -webkit-box;
+  max-width: 18vw;
+  top: 3vh;
+  padding-left: 6px;
+  padding-right: 6px;
+  font-size: 14px;
+  -webkit-line-clamp: 2;
+  line-height: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: none;
+}
+
+.rating-pro{
+ width: 10vw;
+ font-size: 14px;
+ padding-left: 10px;
+ margin-top: 30px;
+}
+
+.peopleRatings{
+  color: #7e7e7e;
+  font-weight: 500;
+}
+
+.pricedetails{
+  margin-top: 10px;
+  font-weight: 500;
+  text-align: left;
+  padding-bottom: 10px;
+}
+.spnProductPrice{
+  font-size: m-large;
+}
+
+.spnMRP{
+  font-size: small;
+  color: #7e7e7e;
+  font-weight:500;
+}
+
+.discount {
+  color: #f50f0fc7;
+  padding: 0px 0px 0px 4px;
+  font-size: 16px;
+  font-weight:650;
+}
+
+

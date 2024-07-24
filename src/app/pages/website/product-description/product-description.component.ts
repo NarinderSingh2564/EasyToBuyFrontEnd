@@ -5,12 +5,13 @@ import { CommonModule } from '@angular/common';
 import { AccountService } from '../../../services/account.service';
 import { CartService } from '../../../services/cart.service';
 import { EasyToBuyHelper } from '../../../helpers/EasyToBuyHelper';
-
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-product-description',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule,CarouselModule ,RouterLink],
   templateUrl: './product-description.component.html',
   styleUrl: './product-description.component.css'
 })
@@ -21,12 +22,16 @@ export class ProductDescriptionComponent {
   ActiveProductId: number = 0;
   ActiveVariationId:number = 0;
   ProductDescription: any;
+  SliderItems: any;
   buttonText: string = "Add To Cart"
   ProductVariationList: any = [];
   ProductSpecification: any = [];
   ProductVariationImage: any = [];
   VariationDetail: any = [];
   selectedVariationId: any;
+  selectedCategoryId : any;
+  selectedProductId : any;
+  checkId: number = 0;
 
   accountService = inject(AccountService)
   cartService = inject(CartService)
@@ -58,24 +63,22 @@ export class ProductDescriptionComponent {
     this.getProductVariationList()
     this.getProductSpecification()
     this.getProductVariationImage()
+    this.getSliderItems()
     
-    if (this.accountService.getUserId() > 0) {
-      this.cartService.CheckProductInCart(this.selectedVariationId, this.accountService.getUserId()).subscribe((result: any) => {
-        if (result.status) {
-          this.buttonText = "Go To Cart"
-        }
-        else {
-          this.buttonText = "Add To Cart"
-        }
-      })
-    }
   }
 
   getProductDescription() {
     this.productService.getProductDescriptionById(this.ActiveProductId).subscribe((result:any) => {
       this.ProductDescription = result
+      this.selectedCategoryId = this.ProductDescription.categoryId
+      this.selectedProductId = this.ProductDescription.id
       this.mainImage = this.ProductDescription
-      this.selectedImage = this.baseUrl + this.mainImage['productImage']
+      this.selectedImage = this.baseUrl + this.mainImage.productImage
+      
+      this.productService.getProductSliderItemsByCategoryId(this.selectedCategoryId,this.selectedProductId).subscribe(result => {
+        this.SliderItems = result
+      })
+      
     })
   }
 
@@ -85,6 +88,7 @@ export class ProductDescriptionComponent {
       this.ProductVariationList =  this.ProductVariationList.filter((t: { isActive: any; })=>t.isActive == 1)
       this.variationObj =  this.ProductVariationList.filter((t: { setAsDefault: any; })=>t.setAsDefault == 1)[0];
       this.defaultVariationId = this.variationObj['id']
+      this.checkId = this.ProductVariationList.filter((t: { setAsDefault: any; })=>t.setAsDefault == 1)[0].id;
     })
   }
 
@@ -101,7 +105,7 @@ export class ProductDescriptionComponent {
   }
 
   getVariationDetails(VariationDes: any){
-    if(VariationDes.stockQuantity != 0){
+    this.checkId = VariationDes.id;
       this.ProductDescription.priceAfterDiscount = VariationDes.priceAfterDiscount;
       this.ProductDescription.mrp = VariationDes.mrp;
       this.ProductDescription.discount= VariationDes.discount;
@@ -110,8 +114,6 @@ export class ProductDescriptionComponent {
       this.productService.getProductVariationImageById(VariationDes.id).subscribe(result => {
         this.ProductVariationImage = result
       })
-      
-    }
   }
   
   AddToCart(productId: number, id: number) {
@@ -125,13 +127,7 @@ export class ProductDescriptionComponent {
       }
    
       this.cartService.addToCart(cart).subscribe((result: any) => {
-        if (result.status) {
           alert(result.message)
-        }
-        this.buttonText = "Go To Cart"
-        if (!result.status) {
-          this.router.navigate(['/customer-cart']);
-        }
         this.cartService.updateCart$?.next(true);
         this.cartService.updateCartCount$?.next(true);
       })
@@ -139,6 +135,35 @@ export class ProductDescriptionComponent {
     else {
       alert("Login to add products to cart")
     }
+  }
+
+  getSliderItems() {
+    this.productService.getProductSliderItemsByCategoryId(this.selectedCategoryId,this.selectedProductId).subscribe(result => {
+      this.SliderItems = result
+    })
+  }
+
+  positinOptions: OwlOptions = {
+    loop: true,
+    autoplay: false,
+    dots: false,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    navSpeed: 600,
+    navText: ['<i class="fa fa-caret-left"></i>', '<i class="fa fa-caret-right"></i>'],
+    responsive: {
+      0: {
+        items: 1,
+      },
+      600: {
+        items: 4,
+      },
+      1000: {
+        items: 5,
+      }
+    },
+     nav: true,
   }
 
 }

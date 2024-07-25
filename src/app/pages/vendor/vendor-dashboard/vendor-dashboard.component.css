@@ -36,7 +36,9 @@
  padding-top: 15px;
 }
 
-
+.mycol{
+  font-weight: 600;
+}
   
 
  .myCard {
@@ -49,17 +51,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
-  background: #3b6a5e;
+  color: #3b6a5e;
+  background: white;
 } 
 
 .myCard:hover::before {
   content: " ";
-  background: conic-gradient(rgb(0, 83, 0) 90deg,transparent 110deg);
+  background: conic-gradient(#61887e 100deg,transparent 100deg);
   width: 300%;
   height:280%;
   position: absolute;
   background-color: white;
+  border: 2px solid white;
   animation: rotate 2s linear infinite;
 }
 
@@ -68,7 +71,7 @@
   content:"";
   height: 110px;
   width: 280px;
-  background: #3b6a5e;
+  background: white;
   position: absolute;
   border-radius: 10px;
   display: flex;

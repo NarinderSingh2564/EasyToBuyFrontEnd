@@ -72,10 +72,13 @@
             <div class="col-md-6">
                 <label for="">Discount(%)</label>
                 <input type="number" class="form-control" min="0" max="100" formControlName="discount"
-                    (input)="calculateDiscountPrice();calculatePriceAfterDiscount">
+                    (input)="calculateDiscountPrice();calculatePriceAfterDiscount" #discount>
                 <div *ngIf="isFormValid && controls['discount'].errors">
                     <div *ngIf="controls['discount'].errors['required']" class="text-danger">
                         Discount is required.
+                    </div>
+                    <div *ngIf="discount.value >= '100'" class="text-danger">
+                       Dicount must be less than 100.
                     </div>
                 </div>
             </div>

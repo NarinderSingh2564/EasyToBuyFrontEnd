@@ -65,11 +65,14 @@ export class ProductsComponent implements OnInit {
   }
 
   clearControls() {
-    this.isFormValid = false
-    this.showSubCards = false
-    this.previewImage = ''
+    this.productForm.controls['id'].patchValue(0);
     this.productForm.reset()
     this.productForm.controls['categoryId'].enable()
+    // this.isFormValid = false
+    // this.showSubCards = false
+    // this.previewImage = ''
+    // this.productImageName = ''
+    // this.packingModeId = 0
   }
 
   closeProductForm() {
@@ -84,6 +87,7 @@ export class ProductsComponent implements OnInit {
     this.productForm.reset()
     this.isFormValid = false
     this.previewImage = ''
+    this.productImageName = ''
     this.getCategoryList();
     this.productForm.controls['categoryId'].enable()
   }
@@ -118,6 +122,8 @@ export class ProductsComponent implements OnInit {
 
   onCategoryChange(event: any) {
     this.productForm.controls['packingMode'].patchValue(this.categoryList.filter((t: { id: any; }) => t.id == event.target.value)[0].packingMode)
+    this.productForm.controls['packingModeId'].patchValue(this.categoryList.filter((t: { id: any; }) => t.id == event.target.value)[0].packingModeId)
+    this.packingModeId = this.categoryList.filter((t: { id: any; }) => t.id == event.target.value)[0].packingModeId
   }
 
   uploadFile(event: any) {
@@ -134,7 +140,7 @@ export class ProductsComponent implements OnInit {
       }
     }
   }
-
+   
   ProductAddEdit() {
     this.isFormValid = true
     if (this.productForm.invalid) {
@@ -153,19 +159,20 @@ export class ProductsComponent implements OnInit {
       formData.set("packingModeId", this.productForm.value.packingModeId);
       formData.set("createdBy", this.accountService.getUserId());
       formData.set("updatedBy", this.accountService.getUserId());
-      formData.set("isActive", this.productForm.value.isActive);
+      formData.set("isActive", this.productForm.value.isActive == null ? "false" : "true");
       
       formData.forEach(entries => console.log(entries));
 
-      // this.productService.productAddEdit(formData).subscribe((result: any) => {
-      //   if (result.status) {
-      //     alert(result.message);
-      //     if (!this.showSubCards) {
-      //       this.showForm = false
-      //     }
-      //     this.getProductList()
-      //   }
-      // });
+      this.productService.productAddEdit(formData).subscribe((result: any) => {
+        if (result.status) {
+          alert(result.message);
+          this.isFormValid = false;
+          if (!this.showSubCards) {
+            this.showForm = false
+          }
+          this.getProductList()
+        }
+      });
     }
   }
 

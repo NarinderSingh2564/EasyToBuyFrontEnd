@@ -1,9 +1,18 @@
+.section{
+  min-height: 100vh;
+  background-size: cover;
+}
+
 .navbar{
   background:#61887e;
 }
 
 .myoutlet{
   background: rgb(229, 228, 228);
+}
+.logoimg{
+  height: 45px;
+  width: 180px;
 }
 
 .navbar-brand{

@@ -1,3 +1,7 @@
+.main{
+height: 7vh;
+}
+
 .navbar{
   background: #61887e;
 }
@@ -12,7 +16,7 @@
 }
 
 .logoimg{
-  height: 50px;
+  height: 8vh;
   width: 180px;
 }
 

@@ -1,5 +1,4 @@
 <section class="Product-Image-Description">
-    
   <div class="row" >
        <div class="col-md-1 myside">
          <ul class="thumblist2">
@@ -14,7 +13,7 @@
 
        <div class="col-md-4 MainImage" id="myimagehover">
           <div id='lens'></div>
-           <img [src]="selectedImage"   alt="" class="slideshow-items active" >
+           <img [src]="selectedImage" alt="" class="slideshow-items active" >
            <div id='result'></div>
        </div>
        
@@ -37,8 +36,10 @@
        <h5>Pack Size</h5>
        <div class="row">
         <div class="col-md-2 sidepannels" *ngFor="let items of  ProductVariationList"> 
-          <div class="card mt-2" (click)="getVariationDetails(items)">
-        <div class="card-body">
+
+        <div [ngClass]="items.id == checkId  ? 'card varcard mt-2': 'card defaultcards mt-2' " (click)="getVariationDetails(items)">
+       
+          <div class="card-body">
          <p *ngIf="items.quantity == 1"><strong>{{items.productWeight}}</strong></p>
          <p *ngIf="items.quantity > 1"><strong>{{items.quantity}} * {{items.productWeight}}</strong></p>
          @if(items.stockQuantity == 0){
@@ -48,11 +49,12 @@
           <p class="myrate pt-1"><span style="font-weight: 500">&#8377;{{items.priceAfterDiscount}}</span></p>
          }
         </div>
+
        </div>
       </div>
     </div>
 
-      <div class="row pt-5"> 
+      <!-- <div class="row pt-5"> 
         <div class="col-md-1">
           <strong>Delivery</strong>
         </div>
@@ -66,7 +68,7 @@
       <div id="delivery-time" style="position:relative;left:15%;">
           <h6>Delivery in 1 days | <a href="" style="color:green;text-decoration:none;">Free</a></h6>
       </div>
-     </div>
+     </div> -->
     </div>
   </div>
 </section>
@@ -100,9 +102,7 @@
           <tr><td class="col-md-4 tdhead">Benefits</td>  <td class="col-md-8 tdbot">{{ProductSpecification.benefits}}</td></tr>
        
         </tbody>
-        
       </table>
-    
     </div>
     <!-- <div class="panel-footer pt-2">
       <h5>PRODUCT DESCRIPTION</h5>
@@ -113,11 +113,51 @@
 </div>
 </section>
 
-<!-- <section class="Products-Image-Slider">
-  <h3>Products Slider </h3>
-</section> -->
+@if(SliderItems != 0){
+ <section class="Products-Image-Slider">
+  <h3 style="color: #456d63; text-align: center; padding-bottom: 15px; padding-top: 10px;">Similar Products</h3>
+  <div class="wrapper">
+    <owl-carousel-o [options]="positinOptions">
+      <ng-container>
+      <ng-template class="slide" carouselSlide *ngFor="let PSlider of  SliderItems">
+         <div class="card slidecards">
+          <div class="card-body slideinnerbody" >
+             <div class="card imgcard">
+             <img [src]="baseUrl + PSlider.productImage " height="120">
+             </div>
+
+             <div class="card ProDesc">
+             <p><small>{{PSlider.productDescription}}</small></p>
+              </div>
+
+              <div class="rating-pro">
+                <div class="row">
+                <div class="col-md-5">
+                  <span class="labels1">4.6 <span class="bi bi-star-fill"></span></span> 
+                </div>
+                <div class="col-md-5 peopleRatings">(73) </div>
+              </div>
+             </div>
+
+              <div class="row text-center pricedetails">
+                <div class="col-md-12">
+                  <span class="spnProductPrice">{{PSlider.priceAfterDiscount}}</span>/
+                  <span class="spnMRP">{{PSlider.packingMode}}</span>&nbsp;
+                  <span class="spnMRP">M.R.P:<span class="actualPrice" >₹{{PSlider.mrp}}</span></span>
+                  <span class="discount">{{PSlider.discount}}%off</span>
+                </div>
+              </div>
+          </div>
+         </div>
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>  
+  </div>
+</section> 
+}
 
 <section class="Product-Description-Footer">
+
   <footer class="page-footer container-fluid col-md-12" style="top: 5em; background: #61887e; ">
     <hr>
     <div class="container" style="max-width: 1240px;">
@@ -154,27 +194,14 @@
     </div>
     </div>
     
-    <div class="container-fluid" style="position:relative;top:3em;margin-bottom:60px;">
-      <div class="row">
-      <div class="col-md-5">
-        <h5 style="font-size:0.95em;padding-left: 25px; color: white;">Policies: <a href=""  style="text-decoration:none; color: black;"> Return Policy </a>|<a href=""  style="text-decoration:none; color: black;"> Terms of use </a>|<a href=""  style="text-decoration:none; color: black;"> Security </a>|<a href=""  style="text-decoration:none; color: black;"> Privacy </a>|<a href=""  style="text-decoration:none; color: black;"> Infringement</a></h5>
+    <div class="container-fluid" style="top:1em;margin-bottom:30px;">
+      <div class="footlogo">
+        <img src="../assets/images/logo/Logo.jpg" class="logoimgfooter" alt="">
       </div>
-      <div class="col-md-3">
-        <h5 style="font-size:0.95em; color: white;">&copy; LIFESTYLE STORE</h5>
-      </div>
-      <div class="col-md-4 row contact">
-        <h5 class="col-md-5" style="font-size:0.95em; color: white;">EasyToBuy</h5>
-        <div class="col-md-7">
-          <button class="btn btn-default" style="border-radius:50%;width:40px;height:40px; background: #2874f0; color: white;"><i class="fa fa-facebook-f"></i></button>&nbsp;
-           <button class="btn btn-default" style="border-radius:50%;width:40px;height:40px; background: rgb(18, 55, 205); color: white;"><i class="fa fa-twitter"></i></button>&nbsp;
-           <button class="btn btn-default" style="border-radius:50%;width:40px;height:40px; background: rgb(16, 217, 29); color: white;"><i class="fa fa-google"></i></button>&nbsp;
-           <button class="btn btn-default" style="border-radius:50%;width:40px;height:40px; background: red; color: white;"><i class="fa fa-youtube"></i></button>&nbsp;
-        </div>
-      </div>
-     </div>
     </div>
     <hr>
   </footer>
 </section>
+
 <script src="/assets/js/ImageMagnifier.js"></script>
 

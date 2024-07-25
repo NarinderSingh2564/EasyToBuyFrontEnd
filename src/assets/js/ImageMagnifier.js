@@ -1,7 +1,5 @@
 $(document).ready(function() {
 
-
-
   $("body").on('mousemove', '#myimagehover',function(e) {
     var x = e.clientX; var y = e.clientY;
     
@@ -51,7 +49,6 @@ function imageZoom( img, result, lens ) {
     result.css('backgroundPosition', '-' + ( x - img.offset().left ) * cx  + 'px -' + ( y - img.offset().top ) * cy + 'px');
   }
 }
-
 
 function changeSlide(elm) {
   $('.slideshow-items').removeClass('active');

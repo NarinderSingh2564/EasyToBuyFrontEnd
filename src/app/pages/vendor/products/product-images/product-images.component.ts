@@ -22,10 +22,10 @@ export class ProductImagesComponent implements OnInit {
   productService = inject(ProductService)
   accountService = inject(AccountService)
 
-  isFormValid: boolean = false
-  ProductVariationList: any = []
   imageList: any = []
-  btnUpload:boolean= false
+  ProductVariationList: any = []
+  btnSubmit:boolean= false
+  isFormValid: boolean = false
   imgCountAlert:boolean = false
   remainingImagesCount : number =0
 
@@ -68,8 +68,8 @@ export class ProductImagesComponent implements OnInit {
   }
 
   selectedImages(event: any) {
-    if(event.target.files.length > 5){
-      alert("You can not upload more than 5 images.")
+    if(event.target.files.length > 3){
+      alert("You can not upload more than 3 images.")
       this.variationImagesForm.controls['images'].reset();
     }
     else if(this.imgCountAlert && event.target.files.length > this.remainingImagesCount){
@@ -77,7 +77,7 @@ export class ProductImagesComponent implements OnInit {
       this.variationImagesForm.controls['images'].reset();
     }
     else{
-      this.btnUpload = true
+      this.btnSubmit = true
       this.imageList = []
       for (var i = 0; i < event.target.files.length; i++) {
         this.imageList.push(event.target.files[i]);

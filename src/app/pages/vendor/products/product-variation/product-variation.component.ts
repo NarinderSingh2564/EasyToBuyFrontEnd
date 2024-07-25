@@ -16,6 +16,7 @@ export class ProductVariationComponent implements OnInit {
 
   @Input() variationToEdit: any;
   @Input() activeProductId: any;
+  @Input() packingModeId: any;
 
   formBuilder = inject(FormBuilder)
   productService = inject(ProductService)
@@ -27,12 +28,11 @@ export class ProductVariationComponent implements OnInit {
   productWeightList: any = [];
   productPackingList: any = [];
   isFormValid: boolean = false;
-  btnText: string = "";
+  productWeightValue: any
 
   constructor() {
     this.variationForm = this.formBuilder.group({
       id: new FormControl(0),
-      productId: new FormControl(0, [Validators.required]),
       productPackingId: new FormControl(null, [Validators.required]),
       quantity: new FormControl("", [Validators.required]),
       productWeightId: new FormControl(null, [Validators.required]),
@@ -41,8 +41,7 @@ export class ProductVariationComponent implements OnInit {
       discountPrice: new FormControl(null, [Validators.required]),
       priceAfterDiscount: new FormControl(null, [Validators.required]),
       stockQuantity: new FormControl(null, [Validators.required]),
-      showProductWeight: new FormControl(false),
-      isActive: new FormControl(false),
+      totalVolume: new FormControl({ value: '', disabled: true, }),
     })
   }
 
@@ -52,17 +51,24 @@ export class ProductVariationComponent implements OnInit {
     this.variationForm.controls['discountPrice'].disable();
     this.variationForm.controls['priceAfterDiscount'].disable();
     this.variationForm.controls['quantity'].disable();
-    this.variationForm.patchValue(this.variationToEdit)
-    if (this.variationToEdit.length == 0) {
-      this.btnText = "Save"
-    }
-    else {
-      this.btnText = "Update"
+    if (this.variationToEdit.length == (null || undefined)) {
+      this.variationForm.patchValue(this.variationToEdit)
+      this.variationForm.controls['productPackingId'].disable();
+      this.variationForm.controls['productWeightId'].disable();
+      const totalVolume = (this.variationToEdit.quantity * this.variationToEdit.stockQuantity * (this.packingModeId == 1 ? this.variationToEdit.productWeightValue : 1)).toFixed(this.packingModeId == 1 ? 2 : 0)
+      this.variationForm.controls['totalVolume'].patchValue(totalVolume)
     }
   }
 
   get controls() {
     return this.variationForm.controls;
+  }
+
+  clearControls(){
+    this.isFormValid = false
+    this.variationForm.reset()
+    this.variationForm.controls['productPackingId'].enable();
+    this.variationForm.controls['productWeightId'].enable();
   }
 
   disableChildComponent() {
@@ -76,14 +82,15 @@ export class ProductVariationComponent implements OnInit {
   }
 
   getProductPackingList() {
-    this.productService.getProductPackingList().subscribe(result => {
-      this.productPackingList = result
+    this.productService.getProductPackingList().subscribe((result: any) => {
+      this.productPackingList = result.filter((t: { packingModeId: any }) => t.packingModeId == this.packingModeId)
     })
   }
 
-  onChange(type: any) {
+  onPackingTypeChange(type: any) {
     if (type.target.value != "")
       if (type.target.value != 8) {
+        this.variationForm.controls['quantity'].disable();
         this.variationForm.controls['quantity'].patchValue(1);
       }
       else {
@@ -92,16 +99,30 @@ export class ProductVariationComponent implements OnInit {
       }
   }
 
+  onProductWeightChange(event: any) {
+    this.productWeightValue = this.productWeightList.filter((t: { id: any }) => t.id == event.target.value)[0].productWeightValue
+  }
+
+  calculateTotalVolume() {
+    if(this.variationToEdit.length == 0){
+      var totalVolume = (this.variationForm.controls['quantity'].value * this.variationForm.controls['stockQuantity'].value * (this.packingModeId == 1 ? this.productWeightValue : 1)).toFixed(this.packingModeId == 1 ? 2 : 0)
+    }
+    else{
+      var totalVolume = (this.variationToEdit.quantity * this.variationForm.controls['stockQuantity'].value * (this.packingModeId == 1 ? this.variationToEdit.productWeightValue : 1)).toFixed(this.packingModeId == 1 ? 2 : 0)
+    }
+    this.variationForm.controls['totalVolume'].patchValue(totalVolume)
+  }
+
   calculateDiscountPrice() {
-    const priceAfterDiscount: any = this.variationForm.value.mrp - (this.variationForm.value.mrp * this.variationForm.value.discount / 100)
-    const discountPrice: any = this.variationForm.value.mrp - priceAfterDiscount
+    const priceAfterDiscount: any = Number((this.variationForm.value.mrp - (this.variationForm.value.mrp * this.variationForm.value.discount / 100))).toFixed(1)
+    const discountPrice: any = Number(this.variationForm.value.mrp - priceAfterDiscount).toFixed(1)
     this.variationForm.controls['priceAfterDiscount'].patchValue(priceAfterDiscount)
     this.variationForm.controls['discountPrice'].patchValue(discountPrice)
     return discountPrice
   }
 
   calculatePriceAfterDiscount() {
-    const priceAfterDiscount: any = this.variationForm.value.mrp - (this.variationForm.value.mrp * this.variationForm.value.discount / 100)
+    const priceAfterDiscount: any = Number(this.variationForm.value.mrp - (this.variationForm.value.mrp * this.variationForm.value.discount / 100)).toFixed(1)
     return priceAfterDiscount
   }
 
@@ -112,32 +133,26 @@ export class ProductVariationComponent implements OnInit {
     }
     else {
       const variation: any = {
-        id: this.variationForm.value.id != null && this.variationForm.value.id > 0 ? this.variationForm.value.id : 0,
+        id: this.variationForm.value.id == null ? 0 : this.variationForm.value.id,
         productId: this.activeProductId,
-        productPackingId: Number(this.variationForm.value.productPackingId),
-        quantity: this.variationForm.value.quantity == undefined ? 1 : this.variationForm.value.quantity,
-        productWeightId: Number(this.variationForm.value.productWeightId),
+        productPackingId: Number(this.variationForm.controls['productPackingId'].value),
+        quantity: this.variationForm.controls['quantity'].value,
+        productWeightId: Number(this.variationForm.controls['productWeightId'].value),
         mrp: this.variationForm.value.mrp,
         discount: this.variationForm.value.discount,
-        discountPrice: this.calculateDiscountPrice(),
-        priceAfterDiscount: this.calculatePriceAfterDiscount(),
-        stockQuantity: this.variationForm.value.stockQuantity,
-        showProductWeight: this.variationForm.value.showProductWeight,
-        isActive: this.variationForm.value.isActive,
+        discountPrice: Number(this.calculateDiscountPrice()),
+        priceAfterDiscount: Number(this.calculatePriceAfterDiscount()),
+        stockQuantity: this.variationForm.controls['stockQuantity'].value,
         createdBy: this.accountService.getUserId(),
         updatedBy: this.accountService.getUserId(),
       }
-      if (this.variationForm.value.productPackingId == "8" && this.variationForm.value.quantity == 1) {
-        alert("Quantity should be more than 1 in case of multipack.")
-      }
-      else {
-        this.productService.productVariationAddEdit(variation).subscribe((result: any) => {
-          alert(result.message)
-          if (result.status) {
-            this.isFormValid = false
-          }
-        })
-      }
+      this.productService.productVariationAddEdit(variation).subscribe((result: any) => {
+        alert(result.message)
+        if (result.status) {
+          this.isFormValid = false
+        }
+      })
     }
   }
+  
 }

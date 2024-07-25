@@ -27,7 +27,6 @@ export class ProductSpecificationComponent implements OnInit {
   accountService = inject(AccountService)
 
   isFormValid: boolean = false
-  btnText:string="Save";
 
   constructor() {
     this.specificationForm = this.formBuilder.group({
@@ -41,11 +40,9 @@ export class ProductSpecificationComponent implements OnInit {
       isActive: new FormControl(false),
     })
   }
+  
   ngOnInit(): void {
     this.specificationForm.patchValue(this.specificationToEdit)
-    if(this.specificationToEdit != null){
-      this.btnText = "Update"
-    }
   }
 
   get controls() {

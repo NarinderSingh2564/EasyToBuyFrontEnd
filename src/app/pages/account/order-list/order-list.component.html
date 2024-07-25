@@ -36,7 +36,7 @@
                         <td>{{order.orderDate | date:'mediumDate'}}</td>
 
                         <td class="abc">
-                            <!-- <img src="https://www.bigbasket.com/media/uploads/p/l/40013625_12-fresho-brown-bread-safe-preservative-free.jpg" alt=""> -->
+                            <img [src]="variationImgUrl + order.productImage" alt=""> 
                               {{order.productName}}&nbsp;({{order.productWeight}})<br>({{order.packingType}})
                         </td>
                         <td>{{order.mrp | currency:'INR'}}</td>

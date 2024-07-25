@@ -1,110 +1,115 @@
 <div class="containers">
-<div class="row">
-    <div class="col-12">
-        <div class="card mt-3">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-6 fs-5 text-white">
-                        Category List
-                    </div>
-                    <div class="col-6 text-end">
-                        <button class="btn btn-sm" (click)="openModal();addCategory()"><b>Add Category</b></button>
-                    </div>
-
-                </div>
-            </div>
-            <div class="card-body">
-                <table class="table table-bordered table-hover table-responsive text-center">
-                    <thead>
-                        <tr>
-                            <th>Sr.No.</th>
-                            <th>Category</th>
-                            <th>Packing Mode</th>
-                            <th>IsActive</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let category of categoryList;let i = index">
-                            <td>{{i+1}}</td>
-                            <td>{{category.categoryName}}</td>
-                            <td>{{category.packingMode}}</td>
-                            @if(category.isActive){
-                            <td>Yes</td>
-                            }
-                            @else{
-                            <td>No</td>
-                            }
-                            <td>
-                                <i class="bi bi-pencil-square" (click)="editCategory(category); openModal()"></i>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal" id="myModal" [ngStyle]="{'display':display}">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-
-            <form autocomplete="off" [formGroup]="categoryForm" (ngSubmit)="CategoryAddEdit()">
-            <div class="modal-header">
-                <h4 class="modal-title" *ngIf="!isEdit"> Add Category</h4>
-                <h4 class="modal-title" *ngIf="isEdit"> Update Category</h4>
-
-                <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeModal()"></button>
-            </div>
-
-            <div class="modal-body">
-                
-                    <input type="hidden" class="form-control" formControlName="id">
-
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-3">
+                <div class="card-header">
                     <div class="row">
-                        <div class="col-12">
-                            <label for="">Category Name</label>
-                            <input type="text" class="form-control" formControlName="categoryName" maxlength="30">
-                            <div *ngIf="isFormValid && controls['categoryName'].errors">
-                                <div *ngIf="controls['categoryName'].errors['required']" class="text-danger">
-                                    Category name is required.
-                                </div>
-                            </div>
+                        <div class="col-6 fs-5 text-white">
+                            Category List
                         </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-12">
-                            <label for="">Packing Mode</label>
-                            <input type="radio" class="form-check-input radio" formControlName="packingMode"
-                                value="kg"><span>Kg</span>
-                            <input type="radio" class="form-check-input radio" formControlName="packingMode"
-                                value="item"><span>Item</span>
-                            <div *ngIf="isFormValid && controls['packingMode'].errors">
-                                <div *ngIf="controls['packingMode'].errors['required']" class="text-danger">
-                                    Please select packing mode.
-                                </div>
-                            </div>
+                        <div class="col-6 text-end">
+                            <button class="btn btn-sm" (click)="openModal();addCategory()"><b>Add Category</b></button>
                         </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-12">
-                            <input type="checkbox" class="form-check-input" formControlName="isActive">
-                            <label for="">IsActive</label>
-                        </div>
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <div class="row text-end">
-                    <div class="col-12">
-                        <button class="btn btn2" *ngIf="!isEdit">Save</button>
-                        <button class="btn btn2" *ngIf="isEdit">Update </button>
+
                     </div>
                 </div>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+                <div class="card-body">
+                    <table class="table table-bordered table-hover table-responsive text-center">
+                        <thead>
+                            <tr>
+                                <th>Sr.No.</th>
+                                <th>Category</th>
+                                <th>Packing Mode</th>
+                                <th>IsActive</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let category of categoryList;let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{category.categoryName}}</td>
+                                @if(category.packingModeId == 1){
+                                <td>Kg</td>
+                                }
+                                @else{
+                                <td>Item</td>
+                                }
+                                @if(category.isActive){
+                                <td>Yes</td>
+                                }
+                                @else{
+                                <td>No</td>
+                                }
+                                <td>
+                                    <i class="bi bi-pencil-square" (click)="editCategory(category); openModal()"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            </form>
         </div>
     </div>
-</div>
+
+    <div class="modal" id="myModal" [ngStyle]="{'display':display}">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <form autocomplete="off" [formGroup]="categoryForm" (ngSubmit)="CategoryAddEdit()">
+                    <div class="modal-header">
+                        <h4 class="modal-title" *ngIf="!isEdit"> Add Category</h4>
+                        <h4 class="modal-title" *ngIf="isEdit"> Update Category</h4>
+
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeModal()"></button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <input type="hidden" class="form-control" formControlName="id">
+
+                        <div class="row">
+                            <div class="col-12">
+                                <label for="">Category Name</label>
+                                <input type="text" class="form-control" formControlName="categoryName" maxlength="30">
+                                <div *ngIf="isFormValid && controls['categoryName'].errors">
+                                    <div *ngIf="controls['categoryName'].errors['required']" class="text-danger">
+                                        Category name is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <label for="">Packing Mode</label>
+                                <input type="radio"  class="form-check-input radio" formControlName="packingMode"
+                                    value="kg"><span>Kg</span>
+                                <input type="radio"  class="form-check-input radio" formControlName="packingMode"
+                                    value="item"><span>Item</span>
+                                <div *ngIf="isFormValid && controls['packingMode'].errors">
+                                    <div *ngIf="controls['packingMode'].errors['required']" class="text-danger">
+                                        Packing mode required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <input type="checkbox" class="form-check-input" formControlName="isActive">
+                                <label for="">IsActive</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row text-end">
+                            <div class="col-12">
+                                <button class="btn btn2">Submit</button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                            (click)="closeModal()">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

@@ -29,8 +29,20 @@ export class ProductService {
     return this.http.get("  https://localhost:7239/api/Product/GetProductPackingList")
   }
 
-  productVariationAddEdit(variation:any){
+  productVariationAddEdit(variation: any) {
     return this.http.post("https://localhost:7239/api/Product/ProductVariationAndRateAddEdit", variation)
+  }
+
+  setShowProductWeight(variationId: number, showProducWeight: boolean) {
+    return this.http.post("https://localhost:7239/api/Product/SetShowProductWeight?variationId=" + variationId + "&showProductWeight=" + showProducWeight,variationId)
+  }
+
+  setVariationIsActive(variationId:number , isActive:boolean){
+    return this.http.post("https://localhost:7239/api/Product/SetVariationIsActive?variationId=" + variationId + "&isActive=" + isActive,variationId)
+  }
+
+  deleteProductVariation(variationId:number){
+    return this.http.post("https://localhost:7239/api/Product/DeleteProductVariation?variationId=" + variationId, variationId)
   }
 
   getProductSpecificationById(id: number) {
@@ -44,35 +56,38 @@ export class ProductService {
   getProductVariationImageById(id: number) {
     return this.http.get("https://localhost:7239/api/Product/GetProductVariationImageById?variationId=" + id)
 
-   }
-   
-   setDefaultVariation(productId:number, variationId:number){
-    return this.http.post("https://localhost:7239/api/Product/SetDefaultVariation?productId=" + productId + "&variationId=" + variationId,productId)
-   }
-
-  productSpecificationAddEdit(specification:any){
-    return this.http.post("https://localhost:7239/api/Product/ProductSpecificationAddEdit",specification)
   }
-  getProductVariationListByProductId(productId:number){
+
+  setDefaultVariation(productId: number, variationId: number, status: boolean) {
+    return this.http.post("https://localhost:7239/api/Product/SetDefaultVariation?productId=" + productId + "&variationId=" + variationId + "&status=" + status, productId)
+  }
+
+  productSpecificationAddEdit(specification: any) {
+    return this.http.post("https://localhost:7239/api/Product/ProductSpecificationAddEdit", specification)
+  }
+  getProductVariationListByProductId(productId: number) {
     return this.http.get("https://localhost:7239/api/Product/GetProductVariationListByProductId?productId=" + productId)
   }
-  productVariationImagesAdd(imagesObj:any){
-    return this.http.post("https://localhost:7239/api/Product/ProductVariationImagesAdd",imagesObj)
+  productVariationImagesAdd(imagesObj: any) {
+    return this.http.post("https://localhost:7239/api/Product/ProductVariationImagesAdd", imagesObj)
   }
-  getVariationImagesListByProductId(productId:number){
+  getVariationImagesListByProductId(productId: number) {
     return this.http.get("https://localhost:7239/api/Product/GetVariationImagesListByProductId?productId=" + productId)
   }
 
+
+  checkVariationImagesCountById(variationId: number) {
   getProductSliderItemsByCategoryId(categoryId: number, productId: number) {
     return this.http.get("https://localhost:7239/api/Product/GetProductSliderItemsByCategoryId?categoryId=" + categoryId + "&productId=" + productId )
   }
 
     checkVariationImagesCountById(variationId:number){
+
     return this.http.get("https://localhost:7239/api/Product/CheckVariationImagesCountById?variationId=" + variationId)
   }
-  
-  deleteProductVariationImage(imageId : number){
+
+  deleteProductVariationImage(imageId: number) {
     return this.http.delete("https://localhost:7239/api/Product/DeleteProductVariationImage?imageId=" + imageId)
   }
-  
+
 }

@@ -76,7 +76,7 @@ export class ProductService {
   }
 
 
-  checkVariationImagesCountById(variationId: number) {
+
   getProductSliderItemsByCategoryId(categoryId: number, productId: number) {
     return this.http.get("https://localhost:7239/api/Product/GetProductSliderItemsByCategoryId?categoryId=" + categoryId + "&productId=" + productId )
   }

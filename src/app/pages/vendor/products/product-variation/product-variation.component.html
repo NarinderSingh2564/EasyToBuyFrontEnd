@@ -45,10 +45,13 @@
             </div>
             <div class="col-md-3">
                 <label for="">Stock Quantity</label>
-                <input type="number" class="form-control" min="0" formControlName="stockQuantity" (change)="calculateTotalVolume()">
+                <input type="number" class="form-control" min="1" #stock (keydown)="a($event)" formControlName="stockQuantity" (change)="calculateTotalVolume()">
                 <div *ngIf="isFormValid && controls['stockQuantity'].errors">
                     <div *ngIf="controls['stockQuantity'].errors['required']" class="text-danger">
                         Stock is required.
+                    </div>
+                    <div *ngIf="stock.value < '1'" class="text-danger">
+                        Stock must be greater than 1.
                     </div>
                 </div>
             </div>
@@ -62,7 +65,7 @@
             <div class="col-md-6">
                 <label for="">MRP</label>
                 <input type="number" class="form-control" min="1" formControlName="mrp"
-                    (input)="calculateDiscountPrice();calculatePriceAfterDiscount">
+                    (input)="calculateDiscountPrice();calculatePriceAfterDiscount()">
                 <div *ngIf="isFormValid && controls['mrp'].errors">
                     <div *ngIf="controls['mrp'].errors['required']" class="text-danger">
                         MRP is required.
@@ -72,7 +75,7 @@
             <div class="col-md-6">
                 <label for="">Discount(%)</label>
                 <input type="number" class="form-control" min="0" max="100" formControlName="discount"
-                    (input)="calculateDiscountPrice();calculatePriceAfterDiscount" #discount>
+                    (input)="calculateDiscountPrice();calculatePriceAfterDiscount()" #discount>
                 <div *ngIf="isFormValid && controls['discount'].errors">
                     <div *ngIf="controls['discount'].errors['required']" class="text-danger">
                         Discount is required.

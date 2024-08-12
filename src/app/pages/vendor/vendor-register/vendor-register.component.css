@@ -5,10 +5,9 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.parents {
+.main {
     min-height: 100vh;
     display: flex;
-    align-items: center;
     justify-content: center;
     background: #99d6c7;
     background-size: cover;
@@ -16,7 +15,313 @@
     background-repeat: no-repeat;
 }
 
-.container {
+.container .title {
+    text-align: center;
+    color: #61887e;
+   
+}
+
+.card {
+    border: hidden;
+    margin:0px -85px 0px -85px
+}
+
+.card-header {
+    background: #61887e;
+    color: white;
+
+}
+
+
+input,
+select {
+    height: 40px;
+    width: 95%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 10px;
+    font-size: 16px;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+}
+
+input:hover {
+    border-color: #549181;
+}
+
+button,
+button:hover {
+    padding: 10px;
+    border: none;
+    background: #61887e;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    width: 8%;
+}
+
+
+.bi {
+    margin-left: -26px;
+    font-size: larger;
+    color: #61887e;
+}
+
+.line-container {
+    margin-bottom: 6vh;
+    margin-top: 4vh;
+    display: flex;
+    width: 100%;
+
+    .progress-line {
+        position: relative;
+        margin: 0 auto;
+        border-radius: 10px;
+        width: 70%;
+        background: white;
+        height: 5px;
+      
+        display: flex;
+        justify-content: space-between;
+
+        .progress {
+            position: absolute;
+            width: 75%;
+            height: 100%;
+            background: #61887e;
+            transition: width 1s ease-in-out;
+        }
+    }
+
+    .status {
+        position: relative;
+        top: -9.5px;
+
+        .dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: white;
+            border: 5px solid white;
+            cursor: pointer;
+
+            &.current {
+                background: white;
+                border: 12px solid #61887e;
+            }
+
+            &.completed {
+                position: relative;
+                background: #61887e;
+                border: 12px solid #61887e;
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    top: calc(50% - 5px);
+                    left: calc(50% - 5.5px);
+                    height: 7px;
+                    width: 10px;
+                    border-left: 2px solid white;
+                    border-bottom: 2px solid white;
+                    transform-origin: center;
+                    transform: rotate(-45deg);
+                    z-index: 2;
+                }
+            }
+
+        }
+
+    }
+
+}
+
+.disabled-input{
+    background-color: #e7e7e7;
+}
+.disabled-input:hover{
+   border:  1px solid #ccc;
+}
+
+
+
+
+
+
+
+
+
+
+/* .container form .user_details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+} */
+
+/* form .user_details .input_pox {
+    margin-bottom: 15px;
+    margin: 20px 0 12px 0;
+    width: calc(100% / 2 - 20px);
+} */
+/* 
+.user_details .input_pox .datails {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: black;
+}
+
+.user_details .input_pox input {
+    height: 45px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 16px;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+
+}
+
+.user_details .input_pox input:hover {
+    border-color: #549181;
+}
+
+.textareas {
+    border-color: #549181;
+    border-radius: 5px;
+    border-bottom-width: 2px;
+
+}
+
+form .gender_details .gender_title {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+form .gender_details .category {
+    display: flex;
+    width: 80%;
+    margin: 14px 0;
+    justify-content: space-between;
+}
+
+.gender_details .category label {
+    display: flex;
+}
+
+.gender_details .category .dot {
+    height: 18px;
+    width: 18px;
+    background: #d9d9d9;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 5px solid transparent;
+}
+
+#dot-1:checked~.category label .one,
+#dot-2:checked~.category label .two,
+#dot-3:checked~.category label .three {
+    border-color: #d9d9d9;
+    background-color: #9b59b6;
+}
+
+form input[type="radio"] {
+    display: none;
+}
+
+form .button {
+    height: 45px;
+    margin: 15px 0;
+}
+
+form .button .btnRegister {
+    height: 100%;
+    width: 60%;
+    outline: none;
+    color: #ffffff;
+    border: none;
+    margin-left: 120px;
+    position: relative;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    background: #549181;
+}
+
+@media (max-width: 584px) {
+    .container {
+        max-width: 100%;
+    }
+
+    form .user_details .input_pox {
+        margin-bottom: 15px;
+        width: 100%;
+    }
+
+    form .gender_details .category {
+        width: 100%;
+    }
+
+    .container form .user_details {
+        max-height: 300px;
+        overflow: scroll;
+    }
+
+    .user_details::-webkit-scrollber {
+        width: 0;
+    }
+}
+
+.parents .bar-link {
+    font-size: 18px;
+    text-align: center;
+}
+
+.bar-link p a {
+    color: #61887e;
+    text-decoration: none;
+    padding: 5px 8px 5px 8px;
+    font-weight: 500;
+}
+
+.bar-link p a:hover {
+    text-decoration: underline;
+    color: #61887e;
+    border-color: #61887e;
+    ;
+}
+
+.bi {
+    margin-left: -26px;
+    font-size: larger;
+    color: #61887e;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .container {
     position: relative;
     max-width: 650px;
     width: 100%;
@@ -30,9 +335,9 @@
     background-color: white;
     border: 2px solid #549181;
     box-shadow: 5px 1px 9px 4px #61887e;
-}
+} */
 
-.container .title {
+/* .container .title {
     font-size: 25px;
     text-align: center;
     position: relative;
@@ -201,4 +506,4 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-}
+/* } */

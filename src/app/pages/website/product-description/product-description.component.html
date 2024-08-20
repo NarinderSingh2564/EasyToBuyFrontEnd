@@ -73,6 +73,8 @@
   </div>
 </section>
 
+@if(ProductSpecification.length != 0)
+{
 <section class="Products-Specification">
   <div class="row">
     <div class="col-md-5"> <div class="imageButtons"> 
@@ -86,21 +88,20 @@
     </div>
     <div class="panel-body">
       <table class="table table-default">
-        <tbody>
-          <tr><td class="col-md-4 tdhead">Speciality</td> <td class="col-md-8 tdbot">{{ProductSpecification.speciality}}</td></tr>
+        <tbody> 
+          <tr><td class="col-md-4 tdhead">Speciality</td><td class="col-md-8 tdbot">{{ProductSpecification.speciality}}</td></tr>
           
-          <tr><td class="col-md-4 tdhead">Ingredient Type</td>  <td class="col-md-8 tdbot">{{ProductSpecification.ingredientType}}</td></tr>
+          <tr><td class="col-md-4 tdhead">Ingredient Type</td><td class="col-md-8 tdbot">{{ProductSpecification.ingredientType}}</td></tr>
           
-          <tr><td class="col-md-4 tdhead">Ingredient</td>  <td class="col-md-8 tdbot">{{ProductSpecification.ingredients}}</td></tr>
+          <tr><td class="col-md-4 tdhead">Ingredient</td><td class="col-md-8 tdbot">{{ProductSpecification.ingredients}}</td></tr>
           
-          <tr><td class="col-md-4 tdhead">Manufacturer</td>  <td class="col-md-8 tdbot">{{ProductSpecification.manufacturer}}</td></tr>
+          <tr><td class="col-md-4 tdhead">Manufacturer</td><td class="col-md-8 tdbot">{{ProductSpecification.manufacturer}}</td></tr>
           
-          <tr><td class="col-md-4 tdhead">Type</td>  <td class="col-md-8 tdbot">Fresh</td></tr>
+          <tr><td class="col-md-4 tdhead">Type</td><td class="col-md-8 tdbot">Fresh</td></tr>
 
-          <tr><td class="col-md-4 tdhead">Shelf Life</td>  <td class="col-md-8 tdbot">{{ProductSpecification.shelfLife}}</td></tr>
+          <tr><td class="col-md-4 tdhead">Shelf Life</td><td class="col-md-8 tdbot">{{ProductSpecification.shelfLife}}</td></tr>
          
-          <tr><td class="col-md-4 tdhead">Benefits</td>  <td class="col-md-8 tdbot">{{ProductSpecification.benefits}}</td></tr>
-       
+          <tr><td class="col-md-4 tdhead">Benefits</td><td class="col-md-8 tdbot">{{ProductSpecification.benefits}}</td></tr>
         </tbody>
       </table>
     </div>
@@ -112,10 +113,11 @@
   </div>
 </div>
 </section>
+}
 
-@if(SliderItems != 0){
+@if(SliderItems.length >= 4){
  <section class="Products-Image-Slider">
-  <h3 style="color: #456d63; text-align: center; padding-bottom: 15px; padding-top: 10px;">Similar Products</h3>
+  <h3 style="color: #456d63; text-align: center; padding-bottom: 15px;">Similar Products</h3>
   <div class="wrapper">
     <owl-carousel-o [options]="positinOptions">
       <ng-container>
@@ -123,11 +125,14 @@
          <div class="card slidecards">
           <div class="card-body slideinnerbody" >
              <div class="card imgcard">
-             <img [src]="baseUrl + PSlider.productImage " height="120">
+              <a href="/product-description/{{PSlider.id}}/{{PSlider.variationId}}" target="_blank">
+               <img [src]="baseUrl + PSlider.productImage" height="120">
+              </a>
              </div>
 
              <div class="card ProDesc">
-             <p><small>{{PSlider.productDescription}}</small></p>
+             
+              <p><small>{{PSlider.productDescription}}</small></p>
               </div>
 
               <div class="rating-pro">
@@ -156,8 +161,52 @@
 </section> 
 }
 
-<section class="Product-Description-Footer">
+@if(DifferentProductItems != 0){
+  <section class="DifferentProducts-Image-Slider">
+   <h3 style="color: #456d63; text-align: center; padding-bottom: 15px; padding-top: 25px;">Different Products</h3>
+   <div class="wrapper">
+     <owl-carousel-o [options]="DifferentpositinOptions">
+       <ng-container>
+       <ng-template class="slide" carouselSlide *ngFor="let DSlider of  DifferentProductItems">
+          <div class="card slidecards">
+           <div class="card-body slideinnerbody" >
+              <div class="card imgcard">
+               <a href="/product-description/{{DSlider.id}}/{{DSlider.variationId}}" target="_blank">
+                <img [src]="baseUrl + DSlider.productImage" height="120">
+             </a>
+              </div>
+ 
+              <div class="card ProDesc">
+              <p><small>{{DSlider.productDescription}}</small></p>
+               </div>
+ 
+               <div class="rating-pro">
+                 <div class="row">
+                 <div class="col-md-5">
+                   <span class="labels1">4.6 <span class="bi bi-star-fill"></span></span> 
+                 </div>
+                 <div class="col-md-5 peopleRatings">(73) </div>
+               </div>
+              </div>
+ 
+               <div class="row text-center pricedetails">
+                 <div class="col-md-12">
+                   <span class="spnProductPrice">{{DSlider.priceAfterDiscount}}</span>/
+                   <span class="spnMRP">{{DSlider.packingMode}}</span>&nbsp;
+                   <span class="spnMRP">M.R.P:<span class="actualPrice" >₹{{DSlider.mrp}}</span></span>
+                   <span class="discount">{{DSlider.discount}}%off</span>
+                 </div>
+               </div>
+           </div>
+          </div>
+         </ng-template>
+       </ng-container>
+     </owl-carousel-o>  
+   </div>
+ </section> 
+ }
 
+<section class="Product-Description-Footer">
   <footer class="page-footer container-fluid col-md-12" style="top: 5em; background: #61887e; ">
     <hr>
     <div class="container" style="max-width: 1240px;">

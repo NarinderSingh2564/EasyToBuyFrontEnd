@@ -82,3 +82,43 @@
   .owl-item .cloned .ng-trigger .ng-trigger-autoHeight{
     width: 10% !important;
   } */
+
+
+
+
+
+
+  .DifferentProducts-Image-Slider .owl-next, .DifferentProducts-Image-Slider .owl-prev{
+    background: #2c5148 !important;
+    color: white !important;
+    height: 40px !important;
+    width: 40px !important;
+    border-radius: 20% !important;
+    position: absolute;
+    top: 50%;
+    transition: .2s all ease;
+    opacity: .8;
+  }
+
+  .DifferentProducts-Image-Slider .owl-next:hover, .DifferentProducts-Image-Slider .owl-prev:hover{
+    background: rgb(208, 208, 208) !important;
+    color: black !important;
+  }
+
+  .DifferentProducts-Image-Slider .owl-next{
+    right: -50px;
+    transform: translate(-50%, -50%);
+  }
+  .DifferentProducts-Image-Slider .owl-prev{
+    left:-11px;
+    transform: translate(-50%, -50%);
+  }
+
+  .DifferentProducts-Image-Slider .owl-next i, .DifferentProducts-Image-Slider .owl-prev i {
+    font-size: 24px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+   
+  }

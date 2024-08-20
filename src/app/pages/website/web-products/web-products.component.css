@@ -139,19 +139,19 @@ font-size: xx-large;
 
    .wrapper {
     position: relative;
-    height: 35vh;
+    height:35vh;
   }
   
   owl-carousel-o {
     position: absolute;
-    height: 50vh;
+    height: 70vh;
     width: 100%;
     top: 0;
     left: 0;
   }
   
   .owl-item {
-    height: 50vh;
+    height: 70vh;
     width: 100%;
     background-repeat: no-repeat;
     background-size: cover;

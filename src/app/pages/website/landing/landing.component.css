@@ -11,13 +11,14 @@ height: 7vh;
   margin-top: -2px;
   font-style: initial;
   margin-left: 5px;
-  font-size: 26px;
+  font-size: 24px;
   z-index: 1;
 }
 
 .logoimg{
-  height: 8vh;
+  height: 50px;
   width: 180px;
+  border: none;
 }
 
 .navbar-brand:hover {

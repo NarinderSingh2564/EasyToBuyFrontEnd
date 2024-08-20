@@ -2,6 +2,7 @@
   <h2 style="text-align: center; color: #61887e;"> Best Products</h2>
   <div class="container-fluid mt-3" *ngIf="productList.length>0">
 
+
     <div class="wrapper">
       <owl-carousel-o [options]="customOptions">
         <ng-container>
@@ -14,6 +15,20 @@
         </ng-container>
       </owl-carousel-o>
     </div>
+
+        <div class="wrapper">
+          <owl-carousel-o [options]="customOptions">
+            <ng-container>
+              <ng-template class="slide" carouselSlide>
+                <img src="../assets/images/offer/off2.png" height="500" class="offersale" alt="">
+              </ng-template>
+              <ng-template class="slide" carouselSlide>
+                <img src="../assets/images/offer/off1.png" height="500" class="offersale" alt="">
+              </ng-template>
+            </ng-container>
+          </owl-carousel-o>  
+        </div>
+
 
     <div class="card-body mt-1">
       <div class="row">

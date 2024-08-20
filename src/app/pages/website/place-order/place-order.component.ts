@@ -20,7 +20,7 @@ export class PlaceOrderComponent {
 
   priceDetails: any = [];
   totalCartItems: number = 0;
-isPlaced: boolean = false;
+  isPlaced: boolean = false;
   constructor() {
     this.getCartDetailsByCustomerId();
   }

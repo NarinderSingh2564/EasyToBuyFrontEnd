@@ -132,9 +132,16 @@ font-weight: 500;
 .Products-Image-Slider{
 padding-left: 20px;
 padding-right: 20px;
-height: 60vh;
+height: 50vh;
 width:98vw;
 } 
+
+.DifferentProducts-Image-Slider{
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 60vh;
+  width:98vw;
+  }
 
 .Product-Description-Footer{
 padding-top: 10px;

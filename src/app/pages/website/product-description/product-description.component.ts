@@ -23,6 +23,7 @@ export class ProductDescriptionComponent {
   ActiveVariationId:number = 0;
   ProductDescription: any;
   SliderItems: any;
+  DifferentProductItems: any;
   buttonText: string = "Add To Cart"
   ProductVariationList: any = [];
   ProductSpecification: any = [];
@@ -64,7 +65,7 @@ export class ProductDescriptionComponent {
     this.getProductSpecification()
     this.getProductVariationImage()
     this.getSliderItems()
-    
+    this.getDiffrentCategoryProductSliderItems()
   }
 
   getProductDescription() {
@@ -75,10 +76,8 @@ export class ProductDescriptionComponent {
       this.mainImage = this.ProductDescription
       this.selectedImage = this.baseUrl + this.mainImage.productImage
       
-      this.productService.getProductSliderItemsByCategoryId(this.selectedCategoryId,this.selectedProductId).subscribe(result => {
-        this.SliderItems = result
-      })
-      
+      this.getSliderItems()
+      this.getDiffrentCategoryProductSliderItems()
     })
   }
 
@@ -105,7 +104,7 @@ export class ProductDescriptionComponent {
   }
 
   getVariationDetails(VariationDes: any){
-    this.checkId = VariationDes.id;
+      this.checkId = VariationDes.id;
       this.ProductDescription.priceAfterDiscount = VariationDes.priceAfterDiscount;
       this.ProductDescription.mrp = VariationDes.mrp;
       this.ProductDescription.discount= VariationDes.discount;
@@ -138,8 +137,14 @@ export class ProductDescriptionComponent {
   }
 
   getSliderItems() {
-    this.productService.getProductSliderItemsByCategoryId(this.selectedCategoryId,this.selectedProductId).subscribe(result => {
+    this.productService.getProductSliderItemsByCategoryId(this.selectedCategoryId,this.selectedProductId,"SameCategoryProducts").subscribe(result => {
       this.SliderItems = result
+    })
+  }
+
+  getDiffrentCategoryProductSliderItems() {
+    this.productService.getProductSliderItemsByCategoryId(this.selectedCategoryId,0,"DifferentCategoryProducts").subscribe(result => {
+      this.DifferentProductItems = result
     })
   }
 
@@ -147,9 +152,32 @@ export class ProductDescriptionComponent {
     loop: true,
     autoplay: false,
     dots: false,
-    mouseDrag: true,
-    touchDrag: true,
-    pullDrag: true,
+    mouseDrag: false,
+    touchDrag: false,
+    pullDrag: false,
+    navSpeed: 600,
+    navText: ['<i class="fa fa-caret-left"></i>', '<i class="fa fa-caret-right"></i>'],
+    responsive: {
+      0: {
+        items: 1,
+      },
+      600: {
+        items: 4,
+      },
+      1000: {
+        items: 5,
+      }
+    },
+     nav: true,
+  }
+
+  DifferentpositinOptions: OwlOptions = {
+    loop: true,
+    autoplay: false,
+    dots: false,
+    mouseDrag: false,
+    touchDrag: false,
+    pullDrag: false,
     navSpeed: 600,
     navText: ['<i class="fa fa-caret-left"></i>', '<i class="fa fa-caret-right"></i>'],
     responsive: {

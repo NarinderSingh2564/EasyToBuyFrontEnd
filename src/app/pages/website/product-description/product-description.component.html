@@ -73,6 +73,8 @@
   </div>
 </section>
 
+
+ <section class="Products-Specification" >
 @if(ProductSpecification.length != 0)
 {
 <section class="Products-Specification">
@@ -81,7 +83,7 @@
       <button class="btn1" (click)="AddToCart(ProductDescription.id, selectedVariationId)"  routerLink="customer-cart"><strong><span class="bi bi-cart-check-fill"></span> &nbsp;{{buttonText}} </strong></button>
       <button class="btn2"><strong><i class="fa fa-bolt" style="font-size:1.2em;"></i> BUY NOW</strong></button>
      </div></div>
-  <div class="col-md-6 myspec">
+  <div class="col-md-6 myspec" *ngIf="ProductSpecification != null">
   <div class="panel panel-default">
     <div class="panel-heading" style="background-color:#fff; border-bottom: 1px solid lightgray; padding-bottom: 10px;">
       <h4>Specifications</h4>
@@ -105,13 +107,12 @@
         </tbody>
       </table>
     </div>
-    <!-- <div class="panel-footer pt-2">
-      <h5>PRODUCT DESCRIPTION</h5>
-      <p>{{product.productDescription}}</p>
-      </div> -->
+  
   </div>
   </div>
 </div>
+
+</section> 
 </section>
 }
 
@@ -125,6 +126,9 @@
          <div class="card slidecards">
           <div class="card-body slideinnerbody" >
              <div class="card imgcard">
+
+             <img [src]="baseUrl + PSlider.productImage"  height="120">
+
               <a href="/product-description/{{PSlider.id}}/{{PSlider.variationId}}" target="_blank">
                <img [src]="baseUrl + PSlider.productImage" height="120">
               </a>
@@ -146,7 +150,7 @@
 
               <div class="row text-center pricedetails">
                 <div class="col-md-12">
-                  <span class="spnProductPrice">{{PSlider.priceAfterDiscount}}</span>/
+                  <span class="spnProductPrice">₹{{PSlider.priceAfterDiscount}}</span>/
                   <span class="spnMRP">{{PSlider.packingMode}}</span>&nbsp;
                   <span class="spnMRP">M.R.P:<span class="actualPrice" >₹{{PSlider.mrp}}</span></span>
                   <span class="discount">{{PSlider.discount}}%off</span>

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
 import { CommonModule } from '@angular/common';
@@ -36,6 +36,9 @@ export class ProductDescriptionComponent {
 
   accountService = inject(AccountService)
   cartService = inject(CartService)
+
+
+  
   baseUrl: string = EasyToBuyHelper.imageBaseUrl;
   variationImageBaseUrl: string = EasyToBuyHelper.imageVariationBaseUrl;
   selectedImage: any;
@@ -59,13 +62,16 @@ export class ProductDescriptionComponent {
       this.ActiveVariationId = result.variationId
       this.selectedVariationId = result.variationId
     })
-
-    this.getProductDescription()
+    
+      this.getProductDescription()
     this.getProductVariationList()
     this.getProductSpecification()
     this.getProductVariationImage()
     this.getSliderItems()
+
+
     this.getDiffrentCategoryProductSliderItems()
+
   }
 
   getProductDescription() {

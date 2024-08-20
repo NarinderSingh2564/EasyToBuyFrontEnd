@@ -16,7 +16,6 @@ export class LoginComponent{
   
   loginForm:FormGroup;
   isFormValid:boolean=false;
-  response:any=[];
   showPwd: boolean = false;
   @Input() userRole:any;
 
@@ -47,19 +46,18 @@ export class LoginComponent{
         password:this.loginForm.value.password,
         role:role
       }
-      this.accountService.checkUser(loginObj).subscribe(result => {
-            this.response = result;
-            if(this.response.status){
+      this.accountService.checkUser(loginObj).subscribe((result:any) => {
+            if(result.status){
               if(role=="Vendor"){
                 this.router.navigate(['/vendor-dashboard']);
               }
               else{
                 this.router.navigate(['/AllProducts']);
               }
-              this.accountService.setUserSession(this.response.response);
+              this.accountService.setUserSession(result.response);
             }
             else{
-              alert(this.response.message)
+              alert(result.message)
             }
       });
     }

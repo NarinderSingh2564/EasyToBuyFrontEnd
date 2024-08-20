@@ -51,7 +51,7 @@ export class ProductsComponent implements OnInit {
       categoryId: new FormControl(null, [Validators.required]),
       totalVolume: new FormControl(null, [Validators.required]),
       packingMode: new FormControl({ value: '', disabled: true, }),
-      packingModeId : new FormControl(0),
+      packingModeId: new FormControl(0),
       isActive: new FormControl(false)
     })
   }
@@ -140,7 +140,7 @@ export class ProductsComponent implements OnInit {
       }
     }
   }
-   
+
   ProductAddEdit() {
     this.isFormValid = true
     if (this.productForm.invalid) {
@@ -160,7 +160,7 @@ export class ProductsComponent implements OnInit {
       formData.set("createdBy", this.accountService.getUserId());
       formData.set("updatedBy", this.accountService.getUserId());
       formData.set("isActive", this.productForm.value.isActive == null ? "false" : "true");
-      
+
       formData.forEach(entries => console.log(entries));
 
       this.productService.productAddEdit(formData).subscribe((result: any) => {
@@ -233,9 +233,10 @@ export class ProductsComponent implements OnInit {
 
   setAsDefaultVariation(variationId: number, status: boolean) {
     this.productService.setDefaultVariation(this.activeProductId, variationId, status).subscribe((result: any) => {
-      if (result.status) {
-        this.getProductVariationList()
+      if (!result.status) {
+        alert(result.message)
       }
+      this.getProductVariationList()
     })
   }
 

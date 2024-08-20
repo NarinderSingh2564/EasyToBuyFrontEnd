@@ -64,6 +64,13 @@ export class ProductVariationComponent implements OnInit {
     return this.variationForm.controls;
   }
 
+
+  a(event:any){
+    if(event.key == "."){
+      event.preventDefault();
+    }
+  }
+
   clearControls(){
     this.isFormValid = false
     this.variationForm.reset()

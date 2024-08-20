@@ -24,40 +24,40 @@ export class VendorRegisterComponent {
   vendorUIModel: any = {};
   showPwd: boolean = false;
   isFormValid: boolean = false;
-  
+
   isAccountNumberConfirm: boolean = true
 
   constructor(private formBuilder: FormBuilder, private vendorService: VendorService) {
     this.vendorBasicDetailsUIModel = this.formBuilder.group({
       name: new FormControl("", [Validators.required, Validators.pattern("^[a-zA-Z ]*$")]),
-      email: new FormControl("", [Validators.required, Validators.email]),
-      mobile: new FormControl("", [Validators.required, Validators.pattern("^[6,7,8,9][0-9]{0,9}$")]),
+      email: new FormControl("", [Validators.required, Validators.pattern("^[A-Za-z0-9._]{3,}@[A-Za-z]{3,}[.]{1}[a-zA-Z]{2,6}$")]),
+      mobile: new FormControl("", [Validators.required, Validators.pattern("^[6,7,8,9]{1}[0-9]{9}$")]),
       password: new FormControl("", [Validators.required, Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{4,}$")]),
       type: new FormControl("", [Validators.required]),
       identificationType: new FormControl("", [Validators.required]),
-      identificationNumber: new FormControl("", [Validators.required]),
-      pincode: new FormControl("", [Validators.required, Validators.pattern("^[0-9]*$")]),
+      identificationNumber: new FormControl("", [Validators.required, Validators.pattern("^[a-zA-Z0-9- ]+$")]),
+      pincode: new FormControl("", [Validators.required, Validators.pattern("^[1-9][0-9]{5}$")]),
       city: new FormControl({ value: '', disabled: true, }),
       state: new FormControl({ value: '', disabled: true, }),
       country: new FormControl({ value: '', disabled: true, }),
-      fullAddress: new FormControl("", [Validators.required])
+      fullAddress: new FormControl("", [Validators.required, Validators.pattern("^['-A-Za-z0-9()@./#& ]*$")])
     })
     this.vendorCompanyDetailsUIModel = this.formBuilder.group({
-      companyName: new FormControl("", [Validators.required, Validators.pattern("^[a-zA-Z ]*$")]),
-      description: new FormControl("", [Validators.required]),
+      companyName: new FormControl("", [Validators.required, Validators.pattern("^['-A-Za-z0-9()& ]*$")]),
+      description: new FormControl("", [Validators.required, Validators.pattern("^['-A-Za-z0-9()@./#& ]*$")]),
       dealingPerson: new FormControl("", [Validators.required, Validators.pattern("^[a-zA-Z ]*$")]),
-      gstin: new FormControl("", [Validators.required]),
-      pincode: new FormControl("", [Validators.required, Validators.pattern("^[0-9]*$")]),
+      gstin: new FormControl("", [Validators.required, Validators.pattern("^[0-9]{2}[A-Za-z0-9]{10}[0-9]{1}[Zz]{1}[A-Zz-z0-9]{1}$")]),
+      pincode: new FormControl("", [Validators.required, Validators.pattern("^[1-9][0-9]{5}$")]),
       city: new FormControl({ value: '', disabled: true, }),
       state: new FormControl({ value: '', disabled: true, }),
       country: new FormControl({ value: '', disabled: true, }),
-      fullAddress: new FormControl("", [Validators.required])
+      fullAddress: new FormControl("", [Validators.required, Validators.pattern("^['-A-Za-z0-9()@./#& ]*$")])
     })
     this.vendorBankDetailsUIModel = formBuilder.group({
       accountHolderName: new FormControl("", [Validators.required, Validators.pattern("^[a-zA-Z ]*$")]),
-      accountNumber: new FormControl("", [Validators.required]),
+      accountNumber: new FormControl("", [Validators.required, Validators.pattern("^[0-9]{9,18}$")]),
       confirmAccountNumber: new FormControl("", [Validators.required]),
-      ifscCode: new FormControl("", [Validators.required]),
+      ifscCode: new FormControl("", [Validators.required, Validators.pattern("^[A-Za-z]{4}0[a-zA-Z0-9]{6}$")]),
       bankName: new FormControl({ value: '', disabled: true, }),
       branch: new FormControl({ value: '', disabled: true, })
     })
@@ -79,57 +79,79 @@ export class VendorRegisterComponent {
     this.showPwd = !this.showPwd
   }
 
-  isNumberInput(event:any){
+  isNumberInput(event: any) {
     const charCode = (event.which) ? event.which : event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
       return false;
     }
     return true;
   }
-
+  
   getAddressByPincode(pincode: string, formName: string) {
-    this.vendorService.getAddressByPincode(pincode).subscribe((result: any) => {
-      if (result[0].Status == "Success") {
-        this.address = result[0].PostOffice[0]
-        if (formName == "vendorDetails") {
-          this.vendorBasicDetailsUIModel.controls['state'].patchValue(this.address.State);
-          this.vendorBasicDetailsUIModel.controls['city'].patchValue(this.address.Division);
-          this.vendorBasicDetailsUIModel.controls['country'].patchValue(this.address.Country);
+    if ((this.vendorBasicDetailsUIModel.controls['pincode'].valid || this.vendorCompanyDetailsUIModel.controls['pincode'].valid) && pincode != '') {
+      this.vendorService.getAddressByPincode(pincode).subscribe((result: any) => {
+        if (result[0].Status == "Success") {
+          this.address = result[0].PostOffice[0]
+          if (formName == "vendorDetails") {
+            this.vendorBasicDetailsUIModel.controls['city'].patchValue(this.address.Division);
+            this.vendorBasicDetailsUIModel.controls['state'].patchValue(this.address.State);
+            this.vendorBasicDetailsUIModel.controls['country'].patchValue(this.address.Country);
+          }
+          if (formName == "companyDetails") {
+            this.vendorCompanyDetailsUIModel.controls['city'] .patchValue(this.address.Division);
+            this.vendorCompanyDetailsUIModel.controls['state'].patchValue(this.address.State);
+            this.vendorCompanyDetailsUIModel.controls['country'].patchValue(this.address.Country);
+          }
         }
-        if (formName == "companyDetails") {
-          this.vendorCompanyDetailsUIModel.controls['state'].patchValue(this.address.State);
-          this.vendorCompanyDetailsUIModel.controls['city'].patchValue(this.address.Division);
-          this.vendorCompanyDetailsUIModel.controls['country'].patchValue(this.address.Country);
+        else {
+          alert("This pincode does not exists, please enter correct pincode.")
+          if (formName == "vendorDetails") {
+            this.vendorBasicDetailsUIModel.controls['pincode'].reset()
+            this.vendorBasicDetailsUIModel.controls['city'].reset()
+            this.vendorBasicDetailsUIModel.controls['state'].reset()
+            this.vendorBasicDetailsUIModel.controls['country'].reset()
+          }
+          if (formName == "companyDetails") {
+            this.vendorCompanyDetailsUIModel.controls['pincode'].reset()
+            this.vendorCompanyDetailsUIModel.controls['city'].reset()
+            this.vendorCompanyDetailsUIModel.controls['state'].reset()
+            this.vendorCompanyDetailsUIModel.controls['country'].reset()
+          }
         }
+      })
+    }
+    else{
+      if(formName == "vendorDetails"){
+        this.vendorBasicDetailsUIModel.controls['city'].reset()
+        this.vendorBasicDetailsUIModel.controls['state'].reset()
+        this.vendorBasicDetailsUIModel.controls['country'].reset()
       }
-      else {
-        alert("This pincode does not exists, please enter correct pincode.")
-        if(formName == "vendorDetails"){
-          this.vendorBasicDetailsUIModel.controls['pincode'].reset()
-        }
-        if (formName == "companyDetails") {
-          this.vendorCompanyDetailsUIModel.controls['pincode'].reset()
-        }
+      if(formName == "companyDetails"){
+        this.vendorCompanyDetailsUIModel.controls['city'].reset()
+        this.vendorCompanyDetailsUIModel.controls['state'].reset()
+        this.vendorCompanyDetailsUIModel.controls['country'].reset()
       }
-    })
+    }
   }
 
   validateAccountNumber() {
     this.isAccountNumberConfirm = this.vendorBankDetailsUIModel.value.accountNumber != this.vendorBankDetailsUIModel.value.confirmAccountNumber && this.vendorBankDetailsUIModel.value.confirmAccountNumber != '' ? false : true
   }
-  
+
   getBankDetailsByIFSCCode(ifscCode: string) {
-    this.vendorService.getBankDetailsByIFSCCode(ifscCode).subscribe((result: any) => {
-      if (result != null) {
-        this.vendorBankDetailsUIModel.controls['bankName'].patchValue(result.BANK);
-        this.vendorBankDetailsUIModel.controls['branch'].patchValue(result.BRANCH);
-      }
-    },error=>{
-      if(error.status == 404){
-        alert("This IFSC code does not exists, please enter correct IFSC code.")
-        this.vendorBankDetailsUIModel.controls['ifscCode'].reset()
-      }
-    });
+    if (this.vendorBankDetailsUIModel.controls['ifscCode'].valid) {
+      this.vendorService.getBankDetailsByIFSCCode(ifscCode).subscribe((result: any) => {
+        if (result != null) {
+          this.vendorBankDetailsUIModel.controls['bankName'].patchValue(result.BANK);
+          this.vendorBankDetailsUIModel.controls['branch'].patchValue(result.BRANCH);
+        }
+      }, error => {
+        if (error.status == 404) {
+          alert("This IFSC code does not exists, please enter correct IFSC code.")
+          this.vendorBankDetailsUIModel.controls['ifscCode'].reset()
+        }
+      });
+    }
   }
 
   vendorRegistration() {

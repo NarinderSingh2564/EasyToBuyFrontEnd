@@ -1,36 +1,10 @@
 <div class="main">
     <div class="container">
-        <div class="title p-2">
+        <div class="title mt-3">
             <h3><strong>Vendor Registration</strong></h3>
         </div>
 
-        <div class='line-container'>
-            <div class='progress-line'>
-                <div class='progress' style="width: 53%;">
-
-                </div>
-                <div class='status'>
-                    <div class='dot completed'>
-
-                    </div>
-                    <span class="form-title">Basic Details</span>
-                </div>
-                <div class='status'>
-                    <div class='dot completed' style="margin-left: 50%;">
-
-                    </div>
-                    <span class="form-title">Company Details</span>
-                </div>
-                <div class='status'>
-                    <div class='dot current' style="margin-left: 75%;">
-
-                    </div>
-                    <span class="form-title">Bank Details</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="card mt-5 mb-5">
+        <div class="card mt-4 mb-5">
 
             <div class="card-header">
                 <h4 class="p-2">Basic Details</h4>
@@ -40,35 +14,35 @@
                     <div class="row mt-3">
                         <div class="col-md-3">
                             <label for="">Name</label>
-                            <input type="text" formControlName="name" placeholder="Enter your name" maxlength="30">
+                            <input type="text" formControlName="name" placeholder="Enter name" maxlength="30">
                             <div *ngIf="isFormValid && vendorFormControls['name'].errors">
                                 <div *ngIf="vendorFormControls['name'].errors['required']" class="text-danger">
-                                    Enter your name.
+                                    Enter name.
                                 </div>
                                 <div *ngIf="vendorFormControls['name'].errors['pattern']" class="text-danger">
-                                    Name must contain only alphabets.
+                                    Numbers and special characters are not allowed.
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <label for="">Email Address</label>
-                            <input type="text" formControlName="email" placeholder="Enter your email address" maxlength="30">
+                            <input type="email" formControlName="email" placeholder="Enter email address" maxlength="30">
                             <div *ngIf="isFormValid && vendorFormControls['email'].errors">
                                 <div *ngIf="vendorFormControls['email'].errors['required']" class="text-danger">
-                                    Enter your email address.
+                                    Enter email address.
                                 </div>
-                                <div *ngIf="vendorFormControls['email'].errors['email']" class="text-danger">
+                                <div *ngIf="vendorFormControls['email'].errors['pattern']" class="text-danger">
                                     Invalid email address.
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <label for="">Mobile</label>
-                            <input type="text" formControlName="mobile" placeholder="Enter your mobile number" (keypress)="isNumberInput($event)"
+                            <label for="">Mobile Number</label>
+                            <input type="text" formControlName="mobile" placeholder="Enter mobile number" (keypress)="isNumberInput($event)"
                                 maxlength="10">
                             <div *ngIf="isFormValid && vendorFormControls['mobile'].errors">
                                 <div *ngIf="vendorFormControls['mobile'].errors['required']" class="text-danger">
-                                    Enter your mobile number.
+                                    Enter mobile number.
                                 </div>
                                 <div *ngIf="vendorFormControls['mobile'].errors['pattern']" class="text-danger">
                                    Invalid mobile number.
@@ -78,12 +52,12 @@
                         <div class="col-md-3">
                             <label for="">Password</label>
                             <input [type]="showPwd ? 'text':'password'" formControlName="password"
-                                placeholder="Enter your password" maxlength="20">
+                                placeholder="Enter password" maxlength="20">
                             <i [ngClass]="showPwd ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'"
                                 (click)="showPassword()"></i>
                             <div *ngIf="isFormValid && vendorFormControls['password'].errors">
                                 <div *ngIf="vendorFormControls['password'].errors['required']" class="text-danger">
-                                    Enter your password.
+                                    Enter password.
                                 </div>
                                 <div *ngIf="vendorFormControls['password'].errors['pattern']" class="text-danger">
                                     Password must contain atleast 5 characters, 1 numeric, 1 upper case letter, and 1
@@ -96,22 +70,22 @@
                         <div class="col-md-3">
                             <label for="">Business Type</label>
                             <select formControlName="type">
-                                <option [ngValue]="null" [disabled]="true" hidden>--Select
-                                    Option--</option>
+                                <option value="" disabled selected>--Select
+                                    Business Type--</option>
                                 <option value="Manufacturer">Manufacturer</option>
                                 <option value="Trader">Trader</option>
                             </select>
                             <div *ngIf="isFormValid && vendorFormControls['type'].errors">
                                 <div *ngIf="vendorFormControls['type'].errors['required']" class="text-danger">
-                                    Select your business type.
+                                    Select business type.
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <label for="">Identification Type</label>
                             <select formControlName="identificationType">
-                                <option [ngValue]="null" [disabled]="true" hidden>--Select
-                                    Option--</option>
+                                <option value="" disabled selected>--Select
+                                    Identification Type--</option>
                                 <option value="Passport">Passport</option>
                                 <option value="PAN Card">PAN Card</option>
                                 <option value="Adhaar Card">Adhaar Card</option>
@@ -126,23 +100,26 @@
                         <div class="col-md-3">
                             <label for="">Identification Number</label>
                             <input type="text" formControlName="identificationNumber"
-                                placeholder="Enter your identification number" maxlength="30">
+                                placeholder="Enter identification number" maxlength="30">
                             <div *ngIf="isFormValid && vendorFormControls['identificationNumber'].errors">
                                 <div *ngIf="vendorFormControls['identificationNumber'].errors['required']" class="text-danger">
-                                    Enter your identification number.
+                                    Enter identification number.
+                                </div>
+                                <div *ngIf="vendorFormControls['identificationNumber'].errors['pattern']" class="text-danger">
+                                    Special characters not allowed.
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <label for="">Pincode</label>
-                            <input type="text" formControlName="pincode" placeholder="Enter your pincode" #vendorPincode (keypress)="isNumberInput($event)"
+                            <input type="text" formControlName="pincode" placeholder="Enter pincode" #vendorPincode (keypress)="isNumberInput($event)"
                                 maxlength="6"  (change)="getAddressByPincode(vendorPincode.value,'vendorDetails')">
                             <div *ngIf="isFormValid && vendorFormControls['pincode'].errors">
                                 <div *ngIf="vendorFormControls['pincode'].errors['required']" class="text-danger">
-                                    Enter your pincode.
+                                    Enter pincode.
                                 </div>
                                 <div *ngIf="vendorFormControls['pincode'].errors['pattern']" class="text-danger">
-                                    Pincode must contain only digits.
+                                    Invalid pincode.
                                 </div>
                             </div>
                         </div>
@@ -162,10 +139,13 @@
                         </div>
                         <div class="col-md-3">
                             <label for="">Full Address</label>
-                            <input type="text" formControlName="fullAddress" placeholder="Enter your full address" maxlength="200">
+                            <input type="text" formControlName="fullAddress" placeholder="Enter full address" maxlength="200">
                             <div *ngIf="isFormValid && vendorFormControls['fullAddress'].errors">
                                 <div *ngIf="vendorFormControls['fullAddress'].errors['required']" class="text-danger">
-                                    Enter your full address.
+                                    Enter full address.
+                                </div>
+                                <div *ngIf="vendorFormControls['fullAddress'].errors['pattern']" class="text-danger">
+                                    Special characters are not allowed.
                                 </div>
                             </div>
                         </div>
@@ -180,20 +160,26 @@
                 <form [formGroup]="vendorCompanyDetailsUIModel" >
                     <div class="row mt-3">
                         <div class="col-md-4">
-                            <label for="">Company Name</label>
-                            <input type="text" formControlName="companyName" placeholder="Enter your company name" maxlength="30">
+                            <label for="">Company's Name</label>
+                            <input type="text" formControlName="companyName" placeholder="Enter company's name" maxlength="30">
                             <div *ngIf="isFormValid && companyFormControls['companyName'].errors">
                                 <div *ngIf="companyFormControls['companyName'].errors['required']" class="text-danger">
-                                    Enter your company name.
+                                    Enter company's name.
+                                </div>
+                                <div *ngIf="companyFormControls['companyName'].errors['pattern']" class="text-danger">
+                                    Special characters are not allowed.
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <label for="">Description</label>
+                            <label for="">Company's Description</label>
                             <input type="text" formControlName="description" placeholder="Enter company's description" maxlength="200">
                             <div *ngIf="isFormValid && companyFormControls['description'].errors">
                                 <div *ngIf="companyFormControls['description'].errors['required']" class="text-danger">
                                     Enter company's description.
+                                </div>
+                                <div *ngIf="companyFormControls['description'].errors['pattern']" class="text-danger">
+                                    Special characters are not allowed.
                                 </div>
                             </div>
                         </div>
@@ -203,6 +189,9 @@
                             <div *ngIf="isFormValid && companyFormControls['dealingPerson'].errors">
                                 <div *ngIf="companyFormControls['dealingPerson'].errors['required']" class="text-danger">
                                     Enter dealing person's name.
+                                </div>
+                                <div *ngIf="companyFormControls['dealingPerson'].errors['pattern']" class="text-danger">
+                                    Numbers and special characters are not allowed.
                                 </div>
                             </div>
                         </div>
@@ -215,14 +204,20 @@
                                 <div *ngIf="companyFormControls['gstin'].errors['required']" class="text-danger">
                                     Enter company's GSTIN.
                                 </div>
+                                <div *ngIf="companyFormControls['gstin'].errors['pattern']" class="text-danger">
+                                    Invalid GSTIN.
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <label for="">Pincode</label>
-                            <input type="text" formControlName="pincode" placeholder="Enter your pincode" #companyPincode (keypress)="isNumberInput($event)" (change)="getAddressByPincode(companyPincode.value,'companyDetails')" maxlength="6">
+                            <input type="text" formControlName="pincode" placeholder="Enter pincode" #companyPincode (keypress)="isNumberInput($event)" (change)="getAddressByPincode(companyPincode.value,'companyDetails')" maxlength="6">
                             <div *ngIf="isFormValid && companyFormControls['pincode'].errors">
                                 <div *ngIf="companyFormControls['pincode'].errors['required']" class="text-danger">
-                                    Enter your pincode.
+                                    Enter pincode.
+                                </div>
+                                <div *ngIf="companyFormControls['pincode'].errors['pattern']" class="text-danger">
+                                    Invalid pincode.
                                 </div>
                             </div>
                         </div>
@@ -248,6 +243,9 @@
                                 <div *ngIf="companyFormControls['fullAddress'].errors['required']" class="text-danger">
                                     Enter company's full address.
                                 </div>
+                                <div *ngIf="companyFormControls['fullAddress'].errors['pattern']" class="text-danger">
+                                    Special characters not allowed.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -268,37 +266,46 @@
                                 <div *ngIf="bankFormControls['accountHolderName'].errors['required']" class="text-danger">
                                     Enter account holder name.
                                 </div>
+                                <div *ngIf="bankFormControls['accountHolderName'].errors['pattern']" class="text-danger">
+                                    Numbers and special characters are not allowed.
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <label for="">Account Number</label>
-                            <input type="text" formControlName="accountNumber" #accountNumber (keypress)="isNumberInput($event)" placeholder="Enter your account number" maxlength="30">
+                            <input type="text" formControlName="accountNumber" #accountNumber (keypress)="isNumberInput($event)" placeholder="Enter account number" maxlength="30">
                             <div *ngIf="isFormValid && bankFormControls['accountNumber'].errors">
                                 <div *ngIf="bankFormControls['accountNumber'].errors['required']" class="text-danger">
-                                    Enter your account number.
+                                    Enter account number.
+                                </div>
+                                <div *ngIf="bankFormControls['accountNumber'].errors['pattern']" class="text-danger">
+                                    Invalid account number.
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <label for="">Re-enter Account Number</label>
-                            <input type="text" placeholder="Re-enter your account number" (keypress)="isNumberInput($event)" formControlName="confirmAccountNumber" maxlength="30" #confirmAccountNumber (keyup)="validateAccountNumber()">
+                            <input type="text" placeholder="Re-enter account number" (keypress)="isNumberInput($event)" formControlName="confirmAccountNumber" maxlength="30" #confirmAccountNumber (keyup)="validateAccountNumber()">
                             <div *ngIf="isFormValid && bankFormControls['confirmAccountNumber'].errors">
                                 <div *ngIf="bankFormControls['confirmAccountNumber'].errors['required']" class="text-danger">
-                                    Re-enter your account number.
+                                    Re-enter account number.
                                 </div>
                             </div>
                             <div *ngIf="!isAccountNumberConfirm" class="text-danger">
-                                Account number do no match.
+                                Account number do not match.
                             </div>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-4">
                             <label for="">IFSC Code</label>
-                            <input type="text" formControlName="ifscCode" placeholder="Enter your IFSC code" maxlength="20" #ifsc (change)="getBankDetailsByIFSCCode(ifsc.value)">
+                            <input type="text" formControlName="ifscCode" placeholder="Enter IFSC code" maxlength="11" #ifsc (change)="getBankDetailsByIFSCCode(ifsc.value)">
                             <div *ngIf="isFormValid && bankFormControls['ifscCode'].errors">
                                 <div *ngIf="bankFormControls['ifscCode'].errors['required']" class="text-danger">
-                                    Enter your IFSC code.
+                                    Enter IFSC code.
+                                </div>
+                                <div *ngIf="bankFormControls['ifscCode'].errors['pattern']" class="text-danger">
+                                    Invalid IFSC code.
                                 </div>
                             </div>
                         </div>
@@ -316,7 +323,7 @@
                    
                 </form>
                 <div class="text-center mt-3">
-                    <button class="btn" (click)="vendorRegistration()">Submit</button>
+                    <button class="btn" tabindex="-1" (click)="vendorRegistration()">Submit</button>
                 </div>
             </div>
 

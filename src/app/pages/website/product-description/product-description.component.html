@@ -73,10 +73,6 @@
   </div>
 </section>
 
-
- <section class="Products-Specification" >
-@if(ProductSpecification.length != 0)
-{
 <section class="Products-Specification">
   <div class="row">
     <div class="col-md-5"> <div class="imageButtons"> 
@@ -111,10 +107,8 @@
   </div>
   </div>
 </div>
-
 </section> 
-</section>
-}
+
 
 @if(SliderItems.length >= 4){
  <section class="Products-Image-Slider">
@@ -126,11 +120,8 @@
          <div class="card slidecards">
           <div class="card-body slideinnerbody" >
              <div class="card imgcard">
-
              <img [src]="baseUrl + PSlider.productImage"  height="120">
-
               <a href="/product-description/{{PSlider.id}}/{{PSlider.variationId}}" target="_blank">
-               <img [src]="baseUrl + PSlider.productImage" height="120">
               </a>
              </div>
 

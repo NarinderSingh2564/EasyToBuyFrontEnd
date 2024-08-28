@@ -4,14 +4,14 @@
             <div class="col-md-6">
                 <div class="right-section">
                     <div class="login-container">
-                        <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onLogin(userRole)">
-                            <h2 class="login-title">{{userRole}} Login</h2>
+                        <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+                            <h2 class="login-title">User Login</h2>
                             <div class="form-control1">
                                 <i class="bi bi-person-fill"></i>
-                                <input type="text" formControlName="mobile"
+                                <input type="text" formControlName="username"
                                     placeholder="Enter your mobile number or email" maxlength="30">
-                                <div *ngIf="isFormValid && controls['mobile'].errors">
-                                    <div *ngIf="controls['mobile'].errors['required']" class="text-danger">
+                                <div *ngIf="isFormValid && controls['username'].errors">
+                                    <div *ngIf="controls['username'].errors['required']" class="text-danger">
                                         Enter your mobile number or email.
                                     </div>
                                 </div>
@@ -37,7 +37,7 @@
                             </div>
                             <button type="submit">Login</button>
                             <div class="register-link">
-                                <p>Don't have an account?<a (click)="register(userRole)">Register</a></p>
+                                <p>Don't have an account?<a (click)="register()">Register</a></p>
                             </div>
                         </form>
                     </div>

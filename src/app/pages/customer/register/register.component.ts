@@ -20,7 +20,7 @@ export class RegisterComponent {
   showPwd: boolean = false
   constructor(private formBuilder: FormBuilder, private accountService: AccountService) {
     this.registerForm = this.formBuilder.group({
-      fullName: new FormControl("",[Validators.required,this.whitespaceValidator()]),
+      name: new FormControl("",[Validators.required,this.whitespaceValidator()]),
       email: new FormControl("",[Validators.required, Validators.email]),
       mobile: new FormControl("",[Validators.required]),
       password: new FormControl("",[Validators.required, Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{4,}$")])
@@ -48,13 +48,13 @@ export class RegisterComponent {
       return;
     }
     else {
-      const userObj: any = {
-        fullName: this.registerForm.value.fullName.trim(),
+      const customerObj: any = {
+        name: this.registerForm.value.name.trim(),
         email:this.registerForm.value.email.trim(),
-        mobile:this.registerForm.value.mobile.toString().trim(),
+        mobile:this.registerForm.value.mobile.toString(),
         password:this.registerForm.value.password.trim(),
       }
-      this.accountService.userRegistration(userObj).subscribe((result: any) => {
+      this.accountService.customerRegistration(customerObj).subscribe((result: any) => {
         alert(result.message)
         this.registerForm.reset()
         this.isFormValid=false

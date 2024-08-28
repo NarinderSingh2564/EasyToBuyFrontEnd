@@ -9,5 +9,5 @@ import { LoginComponent } from "../../account/login/login.component";
     imports: [LoginComponent]
 })
 export class VendorLoginComponent {
-role = "Vendor"
+    role = "User"
 }

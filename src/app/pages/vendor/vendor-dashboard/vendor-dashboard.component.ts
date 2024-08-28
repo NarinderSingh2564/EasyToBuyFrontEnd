@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { VendorService } from '../../../services/vendor.service';
+import { UserService } from '../../../services/user.service';
 import { AccountService } from '../../../services/account.service';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-vendor-dashboard',
@@ -13,15 +13,15 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class VendorDashboardComponent {
 
-  vendorOrdersCountList:any;
+  userOrdersCountList:any;
 
-  constructor(private vendorService: VendorService, private accountService: AccountService,private router:Router) {
-    this.getVendorOrderCount()
+  constructor(private userService: UserService, private accountService: AccountService) {
+    this.getUserOrderCount()
   }
 
-  getVendorOrderCount(){
-    this.vendorService.vendorOrdersCount(this.accountService.getUserId()).subscribe(result=>{
-      this.vendorOrdersCountList= result;
+  getUserOrderCount(){
+    this.userService.userOrdersCount(this.accountService.getUserId()).subscribe(result=>{
+      this.userOrdersCountList= result;
     })
   }
   

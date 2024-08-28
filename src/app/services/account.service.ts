@@ -11,8 +11,8 @@ export class AccountService {
 
   public updateDeliveryAddress$: Subject<boolean> = new Subject();
   
-  userRegistration(userObj: any) {
-    return this.http.post("https://localhost:7239/api/Account/UserRegistration", userObj)
+  customerRegistration(customerObj: any) {
+    return this.http.post("https://localhost:7239/api/Account/CustomerRegistration", customerObj)
   }
 
   checkUser(loginObj: any) {
@@ -38,9 +38,9 @@ export class AccountService {
     return Object(activeUser)["role"]
   }
 
-  getAddressListByUserId() {
-    const userID = this.getUserId();
-    return this.http.get("https://localhost:7239/api/Account/GetAddressListByUserId?userID=" + userID)
+  getAddressListByCustomerId() {
+    const customerId = this.getUserId();
+    return this.http.get("https://localhost:7239/api/Account/GetAddressListByCustomerId?customerId=" + customerId)
   }
 
   getAddressTypeList() {
@@ -56,8 +56,8 @@ export class AccountService {
     return this.http.post("https://localhost:7239/api/Account/AddressAddEdit",addressObj)
   }
 
-  setDeliveryAddress(id:number, userId:number){
-    return this.http.post("https://localhost:7239/api/Account/SetDeliveryAddress?id=" + id + "&userId=" + userId , id)
+  setDeliveryAddress(addressId:number, customerId:number){
+    return this.http.post("https://localhost:7239/api/Account/SetDeliveryAddress?addressId=" + addressId + "&customerId=" + customerId,addressId)
   }
 
 }

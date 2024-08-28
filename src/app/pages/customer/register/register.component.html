@@ -6,16 +6,16 @@
             <div class="user_details">
                 <div class="input_pox">
                     <span class="datails">Full Name</span>
-                    <input type="text" formControlName="fullName" #box placeholder="Enter your name" maxlength="30" minlength="3">
-                    <div *ngIf="isFormValid && controls['fullName'].errors">
-                        <div *ngIf="controls['fullName'].errors['required']" class="text-danger">
+                    <input type="text" formControlName="name" #box placeholder="Enter name" maxlength="30" minlength="3">
+                    <div *ngIf="isFormValid && controls['name'].errors">
+                        <div *ngIf="controls['name'].errors['required']" class="text-danger">
                             Enter your full name.
                         </div>
                     </div>
                 </div>
                 <div class="input_pox">
                     <span class="datails">Email</span>
-                    <input type="text" formControlName="email" placeholder="Enter your email" maxlength="50"
+                    <input type="text" formControlName="email" placeholder="Enter email" maxlength="50"
                         minlength="5">
                     <div *ngIf="isFormValid && controls['email'].errors">
                         <div *ngIf="controls['email'].errors['required']" class="text-danger">
@@ -28,7 +28,7 @@
                 </div>
                 <div class="input_pox">
                     <span class="datails">Mobile Number</span>
-                    <input type="number" formControlName="mobile" placeholder="Enter your mobile number"
+                    <input type="number" formControlName="mobile" placeholder="Enter mobile number"
                         onKeyPress="if(this.value.length==10) return false;">
                     <div *ngIf="isFormValid && controls['mobile'].errors">
                         <div *ngIf="controls['mobile'].errors['required']" class="text-danger">
@@ -39,7 +39,7 @@
                 <div class="input_pox">
                     <span class="datails">Password</span>
                     <input [type]="showPwd ?'text':'password'" formControlName="password"
-                        placeholder="Enter your password" maxlength="10" minlength="5">
+                        placeholder="Enter password" maxlength="10" minlength="5">
                     <i [ngClass]="showPwd ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'" (click)="showPassword()"></i>
 
                     <div *ngIf="isFormValid && controls['password'].errors">

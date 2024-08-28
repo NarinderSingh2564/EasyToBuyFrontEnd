@@ -9,8 +9,8 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  getProductList(categoryId: number, searchText: string, vendorId: number, role: string) {
-    return this.http.get("https://localhost:7239/api/Product/GetProductList?categoryId=" + categoryId + "&searchText=" + searchText + "&vendorId=" + vendorId + "&role=" + role)
+  getProductList(productCategoryId: number, searchText: string, userId: number, role: string) {
+    return this.http.get("https://localhost:7239/api/Product/GetProductList?productCategoryId=" + productCategoryId + "&searchText=" + searchText + "&userId=" + userId + "&role=" + role)
   }
 
   productAddEdit(productUIModel: any) {
@@ -84,8 +84,8 @@ export class ProductService {
     return this.http.get("https://localhost:7239/api/Product/CheckVariationImagesCountById?variationId=" + variationId)
   }
 
-  deleteProductVariationImage(imageId: number) {
-    return this.http.delete("https://localhost:7239/api/Product/DeleteProductVariationImage?imageId=" + imageId)
+  deleteProductVariationImage(productImageId: number) {
+    return this.http.delete("https://localhost:7239/api/Product/DeleteProductVariationImage?productImageId=" + productImageId)
   }
 
 }

@@ -11,7 +11,7 @@
 
             <div class="container-fluid px-4 mycont">
                 <div class="row g-3 my-2">
-                    <div class="col-md-3" *ngFor="let item of vendorOrdersCountList">
+                    <div class="col-md-3" *ngFor="let item of userOrdersCountList">
                         <div class="p-3 myCard  shadow-sm d-flex justify-content-around align-items-center rounded" routerLink="/vendor-order-list/{{item.orderStatusId}}">
                             <div class="mynumber">
                                 <h3 class="fs-2 mycol">{{item.orderCount}}</h3>

@@ -1,6 +1,6 @@
-<div class="container-fluid mt-3 mb-4">
+<div class="container-fluid mt-5 ">
   <div class="row" *ngIf="!isPlaced">
-    <div class="col-md-8 mt-3">
+    <div class="col-md-8 mt-2">
       <div id="accordion1">
         <div class="card">
           <div class="card-header"><strong class="text-muted">PAYMENT MODE</strong></div>
@@ -133,7 +133,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4 mt-3">
+    <div class="col-md-4 mt-2">
       <div class="card">
         <div class="card-header"><strong class="text-muted">PRICE DETAILS</strong></div>
         <div class="card-body">
@@ -145,7 +145,7 @@
           </div>
           <div class="mt-2">
             <span>Discount</span>
-            <span class="price text-success">- {{priceDetails.totalDiscountPrice | currency : 'INR'}}</span>
+            <span class="price text-success">{{- priceDetails.totalDiscountPrice | currency : 'INR'}}</span>
           </div>
           <div class="mt-2">
             <span>Delivery Charges</span>

@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="row">
+                    <div class="row" *ngIf="productList.length > 0">
                         <div class="col-md-3" *ngFor="let product of productList"
                             style=" padding-bottom: calc(var(--bs-gutter-x)* .5);">
                             <div class="card product-card">
@@ -33,6 +33,9 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row" *ngIf="productList.length == 0">
+                        <span class="text-center">No products added </span>
                     </div>
                 </div>
             </div>

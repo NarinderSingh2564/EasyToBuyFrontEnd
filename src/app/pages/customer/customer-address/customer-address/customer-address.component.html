@@ -1,19 +1,17 @@
 <section class="user-address">
- 
   <div class="text-end addBtn">
-    <button class="btn text-white bgm" data-bs-toggle="modal" data-bs-target="#addressModal" (click)="addAdressModal()"><i
-        class="bi bi-plus"></i> Add New Address</button>
+    <button class="btn text-white bgm" data-bs-toggle="modal" data-bs-target="#addressModal"
+      (click)="addAdressModal()"><i class="bi bi-plus"></i> Add New Address</button>
   </div>
   <owl-carousel-o [options]="customOptions">
-
     <ng-template carouselSlide *ngFor="let address of userAddressList">
-
       <div class="card">
         <h5 class="card-header myheade white-color-text">
-          {{address.city}} 
+          {{address.city}}
           <span class="address-type text-muted  white-color-text">
             ({{address.typeOfAddress}})
-            <i class="bi bi-pencil-square" data-bs-toggle="modal" data-bs-target="#addressModal" (click)="editAdressModal(address)"></i>
+            <i class="bi bi-pencil-square" data-bs-toggle="modal" data-bs-target="#addressModal"
+              (click)="editAdressModal(address)"></i>
           </span>
         </h5>
         <div class="card-body">
@@ -21,8 +19,8 @@
         </div>
         <div class="card-footer text-dark white-color-text">
           <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" 
-              [checked]="address.isDeliveryAddress ? true : false" #switch (change)="setDeliveryAddress(switch.checked,address.id)">
+            <input class="form-check-input" type="checkbox" [checked]="address.isDeliveryAddress ? true : false" #switch
+              (change)="setDeliveryAddress(switch.checked,address.id)">
             <label class="form-check-label">Set as delivery address</label>
           </div>
         </div>
@@ -30,13 +28,11 @@
     </ng-template>
   </owl-carousel-o>
 </section>
-
-
 <div class="modal fade" id="addressModal" data-bs-backdrop="static">
   <div class="modal-dialog modal-dialog-centered">
     <form autocomplete="off" [formGroup]="addressForm" (ngSubmit)="addressAddEdit()">
       <div class="modal-content">
-        <div class="modal-header cardHeader" >
+        <div class="modal-header cardHeader">
           <h4 class="modal-title">{{modalHeader}}</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
@@ -44,7 +40,8 @@
           <div class="row">
             <div class="col-md-6">
               <label for="">Pin Code</label>
-              <input type="text" formControlName="pincode" class="form-control" #box onKeyPress="if(this.value.length==6) return false;" (change)="getAddressByPincode(box.value)" >
+              <input type="text" formControlName="pincode" class="form-control" #box
+                onKeyPress="if(this.value.length==6) return false;" (change)="getAddressByPincode(box.value)">
               <div *ngIf="isFormValid && controls['pincode'].errors">
                 <div *ngIf="controls['pincode'].errors['required']" class="text-danger">
                   Pincode is required.
@@ -52,21 +49,18 @@
               </div>
             </div>
             <div class="col-md-6">
-              <label for="">State</label>
-              <input type="text" readonly="readonly" formControlName="state" class="form-control">
-             
+              <label for="">City</label>
+              <input type="text" readonly="readonly" formControlName="city" class="form-control disabled-input">
             </div>
           </div>
           <div class="row mt-2">
             <div class="col-md-6">
-              <label for="">City</label>
-              <input type="text" readonly="readonly" formControlName="city" class="form-control">
-             
+              <label for="">State</label>
+              <input type="text" readonly="readonly" formControlName="state" class="form-control disabled-input">
             </div>
             <div class="col-md-6">
               <label for="">Country</label>
-              <input type="text" readonly="readonly" formControlName="country" class="form-control">
-              
+              <input type="text" readonly="readonly" formControlName="country" class="form-control disabled-input">
             </div>
           </div>
           <div class="row mt-2">
@@ -95,7 +89,6 @@
               </div>
             </div>
           </div>
-         
         </div>
         <div class="modal-footer">
           <button class="btn" [disabled]="disableButton ? true : false">Save</button>

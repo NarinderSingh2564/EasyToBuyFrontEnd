@@ -33,9 +33,6 @@ export class OrderListComponent {
   getOrderList() {
     if (this.accountService.getUserRole() == "Vendor") {
       this.header = (this.statusId == 0) ? "All Orders" : (this.statusId == 1) ? "Pending Orders" : (this.statusId == 5) ? "Delivered Orders" : "Cancelled Orders";
-
-      // var newStatusId = (this.statusId == 0 ? "" : this.statusId == 1 ? '1' : this.statusId.toString());
-
       this.orderService.getOrderList(0, this.accountService.getUserId(), "", this.statusId,"", "").subscribe((result: any) => {
         this.orderList = result
       })
@@ -50,11 +47,8 @@ export class OrderListComponent {
 
   searchProducts(searchText: string) {
     if (this.accountService.getUserRole() == "Vendor") {
-
       this.header = (this.statusId == 0) ? "All Orders" : (this.statusId == 1) ? "Pending Orders" : (this.statusId == 4) ? "Delivered Orders" : "Cancelled Orders";
-
       var newStatusId = (this.statusId == 0 ? "" : this.statusId == 1 ? '1,' : this.statusId.toString());
-
       this.orderService.getOrderList(0, this.accountService.getUserId(), searchText, this.statusId,"", "").subscribe((result: any) => {
         this.orderList = result
       })

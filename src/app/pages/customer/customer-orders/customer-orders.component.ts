@@ -31,7 +31,7 @@ export class CustomerOrdersComponent {
   }
 
   getOrderList() {
-    this.orderService.getOrderList(this.accountService.getUserId(), 0, "", 0, "", "").subscribe((result: any) => {
+    this.orderService.getOrderList(this.accountService.getUserId(),0, "", 0, "", "").subscribe((result: any) => {
       this.orderList = result
     })
   }

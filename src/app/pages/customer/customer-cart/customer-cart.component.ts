@@ -59,7 +59,7 @@ export class CustomerCartComponent {
   }
 
   getDeliveryAddress() {
-    this.accountService.getAddressListByUserId().subscribe((result: any) => {
+    this.accountService.getAddressListByCustomerId().subscribe((result: any) => {
       this.deliveryAddress = result.filter((a: any) => a.isDeliveryAddress == true);
     })
   }
@@ -101,8 +101,8 @@ export class CustomerCartComponent {
     }
   }
 
-  removeProductFromCart(id: number) {
-    this.cartService.removeFromCart(id).subscribe((result: any) => {
+  removeProductFromCart(cartId: number) {
+    this.cartService.removeFromCart(cartId).subscribe((result: any) => {
       alert(result.message)
       this.cartService.updateCart$.next(true);
       this.cartService.updateCartCount$.next(true);

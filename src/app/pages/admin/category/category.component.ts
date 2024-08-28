@@ -78,7 +78,7 @@ export class CategoryComponent implements OnInit {
         packingModeId: this.categoryForm.value.packingMode == "kg" ? 1 : 2,
         createdBy: this.accountService.getUserId(),
         updatedBy: this.accountService.getUserId(),
-        isActive: this.categoryForm.value.isActive == null ? false : true,
+        isActive: this.categoryForm.value.isActive,
       }
       this.categoryService.categoryAddEdit(category).subscribe(result => {
         this.response = result;

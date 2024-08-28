@@ -1,11 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { VendorService } from '../../../services/vendor.service';
-import { isDataView } from 'node:util/types';
-import { HttpErrorResponse } from '@angular/common/http';
-import { error } from 'node:console';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-vendor-register',
@@ -16,24 +13,24 @@ import { error } from 'node:console';
 })
 export class VendorRegisterComponent {
 
-  vendorBasicDetailsUIModel: FormGroup;
-  vendorCompanyDetailsUIModel: FormGroup;
-  vendorBankDetailsUIModel: FormGroup;
+  userBasicDetailsUIModel: FormGroup;
+  userCompanyDetailsUIModel: FormGroup;
+  userBankDetailsUIModel: FormGroup;
 
   address: any = [];
-  vendorUIModel: any = {};
+  userUIModel: any = {};
   showPwd: boolean = false;
   isFormValid: boolean = false;
 
   isAccountNumberConfirm: boolean = true
 
-  constructor(private formBuilder: FormBuilder, private vendorService: VendorService) {
-    this.vendorBasicDetailsUIModel = this.formBuilder.group({
+  constructor(private formBuilder: FormBuilder, private userService: UserService) {
+    this.userBasicDetailsUIModel = this.formBuilder.group({
       name: new FormControl("", [Validators.required, Validators.pattern("^[a-zA-Z ]*$")]),
       email: new FormControl("", [Validators.required, Validators.pattern("^[A-Za-z0-9._]{3,}@[A-Za-z]{3,}[.]{1}[a-zA-Z]{2,6}$")]),
       mobile: new FormControl("", [Validators.required, Validators.pattern("^[6,7,8,9]{1}[0-9]{9}$")]),
       password: new FormControl("", [Validators.required, Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{4,}$")]),
-      type: new FormControl("", [Validators.required]),
+      role: new FormControl("", [Validators.required]),
       identificationType: new FormControl("", [Validators.required]),
       identificationNumber: new FormControl("", [Validators.required, Validators.pattern("^[a-zA-Z0-9- ]+$")]),
       pincode: new FormControl("", [Validators.required, Validators.pattern("^[1-9][0-9]{5}$")]),
@@ -42,7 +39,7 @@ export class VendorRegisterComponent {
       country: new FormControl({ value: '', disabled: true, }),
       fullAddress: new FormControl("", [Validators.required, Validators.pattern("^['-A-Za-z0-9()@./#& ]*$")])
     })
-    this.vendorCompanyDetailsUIModel = this.formBuilder.group({
+    this.userCompanyDetailsUIModel = this.formBuilder.group({
       companyName: new FormControl("", [Validators.required, Validators.pattern("^['-A-Za-z0-9()& ]*$")]),
       description: new FormControl("", [Validators.required, Validators.pattern("^['-A-Za-z0-9()@./#& ]*$")]),
       dealingPerson: new FormControl("", [Validators.required, Validators.pattern("^[a-zA-Z ]*$")]),
@@ -53,7 +50,7 @@ export class VendorRegisterComponent {
       country: new FormControl({ value: '', disabled: true, }),
       fullAddress: new FormControl("", [Validators.required, Validators.pattern("^['-A-Za-z0-9()@./#& ]*$")])
     })
-    this.vendorBankDetailsUIModel = formBuilder.group({
+    this.userBankDetailsUIModel = formBuilder.group({
       accountHolderName: new FormControl("", [Validators.required, Validators.pattern("^[a-zA-Z ]*$")]),
       accountNumber: new FormControl("", [Validators.required, Validators.pattern("^[0-9]{9,18}$")]),
       confirmAccountNumber: new FormControl("", [Validators.required]),
@@ -63,16 +60,16 @@ export class VendorRegisterComponent {
     })
   }
 
-  get vendorFormControls() {
-    return this.vendorBasicDetailsUIModel.controls;
+  get userFormControls() {
+    return this.userBasicDetailsUIModel.controls;
   }
 
   get companyFormControls() {
-    return this.vendorCompanyDetailsUIModel.controls;
+    return this.userCompanyDetailsUIModel.controls;
   }
 
   get bankFormControls() {
-    return this.vendorBankDetailsUIModel.controls;
+    return this.userBankDetailsUIModel.controls;
   }
 
   showPassword() {
@@ -88,122 +85,122 @@ export class VendorRegisterComponent {
   }
   
   getAddressByPincode(pincode: string, formName: string) {
-    if ((this.vendorBasicDetailsUIModel.controls['pincode'].valid || this.vendorCompanyDetailsUIModel.controls['pincode'].valid) && pincode != '') {
-      this.vendorService.getAddressByPincode(pincode).subscribe((result: any) => {
+    if ((this.userBasicDetailsUIModel.controls['pincode'].valid || this.userCompanyDetailsUIModel.controls['pincode'].valid) && pincode != '') {
+      this.userService.getAddressByPincode(pincode).subscribe((result: any) => {
         if (result[0].Status == "Success") {
           this.address = result[0].PostOffice[0]
-          if (formName == "vendorDetails") {
-            this.vendorBasicDetailsUIModel.controls['city'].patchValue(this.address.Division);
-            this.vendorBasicDetailsUIModel.controls['state'].patchValue(this.address.State);
-            this.vendorBasicDetailsUIModel.controls['country'].patchValue(this.address.Country);
+          if (formName == "userDetails") {
+            this.userBasicDetailsUIModel.controls['city'].patchValue(this.address.Division);
+            this.userBasicDetailsUIModel.controls['state'].patchValue(this.address.State);
+            this.userBasicDetailsUIModel.controls['country'].patchValue(this.address.Country);
           }
           if (formName == "companyDetails") {
-            this.vendorCompanyDetailsUIModel.controls['city'] .patchValue(this.address.Division);
-            this.vendorCompanyDetailsUIModel.controls['state'].patchValue(this.address.State);
-            this.vendorCompanyDetailsUIModel.controls['country'].patchValue(this.address.Country);
+            this.userCompanyDetailsUIModel.controls['city'] .patchValue(this.address.Division);
+            this.userCompanyDetailsUIModel.controls['state'].patchValue(this.address.State);
+            this.userCompanyDetailsUIModel.controls['country'].patchValue(this.address.Country);
           }
         }
         else {
           alert("This pincode does not exists, please enter correct pincode.")
-          if (formName == "vendorDetails") {
-            this.vendorBasicDetailsUIModel.controls['pincode'].reset()
-            this.vendorBasicDetailsUIModel.controls['city'].reset()
-            this.vendorBasicDetailsUIModel.controls['state'].reset()
-            this.vendorBasicDetailsUIModel.controls['country'].reset()
+          if (formName == "userDetails") {
+            this.userBasicDetailsUIModel.controls['pincode'].reset()
+            this.userBasicDetailsUIModel.controls['city'].reset()
+            this.userBasicDetailsUIModel.controls['state'].reset()
+            this.userBasicDetailsUIModel.controls['country'].reset()
           }
           if (formName == "companyDetails") {
-            this.vendorCompanyDetailsUIModel.controls['pincode'].reset()
-            this.vendorCompanyDetailsUIModel.controls['city'].reset()
-            this.vendorCompanyDetailsUIModel.controls['state'].reset()
-            this.vendorCompanyDetailsUIModel.controls['country'].reset()
+            this.userCompanyDetailsUIModel.controls['pincode'].reset()
+            this.userCompanyDetailsUIModel.controls['city'].reset()
+            this.userCompanyDetailsUIModel.controls['state'].reset()
+            this.userCompanyDetailsUIModel.controls['country'].reset()
           }
         }
       })
     }
     else{
-      if(formName == "vendorDetails"){
-        this.vendorBasicDetailsUIModel.controls['city'].reset()
-        this.vendorBasicDetailsUIModel.controls['state'].reset()
-        this.vendorBasicDetailsUIModel.controls['country'].reset()
+      if(formName == "userDetails"){
+        this.userBasicDetailsUIModel.controls['city'].reset()
+        this.userBasicDetailsUIModel.controls['state'].reset()
+        this.userBasicDetailsUIModel.controls['country'].reset()
       }
       if(formName == "companyDetails"){
-        this.vendorCompanyDetailsUIModel.controls['city'].reset()
-        this.vendorCompanyDetailsUIModel.controls['state'].reset()
-        this.vendorCompanyDetailsUIModel.controls['country'].reset()
+        this.userCompanyDetailsUIModel.controls['city'].reset()
+        this.userCompanyDetailsUIModel.controls['state'].reset()
+        this.userCompanyDetailsUIModel.controls['country'].reset()
       }
     }
   }
 
   validateAccountNumber() {
-    this.isAccountNumberConfirm = this.vendorBankDetailsUIModel.value.accountNumber != this.vendorBankDetailsUIModel.value.confirmAccountNumber && this.vendorBankDetailsUIModel.value.confirmAccountNumber != '' ? false : true
+    this.isAccountNumberConfirm = this.userBankDetailsUIModel.value.accountNumber != this.userBankDetailsUIModel.value.confirmAccountNumber && this.userBankDetailsUIModel.value.confirmAccountNumber != '' ? false : true
   }
 
   getBankDetailsByIFSCCode(ifscCode: string) {
-    if (this.vendorBankDetailsUIModel.controls['ifscCode'].valid) {
-      this.vendorService.getBankDetailsByIFSCCode(ifscCode).subscribe((result: any) => {
+    if (this.userBankDetailsUIModel.controls['ifscCode'].valid) {
+      this.userService.getBankDetailsByIFSCCode(ifscCode).subscribe((result: any) => {
         if (result != null) {
-          this.vendorBankDetailsUIModel.controls['bankName'].patchValue(result.BANK);
-          this.vendorBankDetailsUIModel.controls['branch'].patchValue(result.BRANCH);
+          this.userBankDetailsUIModel.controls['bankName'].patchValue(result.BANK);
+          this.userBankDetailsUIModel.controls['branch'].patchValue(result.BRANCH);
         }
-      }, error => {
+      }, (error: { status: number; }) => {
         if (error.status == 404) {
           alert("This IFSC code does not exists, please enter correct IFSC code.")
-          this.vendorBankDetailsUIModel.controls['ifscCode'].reset()
+          this.userBankDetailsUIModel.controls['ifscCode'].reset()
         }
       });
     }
   }
 
-  vendorRegistration() {
-    this.vendorUIModel = {};
+ userRegistration() {
+    this.userUIModel = {};
     this.isFormValid = true
-    if (this.vendorBasicDetailsUIModel.invalid || this.vendorCompanyDetailsUIModel.invalid || this.vendorBankDetailsUIModel.invalid) {
+    if (this.userBasicDetailsUIModel.invalid || this.userCompanyDetailsUIModel.invalid || this.userBankDetailsUIModel.invalid) {
       return;
     }
     else {
-      var vendorBasicDetailsUIModel: any = {
-        name: this.vendorBasicDetailsUIModel.value.name.trim(),
-        email: this.vendorBasicDetailsUIModel.value.email.trim(),
-        mobile: this.vendorBasicDetailsUIModel.value.mobile.toString().trim(),
-        password: this.vendorBasicDetailsUIModel.value.password.trim(),
-        type: this.vendorBasicDetailsUIModel.value.type,
-        identificationType: this.vendorBasicDetailsUIModel.value.identificationType,
-        identificationNumber: this.vendorBasicDetailsUIModel.value.identificationNumber.trim(),
-        pincode: this.vendorBasicDetailsUIModel.value.pincode.trim(),
-        city: this.vendorBasicDetailsUIModel.getRawValue().city,
-        state: this.vendorBasicDetailsUIModel.getRawValue().state,
-        country: this.vendorBasicDetailsUIModel.getRawValue().country,
-        fullAddress: this.vendorBasicDetailsUIModel.value.fullAddress.trim()
+      var userBasicDetailsUIModel: any = {
+        name: this.userBasicDetailsUIModel.value.name.trim(),
+        email: this.userBasicDetailsUIModel.value.email.trim(),
+        mobile: this.userBasicDetailsUIModel.value.mobile.toString().trim(),
+        password: this.userBasicDetailsUIModel.value.password.trim(),
+        role: this.userBasicDetailsUIModel.value.role,
+        identificationType: this.userBasicDetailsUIModel.value.identificationType,
+        identificationNumber: this.userBasicDetailsUIModel.value.identificationNumber.trim(),
+        pincode: this.userBasicDetailsUIModel.value.pincode.trim(),
+        city: this.userBasicDetailsUIModel.getRawValue().city,
+        state: this.userBasicDetailsUIModel.getRawValue().state,
+        country: this.userBasicDetailsUIModel.getRawValue().country,
+        fullAddress: this.userBasicDetailsUIModel.value.fullAddress.trim()
       }
-      var vendorCompanyDetailsUIModel: any = {
-        companyName: this.vendorCompanyDetailsUIModel.value.companyName.trim(),
-        description: this.vendorCompanyDetailsUIModel.value.description.trim(),
-        dealingPerson: this.vendorCompanyDetailsUIModel.value.dealingPerson.trim(),
-        gstin: this.vendorCompanyDetailsUIModel.value.gstin.trim(),
-        pincode: this.vendorCompanyDetailsUIModel.value.pincode.trim(),
-        city: this.vendorCompanyDetailsUIModel.getRawValue().city,
-        state: this.vendorCompanyDetailsUIModel.getRawValue().state,
-        country: this.vendorCompanyDetailsUIModel.getRawValue().country,
-        fullAddress: this.vendorCompanyDetailsUIModel.value.fullAddress.trim(),
+      var userCompanyDetailsUIModel: any = {
+        companyName: this.userCompanyDetailsUIModel.value.companyName.trim(),
+        description: this.userCompanyDetailsUIModel.value.description.trim(),
+        dealingPerson: this.userCompanyDetailsUIModel.value.dealingPerson.trim(),
+        gstin: this.userCompanyDetailsUIModel.value.gstin.trim(),
+        pincode: this.userCompanyDetailsUIModel.value.pincode.trim(),
+        city: this.userCompanyDetailsUIModel.getRawValue().city,
+        state: this.userCompanyDetailsUIModel.getRawValue().state,
+        country: this.userCompanyDetailsUIModel.getRawValue().country,
+        fullAddress: this.userCompanyDetailsUIModel.value.fullAddress.trim(),
       }
-      var vendorBankDetailsUIModel: any = {
-        accountHolderName: this.vendorBankDetailsUIModel.value.accountHolderName.trim(),
-        accountNumber: this.vendorBankDetailsUIModel.value.accountNumber.trim(),
-        ifscCode: this.vendorBankDetailsUIModel.value.ifscCode.trim(),
-        bankName: this.vendorBankDetailsUIModel.getRawValue().bankName,
-        branch: this.vendorBankDetailsUIModel.getRawValue().branch,
+      var userBankDetailsUIModel: any = {
+        accountHolderName: this.userBankDetailsUIModel.value.accountHolderName.trim(),
+        accountNumber: this.userBankDetailsUIModel.value.accountNumber.trim(),
+        ifscCode: this.userBankDetailsUIModel.value.ifscCode.trim(),
+        bankName: this.userBankDetailsUIModel.getRawValue().bankName,
+        branch: this.userBankDetailsUIModel.getRawValue().branch,
       }
-      this.vendorUIModel = {
-        vendorBasicDetailsUIModel: vendorBasicDetailsUIModel,
-        vendorCompanyDetailsUIModel: vendorCompanyDetailsUIModel,
-        vendorBankDetailsUIModel: vendorBankDetailsUIModel
+      this.userUIModel = {
+        userBasicDetailsUIModel: userBasicDetailsUIModel,
+        userCompanyDetailsUIModel: userCompanyDetailsUIModel,
+        userBankDetailsUIModel: userBankDetailsUIModel
       };
-      this.vendorService.vendorRegistration(this.vendorUIModel).subscribe((result: any) => {
+      this.userService.userRegistration(this.userUIModel).subscribe((result: any) => {
         alert(result.message)
         if (result.status) {
-          this.vendorBasicDetailsUIModel.reset()
-          this.vendorCompanyDetailsUIModel.reset()
-          this.vendorBankDetailsUIModel.reset()
+          this.userBasicDetailsUIModel.reset()
+          this.userCompanyDetailsUIModel.reset()
+          this.userBankDetailsUIModel.reset()
           this.isFormValid = false
         }
       })

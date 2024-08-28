@@ -143,8 +143,8 @@
                 <div class="col-md-12">
                   <span class="spnProductPrice">₹{{PSlider.priceAfterDiscount}}</span>/
                   <span class="spnMRP">{{PSlider.packingMode}}</span>&nbsp;
-                  <span class="spnMRP">M.R.P:<span class="actualPrice" >₹{{PSlider.mrp}}</span></span>
-                  <span class="discount">{{PSlider.discount}}%off</span>
+                  <span class="spnMRP">M.R.P: <span class="actualPrice" >₹{{PSlider.mrp}}</span></span>&nbsp;
+                  <span class="discount" *ngIf="PSlider.discount > 0">{{PSlider.discount}}%off</span>
                 </div>
               </div>
           </div>
@@ -186,10 +186,10 @@
  
                <div class="row text-center pricedetails">
                  <div class="col-md-12">
-                   <span class="spnProductPrice">{{DSlider.priceAfterDiscount}}</span>/
+                   <span class="spnProductPrice">₹{{DSlider.priceAfterDiscount}}</span>/
                    <span class="spnMRP">{{DSlider.packingMode}}</span>&nbsp;
-                   <span class="spnMRP">M.R.P:<span class="actualPrice" >₹{{DSlider.mrp}}</span></span>
-                   <span class="discount">{{DSlider.discount}}%off</span>
+                   <span class="spnMRP">M.R.P: <span class="actualPrice" >₹{{DSlider.mrp}}</span></span>&nbsp;
+                   <span class="discount" *ngIf="DSlider.discount > 0">{{DSlider.discount}}%off</span>
                  </div>
                </div>
            </div>

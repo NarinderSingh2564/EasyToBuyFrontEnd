@@ -31,7 +31,7 @@ export class CustomerAddressComponent {
   constructor() {
     this.getAddressList();
     this.getAddressTypeList();
-  
+
     this.addressForm = this.formBuilder.group({
       id: new FormControl(0),
       pincode: new FormControl("", [Validators.required]),
@@ -48,7 +48,7 @@ export class CustomerAddressComponent {
   }
 
   getAddressList() {
-    this.accountService.getAddressListByUserId().subscribe((result: any) => {
+    this.accountService.getAddressListByCustomerId().subscribe((result: any) => {
       this.userAddressList = result;
     })
   }
@@ -83,7 +83,7 @@ export class CustomerAddressComponent {
     else {
       const addressData: any = {
         id: this.addressForm.value.id != null && this.addressForm.value.id > 0 ? this.addressForm.value.id : 0,
-        userId: this.accountService.getUserId(),
+        customerId: this.accountService.getUserId(),
         pincode: this.addressForm.value.pincode,
         state: this.address.State,
         city: this.address.Division,
@@ -93,7 +93,6 @@ export class CustomerAddressComponent {
         createdBy: this.accountService.getUserId(),
         updatedBy: this.accountService.getUserId(),
       }
-      console.log(addressData)
       this.accountService.addressAddEdit(addressData).subscribe((result: any) => {
         alert(result.message)
         this.isFormValid = false
@@ -114,11 +113,11 @@ export class CustomerAddressComponent {
     this.addressForm.patchValue(address)
   }
 
-  setDeliveryAddress(checked: boolean, id: number) {
-    if (checked) {
-      var a = confirm("Are you sure to set this address as delivery address?");
-      if (a) {
-        this.accountService.setDeliveryAddress(id, this.accountService.getUserId()).subscribe((result: any) => {
+  setDeliveryAddress(status: boolean, addressId: number) {
+    if(status){
+      var isConfirm = confirm("Are you sure to set this address as delivery address?");
+      if (isConfirm) {
+        this.accountService.setDeliveryAddress(addressId, this.accountService.getUserId()).subscribe((result: any) => {
           this.getAddressList();
           this.accountService.updateDeliveryAddress$.next(true);
         })

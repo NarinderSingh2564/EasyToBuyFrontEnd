@@ -51,6 +51,9 @@ label {
     padding: 0px 40px 0px 8px;
 }
 
+.disabled-input{
+    background-color:#e7e7e7 ;
+}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;

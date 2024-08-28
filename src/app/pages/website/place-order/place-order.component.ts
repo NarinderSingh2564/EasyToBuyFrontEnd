@@ -21,6 +21,7 @@ export class PlaceOrderComponent {
   priceDetails: any = [];
   totalCartItems: number = 0;
   isPlaced: boolean = false;
+  
   constructor() {
     this.getCartDetailsByCustomerId();
   }
@@ -29,6 +30,7 @@ export class PlaceOrderComponent {
     this.cartService.getCartDetailsByCustomerId(this.accountService.getUserId()).subscribe((result: any) => {
       this.priceDetails = result.priceDetails
       this.totalCartItems = result._cartListItems.length
+      console.log(this.priceDetails)
     })
   }
 

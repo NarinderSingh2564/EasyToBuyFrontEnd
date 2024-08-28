@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class VendorService {
+export class UserService {
 
   constructor(private http: HttpClient) { }
   
@@ -16,11 +16,11 @@ export class VendorService {
     return this.http.get("https://ifsc.razorpay.com/" + ifscCode)
   }
 
-  vendorRegistration(vendorUIModel: any) {
-    return this.http.post("https://localhost:7239/api/Vendor/VendorRegistration",vendorUIModel)
+  userRegistration(userUIModel: any) {
+    return this.http.post("https://localhost:7239/api/User/UserRegistration",userUIModel)
   }
 
-  vendorOrdersCount(vendorId: number) {
-    return this.http.get("https://localhost:7239/api/Vendor/GetVendorOrdersCount?vendorId="+ vendorId)
+  userOrdersCount(userId: number) {
+    return this.http.get("https://localhost:7239/api/User/GetUserOrdersCount?userId="+ userId)
   }
 }

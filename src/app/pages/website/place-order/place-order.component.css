@@ -28,7 +28,8 @@ hr.hr {
 }
 
 .btn-pay{
-    background-color: #ff7100
+    background-color: #ff7100;
+    width: max-content;
 }
 a{
     text-decoration: none;

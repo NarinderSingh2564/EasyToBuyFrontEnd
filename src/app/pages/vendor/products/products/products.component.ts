@@ -115,7 +115,7 @@ export class ProductsComponent implements OnInit {
   }
 
   getProductList() {
-    this.productService.getProductList(0, "", this.accountService.getUserId(), "Vendor").subscribe(result => {
+    this.productService.getProductList(0, "", this.accountService.getUserId(), "User").subscribe(result => {
       this.productList = result
     })
   }
@@ -149,7 +149,7 @@ export class ProductsComponent implements OnInit {
     else {
       const formData = new FormData();
       formData.set("id", this.productForm.value.id != null && this.productForm.value.id > 0 ? this.productForm.value.id : 0);
-      formData.set("vendorId", this.accountService.getUserId());
+      formData.set("userId", this.accountService.getUserId());
       formData.set("productName", this.productForm.value.productName);
       formData.set("productDescription", this.productForm.value.productDescription);
       formData.set("productImage", this.productRealImage);
@@ -246,10 +246,10 @@ export class ProductsComponent implements OnInit {
     })
   }
 
-  deleteImage(imageId: number) {
+  deleteImage(productImageId: number) {
     var confirmDelete = confirm("Are you sure to delete this image?");
     if (confirmDelete) {
-      this.productService.deleteProductVariationImage(imageId).subscribe((result: any) => {
+      this.productService.deleteProductVariationImage(productImageId).subscribe((result: any) => {
         alert(result.message)
         if (result.status) {
           this.getVariationImagesList();

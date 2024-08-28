@@ -48,7 +48,7 @@ export class LoginComponent{
       }
       this.accountService.checkUser(loginObj).subscribe((result:any) => {
             if(result.status){
-              if(role=="Vendor"){
+              if(role=="User"){
                 this.router.navigate(['/vendor-dashboard']);
               }
               else{
@@ -64,7 +64,7 @@ export class LoginComponent{
   }
 
   register(role:string){
-    if(role=="Vendor"){
+    if(role=="User"){
       this.router.navigate(['/vendor-register']);
     }
     if(role=="Customer"){

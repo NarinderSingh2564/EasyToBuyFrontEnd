@@ -64,7 +64,7 @@ export class WebProductsComponent {
   AddToCart(productId: number, productQuantity: number, variationId: number) {
     if (this.accountService.getUserId() > 0) {
         const cart = {
-        userId: this.accountService.getUserId(),
+        customerId: this.accountService.getUserId(),
         productId: productId,
         variationId: variationId,
         quantity: productQuantity,

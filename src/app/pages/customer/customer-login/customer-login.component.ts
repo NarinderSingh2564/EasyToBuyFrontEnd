@@ -1,9 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoginComponent } from "../../account/login/login.component";
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { RouterLink,Router } from '@angular/router';
-import { AccountService } from '../../../services/account.service';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-customer-login',
@@ -13,7 +12,5 @@ import { AccountService } from '../../../services/account.service';
     imports: [LoginComponent,FormsModule,RouterLink,CommonModule,ReactiveFormsModule]
 })
 export class CustomerLoginComponent {
-
-  role = "Customer";
   
 }

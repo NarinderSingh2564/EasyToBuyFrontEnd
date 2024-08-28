@@ -17,11 +17,10 @@ export class LoginComponent{
   loginForm:FormGroup;
   isFormValid:boolean=false;
   showPwd: boolean = false;
-  @Input() userRole:any;
 
   constructor(private formBuilder:FormBuilder,private accountService:AccountService,private router:Router){
     this.loginForm = this.formBuilder.group({
-      mobile:new FormControl(null,[Validators.required]),
+      username:new FormControl(null,[Validators.required]),
       password:new FormControl(null,[Validators.required]),
     })
    
@@ -35,26 +34,25 @@ export class LoginComponent{
     return this.loginForm.controls;
   }
 
-  onLogin(role:string){
+  onLogin(){
     this.isFormValid = true
     if(this.loginForm.invalid){
       return;
     }
     else{
       const loginObj = {
-        mobile:this.loginForm.value.mobile,
+        username:this.loginForm.value.username,
         password:this.loginForm.value.password,
-        role:role
       }
       this.accountService.checkUser(loginObj).subscribe((result:any) => {
             if(result.status){
-              if(role=="User"){
-                this.router.navigate(['/vendor-dashboard']);
-              }
-              else{
-                this.router.navigate(['/AllProducts']);
-              }
               this.accountService.setUserSession(result.response);
+              // if(this.accountService.getUserRole() =="User"){
+                this.router.navigate([result.response["redirect"]]);
+              // }
+              // else{
+              //   this.router.navigate(['/AllProducts']);
+              // }
             }
             else{
               alert(result.message)
@@ -63,12 +61,12 @@ export class LoginComponent{
     }
   }
 
-  register(role:string){
-    if(role=="User"){
-      this.router.navigate(['/vendor-register']);
-    }
-    if(role=="Customer"){
-      this.router.navigate(['/register']);
-    }
+  register(){
+    // if(role=="User"){
+    //   this.router.navigate(['/vendor-register']);
+    // }
+    // if(role=="Customer"){
+    //   this.router.navigate(['/register']);
+    // }
   }
 }

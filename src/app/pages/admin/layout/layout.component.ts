@@ -19,6 +19,6 @@ export class LayoutComponent {
 
   Logout(){
     sessionStorage.clear();
-    this.router.navigate(['/vendor-login']);
+    this.router.navigate(['/AllProducts']);
   }
 }

@@ -30,10 +30,7 @@
         <div class="dropdown">
           <i class="bi bi-person-circle"></i>
           <div class="dropdown-content" *ngIf="!loggedIn">
-
-            <a (click)="Login()"><i class="bi bi-box-arrow-in-right fs-4 p-2"></i><span >Customer Login</span></a>
-          <a (click)="VendorLogin()"><i class="bi bi-box-arrow-in-right fs-4 p-2"></i><span >Vendor Login</span></a>
-           
+            <a (click)="Login()"><i class="bi bi-box-arrow-in-right fs-4 p-2"></i><span >Login</span></a>
           </div>
           <div class="dropdown-content" *ngIf="loggedIn">
             <div class="text-center mt-3 username">

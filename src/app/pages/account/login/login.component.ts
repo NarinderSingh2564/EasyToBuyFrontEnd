@@ -47,12 +47,7 @@ export class LoginComponent{
       this.accountService.checkUser(loginObj).subscribe((result:any) => {
             if(result.status){
               this.accountService.setUserSession(result.response);
-              // if(this.accountService.getUserRole() =="User"){
                 this.router.navigate([result.response["redirect"]]);
-              // }
-              // else{
-              //   this.router.navigate(['/AllProducts']);
-              // }
             }
             else{
               alert(result.message)
@@ -62,11 +57,6 @@ export class LoginComponent{
   }
 
   register(){
-    // if(role=="User"){
-    //   this.router.navigate(['/vendor-register']);
-    // }
-    // if(role=="Customer"){
-    //   this.router.navigate(['/register']);
-    // }
+     this.router.navigate(['/register']);
   }
 }

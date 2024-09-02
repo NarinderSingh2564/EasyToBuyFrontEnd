@@ -60,11 +60,7 @@ export class LandingComponent {
     })
   }
   Login() {
-    this.router.navigate(['/customer-login']);
-  }
-
-  VendorLogin() {
-    this.router.navigate(['/vendor-login']);
+    this.router.navigate(['/app-login']);
   }
 
   Logout() {
@@ -73,9 +69,6 @@ export class LandingComponent {
   .then(() => {
     window.location.reload();
   });
-    // window.location.reload();
-    // this.router.navigate(['/AllProducts']);
-
   }
 
 }

@@ -20,7 +20,7 @@ export class UserService {
     return this.http.post("https://localhost:7239/api/User/UserRegistration",userUIModel)
   }
 
-  userOrdersCount(userId: number) {
+  getUserOrdersCount(userId: number) {
     return this.http.get("https://localhost:7239/api/User/GetUserOrdersCount?userId="+ userId)
   }
 }

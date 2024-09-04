@@ -66,7 +66,7 @@ export class CategoryComponent implements OnInit {
     })
   }
 
-  CategoryAddEdit() {
+  categoryAddEdit() {
     this.isFormValid = true
     if (this.categoryForm.invalid) {
       return;

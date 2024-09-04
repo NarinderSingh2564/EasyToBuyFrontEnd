@@ -55,20 +55,20 @@
                 </div>
                 <div class="card-body px-5">
                     <form autocomplete="off" [formGroup]="productForm">
-                        <input type="hidden" class="form-control" formControlName="id">
                         <div>
                             <div class="row">
                                 <div class="col-md-10">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label for="">Product Name</label>
+                                            <input type="hidden" class="form-control" formControlName="id">
                                             <input type="text" formControlName="productName" class="form-control">
                                             <div *ngIf="isFormValid && controls['productName'].errors">
                                                 <div *ngIf="controls['productName'].errors['required']"
-                                                    class="text-danger">
-                                                    Product name is required.
-                                                </div>
+                                                class="text-danger">
+                                                Product name is required.
                                             </div>
+                                        </div>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="">Product Image</label>
@@ -92,8 +92,8 @@
                                                     <label for="">Category</label>
                                                     <select class="form-select" formControlName="categoryId"
                                                         (change)="onCategoryChange($event)">
-                                                        <option [ngValue]="null" [disabled]="true" hidden>--Select
-                                                            Option--</option>
+                                                        <option [ngValue]="null" [disabled]="true" hidden selected>--Select
+                                                            category--</option>
                                                         <option *ngFor="let category of categoryList"
                                                             [value]="category.id">
                                                             {{category.categoryName}}
@@ -157,7 +157,7 @@
                                 </div>
                             </div>
                             <div class="row" style="justify-content:center;">
-                                <button class="btn btn2" (click)="ProductAddEdit()">Submit</button>&nbsp;
+                                <button class="btn btn2" (click)="productAddEdit()">Submit</button>&nbsp;
                                 <button type="reset" class="btn btn-danger" style="width: 20%;"
                                     (click)="clearControls()">Cancel</button>
                             </div>

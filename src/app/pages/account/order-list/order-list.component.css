@@ -17,7 +17,7 @@
 }
  th
  {
-    background:#549181;
+    background:#61887e;
     color: white;
     font-size: 15px;
     font-weight: 600;
@@ -26,7 +26,7 @@
     color: white;
 }
 .input-group-text{
-    background: #549181;
+    background: #61887e;
 }
 h3{
     color: #3b6a5e;
@@ -35,10 +35,27 @@ h3{
 .table-bordered{
     border:1px solid #3b6a5e;
 }
-
+.form-check-input{
+    border-color: gray;
+    margin-left: -33px;
+}
 img{
     width: 16%;
     float: inline-start;
+}
+
+
+.form-control1{
+    position: relative;
+    flex: 1 1 auto;
+    border:hidden;
+    border-radius: 4px;
+}
+input:focus{
+    border: 2px solid #61887e;
+    -webkit-transition: 0.1s;
+    transition: 0.1s;
+    outline: none;
 }
 /* .pagination{
     justify-content: center;

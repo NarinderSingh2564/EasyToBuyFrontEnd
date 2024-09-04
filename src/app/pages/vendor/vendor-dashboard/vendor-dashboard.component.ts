@@ -20,7 +20,7 @@ export class VendorDashboardComponent {
   }
 
   getUserOrderCount(){
-    this.userService.userOrdersCount(this.accountService.getUserId()).subscribe(result=>{
+    this.userService.getUserOrdersCount(this.accountService.getUserId()).subscribe(result=>{
       this.userOrdersCountList= result;
     })
   }

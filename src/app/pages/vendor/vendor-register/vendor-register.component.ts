@@ -21,7 +21,7 @@ export class VendorRegisterComponent {
   userUIModel: any = {};
   showPwd: boolean = false;
   isFormValid: boolean = false;
-
+  showCompanyCard: boolean = false;
   isAccountNumberConfirm: boolean = true
 
   constructor(private formBuilder: FormBuilder, private userService: UserService) {
@@ -83,7 +83,7 @@ export class VendorRegisterComponent {
     }
     return true;
   }
-  
+
   getAddressByPincode(pincode: string, formName: string) {
     if ((this.userBasicDetailsUIModel.controls['pincode'].valid || this.userCompanyDetailsUIModel.controls['pincode'].valid) && pincode != '') {
       this.userService.getAddressByPincode(pincode).subscribe((result: any) => {
@@ -95,7 +95,7 @@ export class VendorRegisterComponent {
             this.userBasicDetailsUIModel.controls['country'].patchValue(this.address.Country);
           }
           if (formName == "companyDetails") {
-            this.userCompanyDetailsUIModel.controls['city'] .patchValue(this.address.Division);
+            this.userCompanyDetailsUIModel.controls['city'].patchValue(this.address.Division);
             this.userCompanyDetailsUIModel.controls['state'].patchValue(this.address.State);
             this.userCompanyDetailsUIModel.controls['country'].patchValue(this.address.Country);
           }
@@ -117,18 +117,22 @@ export class VendorRegisterComponent {
         }
       })
     }
-    else{
-      if(formName == "userDetails"){
+    else {
+      if (formName == "userDetails") {
         this.userBasicDetailsUIModel.controls['city'].reset()
         this.userBasicDetailsUIModel.controls['state'].reset()
         this.userBasicDetailsUIModel.controls['country'].reset()
       }
-      if(formName == "companyDetails"){
+      if (formName == "companyDetails") {
         this.userCompanyDetailsUIModel.controls['city'].reset()
         this.userCompanyDetailsUIModel.controls['state'].reset()
         this.userCompanyDetailsUIModel.controls['country'].reset()
       }
     }
+  }
+
+  showCompanyDetailsCard(role: string) {
+    this.showCompanyCard = role == "Vendor" ? true : false
   }
 
   validateAccountNumber() {
@@ -151,7 +155,7 @@ export class VendorRegisterComponent {
     }
   }
 
- userRegistration() {
+  userRegistration() {
     this.userUIModel = {};
     this.isFormValid = true
     if (this.userBasicDetailsUIModel.invalid || this.userCompanyDetailsUIModel.invalid || this.userBankDetailsUIModel.invalid) {

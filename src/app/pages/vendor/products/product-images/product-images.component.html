@@ -6,7 +6,7 @@
     <div class="modal-body">
         <label for="" class="mt-1">Variation Type</label>
         <select class="form-select" formControlName="variationId" (change)="onVariationChange($event)">
-            <option [ngValue]="null" [disabled]="true" hidden>--Select Option--</option>
+            <option [ngValue]="null" [disabled]="true" hidden>--Select variation type--</option>
             <option *ngFor="let variation of ProductVariationList" [value]="variation.variationId">{{variation.variation}}</option>
             <option value="" *ngIf="ProductVariationList.length == 0" disabled>No variation added</option>
         </select>

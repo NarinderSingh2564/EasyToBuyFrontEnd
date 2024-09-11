@@ -138,30 +138,13 @@ export class ProductsComponent implements OnInit {
       }
     }
   }
- 
-
-// a(){
-//   const invalid = [];
-//     const controls = this.productForm.controls;
-//     for (const name in controls) {
-//         if (controls[name].invalid) {
-//             invalid.push(name);
-//         }
-//     }
-//     console.log(invalid)
-//     return invalid;
-// }
 
   productAddEdit() {
     this.isFormValid = true
-    alert(this.productForm.value.id)
-
-    // this.productForm.value.id = this.productForm.value.id != null && this.productForm.value.id > 0 ? this.productForm.value.id : 0;
-    // this.productForm.value.isActive = this.productForm.value.isActive == null ? false : true;
-    // this.productForm.controls['productImage'].patchValue("k");
-
+    this.productForm.value.id = this.productForm.value.id != null && this.productForm.value.id > 0 ? this.productForm.value.id : 0;
+    this.productForm.value.isActive = this.productForm.value.isActive == null ? false : true;
+    this.productForm.controls['productImage'].patchValue("img");
     if (this.productForm.invalid) {
-      // this.a();
       return;
     }
     else {
@@ -180,17 +163,16 @@ export class ProductsComponent implements OnInit {
       formData.set("isActive", this.productForm.value.isActive == null ? "false" : "true");
 
     //  formData.forEach(entries => console.log(entries));
-alert("valid")
-      // this.productService.productAddEdit(formData).subscribe((result: any) => {
-      //   if (result.status) {
-      //     alert(result.message);
-      //     this.isFormValid = false;
-      //     if (!this.showSubCards) {
-      //       this.showForm = false
-      //     }
-      //     this.getProductList()
-      //   }
-      // });
+      this.productService.productAddEdit(formData).subscribe((result: any) => {
+        if (result.status) {
+          alert(result.message);
+          this.isFormValid = false;
+          if (!this.showSubCards) {
+            this.showForm = false
+          }
+          this.getProductList()
+        }
+      });
     }
   }
 

@@ -21,7 +21,7 @@ export class VendorRegisterComponent {
   userUIModel: any = {};
   showPwd: boolean = false;
   isFormValid: boolean = false;
-  showCompanyCard: boolean = false;
+  showCompanyCard: boolean = true;
   isAccountNumberConfirm: boolean = true
 
   constructor(private formBuilder: FormBuilder, private userService: UserService) {
@@ -132,7 +132,7 @@ export class VendorRegisterComponent {
   }
 
   showCompanyDetailsCard(role: string) {
-    this.showCompanyCard = role == "Vendor" ? true : false
+    // this.showCompanyCard = role == "Vendor" ? true : false
   }
 
   validateAccountNumber() {

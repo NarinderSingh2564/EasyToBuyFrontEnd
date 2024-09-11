@@ -1,8 +1,8 @@
 import { CommonModule, } from '@angular/common';
-import { Component, Input, inject } from '@angular/core';
+import { Component,inject } from '@angular/core';
 import { OrderService } from '../../../services/order.service';
 import { AccountService } from '../../../services/account.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EasyToBuyHelper } from '../../../helpers/EasyToBuyHelper';
 
 @Component({
@@ -12,8 +12,10 @@ import { EasyToBuyHelper } from '../../../helpers/EasyToBuyHelper';
   templateUrl: './order-list.component.html',
   styleUrl: './order-list.component.css'
 })
+
 export class OrderListComponent {
 
+  router = inject(Router)
   orderService = inject(OrderService)
   accountService = inject(AccountService)
 
@@ -24,8 +26,11 @@ export class OrderListComponent {
   variationImgUrl = EasyToBuyHelper.imageVariationBaseUrl
 
   constructor(private activatedRoute: ActivatedRoute) {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
     this.activatedRoute.params.subscribe((result: any) => {
-      this.statusId = result.id
+      this.statusId = result.id 
     })
     this.getOrderList()
   }
@@ -38,14 +43,14 @@ export class OrderListComponent {
       })
     }
     else {
-      this.header = "My Orders"
+      this.header = "Total Orders"
       this.orderService.getOrdersList(this.accountService.getUserId(), 0, "", 0,"", "").subscribe((result: any) => {
         this.orderList = result
       })
     }
   }
 
-  searchProducts(searchText: string) {
+  searchOrder(searchText: string) {
     if (this.accountService.getUserRole() == "Vendor") {
       this.header = (this.statusId == 0) ? "All Orders" : (this.statusId == 1) ? "Pending Orders" : (this.statusId == 4) ? "Delivered Orders" : "Cancelled Orders";
       this.orderService.getOrdersList(0, this.accountService.getUserId(), searchText, this.statusId,"", "").subscribe((result: any) => {

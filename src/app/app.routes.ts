@@ -70,6 +70,10 @@ export const routes: Routes = [
                 path: 'vendor-order-list/:id',
                 component:VendorOrderListComponent
             },
+            // {
+            //     path: 'my-orders',
+            //     component:VendorOrderListComponent
+            // },
         ]
     },
     {

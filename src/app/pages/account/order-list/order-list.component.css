@@ -36,15 +36,13 @@ h3{
     border:1px solid #3b6a5e;
 }
 .form-check-input{
-    border-color: gray;
+    border-color: dimgray;
     margin-left: -33px;
 }
 img{
     width: 20%;
     float: inline-start;
 }
-
-
 .form-control1{
     position: relative;
     flex: 1 1 auto;

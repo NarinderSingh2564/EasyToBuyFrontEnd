@@ -18,7 +18,7 @@
                         <th>Sr. No.</th>
                         <th>Customer Name</th>
                         <th>Order Number</th>
-                        <th class="col-2">Order Date</th>
+                        <th>Order Date</th>
                         <th class="col-3">Product Name</th>
                         <th>MRP </th>
                         <th>Discount(%)</th>
@@ -34,22 +34,21 @@
                         <td>{{i+1}}</td>
                         <td>{{order.customerName}}</td>
                         <td>{{order.orderNumber}}</td>
-                        <td>{{order.orderDate | date:'medium'}}</td>
-
+                        <td>{{order.orderDate}}</td>
                         <td>
                             <img [src]="variationImgUrl + order.productImage"> 
-                              {{order.productName}}&nbsp;({{order.productWeight}})<br>({{order.packingType}})
+                            <span>{{order.productName}}&nbsp;({{order.productWeight}})<br>({{order.packingType}})</span>
                         </td>
                         <td>{{order.mrp | currency:'INR'}}</td>
                         <td>{{order.discount}}</td>
                         <td>{{order.quantity}}</td>
                         <td>{{order.amountToBePaid | currency:'INR'}}</td>
                         <td 
-                        [ngClass]="order.status == 'Cancelled' ? 'table-danger' : order.status == 'Delivered' ? 'table-success' : order.status == 'Ordered' ? 'table-warning' : order.status == 'Shipped' ? 'table-primary' : 'table-secondary'">
+                        [ngClass]="order.status == 'Cancelled' ? 'table-danger' : order.status == 'Delivered' ? 'table-success' : order.status == 'Ordered' ? 'table-warning' : order.status == 'Shipped' ? 'table-primary' : order.status == 'Packed' ? 'table-secondary' : 'table-info'">
                         {{order.status}}</td>
                         <td *ngIf="statusId == 0"> 
                             <div class="form-check form-switch">
-                            <input type="checkbox" class="form-check-input" [disabled]="order.status != 'Ordered' ? true : false">
+                              <input type="checkbox" class="form-check-input" [disabled]="order.status != 'Ordered' ? true : false" (change)="customerOrderStatusUpdate(order.id)">
                            </div>
                     </td>
                         <td *ngIf="statusId == 0"> <i class="bi bi-three-dots-vertical"></i> </td>

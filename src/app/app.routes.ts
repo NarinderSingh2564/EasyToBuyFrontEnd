@@ -9,7 +9,6 @@ import { WebProductsComponent } from './pages/website/web-products/web-products.
 import { CustomerCartComponent } from './pages/customer/customer-cart/customer-cart.component';
 import { ProductDescriptionComponent } from './pages/website/product-description/product-description.component';
 import { VendorRegisterComponent } from './pages/vendor/vendor-register/vendor-register.component';
-import { AdminLoginComponent } from './pages/admin/admin-login/admin-login.component';
 import { VendorDashboardComponent } from './pages/vendor/vendor-dashboard/vendor-dashboard.component';
 import { vendorAuthGuard } from './guards/vendorAuth.guard';
 import { PlaceOrderComponent } from './pages/website/place-order/place-order.component';
@@ -18,7 +17,6 @@ import { VendorOrderListComponent } from './pages/vendor/vendor-order-list/vendo
 import { CustomerOrdersComponent } from './pages/customer/customer-orders/customer-orders.component';
 import { customerAuthGuard } from './guards/customerAuth.guard';
 import { ProductImagesComponent } from './pages/vendor/products/product-images/product-images.component';
-import { Component } from '@angular/core';
 import { AccountProfileComponent } from './pages/customer/account-profile/account-profile.component';
 
 

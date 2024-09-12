@@ -2,7 +2,7 @@ import { CommonModule, } from '@angular/common';
 import { Component,inject } from '@angular/core';
 import { OrderService } from '../../../services/order.service';
 import { AccountService } from '../../../services/account.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouteReuseStrategy } from '@angular/router';
 import { EasyToBuyHelper } from '../../../helpers/EasyToBuyHelper';
 
 @Component({
@@ -15,7 +15,7 @@ import { EasyToBuyHelper } from '../../../helpers/EasyToBuyHelper';
 
 export class OrderListComponent {
 
-  router = inject(Router)
+  router = inject(RouteReuseStrategy)
   orderService = inject(OrderService)
   accountService = inject(AccountService)
 
@@ -26,12 +26,12 @@ export class OrderListComponent {
   variationImgUrl = EasyToBuyHelper.imageVariationBaseUrl
 
   constructor(private activatedRoute: ActivatedRoute) {
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
-      return false;
-    };
+    this.router.shouldReuseRoute = function () {
+       return false;
+     };
     this.activatedRoute.params.subscribe((result: any) => {
       this.statusId = result.id 
-    })
+    });
     this.getOrderList()
   }
 
@@ -62,6 +62,14 @@ export class OrderListComponent {
         this.orderList = result
       })
     }
+  }
+
+  customerOrderStatusUpdate(orderId:number){
+     this.orderService.customerOrderStatusUpdate(this.accountService.getUserId(),orderId,2).subscribe((result:any) => {
+      if(result.status){
+        this.getOrderList()
+      }
+     })
   }
 
 }

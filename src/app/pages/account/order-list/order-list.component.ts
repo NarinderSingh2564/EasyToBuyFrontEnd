@@ -69,6 +69,9 @@ export class OrderListComponent {
       if(result.status){
         this.getOrderList()
       }
+      else{
+        alert(result.message)
+      }
      })
   }
 

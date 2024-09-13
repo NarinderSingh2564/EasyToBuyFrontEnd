@@ -6,7 +6,8 @@
             </div>
             <div class="col-md-4">
                 <div class="input-group">
-                    <input type="text" class="form-control1" placeholder="Search your orders" #box (input)="searchOrder(box.value)">
+                    <input type="text" class="form-control1" placeholder="Search your orders" #box
+                        (input)="searchOrder(box.value)">
                     <span class="input-group-text" (click)="searchOrder(box.value)"><i class="bi bi-search"></i></span>
                 </div>
             </div>
@@ -30,28 +31,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let order of orderList;index as i" >
+                    <tr *ngFor="let order of orderList;index as i">
                         <td>{{i+1}}</td>
                         <td>{{order.customerName}}</td>
                         <td>{{order.orderNumber}}</td>
                         <td>{{order.orderDate}}</td>
                         <td>
-                            <img [src]="variationImgUrl + order.productImage"> 
+                            <img [src]="variationImgUrl + order.productImage">
                             <span>{{order.productName}}&nbsp;({{order.productWeight}})<br>({{order.packingType}})</span>
                         </td>
                         <td>{{order.mrp | currency:'INR'}}</td>
                         <td>{{order.discount}}</td>
                         <td>{{order.quantity}}</td>
                         <td>{{order.amountToBePaid | currency:'INR'}}</td>
-                        <td 
-                        [ngClass]="order.status == 'Cancelled' ? 'table-danger' : order.status == 'Delivered' ? 'table-success' : order.status == 'Ordered' ? 'table-warning' : order.status == 'Shipped' ? 'table-primary' : order.status == 'Packed' ? 'table-secondary' : 'table-info'">
-                        {{order.status}}</td>
-                        <td *ngIf="statusId == 0"> 
+                        <td
+                            [ngClass]="order.status == 'Cancelled' ? 'table-danger' : order.status == 'Delivered' ? 'table-success' : order.status == 'Ordered' ? 'table-secondary' : order.status == 'Shipped' ? 'table-primary' : order.status == 'Packed' ? 'table-warning' : 'table-info'">
+                            {{order.status}}</td>
+                        <td *ngIf="statusId == 0">
                             <div class="form-check form-switch">
-                              <input type="checkbox" class="form-check-input" [disabled]="order.status != 'Ordered' ? true : false" (change)="customerOrderStatusUpdate(order.id)">
-                           </div>
-                    </td>
-                        <td *ngIf="statusId == 0"> <i class="bi bi-three-dots-vertical"></i> </td>
+                                <input type="checkbox" class="form-check-input"
+                                    [checked]="order.status == 'Packed' ? true : false"
+                                    [disabled]="order.status != 'Ordered' ? true : false"
+                                    (change)="customerOrderStatusUpdate(order.id)">
+                            </div>
+                        </td>
+                        <td *ngIf="statusId == 0"><i class="bi bi-three-dots-vertical"></i></td>
                     </tr>
                     <tr *ngIf="orderList.length == 0">
                         <td colspan="12">No orders found</td>

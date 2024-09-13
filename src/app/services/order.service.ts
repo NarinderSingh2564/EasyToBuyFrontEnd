@@ -22,6 +22,6 @@ export class OrderService {
   }
 
   getOrderStatusTrackingList(orderId:number){
-    return this.http.get(" https://localhost:7239/api/Order/GetOrderStatusTrackingList?orderId=" + orderId)
+    return this.http.get("https://localhost:7239/api/Order/GetOrderStatusTrackingList?orderId=" + orderId)
   }
 }

@@ -80,7 +80,7 @@ export class ProductService {
 
   }
 
-    checkVariationImagesCountById(variationId:number){
+  checkVariationImagesCountById(variationId:number){
     return this.http.get("https://localhost:7239/api/Product/CheckVariationImagesCountById?variationId=" + variationId)
   }
 

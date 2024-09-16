@@ -65,14 +65,12 @@ export class ProductsComponent implements OnInit {
   }
 
   clearControls() {
-    this.productForm.controls['id'].patchValue(0);
     this.productForm.reset()
     this.productForm.controls['categoryId'].enable()
-    // this.isFormValid = false
-    // this.showSubCards = false
-    // this.previewImage = ''
-    // this.productImageName = ''
-    // this.packingModeId = 0
+    this.productForm.controls['categoryId'].patchValue('null')
+    this.isFormValid = false
+    this.showSubCards = false
+    this.previewImage = ''
   }
 
   closeProductForm() {
@@ -110,7 +108,7 @@ export class ProductsComponent implements OnInit {
 
   getCategoryList() {
     this.categoryServivce.getCategoryList().subscribe((result: any) => {
-      this.categoryList = result;
+      this.categoryList = result.filter((t:{isActive:any}) => t.isActive == true);
     })
   }
 
@@ -141,8 +139,11 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  ProductAddEdit() {
+  productAddEdit() {
     this.isFormValid = true
+    this.productForm.value.id = this.productForm.value.id != null && this.productForm.value.id > 0 ? this.productForm.value.id : 0;
+    this.productForm.value.isActive = this.productForm.value.isActive == null ? false : true;
+    this.productForm.controls['productImage'].patchValue("img");
     if (this.productForm.invalid) {
       return;
     }
@@ -161,8 +162,7 @@ export class ProductsComponent implements OnInit {
       formData.set("updatedBy", this.accountService.getUserId());
       formData.set("isActive", this.productForm.value.isActive == null ? "false" : "true");
 
-      formData.forEach(entries => console.log(entries));
-
+    //  formData.forEach(entries => console.log(entries));
       this.productService.productAddEdit(formData).subscribe((result: any) => {
         if (result.status) {
           alert(result.message);

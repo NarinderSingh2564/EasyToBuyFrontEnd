@@ -60,3 +60,13 @@
 .modal-title{
     color: #3b6a5e;
 }
+th
+{
+   background:#61887e;
+   color: white;
+   font-size: 15px;
+   font-weight: 600;
+}
+.table-bordered{
+    border:1px solid #3b6a5e;
+}

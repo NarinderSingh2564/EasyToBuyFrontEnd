@@ -1,8 +1,8 @@
 import { CommonModule, } from '@angular/common';
-import { Component, Input, inject } from '@angular/core';
+import { Component,inject } from '@angular/core';
 import { OrderService } from '../../../services/order.service';
 import { AccountService } from '../../../services/account.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouteReuseStrategy } from '@angular/router';
 import { EasyToBuyHelper } from '../../../helpers/EasyToBuyHelper';
 
 @Component({
@@ -12,8 +12,10 @@ import { EasyToBuyHelper } from '../../../helpers/EasyToBuyHelper';
   templateUrl: './order-list.component.html',
   styleUrl: './order-list.component.css'
 })
+
 export class OrderListComponent {
 
+  router = inject(RouteReuseStrategy)
   orderService = inject(OrderService)
   accountService = inject(AccountService)
 
@@ -24,40 +26,53 @@ export class OrderListComponent {
   variationImgUrl = EasyToBuyHelper.imageVariationBaseUrl
 
   constructor(private activatedRoute: ActivatedRoute) {
+    this.router.shouldReuseRoute = function () {
+       return false;
+     };
     this.activatedRoute.params.subscribe((result: any) => {
-      this.statusId = result.id
-    })
+      this.statusId = result.id 
+    });
     this.getOrderList()
   }
 
   getOrderList() {
     if (this.accountService.getUserRole() == "Vendor") {
       this.header = (this.statusId == 0) ? "All Orders" : (this.statusId == 1) ? "Pending Orders" : (this.statusId == 5) ? "Delivered Orders" : "Cancelled Orders";
-      this.orderService.getOrderList(0, this.accountService.getUserId(), "", this.statusId,"", "").subscribe((result: any) => {
+      this.orderService.getOrdersList(0, this.accountService.getUserId(), "", this.statusId,"", "").subscribe((result: any) => {
         this.orderList = result
       })
     }
     else {
-      this.header = "My Orders"
-      this.orderService.getOrderList(this.accountService.getUserId(), 0, "", 0,"", "").subscribe((result: any) => {
+      this.header = "Total Orders"
+      this.orderService.getOrdersList(this.accountService.getUserId(), 0, "", 0,"", "").subscribe((result: any) => {
         this.orderList = result
       })
     }
   }
 
-  searchProducts(searchText: string) {
+  searchOrder(searchText: string) {
     if (this.accountService.getUserRole() == "Vendor") {
       this.header = (this.statusId == 0) ? "All Orders" : (this.statusId == 1) ? "Pending Orders" : (this.statusId == 4) ? "Delivered Orders" : "Cancelled Orders";
-      var newStatusId = (this.statusId == 0 ? "" : this.statusId == 1 ? '1,' : this.statusId.toString());
-      this.orderService.getOrderList(0, this.accountService.getUserId(), searchText, this.statusId,"", "").subscribe((result: any) => {
+      this.orderService.getOrdersList(0, this.accountService.getUserId(), searchText, this.statusId,"", "").subscribe((result: any) => {
         this.orderList = result
       })
     }
     else {
-      this.orderService.getOrderList(this.accountService.getUserId(), 0, searchText, 0,"", "").subscribe((result: any) => {
+      this.orderService.getOrdersList(this.accountService.getUserId(), 0, searchText, 0,"", "").subscribe((result: any) => {
         this.orderList = result
       })
     }
+  }
+
+  customerOrderStatusUpdate(orderId:number){
+     this.orderService.customerOrderStatusUpdate(this.accountService.getUserId(),orderId,2).subscribe((result:any) => {
+      if(result.status){
+        this.getOrderList()
+      }
+      else{
+        alert(result.message)
+      }
+     })
   }
 
 }

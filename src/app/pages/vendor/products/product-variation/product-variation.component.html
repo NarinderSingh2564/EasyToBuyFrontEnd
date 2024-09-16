@@ -9,7 +9,7 @@
             <div class="col-md-6">
                 <label for="">Packing Type</label>
                 <select class="form-select" formControlName="productPackingId" (change)="onPackingTypeChange($event)" #packingId>
-                    <option [ngValue]="null" [disabled]="true" hidden>--Select Option--</option>
+                    <option [ngValue]="null" [disabled]="true" hidden>--Select packing type--</option>
                     <option *ngFor="let packing of productPackingList" [value]="packing.id">
                         {{packing.packingType}}
                     </option>
@@ -32,7 +32,7 @@
             <div class="col-md-6">
                 <label for="">Product Weight</label>
                 <select class="form-select" formControlName="productWeightId" (change)="onProductWeightChange($event);calculateTotalVolume()">
-                    <option [ngValue]="null" [disabled]="true" hidden>--Select Option--</option>
+                    <option [ngValue]="null" [disabled]="true" hidden>--Select product weight--</option>
                     <option *ngFor="let weight of productWeightList" [value]="weight.id">
                         {{weight.productWeight}}
                     </option>

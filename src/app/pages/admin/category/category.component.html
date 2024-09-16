@@ -25,7 +25,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let category of categoryList;let i = index">
+                            <tr *ngFor="let category of categoryList;let i = index"  [ngClass]="category.isActive == false ? 'table-danger' : ''">
                                 <td>{{i+1}}</td>
                                 <td>{{category.categoryName}}</td>
                                 @if(category.packingModeId == 1){
@@ -55,7 +55,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
 
-                <form autocomplete="off" [formGroup]="categoryForm" (ngSubmit)="CategoryAddEdit()">
+                <form autocomplete="off" [formGroup]="categoryForm" (ngSubmit)="categoryAddEdit()">
                     <div class="modal-header">
                         <h4 class="modal-title" *ngIf="!isEdit"> Add Category</h4>
                         <h4 class="modal-title" *ngIf="isEdit"> Update Category</h4>
@@ -82,9 +82,9 @@
                             <div class="col-12">
                                 <label for="">Packing Mode</label>
                                 <input type="radio"  class="form-check-input radio" formControlName="packingMode"
-                                    value="kg"><span>Kg</span>
+                                    value="Kg"><span>Kg</span>
                                 <input type="radio"  class="form-check-input radio" formControlName="packingMode"
-                                    value="item"><span>Item</span>
+                                    value="Item"><span>Item</span>
                                 <div *ngIf="isFormValid && controls['packingMode'].errors">
                                     <div *ngIf="controls['packingMode'].errors['required']" class="text-danger">
                                         Packing mode required.

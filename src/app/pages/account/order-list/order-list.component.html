@@ -46,13 +46,19 @@
                         <td>{{order.amountToBePaid | currency:'INR'}}</td>
                         <td
                             [ngClass]="order.status == 'Cancelled' ? 'table-danger' : order.status == 'Delivered' ? 'table-success' : order.status == 'Ordered' ? 'table-secondary' : order.status == 'Shipped' ? 'table-primary' : order.status == 'Packed' ? 'table-warning' : 'table-info'">
-                            {{order.status}}</td>
+                            {{order.status}}
+                        </td>
                         <td *ngIf="statusId == 0">
-                            <div class="form-check form-switch">
-                                <input type="checkbox" class="form-check-input"
+                            <div class="toggle">
+                                <input type="checkbox" id="{{i+1}}toggle-button-checkbox"
                                     [checked]="order.status == 'Packed' ? true : false"
                                     [disabled]="order.status != 'Ordered' ? true : false"
                                     (change)="customerOrderStatusUpdate(order.id)">
+                                <label class="toggle-button-switch" for="{{i+1}}toggle-button-checkbox"></label>
+                                <div class="toggle-button-text">
+                                    <div class="toggle-button-text-on">Yes</div>
+                                    <div class="toggle-button-text-off">No</div>
+                                </div>
                             </div>
                         </td>
                         <td *ngIf="statusId == 0"><i class="bi bi-three-dots-vertical"></i></td>

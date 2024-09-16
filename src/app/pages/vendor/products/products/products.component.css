@@ -16,6 +16,7 @@
 
 .product-card {
   height: 100%;
+  border:2px solid #61887e;
 }
 
 .bookmark {

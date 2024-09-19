@@ -19,10 +19,11 @@ export class OrderListComponent {
   orderService = inject(OrderService)
   accountService = inject(AccountService)
 
-  orderList: any = []
-  role: string = this.accountService.getUserRole();
-  statusId: number = 0;
   header: string = ""
+  orderList: any = []
+  orderDetails:any ={}
+  statusId: number = 0;
+  role: string = this.accountService.getUserRole();
   variationImgUrl = EasyToBuyHelper.imageVariationBaseUrl
 
   constructor(private activatedRoute: ActivatedRoute) {
@@ -62,6 +63,10 @@ export class OrderListComponent {
         this.orderList = result
       })
     }
+  }
+
+  getOrderDetails(orderId:number){
+    this.orderDetails = this.orderList.filter((t:{id:any}) => t.id == orderId)[0]
   }
 
   customerOrderStatusUpdate(orderId:number){

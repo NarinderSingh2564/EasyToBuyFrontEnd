@@ -17,23 +17,19 @@
                 <thead>
                     <tr>
                         <th>Sr. No.</th>
-                        <th>Customer Name</th>
                         <th>Order Number</th>
                         <th>Order Date</th>
-                        <th class="col-3">Product Name</th>
-                        <th>MRP </th>
-                        <th>Discount(%)</th>
-                        <th>Quantity</th>
-                        <th>Amount</th>
-                        <th>Status</th>
+                        <th class="col-4">Product Name</th>
+                        <th>MRP</th>
                         <th *ngIf="statusId == 0">Packed</th>
+                        <th>Status</th>
+                        <th>Details</th>
                         <th *ngIf="statusId == 0">Logistic</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let order of orderList;index as i">
                         <td>{{i+1}}</td>
-                        <td>{{order.customerName}}</td>
                         <td>{{order.orderNumber}}</td>
                         <td>{{order.orderDate}}</td>
                         <td>
@@ -41,13 +37,6 @@
                             <span>{{order.productName}}&nbsp;({{order.productWeight}})<br>({{order.packingType}})</span>
                         </td>
                         <td>{{order.mrp | currency:'INR'}}</td>
-                        <td>{{order.discount}}</td>
-                        <td>{{order.quantity}}</td>
-                        <td>{{order.amountToBePaid | currency:'INR'}}</td>
-                        <td
-                            [ngClass]="order.status == 'Cancelled' ? 'table-danger' : order.status == 'Delivered' ? 'table-success' : order.status == 'Ordered' ? 'table-secondary' : order.status == 'Shipped' ? 'table-primary' : order.status == 'Packed' ? 'table-warning' : 'table-info'">
-                            {{order.status}}
-                        </td>
                         <td *ngIf="statusId == 0">
                             <div class="toggle">
                                 <input type="checkbox" id="{{i+1}}toggle-button-checkbox"
@@ -61,6 +50,15 @@
                                 </div>
                             </div>
                         </td>
+                        <td
+                            [ngClass]="order.status == 'Cancelled' ? 'table-danger' : order.status == 'Delivered' ? 'table-success' : order.status == 'Ordered' ? 'table-secondary' : order.status == 'Shipped' ? 'table-primary' : order.status == 'Packed' ? 'table-warning' : 'table-info'">
+                            {{order.status}}
+                        </td>
+                        <td>
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#viewOrderDetails"
+                                (click)="getOrderDetails(order.id)">View Details</a>
+
+                        </td>
                         <td *ngIf="statusId == 0"><i class="bi bi-three-dots-vertical"></i></td>
                     </tr>
                     <tr *ngIf="orderList.length == 0">
@@ -69,16 +67,64 @@
                 </tbody>
             </table>
         </div>
-        <!-- <div class="pagination">
-            <div class="row">
-                <div class="col-md-4">
-                    <button class="btn"><i class="bi bi-chevron-double-left"></i>Prev</button>
+    </div>
+</div>
+
+<div class="modal fade" data-bs-backdrop="static" id="viewOrderDetails">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Order Summary</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <strong>Product </strong>
+                    </div>
+                    <div class="col-md-10">
+                        <span>{{orderDetails.productName}}&nbsp;({{orderDetails.productWeight}})&nbsp;({{orderDetails.packingType}})</span>
+                    </div>
                 </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-4">
-                    <button class="btn">Next<i class="bi bi-chevron-double-right"></i></button>
+                <div class="row">
+                    <div class="col-md-2">
+                        <strong>MRP </strong>
+                    </div>
+                    <div class="col-md-10">
+                        <span>{{orderDetails.mrp | currency:'INR'}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <strong>Discount </strong>
+                    </div>
+                    <div class="col-md-10">
+                        <span>{{orderDetails.discount}}%</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <strong>Quantity </strong>
+                    </div>
+                    <div class="col-md-10">
+                        <span>{{orderDetails.quantity}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <strong>Rate </strong>
+                    </div>
+                    <div class="col-md-10">
+                        <span>{{orderDetails.amountToBePaid | currency:'INR'}}</span>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <h5><strong>Shipping Details</strong></h5>
+                    {{orderDetails.customerName}}<br>
+                    {{orderDetails.customerAddress}}<br>
+                    Phone Number: {{orderDetails.mobile}} 
                 </div>
             </div>
-        </div> -->
+        </div>
     </div>
 </div>

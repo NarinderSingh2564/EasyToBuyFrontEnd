@@ -30,9 +30,7 @@
     margin-right: 2%;
     border-color: gray;
 }
-.invalid{
-    border-color: red;
-}
+
 .btn-sm{
     color:#3b6a5e;
     background-color: white;
@@ -47,9 +45,7 @@
 .radio{
     margin-left: 45px;
 }
-.modal{
-    backdrop-filter: brightness(0.5);
-}
+
 .card-header{
     background:  #61887e;
 }

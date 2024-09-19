@@ -23,7 +23,7 @@ export class AccountService {
     sessionStorage.setItem("UserSessionDetails", JSON.stringify(userObj));
   }
 
-  getUserId() {
+  getCustomerId() {
     const activeUser = JSON.parse(sessionStorage.getItem("UserSessionDetails") || '""')
     return Object(activeUser)["id"]
   }
@@ -39,13 +39,12 @@ export class AccountService {
   }
 
   getAddressListByCustomerId() {
-    const customerId = this.getUserId();
+    const customerId = this.getCustomerId();
     return this.http.get("https://localhost:7239/api/Account/GetAddressListByCustomerId?customerId=" + customerId)
   }
 
   getAddressTypeList() {
     return this.http.get("https://localhost:7239/api/Account/GetAddressTypeList")
-
   }
 
   getAddressByPincode(pincode: string) {

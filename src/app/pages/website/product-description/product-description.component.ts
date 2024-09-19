@@ -122,9 +122,9 @@ export class ProductDescriptionComponent {
   }
   
   AddToCart(productId: number, id: number) {
-    if (this.accountService.getUserId() > 0) {
+    if (this.accountService.getCustomerId() > 0) {
       const cart = {
-        customerId: this.accountService.getUserId(),
+        customerId: this.accountService.getCustomerId(),
         productId: productId,
         variationId: id,
         quantity: 1,
@@ -158,8 +158,8 @@ export class ProductDescriptionComponent {
     loop: true,
     autoplay: false,
     dots: false,
-    mouseDrag: false,
-    touchDrag: false,
+    mouseDrag: true,
+    touchDrag: true,
     pullDrag: false,
     navSpeed: 600,
     navText: ['<i class="fa fa-caret-left"></i>', '<i class="fa fa-caret-right"></i>'],
@@ -181,8 +181,8 @@ export class ProductDescriptionComponent {
     loop: true,
     autoplay: false,
     dots: false,
-    mouseDrag: false,
-    touchDrag: false,
+    mouseDrag: true,
+    touchDrag: true,
     pullDrag: false,
     navSpeed: 600,
     navText: ['<i class="fa fa-caret-left"></i>', '<i class="fa fa-caret-right"></i>'],

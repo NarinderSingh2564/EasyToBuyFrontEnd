@@ -93,7 +93,7 @@ export class ProductImagesComponent implements OnInit {
     else{
       const formData = new FormData();
       formData.set("variationId", this.variationImagesForm.value.variationId);
-      formData.set("createdBy", this.accountService.getUserId());
+      formData.set("createdBy", this.accountService.getCustomerId());
       for (var i = 0; i < this.imageList.length; i++) {
         formData.append("images", this.imageList[i]);
       }

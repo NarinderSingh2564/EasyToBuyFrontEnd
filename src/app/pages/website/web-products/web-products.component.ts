@@ -62,9 +62,9 @@ export class WebProductsComponent {
   }
 
   AddToCart(productId: number, productQuantity: number, variationId: number) {
-    if (this.accountService.getUserId() > 0) {
+    if (this.accountService.getCustomerId() > 0) {
         const cart = {
-        customerId: this.accountService.getUserId(),
+        customerId: this.accountService.getCustomerId(),
         productId: productId,
         variationId: variationId,
         quantity: productQuantity,
@@ -82,7 +82,7 @@ export class WebProductsComponent {
   }
 
   AddToWishList() {
-    if (this.accountService.getUserId() > 0) {
+    if (this.accountService.getCustomerId() > 0) {
       alert("add to wishlist")
     }
     else {

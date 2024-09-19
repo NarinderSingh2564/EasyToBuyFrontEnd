@@ -116,10 +116,10 @@
                 <div class="col-md-4 order-status">
                   <span style="color: #61887e; font-size: 14px;font-weight: 500;">{{order.status |
                     uppercase}}</span><br>
-                  <small>Seller : {{order.vendorName}}</small><br>
+                  <small>Seller : {{order.userName}}</small><br>
                   <a href="#" data-bs-toggle="modal" data-bs-target="#myModal"
-                    (click)="getOrderNumber(order.orderNumber); getOrderStatusTrackingList(order.id, order.statusId)">Track
-                    Order</a>
+                    (click)="getOrderNumber(order.orderNumber); getOrderStatusTrackingList(order.id, order.statusId)"><u>Track
+                    Order</u></a>
                   <div class="modal" id="myModal" data-bs-backdrop="static">
                     <div class="modal-dialog modal-dialog-centered modal-md">
                       <div class="modal-content">

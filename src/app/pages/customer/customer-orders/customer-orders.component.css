@@ -22,6 +22,7 @@
     overflow-y: scroll;
     overflow-x: hidden;
     padding-top: 20px;
+    background-color: #ebebeb;
   }
  
     
@@ -61,12 +62,12 @@
 }
 
 a{
-  color: #565353;;
+  color: #335eed;;
   text-decoration: none;
   font-weight: 500;
 }
 a:hover{
-  color:#61887e;
+  color:#373737;
   font-weight: 500;
 }
   #tracking {

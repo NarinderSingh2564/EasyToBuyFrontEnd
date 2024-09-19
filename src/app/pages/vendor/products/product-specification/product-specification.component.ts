@@ -68,8 +68,8 @@ export class ProductSpecificationComponent implements OnInit {
         shelfLife: this.specificationForm.value.shelfLife,
         ingredients: this.specificationForm.value.ingredients,
         benefits: this.specificationForm.value.benefits,
-        createdBy: this.accountService.getUserId(),
-        updatedBy: this.accountService.getUserId(),
+        createdBy: this.accountService.getCustomerId(),
+        updatedBy: this.accountService.getCustomerId(),
         isActive: this.specificationForm.value.isActive
       }
       this.productService.productSpecificationAddEdit(specification).subscribe((result: any) => {

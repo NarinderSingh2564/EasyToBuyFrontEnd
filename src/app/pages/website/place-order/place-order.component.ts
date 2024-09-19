@@ -27,7 +27,7 @@ export class PlaceOrderComponent {
   }
 
   getCartDetailsByCustomerId() {
-    this.cartService.getCartDetailsByCustomerId(this.accountService.getUserId()).subscribe((result: any) => {
+    this.cartService.getCartDetailsByCustomerId(this.accountService.getCustomerId()).subscribe((result: any) => {
       this.priceDetails = result.priceDetails
       this.totalCartItems = result._cartListItems.length
       console.log(this.priceDetails)
@@ -35,10 +35,10 @@ export class PlaceOrderComponent {
   }
 
   placeOrder() {
-    this.orderService.placeOrder(this.accountService.getUserId()).subscribe((result: any) => {
+    this.orderService.placeOrder(this.accountService.getCustomerId()).subscribe((result: any) => {
       if(result.status){
         this.isPlaced = true;
-        this.cartService.getCartDetailsByCustomerId(this.accountService.getUserId())
+        this.cartService.getCartDetailsByCustomerId(this.accountService.getCustomerId())
         this.cartService.updateCartCount$?.next(true);
       }
       else{

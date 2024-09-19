@@ -30,7 +30,7 @@ export class LandingComponent {
 
   constructor() {
     this.getCategoryList()
-    if (this.accountService.getUserId() > 0) {
+    if (this.accountService.getCustomerId() > 0) {
       this.loggedIn = true
       this.getCartDetailsByCustomerId()
     }
@@ -40,25 +40,25 @@ export class LandingComponent {
   }
 
   SearchProducts(SearchText:string) {
-    this.router.navigate(['/ProductsByCategory', 0,SearchText])
+    this.router.navigate(['/ProductsByCategory', 0, SearchText])
   }
-
 
   getCategoryList() {
     this.categoryService.getCategoryList().subscribe(result => {
       this.categoryList = result
     })
-  }
+  } 
 
   getProductByCategory(id: number) {
     this.router.navigate(['/ProductsByCategory', id,""])
   }
 
   getCartDetailsByCustomerId() {
-    this.cartService.getCartDetailsByCustomerId(this.accountService.getUserId()).subscribe((result: any) => {
+    this.cartService.getCartDetailsByCustomerId(this.accountService.getCustomerId()).subscribe((result: any) => {
       this.totalCartItems = result._cartListItems.length
     })
   }
+
   Login() {
     this.router.navigate(['/app-login']);
   }

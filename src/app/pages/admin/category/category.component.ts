@@ -17,11 +17,9 @@ export class CategoryComponent implements OnInit {
 
   isSidePanelVisible: boolean = false;
   categoryList: any = [];
-  response: any = [];
   categoryForm: FormGroup;
   isFormValid: boolean = false;
   isEdit: boolean = false;
-  display = "none";
 
   ngOnInit(): void {
     this.getCategoryList()
@@ -38,15 +36,6 @@ export class CategoryComponent implements OnInit {
 
   get controls() {
     return this.categoryForm.controls;
-  }
-
-
-  openModal() {
-    this.display = "block";
-  }
-
-  closeModal() {
-    this.display = "none";
   }
 
   addCategory() {
@@ -80,15 +69,13 @@ export class CategoryComponent implements OnInit {
         updatedBy: this.accountService.getUserId(),
         isActive: this.categoryForm.value.isActive,
       }
-      this.categoryService.categoryAddEdit(category).subscribe(result => {
-        this.response = result;
-        if (this.response.status) {
-          alert(this.response.message);
-          this.closeModal();
+      this.categoryService.categoryAddEdit(category).subscribe((result:any) => {
+        if (result.status) {
+          alert(result.message);
           this.getCategoryList();
         }
         else {
-          alert(this.response.message);
+          alert(result.message);
         }
       });
     }

@@ -8,7 +8,7 @@
                             Category List
                         </div>
                         <div class="col-6 text-end">
-                            <button class="btn btn-sm" (click)="openModal();addCategory()"><b>Add Category</b></button>
+                            <button class="btn btn-sm" (click)="addCategory()" data-bs-toggle="modal" data-bs-target="#categoryAddEditModal"><b>Add Category</b></button>
                         </div>
 
                     </div>
@@ -41,7 +41,7 @@
                                 <td>No</td>
                                 }
                                 <td>
-                                    <i class="bi bi-pencil-square" (click)="editCategory(category); openModal()"></i>
+                                    <i class="bi bi-pencil-square" (click)="editCategory(category)" data-bs-toggle="modal" data-bs-target="#categoryAddEditModal"></i>
                                 </td>
                             </tr>
                         </tbody>
@@ -51,7 +51,7 @@
         </div>
     </div>
 
-    <div class="modal" id="myModal" [ngStyle]="{'display':display}">
+    <div class="modal fade" id="categoryAddEditModal" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
 
@@ -60,7 +60,7 @@
                         <h4 class="modal-title" *ngIf="!isEdit"> Add Category</h4>
                         <h4 class="modal-title" *ngIf="isEdit"> Update Category</h4>
 
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeModal()"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
 
                     <div class="modal-body">
@@ -105,8 +105,7 @@
                                 <button class="btn btn2">Submit</button>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
-                            (click)="closeModal()">Close</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                     </div>
                 </form>
             </div>

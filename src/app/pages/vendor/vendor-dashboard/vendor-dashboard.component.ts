@@ -11,6 +11,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './vendor-dashboard.component.html',
   styleUrl: './vendor-dashboard.component.css'
 })
+
 export class VendorDashboardComponent {
 
   userOrdersCountList:any;

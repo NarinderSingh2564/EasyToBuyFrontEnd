@@ -45,8 +45,8 @@ export class LandingComponent {
 
 
   getCategoryList() {
-    this.categoryService.getCategoryList().subscribe(result => {
-      this.categoryList = result
+    this.categoryService.getCategoryList().subscribe((result:any) => {
+      this.categoryList = result.filter((t:{isActive:any}) => t.isActive == true)
     })
   }
 

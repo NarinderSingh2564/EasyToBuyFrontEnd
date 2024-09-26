@@ -76,7 +76,7 @@ input[type="checkbox"] {
 .toggle-button-switch {
   position: absolute;
   top: 5px;
-  left: 4px;
+  left: 3px;
   width: 20px;
   height: 20px;
   background-color: #fff;
@@ -113,8 +113,24 @@ input[type="checkbox"]:checked~.toggle-button-switch {
 input[type="checkbox"]:checked~.toggle-button-text {
   background-color: #3dbf87;
 }
-
+.modal-content{
+  border: hidden;
+}
 .modal-header {
   background: #61887e;
   color: white;
+}
+
+.modal-body{
+  max-height: 450px;
+  overflow-y: scroll;
+}
+img {
+  width: 80px;
+  height: 80px;
+}
+.total-amount{
+  float: inline-end;
+  font-size: larger;
+  color: #537069;
 }

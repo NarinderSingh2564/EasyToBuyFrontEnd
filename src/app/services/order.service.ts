@@ -13,8 +13,8 @@ export class OrderService {
     return this.http.post("https://localhost:7239/api/Order/PlaceOrder?customerId=" + customerId, customerId)
   }
 
-  getOrdersList(customerId: number,userId: number, searchText: string, statusId:number, firstDate:any, secondDate:any){
-    return this.http.get("https://localhost:7239/api/Order/GetOrdersList?customerId=" + customerId + "&userId=" + userId + "&searchText=" + searchText + "&statusId=" + statusId + "&firstDate=" + firstDate + "&secondDate=" + secondDate)
+  getOrdersList(customerId: number, searchText: string, statusId:number, firstDate:any, secondDate:any){
+    return this.http.get("https://localhost:7239/api/Order/GetOrdersList?customerId=" + customerId +"&searchText=" + searchText + "&statusId=" + statusId + "&firstDate=" + firstDate + "&secondDate=" + secondDate)
   }
 
   customerOrderStatusUpdate(userId:number, orderId:number, statusId:number){

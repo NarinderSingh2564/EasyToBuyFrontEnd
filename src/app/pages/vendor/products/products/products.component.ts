@@ -199,7 +199,7 @@ export class ProductsComponent implements OnInit {
         this.getProductVariationList()
       }
     })
-  }
+  }   
 
   setVariationIsActive(variationId: number, isActive: boolean) {
     this.productService.setVariationIsActive(variationId, isActive).subscribe((result: any) => {

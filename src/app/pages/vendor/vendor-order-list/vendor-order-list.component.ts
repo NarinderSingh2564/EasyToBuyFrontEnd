@@ -9,5 +9,5 @@ import { OrderListComponent } from '../../account/order-list/order-list.componen
   styleUrl: './vendor-order-list.component.css'
 })
 export class VendorOrderListComponent {
-
+  
 }

@@ -11,7 +11,7 @@ import { ProductService } from '../../../../services/product.service';
   templateUrl: './product-specification.component.html',
   styleUrl: './product-specification.component.css',
   outputs: ['showChildComponent']
-})
+})   
 
 export class ProductSpecificationComponent implements OnInit {
 

@@ -85,7 +85,7 @@ export class ProductDescriptionComponent {
       this.getSliderItems()
       this.getDiffrentCategoryProductSliderItems()
     })
-  }
+  }   
 
   getProductVariationList() {
     this.productService.getProductVariationListById(this.ActiveProductId).subscribe(result => {

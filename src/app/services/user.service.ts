@@ -5,13 +5,13 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class UserService {
-
+ 
   constructor(private http: HttpClient) { }
   
   getAddressByPincode(pincode: string) {
     return this.http.get("https://api.postalpincode.in/pincode/" + pincode)
   }
-
+   
   getBankDetailsByIFSCCode(ifscCode : string){
     return this.http.get("https://ifsc.razorpay.com/" + ifscCode)
   }

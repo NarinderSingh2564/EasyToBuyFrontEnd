@@ -12,7 +12,7 @@
                     <option [ngValue]="null" [disabled]="true" hidden>--Select Option--</option>
                     <option *ngFor="let packing of productPackingList" [value]="packing.id">
                         {{packing.packingType}}
-                    </option>
+                    </option>   
                 </select>
                 <div *ngIf="isFormValid && controls['productPackingId'].errors">
                     <div *ngIf="controls['productPackingId'].errors['required']" class="text-danger">

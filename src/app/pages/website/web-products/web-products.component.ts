@@ -8,7 +8,7 @@ import { CartService } from '../../../services/cart.service';
 import { EasyToBuyHelper } from '../../../helpers/EasyToBuyHelper';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-
+  
 
 @Component({
   selector: 'app-web-products',

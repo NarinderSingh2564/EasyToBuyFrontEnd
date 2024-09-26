@@ -83,7 +83,7 @@ export class ProductImagesComponent implements OnInit {
         this.imageList.push(event.target.files[i]);
       }
     }
-  }
+  }   
 
   productVariationImagesUpload() {
     this.isFormValid = true

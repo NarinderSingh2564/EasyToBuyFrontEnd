@@ -158,7 +158,7 @@ export class ProductVariationComponent implements OnInit {
         if (result.status) {
           this.isFormValid = false
         }
-      })
+      })  
     }
   }
   

@@ -24,8 +24,8 @@ export class VendorDashboardComponent {
       this.userOrdersCountList= result;
     })
   }
-  
 }
 
 
 
+ 

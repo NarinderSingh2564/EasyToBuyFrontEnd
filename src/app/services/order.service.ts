@@ -12,7 +12,7 @@ export class OrderService {
   placeOrder(customerId:number){
     return this.http.post("https://localhost:7239/api/Order/PlaceOrder?customerId="+ customerId, customerId)
   }
-
+  
   getOrderList(customerId: number,userId: number, searchText: string, statusId:number, firstDate:any, secondDate:any){
     return this.http.get("https://localhost:7239/api/Order/GetOrdersList?customerId=" + customerId + "&userId="+ userId + "&searchText="+searchText + "&statusId=" + statusId+ "&firstDate="+firstDate + "&secondDate=" +secondDate)
   }

@@ -25,25 +25,27 @@ export class CustomerOrdersComponent {
   currentStatusId: number = 0
   timelineHeight: boolean = false
   baseUrl: string = EasyToBuyHelper.imageBaseUrl;
+  reviewDes: string = '';
+  ratingNumber : number = 0; 
 
   constructor() {
     this.getOrderList()
   }
 
   getOrderList() {
-    this.orderService.getOrdersList(this.accountService.getUserId(),0, "", 0, "", "").subscribe((result: any) => {
+    this.orderService.getOrdersList(this.accountService.getUserId(), "", 0, "", "").subscribe((result: any) => {
       this.orderList = result
     })
   }
 
   searchProducts(searchText: string) {
-    this.orderService.getOrdersList(this.accountService.getUserId(), 0, searchText, 0, "", "").subscribe((result: any) => {
+    this.orderService.getOrdersList(this.accountService.getUserId(), searchText, 0, "", "").subscribe((result: any) => {
       this.orderList = result
     })
   }
 
   filterOrdersByType(event: any) {
-    this.orderService.getOrdersList(this.accountService.getUserId(), 0, "", event.target.value, "", "").subscribe((result: any) => {
+    this.orderService.getOrdersList(this.accountService.getUserId(), "", event.target.value, "", "").subscribe((result: any) => {
       this.orderList = result
     })
   }
@@ -52,28 +54,28 @@ export class CustomerOrdersComponent {
     if (event.target.value == 1) {
       var FirstDate = new Date();
       FirstDate.setMonth(FirstDate.getMonth() - 1);
-      this.orderService.getOrdersList(this.accountService.getUserId(), 0, "", 0, FirstDate.toLocaleDateString(), (new Date()).toLocaleDateString()).subscribe((result: any) => {
+      this.orderService.getOrdersList(this.accountService.getUserId(), "", 0, FirstDate.toLocaleDateString(), (new Date()).toLocaleDateString()).subscribe((result: any) => {
         this.orderList = result
       })
     }
     else if (event.target.value == 3) {
       var FirstDate = new Date();
       FirstDate.setMonth(FirstDate.getMonth() - 3);
-      this.orderService.getOrdersList(this.accountService.getUserId(), 0, "", 0, FirstDate.toLocaleDateString(), (new Date()).toLocaleDateString()).subscribe((result: any) => {
+      this.orderService.getOrdersList(this.accountService.getUserId(), "", 0, FirstDate.toLocaleDateString(), (new Date()).toLocaleDateString()).subscribe((result: any) => {
         this.orderList = result
       })
     }
     else {
       var FirstDate = new Date();
       FirstDate.setMonth(FirstDate.getMonth() - 6);
-      this.orderService.getOrdersList(this.accountService.getUserId(), 0, "", 0, FirstDate.toLocaleDateString(), (new Date()).toLocaleDateString()).subscribe((result: any) => {
+      this.orderService.getOrdersList(this.accountService.getUserId(), "", 0, FirstDate.toLocaleDateString(), (new Date()).toLocaleDateString()).subscribe((result: any) => {
         this.orderList = result
       })
     }
   }
 
   filterOrdersByDates(firstDate: any, secondDate: any) {
-    this.orderService.getOrdersList(this.accountService.getUserId(), 0, "", 0, firstDate, secondDate).subscribe((result: any) => {
+    this.orderService.getOrdersList(this.accountService.getUserId(),  "", 0, firstDate, secondDate).subscribe((result: any) => {
       this.orderList = result
     })
   }
@@ -111,4 +113,10 @@ export class CustomerOrdersComponent {
       }
     })
   }
+  mySet(myvalues : any){
+    this.reviewDes = myvalues.reviewTitle;
+    this.ratingNumber = myvalues.ratingNumber;
+    console.log(this.reviewDes,this.ratingNumber);
+ }
+
 }

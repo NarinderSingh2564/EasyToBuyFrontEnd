@@ -39,13 +39,21 @@ export class OrderListComponent {
   getUserOrdersListByUserId() {
     if (this.accountService.getUserRole() == "Vendor") {
       this.header = (this.statusId == 0) ? "All Orders" : (this.statusId == 1) ? "Pending Orders" : (this.statusId == 5) ? "Delivered Orders" : "Cancelled Orders";
-      this.orderService.getUserOrdersListByUserId(this.accountService.getUserId(), "", this.statusId).subscribe((result: any) => {
+
+      
+
+      this.orderService.getOrdersList( this.accountService.getUserId(), "", this.statusId,"", "").subscribe((result: any) => {
+
         this.orderList = result
       })
     }
     else {
       this.header = "Total Orders"
+
       this.orderService.getUserOrdersListByUserId(this.accountService.getUserId(), "", 0).subscribe((result: any) => {
+
+
+
         this.orderList = result
       })
     }
@@ -54,7 +62,9 @@ export class OrderListComponent {
   searchOrder(searchText: string) {
     if (this.accountService.getUserRole() == "Vendor") {
       this.header = (this.statusId == 0) ? "All Orders" : (this.statusId == 1) ? "Pending Orders" : (this.statusId == 4) ? "Delivered Orders" : "Cancelled Orders";
-      this.orderService.getUserOrdersListByUserId(this.accountService.getUserId(), searchText, 0).subscribe((result: any) => {
+
+        this.orderService.getOrdersList( this.accountService.getUserId(), searchText, this.statusId,"", "").subscribe((result: any) => {
+
         this.orderList = result
       })
     }

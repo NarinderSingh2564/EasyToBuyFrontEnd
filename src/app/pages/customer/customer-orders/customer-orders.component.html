@@ -103,7 +103,7 @@
                 <div class="col-md-1 myimgc" (click)="getProductDescription(order.productId)">
                   <img [src]="baseUrl+order.productImage" width="60" height="60" alt="">
                 </div>
-                <div class="col-md-7 product-Des" (click)="getProductDescription(order.productId)">
+                <div class="col-md-4 product-Des" (click)="getProductDescription(order.productId)">
                   <h6 class="mycol">{{order.productName}}<span style="color: rgb(105, 105, 105); font-size: 14px;">
                       ({{order.productWeight}})</span>
                   </h6>
@@ -116,7 +116,7 @@
                 <div class="col-md-4 order-status">
                   <span style="color: #61887e; font-size: 14px;font-weight: 500;">{{order.status |
                     uppercase}}</span><br>
-                  <small>Seller : {{order.vendorName}}</small><br>
+                  <small>Seller : {{order.userName}}</small><br>
                   <a href="#" data-bs-toggle="modal" data-bs-target="#myModal"
                     (click)="getOrderNumber(order.orderNumber); getOrderStatusTrackingList(order.id, order.statusId)">Track
                     Order</a>
@@ -160,6 +160,9 @@
                     </div>
                   </div>
                 </div>
+                <div class="col-md-3">
+                  <button class="reviews" data-bs-toggle="modal" data-bs-target="#addressModal">add Review</button>
+                </div>
               </div>
             </div>
           </div>
@@ -172,5 +175,52 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+<div class="modal fade" id="addressModal" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered">
+    <form autocomplete="off" >
+      <div class="modal-content">
+        <div class="modal-header cardHeader">
+          <h4 class="modal-title">Add Review</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+            
+            <div class="star-rating">
+              <input type="radio" (click)="mySet({reviewTitle: 'Excelent', ratingNumber: 5})"  id="5stars" name="rating" value="5" />
+              <label for="5stars" class="star">&#9733;</label>
+    
+              <input type="radio" (click)="mySet({reviewTitle: 'Very Good', ratingNumber: 4})" id="4stars" name="rating" value="4" />
+              <label for="4stars" class="star">&#9733;</label>
+    
+              <input type="radio" (click)="mySet({reviewTitle: 'Good', ratingNumber: 3})"  id="3stars" name="rating" value="3" />
+              <label for="3stars" class="star">&#9733;</label>
+    
+              <input type="radio" (click)="mySet({reviewTitle: 'Poor', ratingNumber: 2})"   id="2stars" name="rating" value="2" />
+              <label for="2stars" class="star">&#9733;</label>
+    
+              <input type="radio" id="1star" (click)="mySet({reviewTitle: 'Very Bad', ratingNumber: 1})" class="form-control" name="rating" value="1"  />
+              <label for="1star" class="star" >&#9733;</label>
+            </div>
+    
+            <div class="textarea-group">
+              <label class="titles">Title :</label>
+              <input type="text" value="{{reviewDes}}" style="font-size: 16px;" class="me1">
+              <label><br>
+                <span>Review : </span>
+                <textarea id="comment-rating"  name="=review"></textarea>
+              </label>
+              <label class="titles">Product Image</label>
+              <input type="file" multiple  accept="image/png, image/jpg, image/jpeg">
+            </div>
+        
+            <div class="action-group">
+              <button type="submit" class="btnSubmit">Submit</button>
+              <input type="reset" value="Cancel">
+            </div>
+        </div>
+    </div>
+    </form>
   </div>
 </div>

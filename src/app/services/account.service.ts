@@ -42,7 +42,7 @@ export class AccountService {
     const customerId = this.getCustomerId();
     return this.http.get("https://localhost:7239/api/Account/GetAddressListByCustomerId?customerId=" + customerId)
   }
-
+  
   getAddressTypeList() {
     return this.http.get("https://localhost:7239/api/Account/GetAddressTypeList")
   }

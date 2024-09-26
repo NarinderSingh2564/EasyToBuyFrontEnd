@@ -47,7 +47,7 @@ export class LandingComponent {
     this.categoryService.getCategoryList().subscribe(result => {
       this.categoryList = result
     })
-  } 
+  }   
 
   getProductByCategory(id: number) {
     this.router.navigate(['/ProductsByCategory', id,""])

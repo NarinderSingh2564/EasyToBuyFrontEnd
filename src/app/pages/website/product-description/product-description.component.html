@@ -38,7 +38,7 @@
         <div class="col-md-2 sidepannels" *ngFor="let items of  ProductVariationList"> 
 
         <div [ngClass]="items.id == checkId  ? 'card varcard mt-2': 'card defaultcards mt-2' " (click)="getVariationDetails(items)">
-       
+         
           <div class="card-body">
          <p *ngIf="items.quantity == 1"><strong>{{items.productWeight}}</strong></p>
          <p *ngIf="items.quantity > 1"><strong>{{items.quantity}} * {{items.productWeight}}</strong></p>

@@ -64,7 +64,7 @@ export class CategoryComponent implements OnInit {
     this.categoryService.getCategoryList().subscribe(result => {
       this.categoryList = result
     })
-  }
+  } 
 
   CategoryAddEdit() {
     this.isFormValid = true

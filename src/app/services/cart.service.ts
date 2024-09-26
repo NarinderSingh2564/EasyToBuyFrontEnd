@@ -8,7 +8,7 @@ import { Subject } from 'rxjs';
 export class CartService {
 
   constructor(private http: HttpClient) { }
-   
+    
   public updateCart$: Subject<boolean> = new Subject();
   public updateCartCount$: Subject<boolean> = new Subject();
 

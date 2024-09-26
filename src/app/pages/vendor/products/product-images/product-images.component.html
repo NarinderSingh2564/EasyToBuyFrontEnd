@@ -13,7 +13,7 @@
         <div *ngIf="isFormValid && controls['variationId'].errors">
             <div *ngIf="controls['variationId'].errors['required']" class="text-danger">
                 Variation is required.
-            </div>
+            </div> 
         </div>
         <label for="" class="mt-1">Images</label>
         <input type="file" multiple class="form-control" formControlName="images" (change)="selectedImages($event)">
@@ -28,4 +28,4 @@
             <button class="btn" [disabled]="btnSubmit ? false : true">Submit</button>
         </div>
     </div>
-</form>
+</form> 

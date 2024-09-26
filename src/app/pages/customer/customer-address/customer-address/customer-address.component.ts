@@ -100,7 +100,7 @@ export class CustomerAddressComponent {
         this.getAddressList()
       })
     }
-  }
+  }  
   addAdressModal() {
     this.isFormValid = false
     this.modalHeader = "Add Address"

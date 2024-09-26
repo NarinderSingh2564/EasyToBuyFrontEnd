@@ -19,7 +19,7 @@
             <app-customer-address [CustomerID]="customerId"></app-customer-address>
           </div>
         </div>
-
+   
         <div class="card-body">
           <div class="row" *ngFor="let item of cartList">
             <div class="col-md-2">
@@ -27,7 +27,7 @@
             </div>
             <div class="col-md-6">
               <strong>{{item.productName}}</strong><br>
-              <span class="text-secondary " *ngIf="item.showProductWeight">{{item.productWeight}}</span><br>
+              <span class="text-secondary "  *ngIf="item.showProductWeight">{{item.productWeight}}</span><br>
               <span class="text-secondary">Seller : {{item.userName}}</span><br>
               <div class="mt-2 mb-2">
                 <small class="text-secondary"><del>₹{{item.mrp}}</del></small>

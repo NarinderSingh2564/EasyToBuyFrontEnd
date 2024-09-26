@@ -48,7 +48,6 @@ export class CustomerCartComponent {
     })
 
     this.customerId = this.accountService.getCustomerId();
-    
   }
 
   showChild() {

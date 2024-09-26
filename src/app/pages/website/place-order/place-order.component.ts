@@ -40,7 +40,7 @@ export class PlaceOrderComponent {
         this.isPlaced = true;
         this.cartService.getCartDetailsByCustomerId(this.accountService.getCustomerId())
         this.cartService.updateCartCount$?.next(true);
-      }
+      }  
       else{
         alert(result.message)
       }

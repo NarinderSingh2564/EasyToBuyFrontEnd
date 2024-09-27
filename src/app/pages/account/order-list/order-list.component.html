@@ -35,26 +35,18 @@
                             <a href="" data-bs-toggle="modal" data-bs-target="#viewOrderDetails"
                                 (click)="getProductDetailsByOrderNumberAndUserId(order.orderNumber)">{{order.orderNumber}}
                                 <br>
-                                {{order.productCount}} items</a>
+                                ({{order.productCount}}
+                                <span *ngIf="order.productCount > 1">items</span>
+                                <span *ngIf="order.productCount == 1">item</span>)
+                            </a>
                             <div class="modal fade" data-bs-backdrop="static" id="viewOrderDetails">
                                 <div class="modal-dialog modal-dialog-centered modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Order Number - {{order.orderNumber}}</h4>
+                                            <h4 class="modal-title">Order Number - {{orderNumber}}</h4>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <!-- <div class="row mb-4" *ngFor="let product of productDetailsList">
-                                                <div class="col-md-1">
-                                                    <img
-                                                        src="https://www.bigbasket.com/media/uploads/p/l/10000067_26-fresho-capsicum-green.jpg">
-                                                </div>
-                                                <div class="col-md-8">
-                                                    {{product.productName}}
-                                                </div>
-                                                {{product | json}}
-                                            </div> -->
-
                                             <div class="table-responsive mt-2">
                                                 <table class="table table-bordered text-center table-hover">
                                                     <thead>
@@ -73,7 +65,7 @@
                                                         <tr *ngFor="let product of productDetailsList;index as i">
                                                             <td>{{i+1}}</td>
                                                             <td>
-                                                                <img src="https://www.bigbasket.com/media/uploads/p/l/10000067_26-fresho-capsicum-green.jpg">
+                                                                <img [src]="imgUrl + product.productImage">
                                                             </td>
                                                             <td>{{product.productName}}</td>
                                                             <td>₹{{product.mrp}}</td>
@@ -82,9 +74,13 @@
                                                             <td>{{product.quantity}}</td>
                                                             <td>₹{{product.amountToBePaid}}</td>
                                                         </tr>
-                                                        <tr>
-                                                            <td colspan="7"><strong class="total-amount">Total Amount</strong></td>
-                                                            <td></td>
+                                                        <tr *ngIf="productDetailsList.length > 0">
+                                                            <td class="sub-total" colspan="3"></td>
+                                                            <td class="sub-total" colspan="4">Subtotal</td>
+                                                            <td class="sub-total">₹{{totalOrderAmount}}</td>
+                                                        </tr>
+                                                        <tr *ngIf="productDetailsList.length == 0">
+                                                            <td colspan="8">No products found</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>

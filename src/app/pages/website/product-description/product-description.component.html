@@ -38,7 +38,7 @@
         <div class="col-md-2 sidepannels" *ngFor="let items of  ProductVariationList"> 
 
         <div [ngClass]="items.id == checkId  ? 'card varcard mt-2': 'card defaultcards mt-2' " (click)="getVariationDetails(items)">
-       
+         
           <div class="card-body">
          <p *ngIf="items.quantity == 1"><strong>{{items.productWeight}}</strong></p>
          <p *ngIf="items.quantity > 1"><strong>{{items.quantity}} * {{items.productWeight}}</strong></p>
@@ -109,7 +109,6 @@
 </div>
 </section> 
 
-
 @if(SliderItems.length >= 4){
  <section class="Products-Image-Slider">
   <h3 style="color: #456d63; text-align: center; padding-bottom: 15px;">Similar Products</h3>
@@ -120,8 +119,8 @@
          <div class="card slidecards">
           <div class="card-body slideinnerbody" >
              <div class="card imgcard">
-             <img [src]="baseUrl + PSlider.productImage"  height="120">
-              <a href="/product-description/{{PSlider.id}}/{{PSlider.variationId}}" target="_blank">
+               <a href="/product-description/{{PSlider.id}}/{{PSlider.variationId}}" target="_blank">
+                <img [src]="baseUrl + PSlider.productImage"  height="120">
               </a>
              </div>
 
@@ -248,4 +247,3 @@
 </section>
 
 <script src="/assets/js/ImageMagnifier.js"></script>
-

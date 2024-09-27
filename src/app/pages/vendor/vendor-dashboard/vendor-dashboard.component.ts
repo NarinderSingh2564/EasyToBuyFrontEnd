@@ -21,7 +21,7 @@ export class VendorDashboardComponent {
   }
 
   getUserOrderCount(){
-    this.userService.getUserOrdersCount(this.accountService.getUserId()).subscribe(result=>{
+    this.userService.getUserOrdersCount(this.accountService.getCustomerId()).subscribe(result=>{
       this.userOrdersCountList= result;
     })
   }

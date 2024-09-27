@@ -17,7 +17,7 @@ export class CustomerAddressComponent {
   accountService = inject(AccountService);
   formBuilder = inject(FormBuilder);
 
-  @Input() UserID: any;
+  @Input() CustomerID: any;
 
   addressForm: FormGroup;
   userAddressList: any;
@@ -83,15 +83,15 @@ export class CustomerAddressComponent {
     else {
       const addressData: any = {
         id: this.addressForm.value.id != null && this.addressForm.value.id > 0 ? this.addressForm.value.id : 0,
-        customerId: this.accountService.getUserId(),
+        customerId: this.accountService.getCustomerId(),
         pincode: this.addressForm.value.pincode,
         state: this.address.State,
         city: this.address.Division,
         country: this.address.Country,
         fullAddress: this.addressForm.value.fullAddress,
         addressTypeId: this.addressForm.value.addressTypeId,
-        createdBy: this.accountService.getUserId(),
-        updatedBy: this.accountService.getUserId(),
+        createdBy: this.accountService.getCustomerId(),
+        updatedBy: this.accountService.getCustomerId(),
       }
       this.accountService.addressAddEdit(addressData).subscribe((result: any) => {
         alert(result.message)
@@ -100,7 +100,7 @@ export class CustomerAddressComponent {
         this.getAddressList()
       })
     }
-  }
+  }  
   addAdressModal() {
     this.isFormValid = false
     this.modalHeader = "Add Address"
@@ -117,7 +117,7 @@ export class CustomerAddressComponent {
     if(status){
       var isConfirm = confirm("Are you sure to set this address as delivery address?");
       if (isConfirm) {
-        this.accountService.setDeliveryAddress(addressId, this.accountService.getUserId()).subscribe((result: any) => {
+        this.accountService.setDeliveryAddress(addressId, this.accountService.getCustomerId()).subscribe((result: any) => {
           this.getAddressList();
           this.accountService.updateDeliveryAddress$.next(true);
         })

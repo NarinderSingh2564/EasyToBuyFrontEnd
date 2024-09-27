@@ -1,8 +1,8 @@
 import { CommonModule, } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component,inject } from '@angular/core';
 import { OrderService } from '../../../services/order.service';
 import { AccountService } from '../../../services/account.service';
-import { ActivatedRoute, RouteReuseStrategy } from '@angular/router';
+import { ActivatedRoute, Router, RouteReuseStrategy } from '@angular/router';
 import { EasyToBuyHelper } from '../../../helpers/EasyToBuyHelper';
 
 @Component({
@@ -21,39 +21,31 @@ export class OrderListComponent {
 
   header: string = ""
   orderList: any = []
-  productDetailsList: any = []
+  orderDetails:any ={}
   statusId: number = 0;
-  totalOrderAmount:any = 0;
+  role: string = this.accountService.getUserRole();
   variationImgUrl = EasyToBuyHelper.imageVariationBaseUrl
 
   constructor(private activatedRoute: ActivatedRoute) {
     this.router.shouldReuseRoute = function () {
-      return false;
-    };
+       return false;
+     };
     this.activatedRoute.params.subscribe((result: any) => {
-      this.statusId = result.id
+      this.statusId = result.id 
     });
-    this.getUserOrdersListByUserId()
+    this.getOrderList()
   }
 
-  getUserOrdersListByUserId() {
+  getOrderList() {
     if (this.accountService.getUserRole() == "Vendor") {
       this.header = (this.statusId == 0) ? "All Orders" : (this.statusId == 1) ? "Pending Orders" : (this.statusId == 5) ? "Delivered Orders" : "Cancelled Orders";
-
-      
-
-      this.orderService.getOrdersList( this.accountService.getUserId(), "", this.statusId,"", "").subscribe((result: any) => {
-
+      this.orderService.getOrdersList( this.accountService.getCustomerId(), "", this.statusId,"", "").subscribe((result: any) => {
         this.orderList = result
       })
     }
     else {
       this.header = "Total Orders"
-
-      this.orderService.getUserOrdersListByUserId(this.accountService.getUserId(), "", 0).subscribe((result: any) => {
-
-
-
+      this.orderService.getOrdersList(this.accountService.getCustomerId(),  "", 0,"", "").subscribe((result: any) => {
         this.orderList = result
       })
     }
@@ -62,37 +54,30 @@ export class OrderListComponent {
   searchOrder(searchText: string) {
     if (this.accountService.getUserRole() == "Vendor") {
       this.header = (this.statusId == 0) ? "All Orders" : (this.statusId == 1) ? "Pending Orders" : (this.statusId == 4) ? "Delivered Orders" : "Cancelled Orders";
-
-        this.orderService.getOrdersList( this.accountService.getUserId(), searchText, this.statusId,"", "").subscribe((result: any) => {
-
+      this.orderService.getOrdersList( this.accountService.getCustomerId(), searchText, this.statusId,"", "").subscribe((result: any) => {
         this.orderList = result
       })
     }
     else {
-      this.orderService.getUserOrdersListByUserId(this.accountService.getUserId(), searchText, 0).subscribe((result: any) => {
+      this.orderService.getOrdersList(this.accountService.getCustomerId(),  searchText, 0,"", "").subscribe((result: any) => {
         this.orderList = result
       })
     }
   }
 
-  customerOrderStatusUpdate(orderNumber: string) {
-    this.orderService.customerOrderStatusUpdate(this.accountService.getUserId(), orderNumber, 2).subscribe((result: any) => {
-      if (result.status) {
-        this.getUserOrdersListByUserId()
-      }
-      else {
-        alert(result.message)
-      }
-    })
+  getOrderDetails(orderId:number){
+    this.orderDetails = this.orderList.filter((t:{id:any}) => t.id == orderId)[0]
   }
 
-  getProductDetailsByOrderNumberAndUserId(orderNumber: string) {
-    this.orderService.getProductDetailsByOrderNumberAndUserId(orderNumber, this.accountService.getUserId()).subscribe((result: any) => {
-      this.productDetailsList = result
-      this.productDetailsList.forEach((item:any) => {
-        this.totalOrderAmount += item.amountToBePaid
-      });
-    })
+  customerOrderStatusUpdate(orderId:number){
+     this.orderService.customerOrderStatusUpdate(this.accountService.getCustomerId(),orderId,2).subscribe((result:any) => {
+      if(result.status){
+        this.getOrderList()
+      }
+      else{
+        alert(result.message)
+      }
+     })
   }
 
 }

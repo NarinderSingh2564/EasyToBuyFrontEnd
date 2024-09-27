@@ -17,7 +17,7 @@ import { EasyToBuyHelper } from '../../../helpers/EasyToBuyHelper';
 })
 export class CustomerCartComponent {
 
-  userId: number = 0;
+  customerId: number = 0;
   router = inject(Router);
   cartService = inject(CartService)
   accountService = inject(AccountService)
@@ -34,16 +34,20 @@ export class CustomerCartComponent {
   constructor() {
     this.getCartDetailsByCustomerId();
     this.getDeliveryAddress();
+
     this.cartService.updateCart$.subscribe(() => {
       this.getCartDetailsByCustomerId();
     })
+
     this.cartService.updateCartCount$.subscribe(() => {
       this.getCartDetailsByCustomerId();
     })
+
     this.accountService.updateDeliveryAddress$.subscribe(() => {
       this.getDeliveryAddress();
     })
-    this.userId = this.accountService.getUserId();
+
+    this.customerId = this.accountService.getCustomerId();
   }
 
   showChild() {
@@ -51,7 +55,7 @@ export class CustomerCartComponent {
   }
 
   getCartDetailsByCustomerId() {
-    this.cartService.getCartDetailsByCustomerId(this.accountService.getUserId()).subscribe((result: any) => {
+    this.cartService.getCartDetailsByCustomerId(this.accountService.getCustomerId()).subscribe((result: any) => {
       this.cartList = result._cartListItems
       this.priceDetails = result.priceDetails
       this.totalCartItems = this.cartList.length
@@ -68,7 +72,7 @@ export class CustomerCartComponent {
     if (item.quantity > 1) {
       item.quantity--
       const cart = {
-        userId: this.accountService.getUserId(),
+        customerId: this.accountService.getCustomerId(),
         variationId: item.variationId,
         quantity: item.quantity,
         requestFrom: "Cart"
@@ -86,7 +90,7 @@ export class CustomerCartComponent {
     if (item.quantity < 5) {
       item.quantity++;
       const cart = {
-        userId: this.accountService.getUserId(),
+        customerId: this.accountService.getCustomerId(),
         variationId: item.variationId,
         quantity: item.quantity,
         requestFrom: "Cart"

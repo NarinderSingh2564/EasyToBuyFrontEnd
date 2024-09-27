@@ -17,16 +17,8 @@ export class OrderService {
     return this.http.get("https://localhost:7239/api/Order/GetOrdersList?customerId=" + customerId +"&searchText=" + searchText + "&statusId=" + statusId + "&firstDate=" + firstDate + "&secondDate=" + secondDate)
   }
 
-  getUserOrdersListByUserId(userId:number,searchText: string, statusId:number){
-    return this.http.get("https://localhost:7239/api/Order/GetUserOrdersListByUserId?userId=" + userId + "&searchText=" + searchText + "&statusId=" + statusId)
-  }
-
-  getProductDetailsByOrderNumberAndUserId(orderNumber:string, userId:number){
-    return this.http.get("https://localhost:7239/api/Order/GetProductDetailsByOrderNumberAndUserId?orderNumber=" + orderNumber +"&userId=" + userId)
-  }
-
-  customerOrderStatusUpdate(userId:number, orderNumber:string, statusId:number){
-    return this.http.get("https://localhost:7239/api/Order/CustomerOrderStatusUpdate?userId=" + userId + "&orderNumber=" + orderNumber + "&statusId=" + statusId)
+  customerOrderStatusUpdate(userId:number, orderId:number, statusId:number){
+    return this.http.get("https://localhost:7239/api/Order/CustomerOrderStatusUpdate?userId=" + userId + "&orderId=" + orderId + "&statusId=" + statusId)
   }
 
   getOrderStatusTrackingList(orderId:number){

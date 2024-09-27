@@ -150,8 +150,8 @@ export class ProductVariationComponent implements OnInit {
         discountPrice: Number(this.calculateDiscountPrice()),
         priceAfterDiscount: Number(this.calculatePriceAfterDiscount()),
         stockQuantity: this.variationForm.controls['stockQuantity'].value,
-        createdBy: this.accountService.getUserId(),
-        updatedBy: this.accountService.getUserId(),
+        createdBy: this.accountService.getCustomerId(),
+        updatedBy: this.accountService.getCustomerId(),
       }
       this.productService.productVariationAddEdit(variation).subscribe((result: any) => {
         alert(result.message)

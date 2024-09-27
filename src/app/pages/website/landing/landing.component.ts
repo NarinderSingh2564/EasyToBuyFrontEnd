@@ -30,7 +30,7 @@ export class LandingComponent {
 
   constructor() {
     this.getCategoryList()
-    if (this.accountService.getUserId() > 0) {
+    if (this.accountService.getCustomerId() > 0) {
       this.loggedIn = true
       this.getCartDetailsByCustomerId()
     }
@@ -55,7 +55,7 @@ export class LandingComponent {
   }
 
   getCartDetailsByCustomerId() {
-    this.cartService.getCartDetailsByCustomerId(this.accountService.getUserId()).subscribe((result: any) => {
+    this.cartService.getCartDetailsByCustomerId(this.accountService.getCustomerId()).subscribe((result: any) => {
       this.totalCartItems = result._cartListItems.length
     })
   }

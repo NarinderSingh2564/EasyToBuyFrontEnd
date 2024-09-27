@@ -8,7 +8,7 @@
                             Category List
                         </div>
                         <div class="col-6 text-end">
-                            <button class="btn btn-sm" (click)="addCategory()" data-bs-toggle="modal" data-bs-target="#categoryAddEditModal"><b>Add Category</b></button>
+                            <button class="btn btn-sm" (click)="openModal();addCategory()"><b>Add Category</b></button>
                         </div>
 
                     </div>
@@ -25,7 +25,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let category of categoryList;let i = index"  [ngClass]="category.isActive == false ? 'table-danger' : ''">
+                            <tr *ngFor="let category of categoryList;let i = index">
                                 <td>{{i+1}}</td>
                                 <td>{{category.categoryName}}</td>
                                 @if(category.packingModeId == 1){
@@ -41,7 +41,7 @@
                                 <td>No</td>
                                 }
                                 <td>
-                                    <i class="bi bi-pencil-square" (click)="editCategory(category)" data-bs-toggle="modal" data-bs-target="#categoryAddEditModal"></i>
+                                    <i class="bi bi-pencil-square" (click)="editCategory(category); openModal()"></i>
                                 </td>
                             </tr>
                         </tbody>
@@ -51,16 +51,16 @@
         </div>
     </div>
 
-    <div class="modal fade" id="categoryAddEditModal" data-bs-backdrop="static">
+    <div class="modal" id="myModal" [ngStyle]="{'display':display}">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
 
-                <form autocomplete="off" [formGroup]="categoryForm" (ngSubmit)="categoryAddEdit()">
+                <form autocomplete="off" [formGroup]="categoryForm" (ngSubmit)="CategoryAddEdit()">
                     <div class="modal-header">
                         <h4 class="modal-title" *ngIf="!isEdit"> Add Category</h4>
                         <h4 class="modal-title" *ngIf="isEdit"> Update Category</h4>
 
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeModal()"></button>
                     </div>
 
                     <div class="modal-body">
@@ -77,14 +77,14 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                         <div class="row mt-2">
                             <div class="col-12">
                                 <label for="">Packing Mode</label>
                                 <input type="radio"  class="form-check-input radio" formControlName="packingMode"
-                                    value="Kg"><span>Kg</span>
+                                    value="kg"><span>Kg</span>
                                 <input type="radio"  class="form-check-input radio" formControlName="packingMode"
-                                    value="Item"><span>Item</span>
+                                    value="item"><span>Item</span>
                                 <div *ngIf="isFormValid && controls['packingMode'].errors">
                                     <div *ngIf="controls['packingMode'].errors['required']" class="text-danger">
                                         Packing mode required.
@@ -105,7 +105,8 @@
                                 <button class="btn btn2">Submit</button>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                            (click)="closeModal()">Close</button>
                     </div>
                 </form>
             </div>

@@ -17,9 +17,11 @@ export class CategoryComponent implements OnInit {
 
   isSidePanelVisible: boolean = false;
   categoryList: any = [];
+  response: any = [];
   categoryForm: FormGroup;
   isFormValid: boolean = false;
   isEdit: boolean = false;
+  display = "none";
 
   ngOnInit(): void {
     this.getCategoryList()
@@ -38,6 +40,15 @@ export class CategoryComponent implements OnInit {
     return this.categoryForm.controls;
   }
 
+
+  openModal() {
+    this.display = "block";
+  }
+
+  closeModal() {
+    this.display = "none";
+  }
+
   addCategory() {
     this.isEdit = false
     this.isFormValid = false
@@ -53,9 +64,9 @@ export class CategoryComponent implements OnInit {
     this.categoryService.getCategoryList().subscribe(result => {
       this.categoryList = result
     })
-  }
+  } 
 
-  categoryAddEdit() {
+  CategoryAddEdit() {
     this.isFormValid = true
     if (this.categoryForm.invalid) {
       return;
@@ -65,17 +76,19 @@ export class CategoryComponent implements OnInit {
         id: this.categoryForm.value.id != null && this.categoryForm.value.id > 0 ? this.categoryForm.value.id : 0,
         categoryName: this.categoryForm.value.categoryName,
         packingModeId: this.categoryForm.value.packingMode == "kg" ? 1 : 2,
-        createdBy: this.accountService.getUserId(),
-        updatedBy: this.accountService.getUserId(),
+        createdBy: this.accountService.getCustomerId(),
+        updatedBy: this.accountService.getCustomerId(),
         isActive: this.categoryForm.value.isActive,
       }
-      this.categoryService.categoryAddEdit(category).subscribe((result:any) => {
-        if (result.status) {
-          alert(result.message);
+      this.categoryService.categoryAddEdit(category).subscribe(result => {
+        this.response = result;
+        if (this.response.status) {
+          alert(this.response.message);
+          this.closeModal();
           this.getCategoryList();
         }
         else {
-          alert(result.message);
+          alert(this.response.message);
         }
       });
     }

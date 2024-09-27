@@ -6,122 +6,63 @@
             </div>
             <div class="col-md-4">
                 <div class="input-group">
-                    <input type="text" class="form-control1" placeholder="Search orders by order number or status" #box
-                        (input)="searchOrder(box.value)">
-                    <span class="input-group-text" (click)="searchOrder(box.value)"><i class="bi bi-search"></i></span>
+                    <input type="text" class="form-control" placeholder="Search orders by product name" #box>
+                    <span class="input-group-text" (click)="searchOrder(box.value)"><i
+                            class="bi bi-search"></i></span>
                 </div>
             </div>
-        </div>
+        </div> 
         <div class="table-responsive mt-2">
             <table class="table table-bordered text-center table-hover">
                 <thead>
                     <tr>
                         <th>Sr. No.</th>
-                        <th>Order Number</th>
-                        <th>Order Date</th>
                         <th>Customer Name</th>
-                        <th>Customer Mobile</th>
-                        <th>Customer Address</th>
-                        <th *ngIf="statusId == 0">Packed</th>
+                        <th>Order Number</th>
+                        <th class="col-2">Order Date</th>
+                        <th class="col-3">Product Name</th>
+                        <th>MRP </th>
+                        <th>Discount(%)</th>
+                        <th>Quantity</th>
+                        <th>Amount</th>
                         <th>Status</th>
-
-                        <th *ngIf="statusId == 0">Logistic</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let order of orderList;index as i">
                         <td>{{i+1}}</td>
-                        <td>
-                            <a href="" data-bs-toggle="modal" data-bs-target="#viewOrderDetails"
-                                (click)="getProductDetailsByOrderNumberAndUserId(order.orderNumber)">{{order.orderNumber}}
-                                <br>
-                                {{order.productCount}} items</a>
-                            <div class="modal fade" data-bs-backdrop="static" id="viewOrderDetails">
-                                <div class="modal-dialog modal-dialog-centered modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Order Number - {{order.orderNumber}}</h4>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- <div class="row mb-4" *ngFor="let product of productDetailsList">
-                                                <div class="col-md-1">
-                                                    <img
-                                                        src="https://www.bigbasket.com/media/uploads/p/l/10000067_26-fresho-capsicum-green.jpg">
-                                                </div>
-                                                <div class="col-md-8">
-                                                    {{product.productName}}
-                                                </div>
-                                                {{product | json}}
-                                            </div> -->
+                        <td>{{order.userName}}</td>
+                        <td>{{order.orderNumber}}</td>
+                        <td>{{order.orderDate | date:'mediumDate'}}</td>
 
-                                            <div class="table-responsive mt-2">
-                                                <table class="table table-bordered text-center table-hover">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Sr. No.</th>
-                                                            <th>Image</th>
-                                                            <th>Item</th>
-                                                            <th>MRP</th>
-                                                            <th>Dis</th>
-                                                            <th>Rate</th>
-                                                            <th>Qty</th>
-                                                            <th>Amount</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr *ngFor="let product of productDetailsList;index as i">
-                                                            <td>{{i+1}}</td>
-                                                            <td>
-                                                                <img src="https://www.bigbasket.com/media/uploads/p/l/10000067_26-fresho-capsicum-green.jpg">
-                                                            </td>
-                                                            <td>{{product.productName}}</td>
-                                                            <td>₹{{product.mrp}}</td>
-                                                            <td>{{product.discount}}%</td>
-                                                            <td>₹{{product.mrp - (product.discount/100 * product.mrp)}}</td>
-                                                            <td>{{product.quantity}}</td>
-                                                            <td>₹{{product.amountToBePaid}}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td colspan="7"><strong class="total-amount">Total Amount</strong></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <td class="abc">
+                            <img [src]="variationImgUrl + order.productImage" alt=""> 
+                              {{order.productName}}&nbsp;({{order.productWeight}})<br>({{order.packingType}})
                         </td>
-                        <td>{{order.orderDate | date:'dd-MM-yyyy'}}</td>
-                        <td>{{order.customerName}}</td>
-                        <td>{{order.customerMobile}}</td>
-                        <td>{{order.customerAddress}}</td>
-                        <td *ngIf="statusId == 0">
-                            <div class="toggle">
-                                <input type="checkbox" id="{{i+1}}toggle-button-checkbox"
-                                    [checked]="order.status == 'Packed' ? true : false"
-                                    [disabled]="order.status != 'Ordered' ? true : false"
-                                    (change)="customerOrderStatusUpdate(order.orderNumber)">
-                                <label class="toggle-button-switch" for="{{i+1}}toggle-button-checkbox"></label>
-                                <div class="toggle-button-text">
-                                    <div class="toggle-button-text-on">Yes</div>
-                                    <div class="toggle-button-text-off">No</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td
-                            [ngClass]="order.status == 'Cancelled' ? 'table-danger' : order.status == 'Delivered' ? 'table-success' : order.status == 'Ordered' ? 'table-secondary' : order.status == 'Shipped' ? 'table-primary' : order.status == 'Packed' ? 'table-warning' : 'table-info'">
-                            {{order.status}}
-                        </td>
-                        <td *ngIf="statusId == 0"><i class="bi bi-three-dots-vertical"></i></td>
+                        <td>{{order.mrp | currency:'INR'}}</td>
+                        <td>{{order.discount}}</td>
+                        <td>{{order.quantity}}</td>
+                        <td>{{order.amountToBePaid | currency:'INR'}}</td>
+                        <td 
+                        [ngClass]="order.status == 'Cancelled' ? 'table-danger' : order.status == 'Delivered' ? 'table-success' : order.status == 'Ordered' ? 'table-warning' : order.status == 'Shipped' ? 'table-primary' : 'table-active'">
+                        {{order.status}}</td>
                     </tr>
                     <tr *ngIf="orderList.length == 0">
-                        <td colspan="12">No orders found</td>
+                        <td colspan="10">No orders found</td>
                     </tr>
                 </tbody>
             </table>
         </div>
+        <!-- <div class="pagination">
+            <div class="row">
+                <div class="col-md-4">
+                    <button class="btn"><i class="bi bi-chevron-double-left"></i>Prev</button>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-4">
+                    <button class="btn">Next<i class="bi bi-chevron-double-right"></i></button>
+                </div>
+            </div>
+        </div> -->
     </div>
 </div>

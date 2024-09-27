@@ -41,6 +41,7 @@ export class ProductsComponent implements OnInit {
   showForm: boolean = false
   showSubCards: boolean = false
   showModal: boolean = false;
+  isClearControls: boolean = false;
 
   constructor(private productService: ProductService, private categoryServivce: CategoryService, private accountService: AccountService, private formBuilder: FormBuilder) {
     this.productForm = this.formBuilder.group({
@@ -71,6 +72,7 @@ export class ProductsComponent implements OnInit {
     this.isFormValid = false
     this.showSubCards = false
     this.previewImage = ''
+    this.isClearControls = true
   }
 
   closeProductForm() {
@@ -104,6 +106,7 @@ export class ProductsComponent implements OnInit {
     this.getVariationImagesList();
     this.getProductSpecificationList();
     this.productForm.controls['categoryId'].disable()
+    this.productForm.controls['productImage'].patchValue("img");
   }
 
   getCategoryList() {
@@ -141,9 +144,11 @@ export class ProductsComponent implements OnInit {
 
   productAddEdit() {
     this.isFormValid = true
-    this.productForm.value.id = this.productForm.value.id != null && this.productForm.value.id > 0 ? this.productForm.value.id : 0;
-    this.productForm.value.isActive = this.productForm.value.isActive == null ? false : true;
-    this.productForm.controls['productImage'].patchValue("img");
+    if(this.isClearControls){
+      this.productForm.value.id = this.productForm.value.id != null && this.productForm.value.id > 0 ? this.productForm.value.id : 0;
+      this.productForm.value.isActive = this.productForm.value.isActive == null ? false : true;
+      this.productForm.controls['productImage'].patchValue("img");
+    }
     if (this.productForm.invalid) {
       return;
     }
@@ -158,11 +163,17 @@ export class ProductsComponent implements OnInit {
       formData.set("categoryId", this.productForm.value.categoryId == undefined ? this.productForm.controls['categoryId'].value : this.productForm.value.categoryId);
       formData.set("totalVolume", this.productForm.value.totalVolume);
       formData.set("packingModeId", this.productForm.value.packingModeId);
+
       formData.set("createdBy", this.accountService.getCustomerId());
       formData.set("updatedBy", this.accountService.getCustomerId());
       formData.set("isActive", this.productForm.value.isActive == null ? "false" : "true");
 
-    //  formData.forEach(entries => console.log(entries));
+      formData.set("createdBy", this.accountService.getUserId());
+      formData.set("updatedBy", this.accountService.getUserId());
+      formData.set("isActive", this.productForm.value.isActive);
+
+
+      // formData.forEach(entries => console.log(entries));
       this.productService.productAddEdit(formData).subscribe((result: any) => {
         if (result.status) {
           alert(result.message);

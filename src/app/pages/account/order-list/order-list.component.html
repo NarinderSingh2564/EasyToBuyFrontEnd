@@ -38,6 +38,81 @@
                         <td class="abc">
                             <img [src]="variationImgUrl + order.productImage" alt=""> 
                               {{order.productName}}&nbsp;({{order.productWeight}})<br>({{order.packingType}})
+                        <td>
+                            <a href="" data-bs-toggle="modal" data-bs-target="#viewOrderDetails"
+                                (click)="getProductDetailsByOrderNumberAndUserId(order.orderNumber)">{{order.orderNumber}}
+                                <br>
+                                ({{order.productCount}}
+                                <span *ngIf="order.productCount > 1">items</span>
+                                <span *ngIf="order.productCount == 1">item</span>)
+                            </a>
+                            <div class="modal fade" data-bs-backdrop="static" id="viewOrderDetails">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Order Number - {{orderNumber}}</h4>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="table-responsive mt-2">
+                                                <table class="table table-bordered text-center table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Sr. No.</th>
+                                                            <th>Image</th>
+                                                            <th>Item</th>
+                                                            <th>MRP</th>
+                                                            <th>Dis</th>
+                                                            <th>Rate</th>
+                                                            <th>Qty</th>
+                                                            <th>Amount</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let product of productDetailsList;index as i">
+                                                            <td>{{i+1}}</td>
+                                                            <td>
+                                                                <img [src]="imgUrl + product.productImage">
+                                                            </td>
+                                                            <td>{{product.productName}}</td>
+                                                            <td>₹{{product.mrp}}</td>
+                                                            <td>{{product.discount}}%</td>
+                                                            <td>₹{{product.mrp - (product.discount/100 * product.mrp)}}</td>
+                                                            <td>{{product.quantity}}</td>
+                                                            <td>₹{{product.amountToBePaid}}</td>
+                                                        </tr>
+                                                        <tr *ngIf="productDetailsList.length > 0">
+                                                            <td class="sub-total" colspan="3"></td>
+                                                            <td class="sub-total" colspan="4">Subtotal</td>
+                                                            <td class="sub-total">₹{{totalOrderAmount}}</td>
+                                                        </tr>
+                                                        <tr *ngIf="productDetailsList.length == 0">
+                                                            <td colspan="8">No products found</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{order.orderDate | date:'dd-MM-yyyy'}}</td>
+                        <td>{{order.customerName}}</td>
+                        <td>{{order.customerMobile}}</td>
+                        <td>{{order.customerAddress}}</td>
+                        <td *ngIf="statusId == 0">
+                            <div class="toggle">
+                                <input type="checkbox" id="{{i+1}}toggle-button-checkbox"
+                                    [checked]="order.status == 'Packed' ? true : false"
+                                    [disabled]="order.status != 'Ordered' ? true : false"
+                                    (change)="customerOrderStatusUpdate(order.orderNumber)">
+                                <label class="toggle-button-switch" for="{{i+1}}toggle-button-checkbox"></label>
+                                <div class="toggle-button-text">
+                                    <div class="toggle-button-text-on">Yes</div>
+                                    <div class="toggle-button-text-off">No</div>
+                                </div>
+                            </div>
                         </td>
                         <td>{{order.mrp | currency:'INR'}}</td>
                         <td>{{order.discount}}</td>

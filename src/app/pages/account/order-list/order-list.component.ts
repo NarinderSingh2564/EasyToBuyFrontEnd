@@ -1,8 +1,8 @@
 import { CommonModule, } from '@angular/common';
-import { Component,inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { OrderService } from '../../../services/order.service';
 import { AccountService } from '../../../services/account.service';
-import { ActivatedRoute, Router, RouteReuseStrategy } from '@angular/router';
+import { ActivatedRoute, RouteReuseStrategy } from '@angular/router';
 import { EasyToBuyHelper } from '../../../helpers/EasyToBuyHelper';
 
 @Component({
@@ -21,42 +21,32 @@ export class OrderListComponent {
 
   header: string = ""
   orderList: any = []
-  orderDetails:any ={}
+  productDetailsList: any = []
   statusId: number = 0;
-  role: string = this.accountService.getUserRole();
-  variationImgUrl = EasyToBuyHelper.imageVariationBaseUrl
   orderNumber:string=""
    totalOrderAmount:any = 0;
   imgUrl = EasyToBuyHelper.imageBaseUrl
 
   constructor(private activatedRoute: ActivatedRoute) {
     this.router.shouldReuseRoute = function () {
-       return false;
-     };
+      return false;
+    };
     this.activatedRoute.params.subscribe((result: any) => {
-      this.statusId = result.id 
+      this.statusId = result.id
     });
-    this.getOrderList()
+    this.getUserOrdersListByUserId()
   }
 
-  getOrderList() {
+  getUserOrdersListByUserId() {
     if (this.accountService.getUserRole() == "Vendor") {
       this.header = (this.statusId == 0) ? "All Orders" : (this.statusId == 1) ? "Pending Orders" : (this.statusId == 5) ? "Delivered Orders" : "Cancelled Orders";
-
-      this.orderService.getOrdersList( this.accountService.getCustomerId(), "", this.statusId,"", "").subscribe((result: any) => {
-
       this.orderService.getUserOrdersListByUserId(this.accountService.getUserId(), "", this.statusId).subscribe((result: any) => {
-
         this.orderList = result
       })
     }
     else {
       this.header = "Total Orders"
-
-      this.orderService.getOrdersList(this.accountService.getCustomerId(),  "", 0,"", "").subscribe((result: any) => {
-
       this.orderService.getUserOrdersListByUserId(this.accountService.getUserId(), "", 0).subscribe((result: any) => {
-
         this.orderList = result
       })
     }
@@ -65,36 +55,25 @@ export class OrderListComponent {
   searchOrder(searchText: string) {
     if (this.accountService.getUserRole() == "Vendor") {
       this.header = (this.statusId == 0) ? "All Orders" : (this.statusId == 1) ? "Pending Orders" : (this.statusId == 4) ? "Delivered Orders" : "Cancelled Orders";
-
-      this.orderService.getOrdersList( this.accountService.getCustomerId(), searchText, this.statusId,"", "").subscribe((result: any) => {
-
       this.orderService.getUserOrdersListByUserId(this.accountService.getUserId(), searchText, 0).subscribe((result: any) => {
-
         this.orderList = result
       })
     }
     else {
-      this.orderService.getOrdersList(this.accountService.getCustomerId(),  searchText, 0,"", "").subscribe((result: any) => {
+      this.orderService.getUserOrdersListByUserId(this.accountService.getUserId(), searchText, 0).subscribe((result: any) => {
         this.orderList = result
       })
     }
   }
 
-  getOrderDetails(orderId:number){
-    this.orderDetails = this.orderList.filter((t:{id:any}) => t.id == orderId)[0]
-  }
-
-  customerOrderStatusUpdate(orderId:number){
-     this.orderService.customerOrderStatusUpdate(this.accountService.getCustomerId(),orderId,2).subscribe((result:any) => {
-      if(result.status){
-        this.getOrderList()
+  customerOrderStatusUpdate(orderNumber: string) {
+    this.orderService.customerOrderStatusUpdate(this.accountService.getUserId(), orderNumber, 2).subscribe((result: any) => {
+      if (result.status) {
+        this.getUserOrdersListByUserId()
       }
-      else{
+      else {
         alert(result.message)
       }
-
-     })
-
     })
   }
 
@@ -107,7 +86,6 @@ export class OrderListComponent {
         this.totalOrderAmount += item.amountToBePaid
       });
     })
-
   }
 
 }

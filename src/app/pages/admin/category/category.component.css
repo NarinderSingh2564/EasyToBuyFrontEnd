@@ -7,7 +7,7 @@
     
 .bi-pencil-square {
     font-size: larger;
-    color: #3b6a5e;
+    color: #486860;
 }
 .bi-trash{
     font-size: larger;
@@ -15,6 +15,7 @@
 }
 .card{
     height: 100%;
+    border:hidden
 }
 
 .bookmark{
@@ -32,12 +33,12 @@
 }
 
 .btn-sm{
-    color:#3b6a5e;
+    color:#61887e;
     background-color: white;
     margin-left: 6px;
   }
   .btn-sm:hover{
-    color:#3b6a5e;
+    color:#61887e;
     background-color: white;
     margin-left: 6px;
   
@@ -48,13 +49,16 @@
 
 .card-header{
     background:  #61887e;
+    font-size: larger;
+    font-weight: 500;
 }
 .btn2{
-    background: #3b6a5e;
+    background: #61887e;
     color:white
 }
-.modal-title{
-    color: #3b6a5e;
+.modal-header{
+    background: #61887e;
+    color: white;
 }
 th
 {
@@ -64,5 +68,5 @@ th
    font-weight: 600;
 }
 .table-bordered{
-    border:1px solid #3b6a5e;
+    border:1px solid #61887e;
 }

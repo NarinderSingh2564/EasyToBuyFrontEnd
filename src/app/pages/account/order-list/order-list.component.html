@@ -6,38 +6,31 @@
             </div>
             <div class="col-md-4">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search orders by product name" #box>
-                    <span class="input-group-text" (click)="searchOrder(box.value)"><i
-                            class="bi bi-search"></i></span>
+                    <input type="text" class="form-control1" placeholder="Search orders by order number or status" #box
+                        (input)="searchOrder(box.value)">
+                    <span class="input-group-text" (click)="searchOrder(box.value)"><i class="bi bi-search"></i></span>
                 </div>
             </div>
-        </div> 
+        </div>
         <div class="table-responsive mt-2">
             <table class="table table-bordered text-center table-hover">
                 <thead>
                     <tr>
                         <th>Sr. No.</th>
-                        <th>Customer Name</th>
                         <th>Order Number</th>
-                        <th class="col-2">Order Date</th>
-                        <th class="col-3">Product Name</th>
-                        <th>MRP </th>
-                        <th>Discount(%)</th>
-                        <th>Quantity</th>
-                        <th>Amount</th>
+                        <th>Order Date</th>
+                        <th>Customer Name</th>
+                        <th>Customer Mobile</th>
+                        <th>Customer Address</th>
+                        <th *ngIf="statusId == 0">Packed</th>
                         <th>Status</th>
+
+                        <th *ngIf="statusId == 0">Logistic</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let order of orderList;index as i">
                         <td>{{i+1}}</td>
-                        <td>{{order.userName}}</td>
-                        <td>{{order.orderNumber}}</td>
-                        <td>{{order.orderDate | date:'mediumDate'}}</td>
-
-                        <td class="abc">
-                            <img [src]="variationImgUrl + order.productImage" alt=""> 
-                              {{order.productName}}&nbsp;({{order.productWeight}})<br>({{order.packingType}})
                         <td>
                             <a href="" data-bs-toggle="modal" data-bs-target="#viewOrderDetails"
                                 (click)="getProductDetailsByOrderNumberAndUserId(order.orderNumber)">{{order.orderNumber}}
@@ -114,30 +107,17 @@
                                 </div>
                             </div>
                         </td>
-                        <td>{{order.mrp | currency:'INR'}}</td>
-                        <td>{{order.discount}}</td>
-                        <td>{{order.quantity}}</td>
-                        <td>{{order.amountToBePaid | currency:'INR'}}</td>
-                        <td 
-                        [ngClass]="order.status == 'Cancelled' ? 'table-danger' : order.status == 'Delivered' ? 'table-success' : order.status == 'Ordered' ? 'table-warning' : order.status == 'Shipped' ? 'table-primary' : 'table-active'">
-                        {{order.status}}</td>
+                        <td
+                            [ngClass]="order.status == 'Cancelled' ? 'table-danger' : order.status == 'Delivered' ? 'table-success' : order.status == 'Ordered' ? 'table-secondary' : order.status == 'Shipped' ? 'table-primary' : order.status == 'Packed' ? 'table-warning' : 'table-info'">
+                            {{order.status}}
+                        </td>
+                        <td *ngIf="statusId == 0"><i class="bi bi-three-dots-vertical"></i></td>
                     </tr>
                     <tr *ngIf="orderList.length == 0">
-                        <td colspan="10">No orders found</td>
+                        <td colspan="12">No orders found</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <!-- <div class="pagination">
-            <div class="row">
-                <div class="col-md-4">
-                    <button class="btn"><i class="bi bi-chevron-double-left"></i>Prev</button>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-4">
-                    <button class="btn">Next<i class="bi bi-chevron-double-right"></i></button>
-                </div>
-            </div>
-        </div> -->
     </div>
 </div>

@@ -22,7 +22,10 @@ export class AccountService {
   setUserSession(userObj: any) {
     sessionStorage.setItem("UserSessionDetails", JSON.stringify(userObj));
   }
-
+  getUserId() {
+    const activeUser = JSON.parse(sessionStorage.getItem("UserSessionDetails") || '""')
+    return Object(activeUser)["id"]
+  }
   getCustomerId() {
     const activeUser = JSON.parse(sessionStorage.getItem("UserSessionDetails") || '""')
     return Object(activeUser)["id"]

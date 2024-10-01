@@ -97,7 +97,7 @@
                         <td *ngIf="statusId == 0">
                             <div class="toggle">
                                 <input type="checkbox" id="{{i+1}}toggle-button-checkbox"
-                                    [checked]="order.status == 'Packed' ? true : false"
+                                    [checked]="order.status != 'Ordered' ? true : false"
                                     [disabled]="order.status != 'Ordered' ? true : false"
                                     (change)="customerOrderStatusUpdate(order.orderNumber)">
                                 <label class="toggle-button-switch" for="{{i+1}}toggle-button-checkbox"></label>

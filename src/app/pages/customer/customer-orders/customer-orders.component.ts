@@ -112,6 +112,7 @@ export class CustomerOrdersComponent {
         this.orderStatusTrackingList.push(result[4])
       }
     })
+    console.log(this.orderStatusTrackingList)
   }
   mySet(myvalues : any){
     this.reviewDes = myvalues.reviewTitle;

@@ -155,7 +155,7 @@ export class ProductsComponent implements OnInit {
     else {
       const formData = new FormData();
       formData.set("id", this.productForm.value.id != null && this.productForm.value.id > 0 ? this.productForm.value.id : 0);
-      formData.set("userId", this.accountService.getCustomerId());
+      formData.set("userId", this.accountService.getUserId());
       formData.set("productName", this.productForm.value.productName);
       formData.set("productDescription", this.productForm.value.productDescription);
       formData.set("productImage", this.productRealImage);
@@ -163,17 +163,11 @@ export class ProductsComponent implements OnInit {
       formData.set("categoryId", this.productForm.value.categoryId == undefined ? this.productForm.controls['categoryId'].value : this.productForm.value.categoryId);
       formData.set("totalVolume", this.productForm.value.totalVolume);
       formData.set("packingModeId", this.productForm.value.packingModeId);
-
-      formData.set("createdBy", this.accountService.getCustomerId());
-      formData.set("updatedBy", this.accountService.getCustomerId());
-      formData.set("isActive", this.productForm.value.isActive == null ? "false" : "true");
-
       formData.set("createdBy", this.accountService.getUserId());
       formData.set("updatedBy", this.accountService.getUserId());
       formData.set("isActive", this.productForm.value.isActive);
 
-
-      // formData.forEach(entries => console.log(entries));
+      formData.forEach(entries => console.log(entries));
       this.productService.productAddEdit(formData).subscribe((result: any) => {
         if (result.status) {
           alert(result.message);

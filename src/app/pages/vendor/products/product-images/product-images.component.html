@@ -1,7 +1,7 @@
 <form autocomplete="off" [formGroup]="variationImagesForm" (ngSubmit)="productVariationImagesUpload()">
     <div class="modal-header">
         <h5 class="modal-title">Upload Product Images</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="disableChildComponent()"></button>
+        <button type="button" id="btnModalClose" class="btn-close" data-bs-dismiss="modal" (click)="disableChildComponent()"></button>
     </div>
     <div class="modal-body">
         <label for="" class="mt-1">Variation Type</label>

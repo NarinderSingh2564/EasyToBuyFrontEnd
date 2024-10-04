@@ -327,7 +327,7 @@
                     <div class="modal-dialog modal-dialog-centered  modal-lg">
                         <div class="modal-content">
                             @if(showModal== true){
-                            <app-product-specification [specificationToEdit]="productSpecificationList"
+                            <app-product-specification [specificationToEdit]="productSpecification"
                                 (showChildComponent)="getValueFromChild($event)"
                                 [activeProductId]="activeProductId"></app-product-specification>
                             }
@@ -338,34 +338,34 @@
                     <div class="table-responsive">
                         <table class="table">
                             <div>
-                                <tbody *ngIf="productSpecificationList != null">
+                                <tbody *ngIf="productSpecification != null">
                                     <tr>
                                         <td class="col-md-3 tdhead"><b>Speciality</b></td>
-                                        <td class="col-md-9 tdbot">{{productSpecificationList.speciality}}</td>
+                                        <td class="col-md-9 tdbot">{{productSpecification.speciality}}</td>
                                     </tr>
                                     <tr>
                                         <td class="col-md-3 tdhead"><b>Ingredient Type</b></td>
-                                        <td class="col-md-9 tdbot">{{productSpecificationList.ingredientType}}</td>
+                                        <td class="col-md-9 tdbot">{{productSpecification.ingredientType}}</td>
                                     </tr>
                                     <tr>
                                         <td class="col-md-3 tdhead"><b>Ingredient</b></td>
-                                        <td class="col-md-9 tdbot">{{productSpecificationList.ingredients}}</td>
+                                        <td class="col-md-9 tdbot">{{productSpecification.ingredients}}</td>
                                     </tr>
                                     <tr>
                                         <td class="col-md-3 tdhead"><b>Manufacturer</b></td>
-                                        <td class="col-md-9 tdbot">{{productSpecificationList.manufacturer}}</td>
+                                        <td class="col-md-9 tdbot">{{productSpecification.manufacturer}}</td>
                                     </tr>
                                     <tr>
                                         <td class="col-md-3 tdhead"><b>Shelf Life</b></td>
-                                        <td class="col-md-9 tdbot">{{productSpecificationList.shelfLife}}</td>
+                                        <td class="col-md-9 tdbot">{{productSpecification.shelfLife}}</td>
                                     </tr>
                                     <tr>
                                         <td class="col-md-3 tdhead"><b>Benefits</b></td>
-                                        <td class="col-md-9 tdbot">{{productSpecificationList.benefits}}</td>
+                                        <td class="col-md-9 tdbot">{{productSpecification.benefits}}</td>
                                     </tr>
                                     <tr>
                                         <td class="col-md-3 tdhead"><b>Active</b></td>
-                                        @if(productSpecificationList.isActive){
+                                        @if(productSpecification.isActive){
                                         <td class="col-md-9 tdbot">Yes</td>
                                         }
                                         @else{
@@ -375,7 +375,7 @@
                                 </tbody>
                             </div>
                         </table>
-                        <div *ngIf="productSpecificationList == null">
+                        <div *ngIf="productSpecification == null">
                             <p class="text-center">No specification added</p>
                         </div>
                     </div>

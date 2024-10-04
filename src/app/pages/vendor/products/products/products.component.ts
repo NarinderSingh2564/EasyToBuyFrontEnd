@@ -29,7 +29,7 @@ export class ProductsComponent implements OnInit {
   productList: any = [];
   productVariationList: any = [];
   variationImagesList: any = []
-  productSpecificationList: any = [];
+  productSpecification: any = [];
   variationDetails: any = []
   productImageName: string = '';
   packingModeId: number = 0
@@ -104,7 +104,7 @@ export class ProductsComponent implements OnInit {
     this.getCategoryList();
     this.getProductVariationList();
     this.getVariationImagesList();
-    this.getProductSpecificationList();
+    this.getProductSpecification();
     this.productForm.controls['categoryId'].disable()
     this.productForm.controls['productImage'].patchValue("img");
   }
@@ -116,7 +116,7 @@ export class ProductsComponent implements OnInit {
   }
 
   getProductList() {
-    this.productService.getProductList(0, "", this.accountService.getCustomerId(), "User").subscribe(result => {
+    this.productService.getProductList(0, "", this.accountService.getUserId(), "User").subscribe(result => {
       this.productList = result
     })
   }
@@ -165,9 +165,9 @@ export class ProductsComponent implements OnInit {
       formData.set("packingModeId", this.productForm.value.packingModeId);
       formData.set("createdBy", this.accountService.getUserId());
       formData.set("updatedBy", this.accountService.getUserId());
-      formData.set("isActive", this.productForm.value.isActive);
+      formData.set("isActive", this.productForm.value.isActive == null ? "false" : this.productForm.value.isActive == true ? "true" : "false");
 
-      formData.forEach(entries => console.log(entries));
+      // formData.forEach(entries => console.log(entries));
       this.productService.productAddEdit(formData).subscribe((result: any) => {
         if (result.status) {
           alert(result.message);
@@ -189,7 +189,7 @@ export class ProductsComponent implements OnInit {
     this.showModal = event
     this.getProductVariationList()
     this.getVariationImagesList()
-    this.getProductSpecificationList()
+    this.getProductSpecification()
   }
 
   getProductVariationList() {
@@ -263,10 +263,10 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  getProductSpecificationList() {
+  getProductSpecification() {
     this.productService.getProductSpecificationById(this.activeProductId).subscribe(result => {
-      this.productSpecificationList = result
-      if (this.productSpecificationList != null) {
+      this.productSpecification= result
+      if (this.productSpecification != null) {
         this.btnText = "Update Specification"
       }
       else {

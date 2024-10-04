@@ -72,6 +72,7 @@ export class ProductsComponent implements OnInit {
     this.isFormValid = false
     this.showSubCards = false
     this.previewImage = ''
+    this.previewImage = true
     this.isClearControls = true
   }
 
@@ -90,6 +91,7 @@ export class ProductsComponent implements OnInit {
     this.productImageName = ''
     this.getCategoryList();
     this.productForm.controls['categoryId'].enable()
+    this.previewImage = true
   }
 
   editProduct(product: any) {
@@ -106,7 +108,7 @@ export class ProductsComponent implements OnInit {
     this.getVariationImagesList();
     this.getProductSpecification();
     this.productForm.controls['categoryId'].disable()
-    this.productForm.controls['productImage'].patchValue("img");
+    this.productForm.controls['productImage'].patchValue(product.productImage);
   }
 
   getCategoryList() {
@@ -147,7 +149,7 @@ export class ProductsComponent implements OnInit {
     if(this.isClearControls){
       this.productForm.value.id = this.productForm.value.id != null && this.productForm.value.id > 0 ? this.productForm.value.id : 0;
       this.productForm.value.isActive = this.productForm.value.isActive == null ? false : true;
-      this.productForm.controls['productImage'].patchValue("img");
+      this.productForm.controls['productImage'].patchValue(this.productRealImage);
     }
     if (this.productForm.invalid) {
       return;

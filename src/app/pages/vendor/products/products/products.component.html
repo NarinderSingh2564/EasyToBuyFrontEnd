@@ -80,7 +80,7 @@
                                                     Product image is required.
                                                 </div>
                                             </div> -->
-                                            <div *ngIf="img.value == '' && isFormValid == true"  class="text-danger">
+                                            <div *ngIf="img.value == '' && previewImage == true && isFormValid == true"  class="text-danger">
                                                 Product image is required.
                                             </div>
                                         </div>
@@ -153,7 +153,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2" *ngIf="previewImage">
-                                    <img src="{{previewImage}}" style="width: 160px; height: 148px;float: inline-end;">
+                                    <img src="{{previewImage}}" alt="product img" style="width: 160px; height: 148px;float: inline-end;">
                                 </div>
                             </div>
                             <div class="row" style="justify-content:center;">

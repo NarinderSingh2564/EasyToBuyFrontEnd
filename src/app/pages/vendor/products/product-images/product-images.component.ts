@@ -101,7 +101,7 @@ export class ProductImagesComponent implements OnInit {
         alert(result.message)
         if (result.status) {
           this.isFormValid = false
-          this.variationImagesForm.reset();
+          document.getElementById("btnModalClose")?.click();
         }
       })
     }

@@ -29,7 +29,7 @@ export class ProductsComponent implements OnInit {
   productList: any = [];
   productVariationList: any = [];
   variationImagesList: any = []
-  productSpecificationList: any = [];
+  productSpecification: any = [];
   variationDetails: any = []
   productImageName: string = '';
   packingModeId: number = 0
@@ -72,6 +72,7 @@ export class ProductsComponent implements OnInit {
     this.isFormValid = false
     this.showSubCards = false
     this.previewImage = ''
+    this.previewImage = true
     this.isClearControls = true
   }
 
@@ -90,6 +91,7 @@ export class ProductsComponent implements OnInit {
     this.productImageName = ''
     this.getCategoryList();
     this.productForm.controls['categoryId'].enable()
+    this.previewImage = true
   }
 
   editProduct(product: any) {
@@ -104,9 +106,9 @@ export class ProductsComponent implements OnInit {
     this.getCategoryList();
     this.getProductVariationList();
     this.getVariationImagesList();
-    this.getProductSpecificationList();
+    this.getProductSpecification();
     this.productForm.controls['categoryId'].disable()
-    this.productForm.controls['productImage'].patchValue("img");
+    this.productForm.controls['productImage'].patchValue(product.productImage);
   }
 
   getCategoryList() {
@@ -116,7 +118,7 @@ export class ProductsComponent implements OnInit {
   }
 
   getProductList() {
-    this.productService.getProductList(0, "", this.accountService.getCustomerId(), "User").subscribe(result => {
+    this.productService.getProductList(0, "", this.accountService.getUserId(), "User").subscribe(result => {
       this.productList = result
     })
   }
@@ -147,7 +149,7 @@ export class ProductsComponent implements OnInit {
     if(this.isClearControls){
       this.productForm.value.id = this.productForm.value.id != null && this.productForm.value.id > 0 ? this.productForm.value.id : 0;
       this.productForm.value.isActive = this.productForm.value.isActive == null ? false : true;
-      this.productForm.controls['productImage'].patchValue("img");
+      this.productForm.controls['productImage'].patchValue(this.productRealImage);
     }
     if (this.productForm.invalid) {
       return;
@@ -155,7 +157,7 @@ export class ProductsComponent implements OnInit {
     else {
       const formData = new FormData();
       formData.set("id", this.productForm.value.id != null && this.productForm.value.id > 0 ? this.productForm.value.id : 0);
-      formData.set("userId", this.accountService.getCustomerId());
+      formData.set("userId", this.accountService.getUserId());
       formData.set("productName", this.productForm.value.productName);
       formData.set("productDescription", this.productForm.value.productDescription);
       formData.set("productImage", this.productRealImage);
@@ -163,15 +165,9 @@ export class ProductsComponent implements OnInit {
       formData.set("categoryId", this.productForm.value.categoryId == undefined ? this.productForm.controls['categoryId'].value : this.productForm.value.categoryId);
       formData.set("totalVolume", this.productForm.value.totalVolume);
       formData.set("packingModeId", this.productForm.value.packingModeId);
-
-      formData.set("createdBy", this.accountService.getCustomerId());
-      formData.set("updatedBy", this.accountService.getCustomerId());
-      formData.set("isActive", this.productForm.value.isActive == null ? "false" : "true");
-
       formData.set("createdBy", this.accountService.getUserId());
       formData.set("updatedBy", this.accountService.getUserId());
-      formData.set("isActive", this.productForm.value.isActive);
-
+      formData.set("isActive", this.productForm.value.isActive == null ? "false" : this.productForm.value.isActive == true ? "true" : "false");
 
       // formData.forEach(entries => console.log(entries));
       this.productService.productAddEdit(formData).subscribe((result: any) => {
@@ -195,7 +191,7 @@ export class ProductsComponent implements OnInit {
     this.showModal = event
     this.getProductVariationList()
     this.getVariationImagesList()
-    this.getProductSpecificationList()
+    this.getProductSpecification()
   }
 
   getProductVariationList() {
@@ -269,10 +265,10 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  getProductSpecificationList() {
+  getProductSpecification() {
     this.productService.getProductSpecificationById(this.activeProductId).subscribe(result => {
-      this.productSpecificationList = result
-      if (this.productSpecificationList != null) {
+      this.productSpecification= result
+      if (this.productSpecification != null) {
         this.btnText = "Update Specification"
       }
       else {

@@ -157,6 +157,7 @@ export class ProductVariationComponent implements OnInit {
         alert(result.message)
         if (result.status) {
           this.isFormValid = false
+          document.getElementById("btnModalClose")?.click();
         }
       })
     }

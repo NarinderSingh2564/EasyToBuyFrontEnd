@@ -118,8 +118,7 @@
                     uppercase}}</span><br>
                   <small>Seller : {{order.userName}}</small><br>
                   <a href="#" data-bs-toggle="modal" data-bs-target="#myModal"
-                    (click)="getOrderNumber(order.orderNumber); getOrderStatusTrackingList(order.id, order.statusId)">Track
-                    Order</a>
+                    (click)="getOrderNumber(order.orderNumber); getOrderStatusTrackingList(order.orderNumber, order.statusId, order.variationId)">Track Order</a>
                   <div class="modal" id="myModal" data-bs-backdrop="static">
                     <div class="modal-dialog modal-dialog-centered modal-md">
                       <div class="modal-content">
@@ -137,13 +136,13 @@
                                   <div class="tracking-list">
                                     <div class="timeline">
                                       <div [ngClass]="timelineHeight ? 'timeLines2' : 'timeLines1'">
-                                        <div [ngClass]="currentStatusId == 1 ? 'timeline1' : currentStatusId == 2 ? 'timeline2' : currentStatusId == 3 ? 'timeline3' :  currentStatusId == 4 ? 'timeline4' : currentStatusId == 5 ? 'timeline5' : currentStatusId ==6 ? 'timeline6' : ''">
+                                        <div [ngClass]="currentStatusId == 1 ? 'timeline1' : currentStatusId == 2 ? 'timeline2' : currentStatusId == 3 ? 'timeline3' :  currentStatusId == 4 ? 'timeline4' : currentStatusId == 5 ? 'timeline5' : currentStatusId == 6 ? 'timeline6' : ''">
                                           <div class="resultCode" *ngFor="let status of orderStatusTrackingList">
                                             <div class="containers right-containers">
                                               <div class="trac"><i class="bi bi-bag-dash logo"></i></div>
                                               <img src="/assets/images/Icon/dotIcon.png">
                                               <div class="text-box">
-                                                <h6>{{status.status}}<br><span class="text-muted">{{status.orderDate | date:'medium'}}</span></h6>
+                                                <h6>{{status.status}}<br><span class="text-muted">{{status.statusDate}}</span></h6>
                                               </div>
                                             </div>
                                           </div>

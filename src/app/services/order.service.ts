@@ -29,7 +29,7 @@ export class OrderService {
     return this.http.get("https://localhost:7239/api/Order/CustomerOrderStatusUpdate?userId=" + userId + "&orderNumber=" + orderNumber + "&statusId=" + statusId)
   }
 
-  getOrderStatusTrackingList(orderId:number){
-    return this.http.get("https://localhost:7239/api/Order/GetOrderStatusTrackingList?orderId=" + orderId)
+  getOrderStatusTrackingList(orderId:number, variationId: number){
+    return this.http.get("https://localhost:7239/api/Order/GetOrderStatusTrackingList?orderNumber=" + orderId + "&variationId=" + variationId)
   }
 }

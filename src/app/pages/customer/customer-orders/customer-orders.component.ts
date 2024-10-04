@@ -88,14 +88,17 @@ export class CustomerOrdersComponent {
     this.orderNumber = orderNo
   }
 
-  getOrderStatusTrackingList(orderId: number, statusId: number) {
+  getOrderStatusTrackingList(orderNumber: any, statusId: number, variationId: number) {
     this.currentStatusId = statusId
+
     this.timelineHeight = false
+
     if (this.currentStatusId == 5 || this.currentStatusId == 6) {
-      this.timelineHeight = true
-    }
-    this.orderService.getOrderStatusTrackingList(orderId).subscribe((result: any) => {
+     this.timelineHeight = true
+     }
+    this.orderService.getOrderStatusTrackingList(orderNumber, variationId).subscribe((result: any) => {
       this.orderStatusTrackingList = []
+      
       if (result[0].isPending == true && result[4].isPending == true) {
         this.orderStatusTrackingList.push(result[0])
         this.orderStatusTrackingList.push(result[4])
@@ -103,6 +106,10 @@ export class CustomerOrdersComponent {
       else if (result[0].isPending == true && result[5].isPending == true) {
         this.orderStatusTrackingList.push(result[0])
         this.orderStatusTrackingList.push(result[5])
+      }
+      else if (result[0].isPending == true && result[6].isPending == true) {
+        this.orderStatusTrackingList.push(result[0])
+        this.orderStatusTrackingList.push(result[6])
       }
       else {
         this.orderStatusTrackingList.push(result[0])
@@ -113,6 +120,7 @@ export class CustomerOrdersComponent {
       }
     })
   }
+
   mySet(myvalues : any){
     this.reviewDes = myvalues.reviewTitle;
     this.ratingNumber = myvalues.ratingNumber;

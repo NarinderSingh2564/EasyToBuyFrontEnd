@@ -98,6 +98,7 @@ export class ProductDescriptionComponent {
   getProductSpecification() {
     this.productService.getProductSpecificationById(this.ActiveProductId).subscribe(result => {
       this.ProductSpecification = result
+     
     })
   }
 

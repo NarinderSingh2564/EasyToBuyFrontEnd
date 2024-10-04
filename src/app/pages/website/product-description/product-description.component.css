@@ -89,6 +89,12 @@ padding-top: 10px;
 max-height: 50%;
 }
 
+.ProductBuyCartButton{
+padding:10px 10px;
+min-height: 5vh;
+width: 98vw;
+}
+
 .Products-Specification{
 margin-top: 1%;
 padding-bottom:10px;
@@ -111,10 +117,6 @@ width: 45vw;
 
 .panel-footer{
 border-top: 1px solid rgb(151, 149, 149);
-}
-
-.panel-default{
-margin-top: 3%;
 }
 
 .tdhead{

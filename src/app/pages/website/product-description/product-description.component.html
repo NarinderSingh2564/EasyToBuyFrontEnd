@@ -73,12 +73,20 @@
   </div>
 </section>
 
-<section class="Products-Specification">
+<section class="ProductBuyCartButton">
   <div class="row">
     <div class="col-md-5"> <div class="imageButtons"> 
       <button class="btn1" (click)="AddToCart(ProductDescription.id, selectedVariationId)"  routerLink="customer-cart"><strong><span class="bi bi-cart-check-fill"></span> &nbsp;{{buttonText}} </strong></button>
       <button class="btn2"><strong><i class="fa fa-bolt" style="font-size:1.2em;"></i> BUY NOW</strong></button>
-     </div></div>
+     </div>
+    </div>
+  </div>
+</section>
+
+@if(this.ProductSpecification.isActive == 1) {
+<section class="Products-Specification">
+  <div class="row">
+ <div class="col-md-5"></div>
   <div class="col-md-6 myspec" *ngIf="ProductSpecification != null">
   <div class="panel panel-default">
     <div class="panel-heading" style="background-color:#fff; border-bottom: 1px solid lightgray; padding-bottom: 10px;">
@@ -103,11 +111,12 @@
         </tbody>
       </table>
     </div>
-  
   </div>
   </div>
 </div>
 </section> 
+}
+
 
 @if(SliderItems.length >= 4){
  <section class="Products-Image-Slider">

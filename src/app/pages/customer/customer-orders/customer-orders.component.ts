@@ -5,6 +5,7 @@ import { OrderService } from '../../../services/order.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EasyToBuyHelper } from '../../../helpers/EasyToBuyHelper';
+import { Console } from 'node:console';
 
 @Component({
   selector: 'app-customer-orders',
@@ -90,26 +91,20 @@ export class CustomerOrdersComponent {
 
   getOrderStatusTrackingList(orderNumber: any, statusId: number, variationId: number) {
     this.currentStatusId = statusId
-
-    this.timelineHeight = false
-
+    this.timelineHeight = false;
     if (this.currentStatusId == 5 || this.currentStatusId == 6) {
-     this.timelineHeight = true
+      this.timelineHeight = true
      }
     this.orderService.getOrderStatusTrackingList(orderNumber, variationId).subscribe((result: any) => {
       this.orderStatusTrackingList = []
       
-      if (result[0].isPending == true && result[4].isPending == true) {
-        this.orderStatusTrackingList.push(result[0])
-        this.orderStatusTrackingList.push(result[4])
-      }
-      else if (result[0].isPending == true && result[5].isPending == true) {
+      if (result[5].isPending == true) {
         this.orderStatusTrackingList.push(result[0])
         this.orderStatusTrackingList.push(result[5])
       }
-      else if (result[0].isPending == true && result[6].isPending == true) {
+      else if (result[4].isPending == true ) {
         this.orderStatusTrackingList.push(result[0])
-        this.orderStatusTrackingList.push(result[6])
+        this.orderStatusTrackingList.push(result[4])
       }
       else {
         this.orderStatusTrackingList.push(result[0])
@@ -119,7 +114,6 @@ export class CustomerOrdersComponent {
         this.orderStatusTrackingList.push(result[4])
       }
     })
-    console.log(this.orderStatusTrackingList)
   }
 
   mySet(myvalues : any){
@@ -129,3 +123,6 @@ export class CustomerOrdersComponent {
  }
 
 }
+
+
+

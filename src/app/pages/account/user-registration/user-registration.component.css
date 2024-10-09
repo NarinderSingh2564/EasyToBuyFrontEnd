@@ -6,13 +6,13 @@
 }
 
 .main {
-    min-height: 100vh;
+    min-height: 100vh; 
     display: flex;
     justify-content: center;
-    background: #99d6c7;
     background-size: cover;
     overflow: hidden;
     background-repeat: no-repeat;
+    margin-top: 40px;
 }
 
 .container .title {
@@ -23,7 +23,6 @@
 
 .card {
     margin: 0px -85px 0px -85px;
-    border: 1.7px solid #61887e;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }

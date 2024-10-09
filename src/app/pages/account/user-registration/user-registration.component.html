@@ -1,9 +1,6 @@
 <div class="main">
     <div class="container">
-        <div class="title mt-3">
-            <h3><strong>User Registration</strong></h3>
-        </div>
-        <div class="card mt-4 mb-5">
+        <div class="card mb-5">
             <div class="card-header">
                 <h4 class="p-2">Basic Details</h4>
             </div>
@@ -12,7 +9,7 @@
                     <div class="row mt-3">
                         <div class="col-md-3">
                             <label for="">Name</label>
-                            <input type="text" formControlName="name" placeholder="Enter name" maxlength="30">
+                            <input type="text" formControlName="name" placeholder="Enter name" #name maxlength="30" (input)="setDealingPersonName(name.value)">
                             <div *ngIf="isFormValid && userFormControls['name'].errors">
                                 <div *ngIf="userFormControls['name'].errors['required']" class="text-danger">
                                     Enter name.
@@ -67,16 +64,14 @@
                     <div class="row mt-3">
                         <div class="col-md-3">
                             <label for="">User Role</label>
-                            <select formControlName="role" #role (change)="showCompanyDetailsCard(role.value)">
+                            <select formControlName="roleId">
                                 <option value="" disabled selected hidden>--Select
                                     user role--</option>
-                                <option value="Vendor">Vendor</option>
-                                <option value="Logistic">Logistic</option>
-                                <!-- <option value="Pickup Team">Pickup Team</option>
-                                <option value="Delivery Team">Delivery Team</option> -->
+                                <option value="1">Vendor</option>
+                                <option value="3">Logistic</option>
                             </select>
-                            <div *ngIf="isFormValid && userFormControls['role'].errors">
-                                <div *ngIf="userFormControls['role'].errors['required']" class="text-danger">
+                            <div *ngIf="isFormValid && userFormControls['roleId'].errors">
+                                <div *ngIf="userFormControls['roleId'].errors['required']" class="text-danger">
                                     Select user role.
                                 </div>
                             </div>

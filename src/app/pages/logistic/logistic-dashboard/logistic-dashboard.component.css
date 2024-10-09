@@ -1,0 +1,21 @@
+.main {
+    background: rgb(229, 228, 228);
+    min-height: 110vh;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-home {
+    color: #3b6a5e;
+}
+
+h2 {
+    background: #3b6a5e;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.navbar {
+    padding-top: 15px;
+}

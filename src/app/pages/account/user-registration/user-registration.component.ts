@@ -5,13 +5,13 @@ import { RouterLink } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 
 @Component({
-  selector: 'app-vendor-register',
+  selector: 'app-user-registration',
   standalone: true,
   imports: [FormsModule, RouterLink, CommonModule, ReactiveFormsModule],
-  templateUrl: './vendor-register.component.html',
-  styleUrl: './vendor-register.component.css'
+  templateUrl: './user-registration.component.html',
+  styleUrl: './user-registration.component.css'
 })
-export class VendorRegisterComponent {
+export class UserRegistrationComponent {
 
   userBasicDetailsUIModel: FormGroup;
   userCompanyDetailsUIModel: FormGroup;
@@ -30,25 +30,25 @@ export class VendorRegisterComponent {
       email: new FormControl("", [Validators.required, Validators.pattern("^[A-Za-z0-9._]{3,}@[A-Za-z]{3,}[.]{1}[a-zA-Z]{2,6}$")]),
       mobile: new FormControl("", [Validators.required, Validators.pattern("^[6,7,8,9]{1}[0-9]{9}$")]),
       password: new FormControl("", [Validators.required, Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{4,}$")]),
-      role: new FormControl("", [Validators.required]),
+      roleId: new FormControl("", [Validators.required]),
       identificationType: new FormControl("", [Validators.required]),
       identificationNumber: new FormControl("", [Validators.required, Validators.pattern("^[a-zA-Z0-9- ]+$")]),
       pincode: new FormControl("", [Validators.required, Validators.pattern("^[1-9][0-9]{5}$")]),
       city: new FormControl({ value: '', disabled: true, }),
       state: new FormControl({ value: '', disabled: true, }),
       country: new FormControl({ value: '', disabled: true, }),
-      fullAddress: new FormControl("", [Validators.required, Validators.pattern("^['-A-Za-z0-9()@./#& ]*$")])
+      fullAddress: new FormControl("", [Validators.required, Validators.pattern("^['A-Za-z0-9()@./#&, ]*$")])
     })
     this.userCompanyDetailsUIModel = this.formBuilder.group({
-      companyName: new FormControl("", [Validators.required, Validators.pattern("^['-A-Za-z0-9()& ]*$")]),
-      description: new FormControl("", [Validators.required, Validators.pattern("^['-A-Za-z0-9()@./#& ]*$")]),
+      companyName: new FormControl("", [Validators.required, Validators.pattern("^['A-Za-z0-9()& ]*$")]),
+      description: new FormControl("", [Validators.required, Validators.pattern("^['A-Za-z0-9()@./#& ]*$")]),
       dealingPerson: new FormControl("", [Validators.required, Validators.pattern("^[a-zA-Z ]*$")]),
       gstin: new FormControl("", [Validators.required, Validators.pattern("^[0-9]{2}[A-Za-z0-9]{10}[0-9]{1}[Zz]{1}[A-Zz-z0-9]{1}$")]),
       pincode: new FormControl("", [Validators.required, Validators.pattern("^[1-9][0-9]{5}$")]),
       city: new FormControl({ value: '', disabled: true, }),
       state: new FormControl({ value: '', disabled: true, }),
       country: new FormControl({ value: '', disabled: true, }),
-      fullAddress: new FormControl("", [Validators.required, Validators.pattern("^['-A-Za-z0-9()@./#& ]*$")])
+      fullAddress: new FormControl("", [Validators.required, Validators.pattern("^['A-Za-z0-9()@./#&, ]*$")])
     })
     this.userBankDetailsUIModel = formBuilder.group({
       accountHolderName: new FormControl("", [Validators.required, Validators.pattern("^[a-zA-Z ]*$")]),
@@ -131,8 +131,8 @@ export class VendorRegisterComponent {
     }
   }
 
-  showCompanyDetailsCard(role: string) {
-    // this.showCompanyCard = role == "Vendor" ? true : false
+  setDealingPersonName(name: string) {
+    this.userCompanyDetailsUIModel.controls['dealingPerson'].patchValue(name)
   }
 
   validateAccountNumber() {
@@ -167,7 +167,7 @@ export class VendorRegisterComponent {
         email: this.userBasicDetailsUIModel.value.email.trim(),
         mobile: this.userBasicDetailsUIModel.value.mobile.toString().trim(),
         password: this.userBasicDetailsUIModel.value.password.trim(),
-        role: this.userBasicDetailsUIModel.value.role,
+        roleId: Number(this.userBasicDetailsUIModel.value.roleId),
         identificationType: this.userBasicDetailsUIModel.value.identificationType,
         identificationNumber: this.userBasicDetailsUIModel.value.identificationNumber.trim(),
         pincode: this.userBasicDetailsUIModel.value.pincode.trim(),

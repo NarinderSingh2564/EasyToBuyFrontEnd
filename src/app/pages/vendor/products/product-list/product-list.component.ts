@@ -12,14 +12,14 @@ import { ProductSpecificationComponent } from '../product-specification/product-
 import { ProductVariationComponent } from '../product-variation/product-variation.component';
 
 @Component({
-  selector: 'app-products',
+  selector: 'app-product-list',
   standalone: true,
   imports: [RouterOutlet, CommonModule, FormsModule, ReactiveFormsModule, ProductImagesComponent, ProductSpecificationComponent, ProductVariationComponent],
-  templateUrl: './products.component.html',
-  styleUrl: './products.component.css'
+  templateUrl: './product-list.component.html',
+  styleUrl: './product-list.component.css'
 })
 
-export class ProductsComponent implements OnInit {
+export class ProductListComponent implements OnInit {
 
   productForm: FormGroup;
   baseUrl: string = EasyToBuyHelper.imageBaseUrl;

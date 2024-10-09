@@ -4,13 +4,13 @@ import { AccountService } from '../../../services/account.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-layout',
+  selector: 'app-vendor-layout',
   standalone: true,
   imports: [RouterOutlet,RouterLink,CommonModule],
-  templateUrl: './layout.component.html',
-  styleUrl: './layout.component.css'
+  templateUrl: './vendor-layout.component.html',
+  styleUrl: './vendor-layout.component.css'
 })
-export class LayoutComponent {
+export class VendorLayoutComponent {
   
   router = inject(Router);
   accountService = inject(AccountService);

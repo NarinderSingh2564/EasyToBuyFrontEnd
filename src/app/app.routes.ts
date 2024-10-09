@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { LayoutComponent } from './pages/admin/layout/layout.component';
-import { ProductsComponent } from './pages/vendor/products/products/products.component';
+import { VendorLayoutComponent } from './pages/vendor/vendor-layout/vendor-layout.component';
+import { ProductListComponent } from './pages/vendor/products/product-list/product-list.component';
 import { LoginComponent } from './pages/account/login/login.component';
 import { RegisterComponent } from './pages/customer/customer-register/register.component';
 import { CategoryComponent } from './pages/admin/category/category.component';
@@ -8,7 +8,7 @@ import { LandingComponent } from './pages/website/landing/landing.component';
 import { WebProductsComponent } from './pages/website/web-products/web-products.component';
 import { CustomerCartComponent } from './pages/customer/customer-cart/customer-cart.component';
 import { ProductDescriptionComponent } from './pages/website/product-description/product-description.component';
-import { VendorRegisterComponent } from './pages/vendor/vendor-register/vendor-register.component';
+import { UserRegistrationComponent } from './pages/account/user-registration/user-registration.component';
 import { VendorDashboardComponent } from './pages/vendor/vendor-dashboard/vendor-dashboard.component';
 import { vendorAuthGuard } from './guards/vendorAuth.guard';
 import { PlaceOrderComponent } from './pages/website/place-order/place-order.component';
@@ -18,6 +18,8 @@ import { CustomerOrdersComponent } from './pages/customer/customer-orders/custom
 import { customerAuthGuard } from './guards/customerAuth.guard';
 import { ProductImagesComponent } from './pages/vendor/products/product-images/product-images.component';
 import { AccountProfileComponent } from './pages/customer/account-profile/account-profile.component';
+import { LogisticLayoutComponent } from './pages/logistic/logistic-layout/logistic-layout.component';
+import { LogisticDashboardComponent } from './pages/logistic/logistic-dashboard/logistic-dashboard.component';
 
 
 export const routes: Routes = [
@@ -31,26 +33,22 @@ export const routes: Routes = [
         component: RegisterComponent
     },
     {
-        path: 'vendor-register',
-        component:VendorRegisterComponent
-    },
-    {
-        path:'app-login',
-        component:LoginComponent
+        path: 'app-login',
+        component: LoginComponent
     },
     {
         path: 'order-list',
-        component:OrderListComponent
+        component: OrderListComponent
     },
-  
+
     {
         path: '',
-        component: LayoutComponent,
+        component: VendorLayoutComponent,
         canActivate: [vendorAuthGuard],
         children: [
             {
-                path: 'products',
-                component: ProductsComponent
+                path: 'product-list',
+                component: ProductListComponent
             },
             {
                 path: 'product-images',
@@ -66,7 +64,17 @@ export const routes: Routes = [
             },
             {
                 path: 'vendor-order-list/:id',
-                component:VendorOrderListComponent
+                component: VendorOrderListComponent
+            },
+        ]
+    },
+    {
+        path: '',
+        component: LogisticLayoutComponent,
+        children: [
+            {
+                path: 'logistic-dashboard',
+                component: LogisticDashboardComponent
             },
         ]
     },
@@ -93,19 +101,23 @@ export const routes: Routes = [
             },
             {
                 path: 'place-order',
-                component:PlaceOrderComponent,
+                component: PlaceOrderComponent,
                 canActivate: [customerAuthGuard]
             },
             {
                 path: 'customer-order',
-                component:CustomerOrdersComponent,
+                component: CustomerOrdersComponent,
                 canActivate: [customerAuthGuard]
             },
             {
-                path:'account-profile',
-                component:AccountProfileComponent,
+                path: 'account-profile',
+                component: AccountProfileComponent,
                 canActivate: [customerAuthGuard]
-            }
+            },
+            {
+                path: 'user-registration',
+                component: UserRegistrationComponent
+            },
         ]
     },
 

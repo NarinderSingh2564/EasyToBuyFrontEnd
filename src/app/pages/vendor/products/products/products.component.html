@@ -74,12 +74,6 @@
                                             <label for="">Product Image</label>
                                             <input type="file" formControlName="productImage" class="form-control"
                                                 accept="image/png, image/jpg, image/jpeg" (input)="uploadFile($event)" #img>
-                                            <!-- <div *ngIf="isFormValid && controls['productImage'].errors">
-                                                <div *ngIf="controls['productImage'].errors['required']"
-                                                    class="text-danger">
-                                                    Product image is required.
-                                                </div>
-                                            </div> -->
                                             <div *ngIf="img.value == '' && previewImage == true && isFormValid == true"  class="text-danger">
                                                 Product image is required.
                                             </div>

@@ -87,5 +87,9 @@ export class ProductService {
   deleteProductVariationImage(productImageId: number) {
     return this.http.delete("https://localhost:7239/api/Product/DeleteProductVariationImage?productImageId=" + productImageId)
   }
+  
+  ratingReviewAdd(formData: any) {
+    return this.http.post("https://localhost:7239/api/Product/ProductRatingAdd", formData)
+  }
 
 }

@@ -18,6 +18,7 @@ export class RegisterComponent {
   isFormValid: boolean = false;
   response: any = [];
   showPwd: boolean = false
+  
   constructor(private formBuilder: FormBuilder, private accountService: AccountService) {
     this.registerForm = this.formBuilder.group({
       name: new FormControl("",[Validators.required,this.whitespaceValidator()]),

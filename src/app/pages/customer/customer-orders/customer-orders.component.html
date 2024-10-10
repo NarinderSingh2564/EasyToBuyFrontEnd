@@ -118,12 +118,12 @@
                     uppercase}}</span><br>
                   <small>Seller : {{order.userName}}</small><br>
                   <a href="#" data-bs-toggle="modal" data-bs-target="#myModal"
-                    (click)="getOrderNumber(order.orderNumber); getOrderStatusTrackingList(order.orderNumber, order.statusId, order.variationId)">Track Order</a>
+                    (click)="getProductId(order.productId); getOrderStatusTrackingList(order.orderNumber, order.statusId, order.variationId)">Track Order</a>
                   <div class="modal" id="myModal" data-bs-backdrop="static">
                     <div class="modal-dialog modal-dialog-centered modal-md">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h4 class="modal-title">Order Number - <span style="font-size: 20px;">{{orderNumber}}</span>
+                          <h4 class="modal-title">Order Number - <span style="font-size: 20px;">{{order.orderNumber}}</span>
                           </h4>
                           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
@@ -160,7 +160,7 @@
                   </div>
                 </div>
                 <div class="col-md-3">
-                  <button class="reviews" data-bs-toggle="modal" data-bs-target="#addressModal">add Review</button>
+                  <button class="reviews" data-bs-toggle="modal"  (click)="getProductId(order.productId); addRatings()" data-bs-target="#ratingModal">add Review</button>
                 </div>
               </div>
             </div>
@@ -176,46 +176,47 @@
     </div>
   </div>
 </div>
-<div class="modal fade" id="addressModal" data-bs-backdrop="static">
+<div class="modal fade" id="ratingModal" data-bs-backdrop="static">
   <div class="modal-dialog modal-dialog-centered">
-    <form autocomplete="off" >
+    <form autocomplete="off"  [formGroup]="ratingForm">
       <div class="modal-content">
         <div class="modal-header cardHeader">
           <h4 class="modal-title">Add Review</h4>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          <button type="button" class="btn-close"  type="reset"data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
-            
+          <input type="hidden" class="form-control" formControlName="id">
+          <!-- <input type="hidden" class="form-control" *ngFor="let order of orderList" formControlName="productId" {{order.productId}}> -->
             <div class="star-rating">
-              <input type="radio" (click)="mySet({reviewTitle: 'Excelent', ratingNumber: 5})"  id="5stars" name="rating" value="5" />
+              <input type="radio" (click)="mySet({reviewTitle: 'Excelent', ratingNumber: 5})" class="form-control" formControlName="rating" id="5stars" value="5"/>
               <label for="5stars" class="star">&#9733;</label>
     
-              <input type="radio" (click)="mySet({reviewTitle: 'Very Good', ratingNumber: 4})" id="4stars" name="rating" value="4" />
+              <input type="radio" (click)="mySet({reviewTitle: 'Very Good', ratingNumber: 4})" class="form-control" formControlName="rating" id="4stars" value="4" />
               <label for="4stars" class="star">&#9733;</label>
     
-              <input type="radio" (click)="mySet({reviewTitle: 'Good', ratingNumber: 3})"  id="3stars" name="rating" value="3" />
+              <input type="radio" (click)="mySet({reviewTitle: 'Good', ratingNumber: 3})" class="form-control" formControlName="rating" id="3stars" value="3" />
               <label for="3stars" class="star">&#9733;</label>
     
-              <input type="radio" (click)="mySet({reviewTitle: 'Poor', ratingNumber: 2})"   id="2stars" name="rating" value="2" />
+              <input type="radio" (click)="mySet({reviewTitle: 'Poor', ratingNumber: 2})" class="form-control" formControlName="rating" id="2stars" value="2" />
               <label for="2stars" class="star">&#9733;</label>
     
-              <input type="radio" id="1star" (click)="mySet({reviewTitle: 'Very Bad', ratingNumber: 1})" class="form-control" name="rating" value="1"  />
+              <input type="radio" (click)="mySet({reviewTitle: 'Very Bad', ratingNumber: 1})"class="form-control" formControlName="rating" id="1stars" value="1" />
               <label for="1star" class="star" >&#9733;</label>
             </div>
     
             <div class="textarea-group">
               <label class="titles">Title :</label>
-              <input type="text" value="{{reviewDes}}" style="font-size: 16px;" class="me1">
+              <input type="text" value="{{reviewTitle}}" class="form-control" formControlName="reviewTitle" style="font-size: 16px;" class="me1">
               <label><br>
                 <span>Review : </span>
-                <textarea id="comment-rating"  name="=review"></textarea>
+                <textarea  class="form-control" formControlName="reviewDescription" value="reviewDescription"></textarea>
               </label>
-              <label class="titles">Product Image</label>
-              <input type="file" multiple  accept="image/png, image/jpg, image/jpeg">
+               <label class="titles">Product Image</label>
+              <input type="file" multiple  accept="image/png, image/jpg, image/jpeg" class="form-control" formControlName="productRatingImage" (change)="selectedImages($event)" > 
             </div>
         
             <div class="action-group">
-              <button type="submit" class="btnSubmit">Submit</button>
+              <button type="submit"  class="btnSubmit" (click)="RatingAdd()">Submit</button>
               <input type="reset" value="Cancel">
             </div>
         </div>

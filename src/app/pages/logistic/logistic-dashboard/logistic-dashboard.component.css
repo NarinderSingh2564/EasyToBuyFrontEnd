@@ -1,7 +1,6 @@
 .main {
     background: rgb(229, 228, 228);
-    min-height: 110vh;
-    height: 100px;
+    min-height: 100vh;
     justify-content: center;
     align-items: center;
 }
@@ -18,4 +17,60 @@ h2 {
 
 .navbar {
     padding-top: 15px;
+}
+
+.myCard {
+    height: 205px;
+    width: 306px;
+    position: relative;
+    overflow: hidden;
+    background: white;
+
+}
+
+.myCard:hover {
+    border: 2px solid #3b6a5e
+}
+
+i {
+    margin-right: 10px;
+    color: #3b6a5e;
+}
+
+.bi-currency-rupee {
+    margin-right: 2px;
+}
+
+h3 {
+    color: #3b6a5e;
+}
+
+hr {
+    border-top: 2px dotted #010202;
+}
+
+.title {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.count {
+    float: right;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.stats {
+    padding: 0px 25px 0px 25px;
+}
+
+.table-bordered {
+    border: 1px solid #3b6a5e;
+}
+
+th {
+    background: #61887e;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
 }

@@ -83,7 +83,7 @@
             <input class="form-control" type="date" #secondDate>
           </div>
 
-          <div class=" mt-4 mb-1">
+          <div class="mt-4 mb-1">
             <button type="button" class="btn btn-block"
               (click)="filterOrdersByDates(firstDate.value,secondDate.value)">Submit</button>
           </div>
@@ -186,9 +186,8 @@
         </div>
         <div class="modal-body">
           <input type="hidden" class="form-control" formControlName="id">
-          <!-- <input type="hidden" class="form-control" *ngFor="let order of orderList" formControlName="productId" {{order.productId}}> -->
             <div class="star-rating">
-              <input type="radio" (click)="mySet({reviewTitle: 'Excelent', ratingNumber: 5})" class="form-control" formControlName="rating" id="5stars" value="5"/>
+              <input type="radio" (click)="mySet({reviewTitle: 'Excellent', ratingNumber: 5})" class="form-control" formControlName="rating" id="5stars" value="5"/>
               <label for="5stars" class="star">&#9733;</label>
     
               <input type="radio" (click)="mySet({reviewTitle: 'Very Good', ratingNumber: 4})" class="form-control" formControlName="rating" id="4stars" value="4" />
@@ -200,8 +199,8 @@
               <input type="radio" (click)="mySet({reviewTitle: 'Poor', ratingNumber: 2})" class="form-control" formControlName="rating" id="2stars" value="2" />
               <label for="2stars" class="star">&#9733;</label>
     
-              <input type="radio" (click)="mySet({reviewTitle: 'Very Bad', ratingNumber: 1})"class="form-control" formControlName="rating" id="1stars" value="1" />
-              <label for="1star" class="star" >&#9733;</label>
+              <input type="radio" (click)="mySet({reviewTitle: 'Very Bad', ratingNumber: 1})" class="form-control" formControlName="rating" id="1stars" value="1" />
+              <label for="1stars" class="star">&#9733;</label>
             </div>
     
             <div class="textarea-group">

@@ -92,4 +92,9 @@ export class ProductService {
     return this.http.post("https://localhost:7239/api/Product/ProductRatingAdd", formData)
   }
 
+
+  getProductRatingReviewByProductId(id: number) {
+    return this.http.get("https://localhost:7239/api/Product/GetProductRatingReviewByProductId?productId=" + id)
+  }
+
 }

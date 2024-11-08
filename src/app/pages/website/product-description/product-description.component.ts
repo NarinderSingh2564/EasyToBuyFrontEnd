@@ -1,5 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router, RouterLink } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
 import { CommonModule } from '@angular/common';
 import { AccountService } from '../../../services/account.service';
@@ -22,6 +22,7 @@ export class ProductDescriptionComponent {
   ActiveProductId: number = 0;
   ActiveVariationId:number = 0;
   ProductDescription: any;
+  ProductRatingReview: any;
   SliderItems: any;
   DifferentProductItems: any;
   buttonText: string = "Add To Cart"
@@ -33,17 +34,23 @@ export class ProductDescriptionComponent {
   selectedCategoryId : any;
   selectedProductId : any;
   checkId: number = 0;
+  imageArray:any
+  showProductsRating = false;
+  defaultVariation: boolean = false;
 
   accountService = inject(AccountService)
   cartService = inject(CartService)
   
   baseUrl: string = EasyToBuyHelper.imageBaseUrl;
   variationImageBaseUrl: string = EasyToBuyHelper.imageVariationBaseUrl;
+  productReviewImageUrl: string = EasyToBuyHelper.productRatingReviewImageBaseUrl;
   selectedImage: any;
   mainImage: any
+  kk:any
+  reviewImage: any
   variationObj:any
   defaultVariationId:number=0
-  defaultVariation: boolean = false;
+  @ViewChild('productsRatingDiv') productsRatingDiv!: ElementRef;
 
   onThumbClick(image: any, id: number) {
     if (id == 1) {
@@ -61,13 +68,12 @@ export class ProductDescriptionComponent {
       this.selectedVariationId = result.variationId
     })
     
-      this.getProductDescription()
+    this.getProductDescription()
     this.getProductVariationList()
     this.getProductSpecification()
     this.getProductVariationImage()
     this.getSliderItems()
-
-
+    this.getProductRatingReviews()
     this.getDiffrentCategoryProductSliderItems()
 
   }
@@ -82,8 +88,26 @@ export class ProductDescriptionComponent {
       
       this.getSliderItems()
       this.getDiffrentCategoryProductSliderItems()
+      this.getProductRatingReviews()
     })
   }   
+
+  getProductRatingReviews(){
+    this.productService.getProductRatingReviewByProductId(this.selectedProductId).subscribe((result:any) => {
+      this.ProductRatingReview = result
+      this.reviewImage = this.productReviewImageUrl
+    })
+  }
+
+  toggleProductsRating() {
+    this.showProductsRating = !this.showProductsRating;
+
+    setTimeout(() => {
+      if (this.showProductsRating && this.productsRatingDiv) {
+        this.productsRatingDiv.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 0);
+  } 
 
   getProductVariationList() {
     this.productService.getProductVariationListById(this.ActiveProductId).subscribe(result => {
@@ -98,7 +122,6 @@ export class ProductDescriptionComponent {
   getProductSpecification() {
     this.productService.getProductSpecificationById(this.ActiveProductId).subscribe(result => {
       this.ProductSpecification = result
-     
     })
   }
 

@@ -90,7 +90,6 @@ export class WebProductsComponent {
     }
   }
 
-
   customOptions: OwlOptions = {
     loop: true,
     autoplay: true,

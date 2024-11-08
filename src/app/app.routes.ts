@@ -20,6 +20,7 @@ import { ProductImagesComponent } from './pages/vendor/products/product-images/p
 import { AccountProfileComponent } from './pages/customer/account-profile/account-profile.component';
 import { LogisticLayoutComponent } from './pages/logistic/logistic-layout/logistic-layout.component';
 import { LogisticDashboardComponent } from './pages/logistic/logistic-dashboard/logistic-dashboard.component';
+import { StoreComponent } from './pages/logistic/store/store/store.component';
 
 
 export const routes: Routes = [
@@ -75,6 +76,10 @@ export const routes: Routes = [
             {
                 path: 'logistic-dashboard',
                 component: LogisticDashboardComponent
+            },
+            {
+                path: 'store',
+                component: StoreComponent
             },
         ]
     },

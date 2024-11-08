@@ -23,10 +23,10 @@
         <p>{{ProductDescription.productDescription}}</p>
         <div class="row pt-3">
           <div class="col-md-2">
-            <span class="labels1">4.6 <span class="bi bi-star-fill"></span></span>
+            <span class="labels1">{{ProductDescription.rating}} <span class="bi bi-star-fill"></span></span>
           </div>
           <div class="col-md-5">
-            <strong>2,421 Ratings & Reviews</strong>
+            <strong><span style="font-size:20px; color: rgb(82, 82, 82);">{{ProductDescription.totalRatingAndReviewCount}}</span> &nbsp;<span class="RatingReviewShow" (click)="toggleProductsRating()"><u>Ratings & Reviews</u></span></strong>
           </div>
        </div>
 
@@ -112,10 +112,67 @@
       </table>
     </div>
   </div>
-  </div>
+</div>
 </div>
 </section> 
 }
+
+<section #productsRatingDiv class="ProductsRating" *ngIf="showProductsRating">
+ <div class="row">
+ <div class="col-md-12">
+ <div class="panel panel-default-rating">
+   <div class="panel-heading" style="background-color:#fff; border-bottom: 1px solid lightgray; padding-bottom: 10px;">
+     <h4 style="color: #456d63;">Rating&Review</h4>
+   </div>
+   <div class="panel-body">
+     <div class="scrollbar-auto">
+         <div class="cardb" *ngFor="let Rates of ProductRatingReview">
+           <div class="col-md-12" >
+             <div class="row">
+             <div class="col-md-6">
+               <div class="row">
+               <div class="str-show">
+                 <span class="Rating-star">{{Rates.rating}}<span class="bi bi-star-fill"></span></span>
+               </div>
+               <div class="col-md-3">
+                 <h5 class="mt-2">{{Rates.reviewTitle}}</h5>
+               </div>
+             </div>
+             <div class="col-md-12 rating-text">
+               <p>{{Rates.reviewDescription}}</p>
+             </div>
+             </div>
+             <div class="col-md-6">
+               <div class="row">
+               <div class="col-md-4 image-show-side">
+                 <img *ngIf="Rates.productImage1 != null" [src]="reviewImage + Rates.productImage1 " class="rating-img" alt="">
+               </div>
+               <div class="col-md-4">
+                 <img  *ngIf="Rates.productImage2 != null" [src]="reviewImage + Rates.productImage2 " class="rating-img" alt="">
+               </div>
+               <div class="col-md-4">
+                 <img *ngIf="Rates.productImage3 != null" [src]="reviewImage + Rates.productImage3 " class="rating-img" alt="">
+               </div>
+             </div>
+             </div>
+           </div>
+           </div>
+           <div class="col-md-12">
+             <div class="row">
+               <div class="col-md-6">
+               </div>
+               <div class="col-md-6">
+                 <p style=" text-align: right; padding-right: 50px; color: rgb(102, 102, 102);">{{Rates.customerName}}<span style="padding-left: 20px;">{{Rates.createdDate}}</span></p>
+               </div>
+             </div>
+           </div>
+         </div>
+     </div>
+   </div>
+ </div>
+ </div>
+</div> 
+</section> 
 
 
 @if(SliderItems.length >= 4){
@@ -166,7 +223,7 @@
 
 @if(DifferentProductItems != 0){
   <section class="DifferentProducts-Image-Slider">
-   <h3 style="color: #456d63; text-align: center; padding-bottom: 15px; padding-top: 25px;">Different Products</h3>
+   <h3 style="color: #456d63; text-align: center; padding-bottom: 15px; padding-top: 10px;">Different Products</h3>
    <div class="wrapper">
      <owl-carousel-o [options]="DifferentpositinOptions">
        <ng-container>

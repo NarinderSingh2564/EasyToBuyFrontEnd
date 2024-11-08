@@ -83,6 +83,39 @@ border-color: rgb(52, 115, 34);
   background: green;
 }
 
+.Rating-star{
+  border: 1px solid green;
+  padding: 2px 2px 2px 2px;
+  border-radius: 2px;
+  color: white;
+  background: green;
+}
+
+.str-show{
+  padding-top: 10px;
+  padding-left: 10px;
+  width: 60px;
+}
+
+.rating-text{
+  padding-top: 20px;
+  padding-left: 40px;
+}
+
+.rating-img{
+  width: 100px;
+  height: 100px;
+  border: none ;
+}
+
+.image-show-side{
+  padding-left: 20px;
+}
+
+.RatingReviewShow:hover{
+color: #07509e;
+}
+
 .rightPannel{
 padding-left: 70px;
 padding-top: 10px;
@@ -102,6 +135,25 @@ min-height: 75vh;
 width: 98vw;
 }
 
+.ProductsRating{ 
+padding-top :10px;
+padding-bottom:15px;
+}
+
+.cardb {
+  position: relative;
+  height: 20vh;
+  width: 82vw;
+  background-color: #ffffff;
+  border: 1px solid rgb(138, 138, 138);
+  border-radius: 0.5rem;
+  margin-left: 1%;
+  margin-right: 1%;
+  top: 10px;
+  margin-bottom: 1%;
+}
+
+
 .myspec{
 padding-right: 20px;
 padding-left: 20px;
@@ -114,6 +166,15 @@ border-radius: 4px;
 padding: 20px 20px 20px 20px ;
 width: 45vw;
 }
+
+.panel-default-rating{
+  border: 1px solid rgb(156, 155, 155);
+  border-radius: 4px;
+  padding: 20px 20px 20px 20px ;
+  width: 92vw;
+  margin-left: 40px;
+  max-height: 80vh;
+  }
 
 .panel-footer{
 border-top: 1px solid rgb(151, 149, 149);
@@ -141,9 +202,16 @@ width:98vw;
 .DifferentProducts-Image-Slider{
   padding-left: 20px;
   padding-right: 20px;
-  height: 60vh;
+  height: 55vh;
   width:98vw;
   }
+
+  .scrollbar-auto {
+    max-height: 395px !important;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
 
 .Product-Description-Footer{
 padding-top: 10px;

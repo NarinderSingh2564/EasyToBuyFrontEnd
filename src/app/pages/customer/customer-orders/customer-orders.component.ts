@@ -164,7 +164,7 @@ export class CustomerOrdersComponent {
       formData.set("reviewTitle", this.ratingForm.value.reviewTitle);
       formData.set("productId", this.ratingForm.value.productId);
       formData.set("reviewDescription", this.ratingForm.value.reviewDescription);
-      formData.set("createdBy", this.accountService.getCustomerId());
+      formData.set("customerId", this.accountService.getCustomerId());
       for (var i = 0; i < this.ratingImageList.length; i++) {
         formData.append("productRatingImage", this.ratingImageList[i]);
       }     

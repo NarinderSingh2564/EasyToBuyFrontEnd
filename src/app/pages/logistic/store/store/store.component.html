@@ -1,1 +1,123 @@
-<h1>write store ui code</h1>
+<div class="section">
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-6 fs-5 text-white">
+                Category List
+            </div>
+            <div class="col-6 text-end">
+                <button class="btn btn-sucess"  data-bs-toggle="modal" data-bs-target="#categoryAddEditModal"><b>Add Store</b></button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-hover table-responsive text-center">
+            <thead>
+                <tr>
+                    <th>Sr. No.</th>
+                    <th>StoreName</th>
+                    <th>Zone</th>
+                    <th>Pincode</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Country</th>
+                    <th>IsActive</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr >
+                    <td>1</td>
+                    <td>Easy Store</td>
+                    <td>A</td>
+                    <td>24521</td>
+                    <td>Chandigarh</td>
+                    <td>Chandigarh</td>
+                    <td>India</td>
+                    <td>Yes</td>
+                    <td>
+                        <i class="bi bi-pencil-square"  data-bs-toggle="modal" data-bs-target="#categoryAddEditModal"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" data-bs-backdrop="static" id="categoryAddEditModal" >
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title"> Add Store</h4>
+                    <!-- <h4 class="modal-title"> Update Store</h4> -->
+                    <button type="button" id="btnModalClose" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" class="form-control" formControlName="id">
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="">Store Name</label>
+                            <input type="text" class="form-control" formControlName="categoryName" maxlength="30">
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="">Zone</label>
+                            <input type="text" class="form-control" formControlName="categoryName" maxlength="30">
+                            
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="">Pin Code</label>
+                            <input type="text" class="form-control" formControlName="categoryName" maxlength="30">
+                            
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="">City</label>
+                            <input type="text" class="form-control" formControlName="categoryName" maxlength="30">
+                            
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="">State</label>
+                            <input type="text" class="form-control" formControlName="categoryName" maxlength="30">
+                            
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="">Country</label>
+                            <input type="text" class="form-control" formControlName="categoryName" maxlength="30">
+                            
+                        </div>
+                    </div> 
+                    
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <input type="checkbox" class="form-check-input" formControlName="isActive">
+                            <label for="">IsActive</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row text-end">
+                        <div class="col-12">
+                            <button class="btn btn2">Submit</button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+</div>

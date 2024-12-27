@@ -8,12 +8,12 @@ import { CartService } from '../../../services/cart.service';
 import { EasyToBuyHelper } from '../../../helpers/EasyToBuyHelper';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-
+import { LandingComponent } from "../landing/landing.component";
 
 @Component({
   selector: 'app-web-products',
   standalone: true,
-  imports: [RouterOutlet ,CarouselModule, CommonModule, RouterLink],
+  imports: [CarouselModule, CommonModule, RouterLink],
   templateUrl: './web-products.component.html',
   styleUrl: './web-products.component.css'
 })
@@ -26,6 +26,7 @@ export class WebProductsComponent {
   cartService = inject(CartService)
 
   productList: any = [];
+  discountProductList: any = [];
   activeCategoryId: number = 0;
   activeVariationId: number = 0;
   productIdDec:string = "";
@@ -45,6 +46,20 @@ export class WebProductsComponent {
     this.productService.getProductList(this.activeCategoryId,this.searchText,0,"Customer").subscribe(result => {
       this.productList = result
     })
+  }
+
+  showCard1Details: boolean = false; 
+  showCard2: boolean = true;    
+  kk:number = 0;
+
+  getDiscountProductList(value: number){
+    this.productService.getDiscountProductListByDiscountValue(value).subscribe(result => {
+      this.discountProductList = result
+      this.kk = value;
+    })
+
+    this.showCard1Details = true;   
+    this.showCard2 = false; 
   }
 
   increment(product: any) {
@@ -94,6 +109,9 @@ export class WebProductsComponent {
     loop: true,
     autoplay: true,
     center: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: false,
     dots: false,
     autoHeight: true,
     autoWidth: true,
@@ -109,7 +127,6 @@ export class WebProductsComponent {
       }
     }
   }
-
 
 }
 

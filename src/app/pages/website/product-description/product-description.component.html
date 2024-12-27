@@ -26,7 +26,7 @@
             <span class="labels1">{{ProductDescription.rating}} <span class="bi bi-star-fill"></span></span>
           </div>
           <div class="col-md-5">
-            <strong><span style="font-size:20px; color: rgb(82, 82, 82);">{{ProductDescription.totalRatingAndReviewCount}}</span> &nbsp;<span class="RatingReviewShow" (click)="toggleProductsRating()"><u>Ratings & Reviews</u></span></strong>
+           <strong><span style="font-size:20px;  color: rgb(82, 82, 82);">{{ProductDescription.totalRatingAndReviewCount}}</span> &nbsp; <button style="outline: none; border: none; background-color: white;"><span class="RatingReviewShow" style="font-weight: 500;" (click)="toggleProductsRating()"><u>Ratings & Reviews</u></span></button></strong>
           </div>
        </div>
 
@@ -77,7 +77,7 @@
   <div class="row">
     <div class="col-md-5"> <div class="imageButtons"> 
       <button class="btn1" (click)="AddToCart(ProductDescription.id, selectedVariationId)"  routerLink="customer-cart"><strong><span class="bi bi-cart-check-fill"></span> &nbsp;{{buttonText}} </strong></button>
-      <button class="btn2"><strong><i class="fa fa-bolt" style="font-size:1.2em;"></i> BUY NOW</strong></button>
+      <button class="btn2" (click)="placeOrder()"><strong><i class="fa fa-bolt" style="font-size:1.2em;"></i> BUY NOW</strong></button>
      </div>
     </div>
   </div>
@@ -265,9 +265,9 @@
    </div>
  </section> 
  }
-
+<!-- 
 <section class="Product-Description-Footer">
-  <footer class="page-footer container-fluid col-md-12" style="top: 5em; background: #61887e; ">
+  <footer class="page-footer container-fluid col-md-12" style="top: 5em; height: 30vh; background: #e5e5e5; ">
     <hr>
     <div class="container" style="max-width: 1240px;">
     <div class="row" id="kkll">
@@ -302,14 +302,8 @@
       </div>
     </div>
     </div>
-    
-    <div class="container-fluid" style="top:1em;margin-bottom:30px;">
-      <div class="footlogo">
-        <img src="../assets/images/logo/Logo.jpg" class="logoimgfooter" alt="">
-      </div>
-    </div>
     <hr>
   </footer>
-</section>
+</section> -->
 
 <script src="/assets/js/ImageMagnifier.js"></script>

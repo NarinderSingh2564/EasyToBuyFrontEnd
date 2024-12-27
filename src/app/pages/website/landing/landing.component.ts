@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
 import { CommonModule } from '@angular/common';
@@ -6,6 +6,7 @@ import { AccountService } from '../../../services/account.service';
 import { CategoryService } from '../../../services/category.service';
 import { CartService } from '../../../services/cart.service';
 import { FormsModule } from '@angular/forms';
+import { WebProductsComponent } from "../web-products/web-products.component";
 
 @Component({
   selector: 'app-landing',
@@ -21,9 +22,8 @@ export class LandingComponent {
   categoryService = inject(CategoryService)
   accountService = inject(AccountService)
   cartService = inject(CartService)
-
+  
   categoryList: any = [];
-
   loggedIn: boolean = false;
   userName: string = this.accountService.getUserName();
   totalCartItems: number = 0
@@ -69,6 +69,21 @@ export class LandingComponent {
   .then(() => {
     window.location.reload();
   });
+  }
+
+
+  allProd(){
+    this.router.navigate(['/AllProducts'])
+    .then(() => {
+      window.location.reload();
+    });
+  }
+
+  logoreload(){
+    this.router.navigate(['/AllProducts'])
+    .then(() => {
+      window.location.reload();
+    });
   }
 
 }

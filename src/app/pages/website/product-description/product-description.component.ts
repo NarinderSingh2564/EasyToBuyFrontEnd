@@ -7,11 +7,13 @@ import { CartService } from '../../../services/cart.service';
 import { EasyToBuyHelper } from '../../../helpers/EasyToBuyHelper';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { OrderService } from '../../../services/order.service';
+import { WebProductsComponent } from "../web-products/web-products.component";
 
 @Component({
   selector: 'app-product-description',
   standalone: true,
-  imports: [CommonModule,CarouselModule ,RouterLink],
+  imports: [CommonModule, CarouselModule, RouterLink],
   templateUrl: './product-description.component.html',
   styleUrl: './product-description.component.css'
 })
@@ -37,18 +39,19 @@ export class ProductDescriptionComponent {
   imageArray:any
   showProductsRating = false;
   defaultVariation: boolean = false;
+  isPlaced: boolean = false;
 
   accountService = inject(AccountService)
   cartService = inject(CartService)
+  orderService = inject(OrderService)
   
   baseUrl: string = EasyToBuyHelper.imageBaseUrl;
   variationImageBaseUrl: string = EasyToBuyHelper.imageVariationBaseUrl;
   productReviewImageUrl: string = EasyToBuyHelper.productRatingReviewImageBaseUrl;
   selectedImage: any;
-  mainImage: any
-  kk:any
-  reviewImage: any
-  variationObj:any
+  mainImage: any;
+  reviewImage: any;
+  variationObj:any;
   defaultVariationId:number=0
   @ViewChild('productsRatingDiv') productsRatingDiv!: ElementRef;
 
@@ -220,6 +223,21 @@ export class ProductDescriptionComponent {
       }
     },
      nav: true,
+  }
+
+
+  placeOrder() {
+    // this.orderService.placeOrder(this.accountService.getUserId()).subscribe((result: any) => {
+    //   if(result.status){
+    //     this.isPlaced = true;
+    //     this.cartService.getCartDetailsByCustomerId(this.accountService.getUserId())
+    //     this.cartService.updateCartCount$?.next(true);
+    //     alert("Product Successfully Buy.")
+    //   }
+    //   else{
+    //     alert(result.message)
+    //   }
+    // })
   }
 
 }

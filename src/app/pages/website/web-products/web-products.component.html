@@ -1,21 +1,64 @@
 <div class="mains">
-  <h2 style="text-align: center; color: #61887e;"> Best Products</h2>
-  <div class="container-fluid mt-3" *ngIf="productList.length>0">
 
-
-    <div class="wrapper">
-      <owl-carousel-o [options]="customOptions">
-        <ng-container>
-          <ng-template class="slide" carouselSlide>
-            <img src="../assets/images/offer/off2.png" height="300" class="offersale" alt="">
-          </ng-template>
-          <ng-template class="slide" carouselSlide>
-            <img src="../assets/images/offer/off1.png" height="300" class="offersale" alt="">
-          </ng-template>
-        </ng-container>
-      </owl-carousel-o>
+  <div class="houses" *ngIf="showCard1Details">
+    <h2 style="text-align: center; color: black;">Product Discount :{{kk}}%</h2>
+    
+    <div class="card-body mt-1">
+       <div class="row">
+         <div class="col-md-3" *ngFor="let discountProduct of discountProductList"
+           style=" padding-bottom: calc(var(--bs-gutter-x)* .5);">
+           <div class="card">
+             <img class="card-img-top mx-auto d-block mt-3"
+               routerLink="/product-description/{{discountProduct.id}}/{{discountProduct.variationId}}"
+               [src]="baseUrl+discountProduct.productImage" height="140" alt="Card image">
+             <div class="card-body">
+               <div class="row mb-3 block-ellipsis">
+                 <p><small>{{discountProduct.productDescription}}</small></p>
+               </div>
+               <div class="row text-center">
+                 <div class="col-md-12 ">
+                   <span class="spnProductPrice">₹{{discountProduct.priceAfterDiscount}}</span>
+                   <span class="spnMRP" *ngIf="discountProduct.showProductWeight==true"> ({{discountProduct.productWeight}}) </span>
+                   <span class="spnMRP" *ngIf="discountProduct.discount > 0"> M.R.P :<span
+                       class="actualPrice">₹{{discountProduct.mrp}}</span></span>
+                   <span class="discount" *ngIf="discountProduct.discount > 0">({{discountProduct.discount}}%off)</span>
+                 </div>
+               </div>
+               <!-- <div class="p-2 text-center">
+                 <span class="p-4"><button class="bookmark btn btn-sm" data-toggle="tooltip" title="Add to wishlist"
+                     (click)="AddToWishList()">
+                     <i class="bi bi-bookmark-fill"></i>
+                   </button></span>
+                 <button class="btn btn-sm btnCount" (click)="decrement(discountProduct)">-</button>
+                 <span class=" p-2">{{discountProduct.quantity}}</span>
+                 <button class="btn btn-sm btnCount" (click)="increment(discountProduct)">+</button>
+                 <span class="p-4 "><button class="btn btnCart btn-sm"
+                     (click)="AddToCart(discountProduct.id,discountProduct.quantity,discountProduct.variationId)"><i
+                       class="bi bi-cart-fill"></i></button></span>
+               </div> -->
+           </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
+  <div *ngIf="showCard2">
+  <h2 style="text-align: center; color: #0b342a;"> Best Products</h2>
+  <div class="wrapper">
+    <owl-carousel-o [options]="customOptions">
+      <ng-container>
+        <ng-template class="slide" carouselSlide>
+          <img src="../assets/images/offer/off2.png"  (click)="getDiscountProductList(30)"  height="300" class="offersale" alt="">
+        </ng-template>
+        <ng-template class="slide" carouselSlide>
+          <img src="../assets/images/offer/off1.png"  (click)="getDiscountProductList(50)"  height="300" class="offersale" alt="">
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>
+  </div>
+
+  <div class="container-fluid mt-3" *ngIf="productList.length>0">
     <div class="card-body mt-1">
       <div class="row">
         <div class="col-md-3" *ngFor="let product of productList"
@@ -65,7 +108,7 @@
   </div>
 
   <section class="Product-Description-Footer">
-    <footer class="page-footer container-fluid col-md-12" style="background: #61887e;">
+    <footer class="page-footer container-fluid col-md-12" style="background: #e4e4e4;">
       <hr>
       <div class="container" style="max-width: 1240px; ">
         <div class="row" id="kkll">
@@ -100,15 +143,12 @@
           </div>
         </div>
       </div>
-
-      <div class="container-fluid" style="position:relative;top:1em; margin-bottom:40px;">
-        <div class="row">
-          <div class="flogo">
-            <img src="../assets/images/logo/Logo.jpg" class="logoimg" alt="">
-          </div>
-        </div>
-      </div>
       <hr>
     </footer>
   </section>
+
 </div>
+
+</div>
+
+

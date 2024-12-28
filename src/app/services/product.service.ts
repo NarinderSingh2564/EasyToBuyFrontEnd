@@ -97,4 +97,8 @@ export class ProductService {
     return this.http.get("https://localhost:7239/api/Product/GetProductRatingReviewByProductId?productId=" + id)
   }
 
+  getDiscountProductListByDiscountValue(value : number){
+     return this.http.get("https://localhost:7239/api/Product/GetDiscountProductsListByDiscountValue?discountValue=" + value)
+  }
+
 }

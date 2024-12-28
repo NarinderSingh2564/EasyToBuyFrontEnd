@@ -45,7 +45,7 @@ export class CustomerOrdersComponent {
       rating: new FormControl("", [Validators.required]),
       productId: new FormControl("", [Validators.required]),
       reviewDescription: new FormControl("", [Validators.required]),
-      productRatingImage: new FormControl("", [Validators.required]),
+      productRatingImage: new FormControl(""),
     })
   }
 

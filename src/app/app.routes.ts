@@ -22,7 +22,6 @@ import { LogisticLayoutComponent } from './pages/logistic/logistic-layout/logist
 import { LogisticDashboardComponent } from './pages/logistic/logistic-dashboard/logistic-dashboard.component';
 import { StoreComponent } from './pages/logistic/store/store/store.component';
 
-
 export const routes: Routes = [
     {
         path: '',
@@ -123,6 +122,7 @@ export const routes: Routes = [
                 path: 'user-registration',
                 component: UserRegistrationComponent
             },
+            
         ]
     },
 
